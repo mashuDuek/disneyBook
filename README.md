@@ -9,10 +9,10 @@ By the end of Week 9, this app will, at a minimum, satisfy the following criteri
  4. Post
  5. Comments
 
-Design Docs - all in the docs
+#### Docs - all in the docs
 
 1. View [Wireframes](./docs/wireframes)
-2. React [Components](./docs/react_components.md)
+2. React [Components][./docs/react_components.md]
 3. [API endpoints]('./docs/api_endpoints.md')
 4. DB [schema]('./docs/schema.md')
 5. [Sample State]('./docs/sample_state.md')
