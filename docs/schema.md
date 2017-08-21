@@ -10,11 +10,11 @@ password_digest | string    | not null
 session_token   | string    | not null, indexed, unique
 
 
-##friendships
+## friendships
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-user1       | integer   | not null, foreign key (references users),
+user1       | integer   | not null, foreign key (references users)
 user2       | integer   | not null, foreign key again
 
 ## posts

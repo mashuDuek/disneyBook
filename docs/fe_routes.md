@@ -5,8 +5,8 @@
 /users/:userId/friends  friends container        nav_bar/friends -->
 
 
-|Col      |               |                  |                 |               |
-|---------|---------------|------------------|-----------------|---------------|
-|Path     |/signin/signup |/feed             |/users/:userId   |/users/:userId |
-|Container|auth           |feed              |posts-display    |friensContainer|
-|Component|auth_form/login|all_feeds/new_post|user/friend posts|nav-bar/friends|
+|Col      |               |                  |                 |                |
+|---------|---------------|------------------|-----------------|----------------|
+|Path     |/signin/signup |/feed             |/users/:userId   |/users/:userId  |
+|Container|auth           |feed              |posts-display    |friendsContainer|
+|Component|auth_form/login|all_feeds/new_post|user/friend posts|nav-bar/friends |

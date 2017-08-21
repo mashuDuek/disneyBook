@@ -1,12 +1,12 @@
 {
-      session: {		
+      session: {
         currentUser:  {
-        		id: 1,
-        		name: ‘Mashu Duek’
-        		post_ids: [1,2,3]
-        	  friends_ids: [2,3,4,5]
-        	  dob: 01/25/1991
-        	  sex: ‘M’
+        		  id: 1,
+          		name: ‘Mashu Duek’
+          		post_ids: [1,2,3],
+          	  friends_ids: [2,3,4,5],
+          	  dob: 01/25/1991,
+          	  sex: ‘M’
         }
       },
       entities: {
@@ -23,7 +23,7 @@
 	                  author_id: 1,
 	                  comment_ids: [4,5,6]
                     },
-            }
+            },
             comments: {
 		              1: {
 				            id: 1,
@@ -37,19 +37,19 @@
 		                post_id: 2,
 	                  author_id: 2
                   }
-            }
+            },
 
         users: {
 	           1: {
 			            id: 1,
-			            name: ‘Mashu Duek’
-			            post_ids: [1,2,3]
+			            name: ‘Mashu Duek’,
+			            post_ids: [1,2,3],
 		              friends_ids: [2,3,4,5]
-                }
+                },
 		         2: {
 			            id: 2,
-			            name: ‘Tomi Duek’
-			            post_ids: [4,5,6]
+			            name: ‘Tomi Duek’,
+			            post_ids: [4,5,6],
 			            friends_ids: [1, 3,4,5,6]
 	               }
           }
