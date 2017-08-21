@@ -10,6 +10,3 @@
 |Path     |/signin/signup |/feed             |/users/:userId   |/users/:userId |
 |Container|auth           |feed              |posts-display    |friensContainer|
 |Component|auth_form/login|all_feeds/new_post|user/friend posts|nav-bar/friends|
-
-
-<!-- this suckkkksss -->

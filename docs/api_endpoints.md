@@ -1,18 +1,18 @@
-1.	Root
+###	Root
   1.	“GET” – ‘/’
 
-2.	Users
+###	Users
   1.	“POST” – ‘/api/users’
   2.	“PATCH” – ‘/api/users’
   3.	“GET” – ‘/api/users/:id’
 
-3.	Posts
+###	Posts
   1.	“POST” – ‘/api/posts’
   2.	“GET” – ‘api/posts’   ????
   3.	“PATCH” – ‘api/posts/:id’
   4.	“DELETE” – ‘/api/posts/:id’
 
-4.	Comments
+###	Comments
   1.	“POST” – ‘/api/comments’
   2.	“PATCH” – ‘/api/comments/:id’
   3.	“DELETE” – ‘/api/comments/:id’

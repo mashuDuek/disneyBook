@@ -12,10 +12,10 @@ By the end of Week 9, this app will, at a minimum, satisfy the following criteri
 #### Docs - all in the docs
 
 1. View [Wireframes](./docs/wireframes)
-2. React [Components][./docs/react_components.md]
-3. [API endpoints]('./docs/api_endpoints.md')
-4. DB [schema]('./docs/schema.md')
-5. [Sample State]('./docs/sample_state.md')
+2. React [Components](./docs/fe_routes.md)
+3. [API endpoints](./docs/api_endpoints.md)
+4. DB [schema](./docs/schema.md)
+5. [Sample State](./docs/sample_state.md)
 6. Implementation Timeline(below)
 
 Phase 1: Backend setup and Front End User Authentication (2 days)
