@@ -29,7 +29,6 @@ body {
   font-family: sans-serif;
   max-height: 67px;
   width: 100%;
-
 }
 
 .login h1 {
@@ -51,12 +50,14 @@ body {
 
 #login-form button {
   max-height: 20px;
-  border-radius: 3px;
+  border-radius: 2px;
   color: #EDF9FA;
   border-style: groove;
   background-color: #4267b2;
   margin-top: 18px;
   margin-left: 9px;
+  border-width: 1px;
+  border-color: #29487d;
 }
 
 .signup-info {
@@ -84,6 +85,9 @@ body {
   color: white;
   border-style: groove;
   border-radius: 6px;
+  margin-bottom: 30px;
+  border-width: 1px;
+  border-color: #2c5115;
 }
 
 #name-input {
