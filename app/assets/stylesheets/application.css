@@ -25,8 +25,6 @@ body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  /*padding-left: 90px;
-  padding-right: 50px;*/
   color: #EDF9FA;
   font-family: sans-serif;
   max-height: 67px;
@@ -78,7 +76,6 @@ body {
 }
 
 .signup-form button {
-  margin: ;
   background-color: #208f3b;
   height: 40px;
   width: 150px;
