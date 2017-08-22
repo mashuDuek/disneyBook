@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 
-class SessionForm extends React.Component {
+class SessionFormLogin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = { email: '', password: '', name: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
   }
 
-  handleUsername (e) {
+  handleEmail(e) {
     e.preventDefault();
-    this.setState({username: e.currentTarget.value});
+    this.setState({email: e.currentTarget.value});
   }
 
   handlePassword(e) {
@@ -27,32 +27,20 @@ class SessionForm extends React.Component {
   }
 
   render () {
-
     if (this.props.loggedIn) {
       return (
         <Redirect to="/" />
       );
     }
 
-    let link;
-    if (this.props.formType === 'login') {
-      link = (
-        <Link to="/signup">Sign Up</Link>
-      );
-    } else {
-      link = (
-        <Link to="/login">Log In</Link>
-      );
-    }
     return (
       <div>
         <h2>{this.props.formType}</h2>
-        {link}
         <form>
-          <label>Username
+          <label>Email
             <input
-              onChange={this.handleUsername}
-              value={this.state.username} />
+              onChange={this.handleEmail}
+              value={this.state.email} />
           </label>
           <br />
           <label>Password
@@ -60,11 +48,11 @@ class SessionForm extends React.Component {
               onChange={this.handlePassword}
               value={this.state.password} />
           </label>
-          <button onClick={this.handleSubmit}>{this.props.formType}</button>
+          <button onClick={this.handleSubmit}>Login</button>
         </form>
       </div>
     );
   }
 }
 
-export default withRouter(SessionForm);
+export default withRouter(SessionFormLogin);

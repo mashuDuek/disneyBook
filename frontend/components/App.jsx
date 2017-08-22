@@ -1,18 +1,19 @@
 import React from 'react';
-import SessionFormContainer from './session/session_form_container';
+import SessionLoginFormContainer from './session/session_form_container_login';
+import SessionSignUpFormContainer from './session/session_form_container_signup';
 import { Route } from 'react-router-dom';
 import { AuthRoute } from '../util/route_util';
 
 const App = (props) => {
+  debugger
   return(
     <div>
       <header>
-        <h1>Bench BnB</h1>
+        <h1>disneyBook</h1>
       </header>
 
-      <AuthRoute path="/login" component={ SessionFormContainer } />
-      <AuthRoute path="/signup" component={ SessionFormContainer } />
-      <Route exact path="/" component={ SearchContainer } />
+      <Route path="/disney" component={ SessionLoginFormContainer } />
+      <Route path="/disney" component={ SessionSignUpFormContainer } />
 
     </div>
   );

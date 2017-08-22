@@ -20,6 +20,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
+    "doc": "docs",
+    "lib": "lib",
     "test": "test"
   },
   "scripts": {
@@ -28,5 +30,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mashuDuek/dinseyBook-FSP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mashuDuek/dinseyBook-FSP/issues"
+  },
+  "homepage": "https://github.com/mashuDuek/dinseyBook-FSP#readme"
 }

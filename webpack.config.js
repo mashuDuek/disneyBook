@@ -7,14 +7,11 @@ module.exports = {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js'
   },
-  resolve: {
-    extensions: ['.js', '.jsx', '*']
-  },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        test: [/\.jsx?$/, /\.js?$/],
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015']
@@ -23,4 +20,7 @@ module.exports = {
     ]
   },
   devtool: 'source-maps',
+  resolve: {
+    extensions: ['.js', '.jsx', '*']
+  }
 };
