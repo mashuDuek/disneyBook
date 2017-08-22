@@ -32,11 +32,10 @@ class SessionFormLogin extends React.Component {
         <Redirect to="/" />
       );
     }
-
     return (
-      <div>
-        <h2>{this.props.formType}</h2>
-        <form>
+      <div className='login'>
+        <h1>disneyBook</h1>
+        <form id='login-form'>
           <label>Email
             <input
               onChange={this.handleEmail}
@@ -48,7 +47,7 @@ class SessionFormLogin extends React.Component {
               onChange={this.handlePassword}
               value={this.state.password} />
           </label>
-          <button onClick={this.handleSubmit}>Login</button>
+          <button onClick={this.handleSubmit}>Log In</button>
         </form>
       </div>
     );

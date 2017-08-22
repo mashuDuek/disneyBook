@@ -12348,7 +12348,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
-  debugger;
+
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
@@ -45310,6 +45310,10 @@ var _session_form_container_signup = __webpack_require__(276);
 
 var _session_form_container_signup2 = _interopRequireDefault(_session_form_container_signup);
 
+var _session_footer = __webpack_require__(280);
+
+var _session_footer2 = _interopRequireDefault(_session_footer);
+
 var _reactRouterDom = __webpack_require__(29);
 
 var _route_util = __webpack_require__(274);
@@ -45317,21 +45321,13 @@ var _route_util = __webpack_require__(274);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App(props) {
-  debugger;
+
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(
-      'header',
-      null,
-      _react2.default.createElement(
-        'h1',
-        null,
-        'disneyBook'
-      )
-    ),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/disney', component: _session_form_container_login2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/disney', component: _session_form_container_signup2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/disney', component: _session_form_container_signup2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/disney', component: _session_footer2.default })
   );
 };
 
@@ -45411,6 +45407,7 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+
   return {
     processForm: function processForm(user) {
       return dispatch((0, _session_actions.login)(user));
@@ -45478,6 +45475,14 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _sign_up_info_component = __webpack_require__(279);
+
+var _sign_up_info_component2 = _interopRequireDefault(_sign_up_info_component);
+
+var _session_footer = __webpack_require__(280);
+
+var _session_footer2 = _interopRequireDefault(_session_footer);
+
 var _reactRouterDom = __webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -45502,6 +45507,7 @@ var SessionFormSignUp = function (_React$Component) {
     _this.handlePassword = _this.handlePassword.bind(_this);
     _this.handleEmail = _this.handleEmail.bind(_this);
     _this.handleName = _this.handleName.bind(_this);
+    _this.handleMovie = _this.handleMovie.bind(_this);
     return _this;
   }
 
@@ -45516,6 +45522,12 @@ var SessionFormSignUp = function (_React$Component) {
     value: function handleName(e) {
       e.preventDefault();
       this.setState({ name: e.currentTarget.value });
+    }
+  }, {
+    key: 'handleMovie',
+    value: function handleMovie(e) {
+      e.preventDefault();
+      this.setState({ movie: e.currentTarget.value });
     }
   }, {
     key: 'handlePassword',
@@ -45536,47 +45548,102 @@ var SessionFormSignUp = function (_React$Component) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
       }
 
+      var name = void 0;
+      if (this.state.name) {
+        name = this.state.name;
+      } else {
+        name = '  Full Name';
+      }
+
+      var email = void 0;
+      if (this.state.email) {
+        email = this.state.email;
+      } else {
+        email = '  Email';
+      }
+
+      var password = void 0;
+      if (this.state.password) {
+        password = this.state.password;
+      } else {
+        password = '  Password';
+      }
+
+      var movie = void 0;
+      if (this.state.movie) {
+        movie = this.state.movie;
+      } else {
+        movie = '  Movie';
+      }
+
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'signup-info' },
+        _react2.default.createElement(_sign_up_info_component2.default, null),
         _react2.default.createElement(
-          'h2',
-          null,
-          this.props.formType
-        ),
-        _react2.default.createElement(
-          'form',
-          null,
+          'div',
+          { className: 'signup-form' },
           _react2.default.createElement(
-            'label',
+            'h1',
             null,
-            'Name',
+            'Sign Up'
+          ),
+          _react2.default.createElement(
+            'h5',
+            null,
+            'It\'s free and always will be'
+          ),
+          _react2.default.createElement(
+            'form',
+            { id: 'sign-up-form' },
             _react2.default.createElement('input', {
               onChange: this.handleName,
-              value: this.state.name })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Email',
+              value: name,
+              id: 'name-input'
+            }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('input', {
+              onChange: this.handleMovie,
+              value: movie,
+              id: 'movie-input'
+            }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement('input', {
               onChange: this.handleEmail,
-              value: this.state.email })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Password',
+              value: email,
+              id: 'email-input'
+            }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement('input', {
               onChange: this.handlePassword,
-              value: this.state.password })
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.handleSubmit },
-            'SignUp'
+              value: password,
+              id: 'password-input'
+            }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { id: 'disclaimer' },
+              _react2.default.createElement(
+                'p',
+                null,
+                'By clicking Create Account, you agree that although your'
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                'character may be a villain, you, in real life are not. If you'
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                'are found in violation of this you will be kicked off our site.'
+              )
+            ),
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleSubmit },
+              'Create Account'
+            )
           )
         )
       );
@@ -45655,18 +45722,17 @@ var SessionFormLogin = function (_React$Component) {
       if (this.props.loggedIn) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
       }
-
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'login' },
         _react2.default.createElement(
-          'h2',
+          'h1',
           null,
-          this.props.formType
+          'disneyBook'
         ),
         _react2.default.createElement(
           'form',
-          null,
+          { id: 'login-form' },
           _react2.default.createElement(
             'label',
             null,
@@ -45687,7 +45753,7 @@ var SessionFormLogin = function (_React$Component) {
           _react2.default.createElement(
             'button',
             { onClick: this.handleSubmit },
-            'Login'
+            'Log In'
           )
         )
       );
@@ -45698,6 +45764,154 @@ var SessionFormLogin = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(SessionFormLogin);
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignUpInfoComponent = function (_React$Component) {
+  _inherits(SignUpInfoComponent, _React$Component);
+
+  function SignUpInfoComponent() {
+    _classCallCheck(this, SignUpInfoComponent);
+
+    return _possibleConstructorReturn(this, (SignUpInfoComponent.__proto__ || Object.getPrototypeOf(SignUpInfoComponent)).apply(this, arguments));
+  }
+
+  _createClass(SignUpInfoComponent, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'signup-info-component' },
+        _react2.default.createElement(
+          'h3',
+          null,
+          'Connect with characters from'
+        ),
+        _react2.default.createElement(
+          'h3',
+          null,
+          'your movie, and now also'
+        ),
+        _react2.default.createElement(
+          'h3',
+          null,
+          'from other disney movies!'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'See their photos and updates'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'See whats new'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Find more characters!'
+        )
+      );
+    }
+  }]);
+
+  return SignUpInfoComponent;
+}(_react2.default.Component);
+
+exports.default = SignUpInfoComponent;
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SessionFooter = function (_React$Component) {
+  _inherits(SessionFooter, _React$Component);
+
+  function SessionFooter() {
+    _classCallCheck(this, SessionFooter);
+
+    return _possibleConstructorReturn(this, (SessionFooter.__proto__ || Object.getPrototypeOf(SessionFooter)).apply(this, arguments));
+  }
+
+  _createClass(SessionFooter, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "ul",
+        { className: "footer-links" },
+        _react2.default.createElement(
+          "a",
+          { href: "http://movies.disney.com/all-movies" },
+          "All Movies"
+        ),
+        _react2.default.createElement(
+          "a",
+          { href: "https://www.google.com/" },
+          "Google Search"
+        ),
+        _react2.default.createElement(
+          "a",
+          { href: "https://www.google.com/search?q=best+disney+movies&oq=best+disney+movies&aqs=chrome.0.0l6.2691j0j4&sourceid=chrome&ie=UTF-8" },
+          "Most Popular"
+        ),
+        _react2.default.createElement(
+          "a",
+          { href: "http://www.imdb.com/list/ls000422381/" },
+          "Top 100"
+        )
+      );
+    }
+  }]);
+
+  return SessionFooter;
+}(_react2.default.Component);
+
+exports.default = SessionFooter;
 
 /***/ })
 /******/ ]);

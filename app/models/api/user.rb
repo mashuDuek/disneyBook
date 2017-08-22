@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class Api::User < ApplicationRecord
   validates :session_token, :password_digest, :email, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
