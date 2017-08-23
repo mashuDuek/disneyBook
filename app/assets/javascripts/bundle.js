@@ -7093,6 +7093,7 @@ var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER'
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUser(currentUser) {
+
   return {
     type: RECEIVE_CURRENT_USER,
     currentUser: currentUser
@@ -7117,6 +7118,7 @@ var signup = exports.signup = function signup(user) {
 };
 
 var login = exports.login = function login(user) {
+
   return function (dispatch) {
     return APIUtil.login(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
@@ -25123,12 +25125,17 @@ var _session_reducer = __webpack_require__(229);
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
+var _posts_reducer = __webpack_require__(279);
+
+var _posts_reducer2 = _interopRequireDefault(_posts_reducer);
+
 var _redux = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-    session: _session_reducer2.default
+    session: _session_reducer2.default,
+    posts: _posts_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -45383,6 +45390,10 @@ var _session_footer = __webpack_require__(111);
 
 var _session_footer2 = _interopRequireDefault(_session_footer);
 
+var _posts_container = __webpack_require__(282);
+
+var _posts_container2 = _interopRequireDefault(_posts_container);
+
 var _reactRouterDom = __webpack_require__(19);
 
 var _route_util = __webpack_require__(278);
@@ -45397,10 +45408,13 @@ var App = function App(props) {
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_login2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_signup2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_footer2.default }),
-    '// ',
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/feed', component: PostsComponent })
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/feed', component: _posts_container2.default })
   );
 };
+
+// will add a route to /feed, and that will be posts component.
+// next route should go to users/:userId which should include
+// posts component as well.
 
 exports.default = App;
 
@@ -45888,6 +45902,359 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(231);
+
+var _posts_actions = __webpack_require__(280);
+
+var preloadedState = { errors: [] };
+
+var postReducer = function postReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _posts_actions.RECEIVE_POST:
+      {
+        return action.post;
+      }
+    case _posts_actions.FETCH_ALL_POSTS:
+      {
+        return (0, _lodash.merge)({}, state, action.posts);
+      }
+    case _posts_actions.UPDATE_POST:
+      {
+        return (0, _lodash.merge)({}, state, action.post);
+      }
+    case _posts_actions.RECEIVE_ERRORS:
+      {
+        var newState = (0, _lodash.merge)({}, state);
+        newState.errors = action.errors;
+        return newState;
+      }
+    case _posts_actions.DELETE_POST:
+      {
+        return action.post;
+      }
+    default:
+      {
+        return state;
+      }
+  }
+};
+
+exports.default = postReducer;
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchAllPosts = exports.deletePost = exports.updatePost = exports.createPost = exports.receiveErrors = exports.fetchPosts = exports.destroyPost = exports.editPost = exports.receivePost = exports.RECEIVE_ERRORS = exports.FETCH_ALL_POSTS = exports.DELETE_POST = exports.UPDATE_POST = exports.RECEIVE_POST = undefined;
+
+var _post_util = __webpack_require__(281);
+
+var APIUtil = _interopRequireWildcard(_post_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_POST = exports.RECEIVE_POST = 'RECEIVE_POST';
+var UPDATE_POST = exports.UPDATE_POST = 'UPDATE_POST';
+var DELETE_POST = exports.DELETE_POST = 'DELETE_POST';
+var FETCH_ALL_POSTS = exports.FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
+var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+
+var receivePost = exports.receivePost = function receivePost(post) {
+  return {
+    type: RECEIVE_POST,
+    post: post
+  };
+};
+
+var editPost = exports.editPost = function editPost(post) {
+  return {
+    type: UPDATE_POST,
+    post: post
+  };
+};
+
+var destroyPost = exports.destroyPost = function destroyPost(post) {
+  return {
+    type: DELETE_POST,
+    post: post
+  };
+};
+
+var fetchPosts = exports.fetchPosts = function fetchPosts(posts) {
+  return {
+    type: FETCH_ALL_POSTS,
+    posts: posts
+  };
+};
+
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors
+  };
+};
+
+var createPost = exports.createPost = function createPost(post) {
+  return function (dispatch) {
+    return APIUtil.createPost(post).then(function (post) {
+      return dispatch(receivePost(post));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+var updatePost = exports.updatePost = function updatePost(post) {
+  return function (dispatch) {
+    return APIUtil.updatePost(post).then(function (post) {
+      return dispatch(editPost(post));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+var deletePost = exports.deletePost = function deletePost(post) {
+  return function (dispatch) {
+    return APIUtil.deletePost(post).then(function (post) {
+      return dispatch(deletePost(post));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
+  return function (dispatch) {
+    return APIUtil.fetchAllPosts().then(function (posts) {
+      return dispatch(fetchPosts(posts));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
+  return $.ajax({
+    method: "GET",
+    url: '/api/posts'
+  });
+};
+
+var updatePost = exports.updatePost = function updatePost(post) {
+  return $.ajax({
+    method: 'PATCH',
+    url: '/api/posts/' + post.id,
+    data: post
+  });
+};
+
+var deletePost = exports.deletePost = function deletePost(post) {
+  return $.ajax({
+    method: 'DELETE',
+    url: '/api/posts/' + post.id
+  });
+};
+
+var createPost = exports.createPost = function createPost() {
+  return $.ajax({
+    method: "POST",
+    url: '/api/posts'
+  });
+};
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _feed_component = __webpack_require__(283);
+
+var _feed_component2 = _interopRequireDefault(_feed_component);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_actions = __webpack_require__(280);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    posts: state.posts,
+    errors: state.posts.errors
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+
+  return {
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch(update(post));
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      return dispatch((0, _posts_actions.fetchAllPosts)());
+    },
+    createPost: function createPost(post) {
+      return dispatch((0, _posts_actions.createPost)(post));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_feed_component2.default));
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_component = __webpack_require__(284);
+
+var _posts_component2 = _interopRequireDefault(_posts_component);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FeedComponent = function (_React$Component) {
+  _inherits(FeedComponent, _React$Component);
+
+  function FeedComponent(props) {
+    _classCallCheck(this, FeedComponent);
+
+    return _possibleConstructorReturn(this, (FeedComponent.__proto__ || Object.getPrototypeOf(FeedComponent)).call(this, props));
+  }
+
+  _createClass(FeedComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchAllPosts();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_posts_component2.default, { body: this.props.body });
+    }
+  }]);
+
+  return FeedComponent;
+}(_react2.default.Component);
+
+exports.default = FeedComponent;
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PostsComponent = function (_React$Component) {
+  _inherits(PostsComponent, _React$Component);
+
+  function PostsComponent(props) {
+    _classCallCheck(this, PostsComponent);
+
+    return _possibleConstructorReturn(this, (PostsComponent.__proto__ || Object.getPrototypeOf(PostsComponent)).call(this, props));
+  }
+
+  _createClass(PostsComponent, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'h1',
+        null,
+        'Hello'
+      );
+    }
+  }]);
+
+  return PostsComponent;
+}(_react2.default.Component);
+
+exports.default = PostsComponent;
 
 /***/ })
 /******/ ]);

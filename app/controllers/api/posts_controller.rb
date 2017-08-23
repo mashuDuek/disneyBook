@@ -1,5 +1,5 @@
-class PostsController < ApplicationController
-  before_action :redirect_unless_logged_in
+class Api::PostsController < ApplicationController
+  # before_action :redirect_unless_logged_in
 
   def create
     @post = Post.new(post_params)
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    render json: "/api/posts"
+    render :index
   end
 
   def update

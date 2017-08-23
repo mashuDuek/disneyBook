@@ -112,44 +112,15 @@ body {
   border-color: #2c5115;
 }
 
-#name-input {
+.signup-form input {
   width: 300px;
   height: 35px;
   font-size: 15px;
-  color: lightgray;
+  color: black;
   margin-bottom: 7px;
   border-style: none;
   border-radius: 3px;
-}
-
-#movie-input {
-  width: 300px;
-  height: 35px;
-  font-size: 15px;
-  color: lightgray;
-  margin-bottom: 7px;
-  border-style: none;
-  border-radius: 3px;
-}
-
-#email-input {
-  width: 300px;
-  height: 35px;
-  font-size: 15px;
-  color: lightgray;
-  margin-bottom: 7px;
-  border-style: none;
-  border-radius: 3px;
-}
-
-#password-input {
-  width: 300px;
-  height: 35px;
-  font-size: 15px;
-  color: lightgray;
-  margin-bottom: 7px;
-  border-style: none;
-  border-radius: 3px;
+  text-indent: 7px;
 }
 
 #disclaimer {

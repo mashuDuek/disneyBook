@@ -4,6 +4,7 @@ export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const receiveCurrentUser = (currentUser) => {
+
   return {
     type: RECEIVE_CURRENT_USER,
     currentUser: currentUser
@@ -28,6 +29,7 @@ export const signup = (user) => {
 };
 
 export const login = (user) => {
+
   return (dispatch) => {
     return APIUtil.login(user).
       then(

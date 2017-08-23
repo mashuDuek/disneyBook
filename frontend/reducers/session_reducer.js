@@ -1,5 +1,4 @@
 import { RECEIVE_ERRORS, RECEIVE_CURRENT_USER } from '../actions/session_actions';
-import { login, logout, signup } from '../actions/session_actions';
 import { merge } from 'lodash';
 
 
