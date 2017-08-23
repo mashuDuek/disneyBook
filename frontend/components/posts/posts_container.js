@@ -7,11 +7,13 @@ import {
   deletePost,
   fetchAllPosts
 } from '../../actions/posts_actions';
+import { fetchUsers } from '../../actions/user_actions';
 
 
 const mapStatetoProps = (state, ownProps) => {
+  debugger
   return {
-    
+    users: state.users,
     posts: state.posts,
     errors: state.posts.errors,
   };
@@ -19,7 +21,9 @@ const mapStatetoProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
+  debugger
   return {
+    fetchUsers: () => dispatch(fetchUsers()),
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(update(post)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),

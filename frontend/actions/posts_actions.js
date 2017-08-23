@@ -43,6 +43,13 @@ export const receiveErrors = (errors) => {
   };
 };
 
+// export const receiveUsers = (users) => {
+//   return{
+//     type: RECEIVE_USERS,
+//     users: users
+//   };
+// };
+
 export const createPost = (post) => {
   return (dispatch) => {
     return APIUtil.createPost(post).
@@ -51,6 +58,7 @@ export const createPost = (post) => {
     );
   };
 };
+
 
 export const updatePost = (post) => {
   return (dispatch) => {
@@ -78,3 +86,12 @@ export const fetchAllPosts = () => {
     );
   };
 };
+
+// export const fetchUsers = () => {
+//   return(dispatch) => {
+//     return APIUtil.fetchAllUsers().
+//       then((users) => dispatch(receiveUsers(users)),
+//       (errors) => dispatch(receiveErrors(errors))
+//     );
+//   };
+// };

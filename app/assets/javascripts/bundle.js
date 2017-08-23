@@ -25129,13 +25129,18 @@ var _posts_reducer = __webpack_require__(279);
 
 var _posts_reducer2 = _interopRequireDefault(_posts_reducer);
 
+var _users_reducer = __webpack_require__(319);
+
+var _users_reducer2 = _interopRequireDefault(_users_reducer);
+
 var _redux = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
     session: _session_reducer2.default,
-    posts: _posts_reducer2.default
+    posts: _posts_reducer2.default,
+    users: _users_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -45933,6 +45938,9 @@ var postReducer = function postReducer() {
       }
     case _posts_actions.FETCH_ALL_POSTS:
       {
+        action.posts.map(function (post) {
+          delete post.author;
+        });
         return (0, _lodash.merge)({}, state, action.posts);
       }
     case _posts_actions.UPDATE_POST:
@@ -45949,6 +45957,7 @@ var postReducer = function postReducer() {
       {
         return action.post;
       }
+
     default:
       {
         return state;
@@ -46018,6 +46027,13 @@ var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
   };
 };
 
+// export const receiveUsers = (users) => {
+//   return{
+//     type: RECEIVE_USERS,
+//     users: users
+//   };
+// };
+
 var createPost = exports.createPost = function createPost(post) {
   return function (dispatch) {
     return APIUtil.createPost(post).then(function (post) {
@@ -46057,6 +46073,15 @@ var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
     });
   };
 };
+
+// export const fetchUsers = () => {
+//   return(dispatch) => {
+//     return APIUtil.fetchAllUsers().
+//       then((users) => dispatch(receiveUsers(users)),
+//       (errors) => dispatch(receiveErrors(errors))
+//     );
+//   };
+// };
 
 /***/ }),
 /* 281 */
@@ -46118,11 +46143,14 @@ var _reactRouterDom = __webpack_require__(19);
 
 var _posts_actions = __webpack_require__(280);
 
+var _user_actions = __webpack_require__(320);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  debugger;
   return {
-
+    users: state.users,
     posts: state.posts,
     errors: state.posts.errors
   };
@@ -46130,7 +46158,11 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 
+  debugger;
   return {
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
     deletePost: function deletePost(post) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
@@ -46195,7 +46227,9 @@ var FeedComponent = function (_React$Component) {
   _createClass(FeedComponent, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      debugger;
       this.props.fetchAllPosts();
+      this.props.fetchUsers();
     }
   }, {
     key: 'render',
@@ -47416,6 +47450,104 @@ var PostDetailComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PostDetailComponent;
+
+/***/ }),
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(231);
+
+var _user_actions = __webpack_require__(320);
+
+var preloadedState = { errors: [] };
+
+var userReducer = function userReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _user_actions.RECEIVE_USERS:
+      {
+        return action.users;
+      }
+    default:
+      return state;
+  }
+};
+
+exports.default = userReducer;
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchUsers = exports.receiveErrors = exports.receiveUsers = exports.RECEIVE_ERRORS = exports.RECEIVE_USERS = undefined;
+
+var _user_util = __webpack_require__(321);
+
+var APIUtil = _interopRequireWildcard(_user_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_USERS = exports.RECEIVE_USERS = 'RECEIVE_USERS';
+var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+
+var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
+  debugger;
+  return {
+    type: RECEIVE_USERS,
+    users: users
+  };
+};
+
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors
+  };
+};
+
+var fetchUsers = exports.fetchUsers = function fetchUsers() {
+  debugger;
+  return function (dispatch) {
+    return APIUtil.fetchUsers().then(function (users) {
+      return dispatch(receiveUsers(users));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchUsers = exports.fetchUsers = function fetchUsers() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users"
+  });
+};
 
 /***/ })
 /******/ ]);

@@ -3,7 +3,8 @@ import { RECEIVE_POST,
     FETCH_ALL_POSTS,
     UPDATE_POST,
     DELETE_POST,
-    RECEIVE_ERRORS
+    RECEIVE_ERRORS,
+    RECEIVE_USERS
   } from '../actions/posts_actions';
 
 
@@ -16,6 +17,9 @@ const postReducer = (state = preloadedState, action ) => {
       return action.post;
     }
     case FETCH_ALL_POSTS: {
+      action.posts.map((post) => {
+        delete post.author;
+      });
       return merge({}, state, action.posts);
     }
     case UPDATE_POST: {
@@ -29,6 +33,7 @@ const postReducer = (state = preloadedState, action ) => {
     case DELETE_POST: {
       return action.post;
     }
+
     default: {
       return state;
     }

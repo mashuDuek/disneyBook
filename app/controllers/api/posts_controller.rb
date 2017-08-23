@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  # before_action :redirect_unless_logged_in
+  before_action :redirect_unless_logged_in
 
   def create
     @post = Post.new(post_params)
