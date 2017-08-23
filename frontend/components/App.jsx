@@ -9,9 +9,9 @@ const App = (props) => {
 
   return(
     <div>
-      <Route path="/" component={ SessionLoginFormContainer } />
-      <Route path="/" component={ SessionSignUpFormContainer } />
-      <Route path="/" component={ SessionFooter } />
+      <Route exact path="/" component={ SessionLoginFormContainer } />
+      <Route exact path="/" component={ SessionSignUpFormContainer } />
+      <Route exact path="/" component={ SessionFooter } />
     </div>
   );
 };

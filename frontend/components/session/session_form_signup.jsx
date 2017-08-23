@@ -83,7 +83,7 @@ class SessionFormSignUp extends React.Component {
 
         <div className='signup-form'>
           <h1>Sign Up</h1>
-          <h5>It's free and always will be</h5>
+          <h4>It's free and always will be</h4>
 
           <form id='sign-up-form'>
             <input

@@ -45325,9 +45325,9 @@ var App = function App(props) {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _session_form_container_login2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _session_form_container_signup2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _session_footer2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_login2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_signup2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_footer2.default })
   );
 };
 
@@ -45589,7 +45589,7 @@ var SessionFormSignUp = function (_React$Component) {
             'Sign Up'
           ),
           _react2.default.createElement(
-            'h5',
+            'h4',
             null,
             'It\'s free and always will be'
           ),
