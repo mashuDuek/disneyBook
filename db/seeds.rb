@@ -32,15 +32,25 @@ User.create!(name: 'Rajah', email: 'rajah@aladdin.com', movie: al, password: pw)
 User.create!(name: 'Iago', email: 'iago@aladdin.com', movie: al, password: pw)
 User.create!(name: 'Abu', email: 'abu@aladdin.com', movie: al, password: pw)
 # Beauty and the Beast
-User.create!(name: 'Beast', email: 'beast@aladdin.com', movie: 'Beauty and the Beast', password: pw)
-User.create!(name: 'Belle', email: 'belle@aladdin.com', movie: 'Beauty and the Beast', password: pw)
-User.create!(name: 'Gaston', email: 'gaston@aladdin.com', movie: 'Beauty and the Beast', password: pw)
-User.create!(name: 'Lumière', email: 'lumiere@aladdin.com', movie: 'Beauty and the Beast', password: pw)
-User.create!(name: 'Ms. Potts', email: 'mspotts@aladdin.com', movie: 'Beauty and the Beast', password: pw)
-User.create!(name: 'Cogsworth', email: 'cogsworth@aladdin.com', movie: 'Beauty and the Beast', password: pw)
+bb = 'Beauty and the Beast'
+User.create!(name: 'Beast', email: 'beast@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Belle', email: 'belle@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Gaston', email: 'gaston@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Lumière', email: 'lumiere@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Ms. Potts', email: 'mspotts@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Cogsworth', email: 'cogsworth@aladdin.com', movie: bb, password: pw)
 
 # POSTS
-
+Post.destroy_all
+Post.create!(body: 'Simbaa, do you see everything the light touches?',
+  author_id: User.where(name: 'Mufasa')[0].id,
+  receiver_id: User.where(name: 'Simba')[0].id)
+Post.create!(body: 'Hakuna Matata, Puumbaa!!',
+  author_id: User.where(name: 'Timon')[0].id,
+  receiver_id: User.where(name: 'Pumba')[0].id)
+Post.create!(body: 'Its our problem free, philosophy',
+  author_id: User.where(name: 'Pumba')[0].id,
+  receiver_id: User.where(name: 'Timon')[0].id)
 # COMMENTS
 
 # FRIENDSHIPS

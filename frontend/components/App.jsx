@@ -12,6 +12,7 @@ const App = (props) => {
       <Route exact path="/" component={ SessionLoginFormContainer } />
       <Route exact path="/" component={ SessionSignUpFormContainer } />
       <Route exact path="/" component={ SessionFooter } />
+      // <Route exact path="/feed" component={ PostsComponent } />
     </div>
   );
 };

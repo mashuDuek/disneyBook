@@ -1,13 +1,18 @@
-class Api::User < ApplicationRecord
+class User < ApplicationRecord
   validates :session_token, :password_digest, :email, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
+
+  has_many :posts,
+    foreign_key: :author_id,
+    primary_key: :id,
+    class_name: :Post
 
   attr_reader :password
 
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(email, password)
-    debugger
+
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
   end

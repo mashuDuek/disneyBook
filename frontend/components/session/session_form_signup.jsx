@@ -44,36 +44,8 @@ class SessionFormSignUp extends React.Component {
   render () {
     if (this.props.loggedIn) {
       return (
-        <Redirect to="/" />
+        <Redirect to="/feed" />
       );
-    }
-
-    let name;
-    if (this.state.name) {
-      name = this.state.name;
-    } else {
-      name = '  Full Name';
-    }
-
-    let email;
-    if (this.state.email) {
-      email = this.state.email;
-    } else {
-      email = '  Email';
-    }
-
-    let password;
-    if (this.state.password) {
-      password = this.state.password;
-    } else {
-      password = '  Password';
-    }
-
-    let movie;
-    if (this.state.movie) {
-      movie = this.state.movie;
-    } else {
-      movie = '  Movie';
     }
 
     return (
@@ -88,25 +60,29 @@ class SessionFormSignUp extends React.Component {
           <form id='sign-up-form'>
             <input
               onChange={this.handleName}
-              value={name}
+              value={this.state.name}
+              placeholder=' Name'
               id="name-input"
             />
             <br />
             <input
               onChange={this.handleMovie}
-              value={movie}
+              value={this.state.movie}
+              placeholder=' Movie'
               id="movie-input"
             />
             <br />
             <input
               onChange={this.handleEmail}
-              value={email}
+              value={this.state.email}
+              placeholder=' Email'
               id="email-input"
             />
             <br />
             <input
               onChange={this.handlePassword}
-              value={password}
+              value={this.state.password}
+              placeholder=' Password'
               id="password-input"
             />
             <br />
