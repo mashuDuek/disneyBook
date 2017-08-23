@@ -5,6 +5,7 @@ import PostsComponent from './posts_component';
 class FeedComponent extends React.Component {
   constructor(props) {
     super(props);
+
   }
 
   componentDidMount() {
@@ -12,9 +13,15 @@ class FeedComponent extends React.Component {
   }
 
   render() {
-    return(
-      <PostsComponent body={this.props.body}/>
-    );
+    if (!this.props.posts[0]) {
+      return (
+        <p>loading...</p>
+      );
+    } else {
+      return (
+        <PostsComponent posts={this.props.posts} />
+      );
+    }
   }
 }
 
