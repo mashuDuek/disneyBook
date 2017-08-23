@@ -12,7 +12,7 @@ class Api::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.includes(:author).all
     render :index
   end
 

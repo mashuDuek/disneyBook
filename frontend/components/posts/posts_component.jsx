@@ -1,7 +1,7 @@
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import React from 'react';
 import values from 'lodash/values';
-import PostDetailComponent from './post_detail_component';
+  import PostDetailComponent from './post_detail_component';
 
 
 class PostsComponent extends React.Component {
@@ -24,6 +24,7 @@ class PostsComponent extends React.Component {
 
     return(
       <ul>
+        <h4> the list beneath me will be users friends feed</h4>
         {posts}
       </ul>
     );

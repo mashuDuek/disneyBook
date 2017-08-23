@@ -46284,6 +46284,11 @@ var PostsComponent = function (_React$Component) {
       return _react2.default.createElement(
         'ul',
         null,
+        _react2.default.createElement(
+          'h4',
+          null,
+          ' the list beneath me will be users friends feed'
+        ),
         posts
       );
     }
@@ -47378,17 +47383,32 @@ var PostDetailComponent = function (_React$Component) {
     return _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
   }
 
+  // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
+
+
   _createClass(PostDetailComponent, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'li',
-        { key: this.props.post.id },
-        this.props.post.body,
-        _react2.default.createElement('br', null),
-        'Id: ',
-        this.props.post.author_id
-      );
+      if (!this.props.post.author) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading...'
+        );
+      } else {
+        return _react2.default.createElement(
+          'li',
+          { key: this.props.post.id },
+          this.props.post.body,
+          _react2.default.createElement('br', null),
+          'Author: ',
+          _react2.default.createElement(
+            'a',
+            null,
+            this.props.post.author.name
+          )
+        );
+      };
     }
   }]);
 
