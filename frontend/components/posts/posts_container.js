@@ -11,6 +11,7 @@ import {
 
 const mapStatetoProps = (state, ownProps) => {
   return {
+    
     posts: state.posts,
     errors: state.posts.errors,
   };

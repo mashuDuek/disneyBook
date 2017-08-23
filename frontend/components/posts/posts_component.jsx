@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import { getKeys } from '../../reducers/selectors';
+import React from 'react';
 import values from 'lodash/values';
+import PostDetailComponent from './post_detail_component';
 
 
 class PostsComponent extends React.Component {
@@ -9,12 +9,16 @@ class PostsComponent extends React.Component {
     super(props);
   }
 
+// eventually, will need to add link to
+// author profile page, so Ill bring up list of
+// friends of currentUser to this state ??
+// need friendships table now
+// need user up at the feed page
   render() {
+
     const posts = values(this.props.posts).map((post) => {
       return(
-        <li key={post.id}>
-          {post.body}{post.author_id}{post.receiver_id}
-        </li>
+        <PostDetailComponent post={post} />
       );
     });
 

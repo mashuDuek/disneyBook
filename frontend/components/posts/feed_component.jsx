@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import PostsComponent from './posts_component';
+import NavBar from './nav_bar_component';
 
 class FeedComponent extends React.Component {
   constructor(props) {
@@ -19,7 +20,11 @@ class FeedComponent extends React.Component {
       );
     } else {
       return (
-        <PostsComponent posts={this.props.posts} />
+        <div className="feed-page">
+          <NavBar />
+          <PostsComponent posts={this.props.posts} />
+
+        </div>
       );
     }
   }

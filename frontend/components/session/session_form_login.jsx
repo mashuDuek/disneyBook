@@ -44,6 +44,7 @@ class SessionFormLogin extends React.Component {
           <br />
           <label>Password
             <input
+              type="password"
               onChange={this.handlePassword}
               value={this.state.password} />
           </label>
