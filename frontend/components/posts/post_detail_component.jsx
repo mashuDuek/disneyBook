@@ -5,19 +5,21 @@ class PostDetailComponent extends React.Component {
     super(props);
   }
 
-
 // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
   render() {
-    if (!this.props.post.author) {
+    // debugger
+    if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>
       );
     } else {
+      // debugger
+      const authorObj = this.props.users[this.props.post.author_id]
       return(
         <li key={this.props.post.id}>
           {this.props.post.body}
           <br />
-          Author: <a>{this.props.post.author.name}</a>
+          Author: <a>{authorObj.name}</a>
         </li>
       )
     };

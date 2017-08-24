@@ -15,15 +15,14 @@ class PostsComponent extends React.Component {
 // need friendships table now
 // need user up at the feed page
   render() {
-
     const posts = values(this.props.posts).map((post) => {
       return(
-        <PostDetailComponent post={post} />
+        <PostDetailComponent key={post.id} post={post} users={this.props.users} />
       );
     });
 
     return(
-      <ul>
+      <ul className="all-posts">
         <h4> the list beneath me will be users friends feed</h4>
         {posts}
       </ul>

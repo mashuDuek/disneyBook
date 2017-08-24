@@ -7,7 +7,7 @@ class NavBar extends React.Component {
 
     render() {
       return (
-        <h3>I will become the nav bar at the top</h3>
+        <h3 className="nav-bar">I will become the nav bar at the top</h3>
       )
     }
 }

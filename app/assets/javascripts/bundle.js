@@ -45957,7 +45957,6 @@ var postReducer = function postReducer() {
       {
         return action.post;
       }
-
     default:
       {
         return state;
@@ -46148,7 +46147,7 @@ var _user_actions = __webpack_require__(320);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
+
   return {
     users: state.users,
     posts: state.posts,
@@ -46158,7 +46157,6 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 
-  debugger;
   return {
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
@@ -46227,7 +46225,6 @@ var FeedComponent = function (_React$Component) {
   _createClass(FeedComponent, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      debugger;
       this.props.fetchAllPosts();
       this.props.fetchUsers();
     }
@@ -46245,7 +46242,7 @@ var FeedComponent = function (_React$Component) {
           'div',
           { className: 'feed-page' },
           _react2.default.createElement(_nav_bar_component2.default, null),
-          _react2.default.createElement(_posts_component2.default, { posts: this.props.posts })
+          _react2.default.createElement(_posts_component2.default, { posts: this.props.posts, users: this.props.users })
         );
       }
     }
@@ -46310,14 +46307,15 @@ var PostsComponent = function (_React$Component) {
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
       var posts = (0, _values2.default)(this.props.posts).map(function (post) {
-        return _react2.default.createElement(_post_detail_component2.default, { post: post });
+        return _react2.default.createElement(_post_detail_component2.default, { key: post.id, post: post, users: _this2.props.users });
       });
 
       return _react2.default.createElement(
         'ul',
-        null,
+        { className: 'all-posts' },
         _react2.default.createElement(
           'h4',
           null,
@@ -47368,12 +47366,12 @@ var NavBar = function (_React$Component) {
   }
 
   _createClass(NavBar, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'h3',
-        null,
-        'I will become the nav bar at the top'
+        "h3",
+        { className: "nav-bar" },
+        "I will become the nav bar at the top"
       );
     }
   }]);
@@ -47423,13 +47421,16 @@ var PostDetailComponent = function (_React$Component) {
   _createClass(PostDetailComponent, [{
     key: 'render',
     value: function render() {
-      if (!this.props.post.author) {
+      // debugger
+      if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
           'p',
           null,
           'Loading...'
         );
       } else {
+        // debugger
+        var authorObj = this.props.users[this.props.post.author_id];
         return _react2.default.createElement(
           'li',
           { key: this.props.post.id },
@@ -47439,7 +47440,7 @@ var PostDetailComponent = function (_React$Component) {
           _react2.default.createElement(
             'a',
             null,
-            this.props.post.author.name
+            authorObj.name
           )
         );
       };
@@ -47507,7 +47508,6 @@ var RECEIVE_USERS = exports.RECEIVE_USERS = 'RECEIVE_USERS';
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
-  debugger;
   return {
     type: RECEIVE_USERS,
     users: users
@@ -47522,7 +47522,6 @@ var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
 };
 
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
-  debugger;
   return function (dispatch) {
     return APIUtil.fetchUsers().then(function (users) {
       return dispatch(receiveUsers(users));

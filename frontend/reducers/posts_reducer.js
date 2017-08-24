@@ -7,7 +7,6 @@ import { RECEIVE_POST,
     RECEIVE_USERS
   } from '../actions/posts_actions';
 
-
 const preloadedState = { errors: [] };
 
 const postReducer = (state = preloadedState, action ) => {
@@ -33,7 +32,6 @@ const postReducer = (state = preloadedState, action ) => {
     case DELETE_POST: {
       return action.post;
     }
-
     default: {
       return state;
     }

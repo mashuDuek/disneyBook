@@ -10,7 +10,6 @@ class FeedComponent extends React.Component {
   }
 
   componentDidMount() {
-    debugger
     this.props.fetchAllPosts();
     this.props.fetchUsers();
   }
@@ -24,8 +23,7 @@ class FeedComponent extends React.Component {
       return (
         <div className="feed-page">
           <NavBar />
-          <PostsComponent posts={this.props.posts} />
-
+          <PostsComponent posts={this.props.posts} users={this.props.users} />
         </div>
       );
     }
