@@ -8,10 +8,11 @@ import {
   fetchAllPosts
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
+import { logout } from '../../actions/session_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    currentUser: state.session.currentUser,
+    currentUser: state.session.currentUser || {},
     users: state.users,
     posts: state.posts,
     errors: state.posts.errors,
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updatePost: (post) => dispatch(update(post)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     createPost: (post) => dispatch(createPost(post)),
+    logout: () => dispatch(logout())
   };
 };
 

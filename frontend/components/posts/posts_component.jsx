@@ -24,7 +24,6 @@ class PostsComponent extends React.Component {
           delete={this.props.deletePost}
           update={this.props.updatePost}
           currentUser={this.props.currentUser}
-
           />
       );
     });
@@ -36,7 +35,6 @@ class PostsComponent extends React.Component {
           currentUser={this.props.currentUser}
           />
         <ul className="all-posts-ul">
-          <h4> the list beneath me will be users friends feed</h4>
           {posts}
         </ul>
       </div>

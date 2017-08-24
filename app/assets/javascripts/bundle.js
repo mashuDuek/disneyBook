@@ -45411,10 +45411,10 @@ var App = function App(props) {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_login2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_form_container_signup2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _session_footer2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/feed', component: _posts_container2.default })
+    _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_login2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_signup2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_footer2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _posts_container2.default })
   );
 };
 
@@ -45880,7 +45880,7 @@ exports.default = SignUpInfoComponent;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AuthRoute = undefined;
+exports.ProtectedRoute = exports.AuthRoute = undefined;
 
 var _react = __webpack_require__(4);
 
@@ -45900,7 +45900,17 @@ var Auth = function Auth(_ref) {
       loggedIn = _ref.loggedIn;
 
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
+    } });
+};
+
+var Protected = function Protected(_ref2) {
+  var Component = _ref2.component,
+      path = _ref2.path,
+      loggedIn = _ref2.loggedIn;
+
+  return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
+      return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
     } });
 };
 
@@ -45909,6 +45919,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
+var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
 
 /***/ }),
 /* 279 */
@@ -46151,11 +46162,13 @@ var _posts_actions = __webpack_require__(280);
 
 var _user_actions = __webpack_require__(320);
 
+var _session_actions = __webpack_require__(61);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    currentUser: state.session.currentUser,
+    currentUser: state.session.currentUser || {},
     users: state.users,
     posts: state.posts,
     errors: state.posts.errors
@@ -46178,6 +46191,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     createPost: function createPost(post) {
       return dispatch((0, _posts_actions.createPost)(post));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
     }
   };
 };
@@ -46258,7 +46274,10 @@ var FeedComponent = function (_React$Component) {
           _react2.default.createElement(
             'header',
             null,
-            _react2.default.createElement(_nav_bar_component2.default, { currentUser: this.props.currentUser })
+            _react2.default.createElement(_nav_bar_component2.default, {
+              currentUser: this.props.currentUser,
+              logout: this.props.logout
+            })
           ),
           _react2.default.createElement(
             'div',
@@ -46352,7 +46371,6 @@ var PostsComponent = function (_React$Component) {
           'delete': _this2.props.deletePost,
           update: _this2.props.updatePost,
           currentUser: _this2.props.currentUser
-
         });
       });
 
@@ -46366,11 +46384,6 @@ var PostsComponent = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           { className: 'all-posts-ul' },
-          _react2.default.createElement(
-            'h4',
-            null,
-            ' the list beneath me will be users friends feed'
-          ),
           posts
         )
       );
@@ -47399,6 +47412,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(19);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47417,17 +47432,35 @@ var NavBar = function (_React$Component) {
   }
 
   _createClass(NavBar, [{
-    key: "render",
+    key: 'handleLogout',
+    value: function handleLogout() {
+      this.props.logout().then(this.props.history.push('/'));
+    }
+  }, {
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        { className: "nav-bar" },
-        _react2.default.createElement("input", { placeholder: "Search" }),
+        'div',
+        { className: 'nav-bar' },
         _react2.default.createElement(
-          "h3",
-          { className: "nav-bar" },
-          "Hello, ",
-          this.props.currentUser.name
+          'form',
+          { id: 'search-form' },
+          _react2.default.createElement('input', { placeholder: 'i do nothing yet' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'nav-bar-welcome-logout' },
+          _react2.default.createElement(
+            'p',
+            null,
+            'Hello, ',
+            this.props.currentUser.name
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handleLogout.bind(this) },
+            'Logout'
+          )
         )
       );
     }
@@ -47436,7 +47469,13 @@ var NavBar = function (_React$Component) {
   return NavBar;
 }(_react2.default.Component);
 
-exports.default = NavBar;
+exports.default = (0, _reactRouterDom.withRouter)(NavBar);
+
+// BELOW FOR THE SEARCH BUTTON
+
+// <button>
+//   <i className="fa fa-search" aria-hidden="true"></i>
+// </button>
 
 /***/ }),
 /* 318 */
@@ -47507,14 +47546,13 @@ var PostDetailComponent = function (_React$Component) {
         return _react2.default.createElement(
           'li',
           { key: this.props.post.id },
-          this.props.post.body,
-          _react2.default.createElement('br', null),
-          'Author: ',
           _react2.default.createElement(
             'a',
             null,
             authorObj.name
           ),
+          _react2.default.createElement('br', null),
+          this.props.post.body,
           editButton
         );
       };
@@ -47800,7 +47838,7 @@ var NewPostComponent = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'form',
-        { onSubmit: this.handleSubmit },
+        { onSubmit: this.handleSubmit, className: 'create-post' },
         _react2.default.createElement('textarea', {
           height: '100',
           width: '500',

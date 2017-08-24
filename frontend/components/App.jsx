@@ -5,16 +5,16 @@ import SessionFooter from './session/session_footer';
 import PostsContainer from './posts/posts_container';
 
 import { Route } from 'react-router-dom';
-import { AuthRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 const App = (props) => {
 
   return(
     <div>
-      <Route exact path="/" component={ SessionLoginFormContainer } />
-      <Route exact path="/" component={ SessionSignUpFormContainer } />
-      <Route exact path="/" component={ SessionFooter } />
-      <Route exact path="/feed" component={ PostsContainer } />
+      <AuthRoute exact path="/" component={ SessionLoginFormContainer } />
+      <AuthRoute exact path="/" component={ SessionSignUpFormContainer } />
+      <AuthRoute exact path="/" component={ SessionFooter } />
+      <ProtectedRoute exact path="/feed" component={ PostsContainer } />
     </div>
   );
 };

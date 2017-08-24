@@ -8,7 +8,17 @@ const Auth = ({ component: Component, path, loggedIn }) => {
   return (
     <Route path={path} render={ (props) => {
         return (
-          (!loggedIn ? (<Component {...props} />) : (<Redirect to='/' />))
+          (!loggedIn ? (<Component {...props} />) : (<Redirect to='/feed' />))
+        );
+    }} />
+  );
+}
+
+const Protected = ({ component: Component, path, loggedIn }) => {
+  return (
+    <Route path={path} render={ (props) => {
+        return (
+          (loggedIn ? (<Component {...props} />) : (<Redirect to='/' />))
         );
     }} />
   );
@@ -19,3 +29,4 @@ const mapStateToProps = (state) => {
 }
 
 export const AuthRoute = withRouter(connect(mapStateToProps, null)(Auth));
+export const ProtectedRoute = withRouter(connect(mapStateToProps, null)(Protected));

@@ -28,10 +28,9 @@ class PostDetailComponent extends React.Component {
       const authorObj = this.props.users[this.props.post.author_id]
       return(
         <li key={this.props.post.id}>
-          {this.props.post.body}
+          <a>{authorObj.name}</a>
           <br />
-          Author: <a>{authorObj.name}</a>
-
+          {this.props.post.body}
           {editButton}
         </li>
       )

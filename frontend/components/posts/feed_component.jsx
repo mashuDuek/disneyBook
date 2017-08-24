@@ -24,7 +24,10 @@ class FeedComponent extends React.Component {
       return (
         <div className="feed-page">
           <header>
-            <NavBar currentUser={this.props.currentUser}/>
+            <NavBar
+              currentUser={this.props.currentUser}
+              logout={this.props.logout}
+              />
           </header>
           <div className="posts-and-info-components">
             <LeftInfoComponent />

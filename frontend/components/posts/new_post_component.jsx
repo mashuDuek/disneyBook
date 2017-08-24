@@ -27,7 +27,7 @@ class NewPostComponent extends React.Component {
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="create-post">
         <textarea
           height="100"
           width="500"
