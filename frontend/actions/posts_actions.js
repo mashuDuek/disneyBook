@@ -64,7 +64,7 @@ export const updatePost = (post) => {
 export const deletePost = (post) => {
   return (dispatch) => {
     return APIUtil.deletePost(post).
-      then((post) => dispatch(deletePost(post)),
+      then((post) => dispatch(destroyPost(post)),
       (errors) => dispatch(receiveErrors(errors))
     );
   };

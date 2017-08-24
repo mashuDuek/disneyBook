@@ -22,6 +22,8 @@ class PostsComponent extends React.Component {
           post={post}
           users={this.props.users}
           delete={this.props.deletePost}
+          currentUser={this.props.currentUser}
+
           />
       );
     });

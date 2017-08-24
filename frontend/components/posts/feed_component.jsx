@@ -18,13 +18,13 @@ class FeedComponent extends React.Component {
   render() {
     if (!this.props.posts[0]) {
       return (
-        <p>loading...</p>
+        <p>loading... </p>
       );
     } else {
       return (
         <div className="feed-page">
           <header>
-            <NavBar />
+            <NavBar currentUser={this.props.currentUser}/>
           </header>
           <div className="posts-and-info-components">
             <LeftInfoComponent />

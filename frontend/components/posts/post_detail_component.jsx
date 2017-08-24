@@ -4,23 +4,27 @@ class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    // this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   handleDelete() {
-    debugger
     this.props.delete(this.props.post);
   }
 
-  // componentDidMount () {
+  // handleUpdate() {
+  //
   // }
-  //   I need to do something in one of these ? Why do I have no props ??
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  // }
-
 
 // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
   render() {
+    let editButton;
+    // eventually this shoul be a drop down for editting or deleting
+    if (this.props.currentUser.id === this.props.post.author_id) {
+      editButton = (
+        <button onClick={this.handleDelete}>Delete</button>
+      );
+    }
+
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>
@@ -32,7 +36,8 @@ class PostDetailComponent extends React.Component {
           {this.props.post.body}
           <br />
           Author: <a>{authorObj.name}</a>
-          <button onClick={this.handleDelete}>Delete</button>
+
+          {editButton}
         </li>
       )
     };

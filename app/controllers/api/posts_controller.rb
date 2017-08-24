@@ -27,8 +27,12 @@ class Api::PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
-    render :index
+    @posts = Post.includes(:author).all
+    if @post.destroy
+      render :index
+    else
+      render json: @post.errors.full_messages, status: 422
+    end
   end
 
   private

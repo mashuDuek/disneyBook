@@ -36,7 +36,7 @@ bb = 'Beauty and the Beast'
 User.create!(name: 'Beast', email: 'beast@aladdin.com', movie: bb, password: pw)
 User.create!(name: 'Belle', email: 'belle@aladdin.com', movie: bb, password: pw)
 User.create!(name: 'Gaston', email: 'gaston@aladdin.com', movie: bb, password: pw)
-User.create!(name: 'Lumière', email: 'lumiere@aladdin.com', movie: bb, password: pw)
+User.create!(name: 'Lumiere', email: 'lumiere@aladdin.com', movie: bb, password: pw)
 User.create!(name: 'Ms. Potts', email: 'mspotts@aladdin.com', movie: bb, password: pw)
 User.create!(name: 'Cogsworth', email: 'cogsworth@aladdin.com', movie: bb, password: pw)
 
@@ -51,6 +51,21 @@ Post.create!(body: 'Hakuna Matata, Puumbaa!!',
 Post.create!(body: 'Its our problem free, philosophy',
   author_id: User.where(name: 'Pumba')[0].id,
   receiver_id: User.where(name: 'Timon')[0].id)
+Post.create!(body: 'Be.. ourr.... gueesssttt',
+  author_id: User.where(name: 'Lumiere')[0].id,
+  receiver_id: User.where(name: 'Belle')[0].id)
+Post.create!(body: 'Do you trust me??',
+  author_id: User.where(name: 'Aladdin')[0].id,
+  receiver_id: User.where(name: 'Jasmine')[0].id)
+Post.create!(body: 'All you gotta do is rub that lamp!',
+  author_id: User.where(name: 'Genie')[0].id,
+  receiver_id: User.where(name: 'Aladdin')[0].id)
+Post.create!(body: 'Who does that beast think he is!?',
+  author_id: User.where(name: 'Gaston')[0].id,
+  receiver_id: User.where(name: 'Gaston')[0].id)
+Post.create!(body: 'Enter, the cave of wonderrss!',
+  author_id: User.where(name: 'Jafar')[0].id,
+  receiver_id: User.where(name: 'Aladdin')[0].id)
 # COMMENTS
 
 # FRIENDSHIPS

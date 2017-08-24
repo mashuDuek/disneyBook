@@ -46053,7 +46053,7 @@ var updatePost = exports.updatePost = function updatePost(post) {
 var deletePost = exports.deletePost = function deletePost(post) {
   return function (dispatch) {
     return APIUtil.deletePost(post).then(function (post) {
-      return dispatch(deletePost(post));
+      return dispatch(destroyPost(post));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
     });
@@ -46105,6 +46105,7 @@ var updatePost = exports.updatePost = function updatePost(post) {
 };
 
 var deletePost = exports.deletePost = function deletePost(post) {
+
   return $.ajax({
     method: 'DELETE',
     url: '/api/posts/' + post.id
@@ -46248,7 +46249,7 @@ var FeedComponent = function (_React$Component) {
         return _react2.default.createElement(
           'p',
           null,
-          'loading...'
+          'loading... '
         );
       } else {
         return _react2.default.createElement(
@@ -46257,7 +46258,7 @@ var FeedComponent = function (_React$Component) {
           _react2.default.createElement(
             'header',
             null,
-            _react2.default.createElement(_nav_bar_component2.default, null)
+            _react2.default.createElement(_nav_bar_component2.default, { currentUser: this.props.currentUser })
           ),
           _react2.default.createElement(
             'div',
@@ -46348,7 +46349,9 @@ var PostsComponent = function (_React$Component) {
           key: post.id,
           post: post,
           users: _this2.props.users,
-          'delete': _this2.props.deletePost
+          'delete': _this2.props.deletePost,
+          currentUser: _this2.props.currentUser
+
         });
       });
 
@@ -47418,7 +47421,8 @@ var NavBar = function (_React$Component) {
       return _react2.default.createElement(
         "h3",
         { className: "nav-bar" },
-        "I will become the nav bar at the top"
+        "Hello, ",
+        this.props.currentUser.name
       );
     }
   }]);
@@ -47462,29 +47466,35 @@ var PostDetailComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
     _this.handleDelete = _this.handleDelete.bind(_this);
+    // this.handleUpdate = this.handleUpdate.bind(this);
     return _this;
   }
 
   _createClass(PostDetailComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      debugger;
       this.props.delete(this.props.post);
     }
 
-    // componentDidMount () {
+    // handleUpdate() {
+    //
     // }
-    //   I need to do something in one of these ? Why do I have no props ??
-    // componentWillReceiveProps(nextProps) {
-    //   debugger
-    // }
-
 
     // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 
   }, {
     key: 'render',
     value: function render() {
+      var editButton = void 0;
+      // eventually this shoul be a drop down for editting or deleting
+      if (this.props.currentUser.id === this.props.post.author_id) {
+        editButton = _react2.default.createElement(
+          'button',
+          { onClick: this.handleDelete },
+          'Delete'
+        );
+      }
+
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
           'p',
@@ -47504,11 +47514,7 @@ var PostDetailComponent = function (_React$Component) {
             null,
             authorObj.name
           ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.handleDelete },
-            'Delete'
-          )
+          editButton
         );
       };
     }
