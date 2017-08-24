@@ -36,19 +36,11 @@ export const fetchPosts = (posts) => {
 };
 
 export const receiveErrors = (errors) => {
-
   return {
     type: RECEIVE_ERRORS,
     errors: errors
   };
 };
-
-// export const receiveUsers = (users) => {
-//   return{
-//     type: RECEIVE_USERS,
-//     users: users
-//   };
-// };
 
 export const createPost = (post) => {
   return (dispatch) => {

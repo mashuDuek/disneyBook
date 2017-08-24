@@ -7,13 +7,11 @@ class PostDetailComponent extends React.Component {
 
 // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
   render() {
-    // debugger
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>
       );
     } else {
-      // debugger
       const authorObj = this.props.users[this.props.post.author_id]
       return(
         <li key={this.props.post.id}>

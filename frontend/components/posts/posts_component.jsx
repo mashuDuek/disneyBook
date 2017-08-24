@@ -1,7 +1,8 @@
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import React from 'react';
 import values from 'lodash/values';
-  import PostDetailComponent from './post_detail_component';
+import NewPostComponent from './new_post_component';
+import PostDetailComponent from './post_detail_component';
 
 
 class PostsComponent extends React.Component {
@@ -15,17 +16,23 @@ class PostsComponent extends React.Component {
 // need friendships table now
 // need user up at the feed page
   render() {
+    debugger
     const posts = values(this.props.posts).map((post) => {
       return(
         <PostDetailComponent key={post.id} post={post} users={this.props.users} />
       );
     });
-
     return(
-      <ul className="all-posts">
-        <h4> the list beneath me will be users friends feed</h4>
-        {posts}
-      </ul>
+      <div className="create-post-all-posts">
+        <NewPostComponent
+          create={this.props.createPost}
+          currentUser={this.props.currentUser}
+          />
+        <ul className="all-posts-ul">
+          <h4> the list beneath me will be users friends feed</h4>
+          {posts}
+        </ul>
+      </div>
     );
   }
 }

@@ -7,7 +7,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 class SessionFormSignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', name: '' };
+    this.state = { email: '', password: '', name: '', movie: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);

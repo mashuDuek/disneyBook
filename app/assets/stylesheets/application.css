@@ -154,3 +154,8 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+
+.posts-and-info-components {
+  display: flex;
+  flex-direction: row;
+}
