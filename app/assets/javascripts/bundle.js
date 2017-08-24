@@ -25141,8 +25141,9 @@ var rootReducer = (0, _redux.combineReducers)({
     session: _session_reducer2.default,
     posts: _posts_reducer2.default,
     users: _users_reducer2.default
+    // errors: ErroresReducer
 });
-
+// import ErroresReducer from './errors_reducer';
 exports.default = rootReducer;
 
 /***/ }),
@@ -45924,6 +45925,8 @@ var _lodash = __webpack_require__(231);
 
 var _posts_actions = __webpack_require__(280);
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var preloadedState = { errors: [] };
 
 var postReducer = function postReducer() {
@@ -45934,7 +45937,8 @@ var postReducer = function postReducer() {
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
       {
-        return action.post;
+        var newPost = _defineProperty({}, action.post.id, action.post);
+        return (0, _lodash.merge)({}, state, newPost);
       }
     case _posts_actions.FETCH_ALL_POSTS:
       {
@@ -46012,6 +46016,7 @@ var destroyPost = exports.destroyPost = function destroyPost(post) {
 };
 
 var fetchPosts = exports.fetchPosts = function fetchPosts(posts) {
+
   return {
     type: FETCH_ALL_POSTS,
     posts: posts
@@ -46109,6 +46114,14 @@ var deletePost = exports.deletePost = function deletePost(post) {
 var createPost = exports.createPost = function createPost(post) {
   return $.ajax({
     method: "POST",
+    url: '/api/posts',
+    data: { post: post }
+  });
+};
+
+var fetchPost = exports.fetchPost = function fetchPost(post) {
+  return $.ajax({
+    method: "GET",
     url: '/api/posts',
     data: { post: post }
   });
@@ -46330,10 +46343,15 @@ var PostsComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      debugger;
       var posts = (0, _values2.default)(this.props.posts).map(function (post) {
-        return _react2.default.createElement(_post_detail_component2.default, { key: post.id, post: post, users: _this2.props.users });
+        return _react2.default.createElement(_post_detail_component2.default, {
+          key: post.id,
+          post: post,
+          users: _this2.props.users,
+          'delete': _this2.props.deletePost
+        });
       });
+
       return _react2.default.createElement(
         'div',
         { className: 'create-post-all-posts' },
@@ -47441,13 +47459,30 @@ var PostDetailComponent = function (_React$Component) {
   function PostDetailComponent(props) {
     _classCallCheck(this, PostDetailComponent);
 
-    return _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
+
+    _this.handleDelete = _this.handleDelete.bind(_this);
+    return _this;
   }
 
-  // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
-
-
   _createClass(PostDetailComponent, [{
+    key: 'handleDelete',
+    value: function handleDelete() {
+      debugger;
+      this.props.delete(this.props.post);
+    }
+
+    // componentDidMount () {
+    // }
+    //   I need to do something in one of these ? Why do I have no props ??
+    // componentWillReceiveProps(nextProps) {
+    //   debugger
+    // }
+
+
+    // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
+
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.users[this.props.post.author_id]) {
@@ -47468,6 +47503,11 @@ var PostDetailComponent = function (_React$Component) {
             'a',
             null,
             authorObj.name
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handleDelete },
+            'Delete'
           )
         );
       };

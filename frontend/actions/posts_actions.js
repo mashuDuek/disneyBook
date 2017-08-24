@@ -6,7 +6,6 @@ export const DELETE_POST = 'DELETE_POST';
 export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
-
 export const receivePost = (post) => {
   return {
     type: RECEIVE_POST,
@@ -29,6 +28,7 @@ export const destroyPost = (post) => {
 };
 
 export const fetchPosts = (posts) => {
+
   return {
     type: FETCH_ALL_POSTS,
     posts

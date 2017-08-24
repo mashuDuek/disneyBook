@@ -13,7 +13,8 @@ const postReducer = (state = preloadedState, action ) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_POST: {
-      return action.post;
+      const newPost = { [action.post.id]: action.post };
+      return merge({}, state, newPost);
     }
     case FETCH_ALL_POSTS: {
       action.posts.map((post) => {

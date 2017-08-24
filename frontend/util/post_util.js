@@ -27,3 +27,11 @@ export const createPost = (post) => {
     data: { post }
   });
 };
+
+export const fetchPost = (post) => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/posts`,
+    data: { post }
+  });
+};

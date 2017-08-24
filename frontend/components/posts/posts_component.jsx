@@ -4,7 +4,6 @@ import values from 'lodash/values';
 import NewPostComponent from './new_post_component';
 import PostDetailComponent from './post_detail_component';
 
-
 class PostsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -16,12 +15,17 @@ class PostsComponent extends React.Component {
 // need friendships table now
 // need user up at the feed page
   render() {
-    debugger
     const posts = values(this.props.posts).map((post) => {
       return(
-        <PostDetailComponent key={post.id} post={post} users={this.props.users} />
+        <PostDetailComponent
+          key={post.id}
+          post={post}
+          users={this.props.users}
+          delete={this.props.deletePost}
+          />
       );
     });
+
     return(
       <div className="create-post-all-posts">
         <NewPostComponent

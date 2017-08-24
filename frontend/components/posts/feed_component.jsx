@@ -8,7 +8,6 @@ import RightInfoComponent from './right_info_component';
 class FeedComponent extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
