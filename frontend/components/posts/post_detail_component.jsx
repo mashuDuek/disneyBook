@@ -4,16 +4,11 @@ class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    // this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   handleDelete() {
     this.props.delete(this.props.post);
   }
-
-  // handleUpdate() {
-  //
-  // }
 
 // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
   render() {

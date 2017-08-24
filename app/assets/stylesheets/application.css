@@ -1,4 +1,4 @@
-/*
+s/*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -158,4 +158,10 @@ body {
 .posts-and-info-components {
   display: flex;
   flex-direction: row;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

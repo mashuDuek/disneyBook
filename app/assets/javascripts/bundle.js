@@ -46350,6 +46350,7 @@ var PostsComponent = function (_React$Component) {
           post: post,
           users: _this2.props.users,
           'delete': _this2.props.deletePost,
+          update: _this2.props.updatePost,
           currentUser: _this2.props.currentUser
 
         });
@@ -47419,10 +47420,15 @@ var NavBar = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "h3",
+        "div",
         { className: "nav-bar" },
-        "Hello, ",
-        this.props.currentUser.name
+        _react2.default.createElement("input", { placeholder: "Search" }),
+        _react2.default.createElement(
+          "h3",
+          { className: "nav-bar" },
+          "Hello, ",
+          this.props.currentUser.name
+        )
       );
     }
   }]);
@@ -47466,7 +47472,6 @@ var PostDetailComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
     _this.handleDelete = _this.handleDelete.bind(_this);
-    // this.handleUpdate = this.handleUpdate.bind(this);
     return _this;
   }
 
@@ -47475,10 +47480,6 @@ var PostDetailComponent = function (_React$Component) {
     value: function handleDelete() {
       this.props.delete(this.props.post);
     }
-
-    // handleUpdate() {
-    //
-    // }
 
     // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 

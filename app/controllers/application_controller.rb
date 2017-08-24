@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_unless_logged_in
-    redirect_to api_session_url unless logged_in?
+    # render errors
   end
 
 end
