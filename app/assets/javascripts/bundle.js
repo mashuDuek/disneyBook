@@ -45506,6 +45506,7 @@ var SessionFormLogin = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handlePassword = _this.handlePassword.bind(_this);
     _this.handleEmail = _this.handleEmail.bind(_this);
+    _this.demoLogin = _this.demoLogin.bind(_this);
     return _this;
   }
 
@@ -45526,6 +45527,12 @@ var SessionFormLogin = function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       this.props.processForm(this.state);
+    }
+  }, {
+    key: 'demoLogin',
+    value: function demoLogin(e) {
+      e.preventDefault();
+      this.props.processForm({ email: 'mufasa@lionking.com', password: 'password' });
     }
   }, {
     key: 'render',
@@ -45566,6 +45573,11 @@ var SessionFormLogin = function (_React$Component) {
             'button',
             { onClick: this.handleSubmit },
             'Log In'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.demoLogin },
+            'Demo Mufasa'
           )
         )
       );

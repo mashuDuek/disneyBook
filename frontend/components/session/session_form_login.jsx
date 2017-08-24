@@ -9,6 +9,7 @@ class SessionFormLogin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
   }
 
   handleEmail(e) {
@@ -24,6 +25,11 @@ class SessionFormLogin extends React.Component {
   handleSubmit (e) {
     e.preventDefault();
     this.props.processForm(this.state);
+  }
+
+  demoLogin(e) {
+    e.preventDefault();
+    this.props.processForm({ email: 'mufasa@lionking.com', password: 'password' })
   }
 
   render () {
@@ -49,6 +55,7 @@ class SessionFormLogin extends React.Component {
               value={this.state.password} />
           </label>
           <button onClick={this.handleSubmit}>Log In</button>
+          <button onClick={this.demoLogin}>Demo Mufasa</button>
         </form>
       </div>
     );
