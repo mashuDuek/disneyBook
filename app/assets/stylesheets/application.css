@@ -230,3 +230,17 @@ body {
 #nav-bar-welcome-logout button {
   max-height: 20px;
 }
+
+#post-author-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#post-author-info select {
+  display: block;
+  border: none;
+  background-color: white;
+  max-width: 13px;
+  cursor: pointer;
+}

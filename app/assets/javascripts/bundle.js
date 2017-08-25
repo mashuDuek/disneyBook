@@ -46128,7 +46128,6 @@ var updatePost = exports.updatePost = function updatePost(post) {
 };
 
 var deletePost = exports.deletePost = function deletePost(post) {
-
   return $.ajax({
     method: 'DELETE',
     url: '/api/posts/' + post.id
@@ -47523,49 +47522,69 @@ var PostDetailComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
     _this.handleDelete = _this.handleDelete.bind(_this);
+    _this.handleUpdate = _this.handleUpdate.bind(_this);
     return _this;
   }
 
   _createClass(PostDetailComponent, [{
-    key: 'handleDelete',
+    key: "handleDelete",
     value: function handleDelete() {
       this.props.delete(this.props.post);
+    }
+  }, {
+    key: "handleUpdate",
+    value: function handleUpdate() {
+      this.props.update(this.props.post);
     }
 
     // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
-      var editButton = void 0;
-      // eventually this shoul be a drop down for editting or deleting
+      var editDropdown = void 0;
+      // fix the dropdown to actually work. preferably make the update a modal
       if (this.props.currentUser.id === this.props.post.author_id) {
-        editButton = _react2.default.createElement(
-          'button',
-          { onClick: this.handleDelete },
-          'Delete'
+        editDropdown = _react2.default.createElement(
+          "select",
+          null,
+          _react2.default.createElement("option", { disabled: true, selected: true, value: true }),
+          _react2.default.createElement(
+            "option",
+            { onClick: this.handleUpdate },
+            "Edit"
+          ),
+          _react2.default.createElement(
+            "option",
+            { onClick: this.handleDelete },
+            "Delete"
+          )
         );
       }
 
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'Loading...'
+          "Loading..."
         );
       } else {
         var authorObj = this.props.users[this.props.post.author_id];
         return _react2.default.createElement(
-          'li',
+          "li",
           { key: this.props.post.id },
           _react2.default.createElement(
-            'a',
-            null,
-            authorObj.name
+            "div",
+            { id: "post-author-info" },
+            _react2.default.createElement(
+              "a",
+              null,
+              authorObj.name
+            ),
+            editDropdown
           ),
-          _react2.default.createElement('br', null),
-          this.props.post.body,
-          editButton
+          _react2.default.createElement("br", null),
+          this.props.post.body
         );
       };
     }
