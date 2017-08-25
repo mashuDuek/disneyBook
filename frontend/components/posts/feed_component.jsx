@@ -38,6 +38,8 @@ class FeedComponent extends React.Component {
               updatePost={this.props.updatePost}
               deletePost={this.props.deletePost}
               currentUser={this.props.currentUser}
+              showModal={this.props.showModal}
+              hideModal={this.props.hideModal}
               />
             <RightInfoComponent />
           </div>

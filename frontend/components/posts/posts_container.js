@@ -9,6 +9,7 @@ import {
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
+import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -18,15 +19,16 @@ const mapStatetoProps = (state, ownProps) => {
     errors: state.posts.errors,
   };
 };
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
     deletePost: (post) => dispatch(deletePost(post)),
-    updatePost: (post) => dispatch(update(post)),
+    updatePost: (post) => dispatch(updatePost(post)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     createPost: (post) => dispatch(createPost(post)),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    showModal: (component) => dispatch(showModal(component)),
+    hideModal: () => dispatch(hideModal())
   };
 };
 

@@ -244,3 +244,10 @@ body {
   max-width: 13px;
   cursor: pointer;
 }
+
+.modal-background {
+  border: 1px solid black;
+}
+.modal {
+  border: 1px solid black;
+}

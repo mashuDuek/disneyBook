@@ -14,6 +14,7 @@ class PostsComponent extends React.Component {
 // friends of currentUser to this state ??
 // need friendships table now
 // need user up at the feed page
+
   render() {
     const posts = values(this.props.posts).map((post) => {
       return(
@@ -24,6 +25,8 @@ class PostsComponent extends React.Component {
           delete={this.props.deletePost}
           update={this.props.updatePost}
           currentUser={this.props.currentUser}
+          showModal={this.props.showModal}
+          hideModal={this.props.hideModal}
           />
       );
     });

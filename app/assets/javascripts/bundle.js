@@ -25133,6 +25133,10 @@ var _users_reducer = __webpack_require__(319);
 
 var _users_reducer2 = _interopRequireDefault(_users_reducer);
 
+var _modals_reducer = __webpack_require__(327);
+
+var _modals_reducer2 = _interopRequireDefault(_modals_reducer);
+
 var _redux = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -25140,7 +25144,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var rootReducer = (0, _redux.combineReducers)({
     session: _session_reducer2.default,
     posts: _posts_reducer2.default,
-    users: _users_reducer2.default
+    users: _users_reducer2.default,
+    modals: _modals_reducer2.default
     // errors: ErroresReducer
 });
 // import ErroresReducer from './errors_reducer';
@@ -45400,6 +45405,10 @@ var _posts_container = __webpack_require__(282);
 
 var _posts_container2 = _interopRequireDefault(_posts_container);
 
+var _modal_container = __webpack_require__(329);
+
+var _modal_container2 = _interopRequireDefault(_modal_container);
+
 var _reactRouterDom = __webpack_require__(19);
 
 var _route_util = __webpack_require__(278);
@@ -45407,20 +45416,16 @@ var _route_util = __webpack_require__(278);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App(props) {
-
   return _react2.default.createElement(
     'div',
     null,
+    _react2.default.createElement(_modal_container2.default, null),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_login2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_signup2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_footer2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _posts_container2.default })
   );
 };
-
-// will add a route to /feed, and that will be posts component.
-// next route should go to users/:userId which should include
-// posts component as well.
 
 exports.default = App;
 
@@ -46175,6 +46180,8 @@ var _user_actions = __webpack_require__(320);
 
 var _session_actions = __webpack_require__(61);
 
+var _modal_actions = __webpack_require__(328);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -46185,7 +46192,6 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
     errors: state.posts.errors
   };
 };
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     fetchUsers: function fetchUsers() {
@@ -46195,7 +46201,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
     updatePost: function updatePost(post) {
-      return dispatch(update(post));
+      return dispatch((0, _posts_actions.updatePost)(post));
     },
     fetchAllPosts: function fetchAllPosts() {
       return dispatch((0, _posts_actions.fetchAllPosts)());
@@ -46205,6 +46211,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     logout: function logout() {
       return dispatch((0, _session_actions.logout)());
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
     }
   };
 };
@@ -46300,7 +46312,9 @@ var FeedComponent = function (_React$Component) {
               createPost: this.props.createPost,
               updatePost: this.props.updatePost,
               deletePost: this.props.deletePost,
-              currentUser: this.props.currentUser
+              currentUser: this.props.currentUser,
+              showModal: this.props.showModal,
+              hideModal: this.props.hideModal
             }),
             _react2.default.createElement(_right_info_component2.default, null)
           )
@@ -46368,7 +46382,6 @@ var PostsComponent = function (_React$Component) {
   // need friendships table now
   // need user up at the feed page
 
-
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
@@ -46381,7 +46394,9 @@ var PostsComponent = function (_React$Component) {
           users: _this2.props.users,
           'delete': _this2.props.deletePost,
           update: _this2.props.updatePost,
-          currentUser: _this2.props.currentUser
+          currentUser: _this2.props.currentUser,
+          showModal: _this2.props.showModal,
+          hideModal: _this2.props.hideModal
         });
       });
 
@@ -47505,6 +47520,10 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _post_action_component = __webpack_require__(332);
+
+var _post_action_component2 = _interopRequireDefault(_post_action_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47521,69 +47540,61 @@ var PostDetailComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
+    _this.state = { actionsVisible: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
-    _this.handleUpdate = _this.handleUpdate.bind(_this);
+    _this.handleEdit = _this.handleEdit.bind(_this);
     return _this;
   }
 
   _createClass(PostDetailComponent, [{
-    key: "handleDelete",
+    key: 'handleDelete',
     value: function handleDelete() {
       this.props.delete(this.props.post);
     }
   }, {
-    key: "handleUpdate",
-    value: function handleUpdate() {
-      this.props.update(this.props.post);
+    key: 'handleEdit',
+    value: function handleEdit() {
+      this.setState({ actionsVisible: !this.state.actionsVisible });
     }
-
-    // INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
-
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
-      var editDropdown = void 0;
-      // fix the dropdown to actually work. preferably make the update a modal
-      if (this.props.currentUser.id === this.props.post.author_id) {
-        editDropdown = _react2.default.createElement(
-          "select",
-          null,
-          _react2.default.createElement("option", { disabled: true, selected: true, value: true }),
-          _react2.default.createElement(
-            "option",
-            { onClick: this.handleUpdate },
-            "Edit"
-          ),
-          _react2.default.createElement(
-            "option",
-            { onClick: this.handleDelete },
-            "Delete"
-          )
-        );
-      }
+
+      //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
+      //2 eventually will add actions to this component. to defriend, etc.
+      //2 so not just the post author will be able to access the actionComponent(EditComponent)
+      var actionsShow = _react2.default.createElement(_post_action_component2.default, {
+        post: this.props.post,
+        'delete': this.props.delete,
+        update: this.props.update,
+        currentUser: this.props.currentUser,
+        showModal: this.props.showModal,
+        hideModal: this.props.hideModal
+      });
 
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
-          "p",
+          'p',
           null,
-          "Loading..."
+          'Loading...'
         );
       } else {
         var authorObj = this.props.users[this.props.post.author_id];
         return _react2.default.createElement(
-          "li",
+          'li',
           { key: this.props.post.id },
           _react2.default.createElement(
-            "div",
-            { id: "post-author-info" },
+            'div',
+            { id: 'post-author-info' },
             _react2.default.createElement(
-              "a",
+              'a',
               null,
               authorObj.name
             ),
-            editDropdown
+            _react2.default.createElement('button', { onClick: this.handleEdit }),
+            this.state.actionsVisible ? actionsShow : null
           ),
-          _react2.default.createElement("br", null),
+          _react2.default.createElement('br', null),
           this.props.post.body
         );
       };
@@ -47889,6 +47900,377 @@ var NewPostComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = NewPostComponent;
+
+/***/ }),
+/* 325 */,
+/* 326 */,
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _modal_actions = __webpack_require__(328);
+
+var modalReducer = function modalReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _modal_actions.SHOW_MODAL:
+      {
+        return { component: action.component };
+      }
+    case _modal_actions.HIDE_MODAL:
+      {
+        return { component: null };
+      }
+    default:
+      return state;
+  }
+};
+
+exports.default = modalReducer;
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SHOW_MODAL = exports.SHOW_MODAL = 'SHOW_MODAL';
+var HIDE_MODAL = exports.HIDE_MODAL = 'HIDE_MODAL';
+
+var showModal = exports.showModal = function showModal(component) {
+  return {
+    type: SHOW_MODAL,
+    component: component
+  };
+};
+
+var hideModal = exports.hideModal = function hideModal() {
+  return {
+    type: HIDE_MODAL
+  };
+};
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _modal_component = __webpack_require__(330);
+
+var _modal_component2 = _interopRequireDefault(_modal_component);
+
+var _modal_actions = __webpack_require__(328);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    component: state.modals.component,
+    visible: Boolean(state.modals.component)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    hide: function hide() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_modal_component2.default));
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalComponent = function (_React$Component) {
+  _inherits(ModalComponent, _React$Component);
+
+  function ModalComponent() {
+    _classCallCheck(this, ModalComponent);
+
+    return _possibleConstructorReturn(this, (ModalComponent.__proto__ || Object.getPrototypeOf(ModalComponent)).apply(this, arguments));
+  }
+
+  _createClass(ModalComponent, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'modal-background' },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal' },
+          this.props.component
+        )
+      );
+    }
+  }]);
+
+  return ModalComponent;
+}(_react2.default.Component);
+
+exports.default = ModalComponent;
+
+// props here include hide(), component, visible
+
+/***/ }),
+/* 331 */,
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _modal_component = __webpack_require__(330);
+
+var _modal_component2 = _interopRequireDefault(_modal_component);
+
+var _edit_post = __webpack_require__(333);
+
+var _edit_post2 = _interopRequireDefault(_edit_post);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PostActionComponent = function (_React$Component) {
+  _inherits(PostActionComponent, _React$Component);
+
+  function PostActionComponent(props) {
+    _classCallCheck(this, PostActionComponent);
+
+    var _this = _possibleConstructorReturn(this, (PostActionComponent.__proto__ || Object.getPrototypeOf(PostActionComponent)).call(this, props));
+
+    _this.handleDelete = _this.handleDelete.bind(_this);
+    _this.handleEdit = _this.handleEdit.bind(_this);
+    return _this;
+  }
+  // props include delete, update, post, showModal, and currentUser
+
+  _createClass(PostActionComponent, [{
+    key: 'handleDelete',
+    value: function handleDelete() {
+      this.props.delete(this.props.post);
+    }
+  }, {
+    key: 'handleEdit',
+    value: function handleEdit() {
+      var _this2 = this;
+
+      this.props.showModal(_react2.default.createElement(_edit_post2.default, {
+        edit: this.props.update,
+        post: this.props.post,
+        hideModal: this.props.hideModal
+      })).then(function () {
+        setState(_this2.props.post);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var optionsList = void 0;
+      if (this.props.post.author_id === this.props.currentUser.id) {
+        optionsList = _react2.default.createElement(
+          'ul',
+          null,
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleDelete },
+              'Delete Post'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleEdit },
+              'Edit Post'
+            )
+          )
+        );
+      } else {
+        optionsList = _react2.default.createElement(
+          'ul',
+          null,
+          _react2.default.createElement(
+            'li',
+            null,
+            'u no author'
+          )
+        );
+      }
+      return _react2.default.createElement(
+        'div',
+        { className: 'post-action-options' },
+        optionsList
+      );
+    }
+  }]);
+
+  return PostActionComponent;
+}(_react2.default.Component);
+
+exports.default = PostActionComponent;
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditPost = function (_React$Component) {
+  _inherits(EditPost, _React$Component);
+
+  function EditPost(props) {
+    _classCallCheck(this, EditPost);
+
+    var _this = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+
+    _this.handleEdit = _this.handleEdit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.state = { post: _this.props.post };
+    return _this;
+  }
+
+  _createClass(EditPost, [{
+    key: 'handleEdit',
+    value: function handleEdit(e) {
+      var _this2 = this;
+
+      this.props.edit(this.state).then(function () {
+        _this2.props.hideModal();
+      });
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(field) {
+      var _this3 = this;
+
+      return function (e) {
+        var edited = Object.assign({}, _this3.state.post, _defineProperty({}, field, e.currentTarget.value));
+        _this3.setState({ post: edited });
+      };
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextPorps) {
+      debugger;
+      var postToEdit = Object.assign({}, this.state.post, nextPorps.post);
+      this.setState({ post: postToEdit });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        { className: 'edit-post', onSubmit: this.handleEdit },
+        _react2.default.createElement(
+          'label',
+          null,
+          'Edit Post',
+          _react2.default.createElement('input', {
+            value: this.state.post.body,
+            onChange: this.handleChange('body') })
+        ),
+        _react2.default.createElement(
+          'button',
+          null,
+          'Edit Post!'
+        )
+      );
+    }
+  }]);
+
+  return EditPost;
+}(_react2.default.Component);
+
+exports.default = EditPost;
+
+// props here include: edit(), post
 
 /***/ })
 /******/ ]);

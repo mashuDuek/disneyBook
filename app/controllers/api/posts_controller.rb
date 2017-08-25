@@ -16,9 +16,9 @@ class Api::PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:post][:id])
     if current_user.id == @post.author_id && @post.update(post_params)
-      render "/api/posts"
+      render :show
     else
       render json: @post.errors.full_messages, status: 304
     end
