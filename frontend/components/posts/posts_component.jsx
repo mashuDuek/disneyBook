@@ -3,6 +3,7 @@ import React from 'react';
 import values from 'lodash/values';
 import NewPostComponent from './new_post_component';
 import PostDetailComponent from './post_detail_component';
+import PostDetailContainer from './post_detail_container';
 import LeftInfoComponent from './left_info_component';
 import RightInfoComponent from './right_info_component';
 
@@ -20,16 +21,7 @@ class PostsComponent extends React.Component {
   render() {
     const posts = values(this.props.posts).map((post) => {
       return(
-        <PostDetailComponent
-          key={post.id}
-          post={post}
-          users={this.props.users}
-          delete={this.props.deletePost}
-          update={this.props.updatePost}
-          currentUser={this.props.currentUser}
-          showModal={this.props.showModal}
-          hideModal={this.props.hideModal}
-          />
+        <PostDetailContainer post={post} />
       );
     });
 

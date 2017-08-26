@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { RECEIVE_USERS } from '../actions/user_actions';
 
-const preloadedState = { errors: [] };
+const preloadedState = {};
 
 const userReducer = (state = preloadedState, action ) => {
   Object.freeze(state);

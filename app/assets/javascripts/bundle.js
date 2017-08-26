@@ -45407,6 +45407,10 @@ var _posts_container = __webpack_require__(282);
 
 var _posts_container2 = _interopRequireDefault(_posts_container);
 
+var _post_detail_container = __webpack_require__(334);
+
+var _post_detail_container2 = _interopRequireDefault(_post_detail_container);
+
 var _modal_container = __webpack_require__(329);
 
 var _modal_container2 = _interopRequireDefault(_modal_container);
@@ -46323,6 +46327,10 @@ var _post_detail_component = __webpack_require__(318);
 
 var _post_detail_component2 = _interopRequireDefault(_post_detail_component);
 
+var _post_detail_container = __webpack_require__(334);
+
+var _post_detail_container2 = _interopRequireDefault(_post_detail_container);
+
 var _left_info_component = __webpack_require__(322);
 
 var _left_info_component2 = _interopRequireDefault(_left_info_component);
@@ -46357,19 +46365,8 @@ var PostsComponent = function (_React$Component) {
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var posts = (0, _values2.default)(this.props.posts).map(function (post) {
-        return _react2.default.createElement(_post_detail_component2.default, {
-          key: post.id,
-          post: post,
-          users: _this2.props.users,
-          'delete': _this2.props.deletePost,
-          update: _this2.props.updatePost,
-          currentUser: _this2.props.currentUser,
-          showModal: _this2.props.showModal,
-          hideModal: _this2.props.hideModal
-        });
+        return _react2.default.createElement(_post_detail_container2.default, { post: post });
       });
 
       return _react2.default.createElement(
@@ -47527,7 +47524,7 @@ var PostDetailComponent = function (_React$Component) {
   _createClass(PostDetailComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      this.props.delete(this.props.post);
+      this.props.deletePost(this.props.post);
     }
   }, {
     key: 'handleEdit',
@@ -47543,13 +47540,13 @@ var PostDetailComponent = function (_React$Component) {
       //2 so not just the post author will be able to access the actionComponent(EditComponent)
       var actionsShow = _react2.default.createElement(_post_action_component2.default, {
         post: this.props.post,
-        'delete': this.props.delete,
-        update: this.props.update,
+        'delete': this.props.deletePost,
+        update: this.props.updatePost,
         currentUser: this.props.currentUser,
         showModal: this.props.showModal,
         hideModal: this.props.hideModal
       });
-
+      debugger;
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
           'p',
@@ -47599,7 +47596,7 @@ var _lodash = __webpack_require__(231);
 
 var _user_actions = __webpack_require__(320);
 
-var preloadedState = { errors: [] };
+var preloadedState = {};
 
 var userReducer = function userReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
@@ -48292,7 +48289,62 @@ exports.default = EditPost;
 // props here include: edit(), post
 
 /***/ }),
-/* 334 */,
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _post_detail_component = __webpack_require__(318);
+
+var _post_detail_component2 = _interopRequireDefault(_post_detail_component);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_actions = __webpack_require__(280);
+
+var _user_actions = __webpack_require__(320);
+
+var _session_actions = __webpack_require__(61);
+
+var _modal_actions = __webpack_require__(328);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser || {},
+    users: state.users,
+    post: ownProps.post
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch((0, _posts_actions.updatePost)(post));
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_post_detail_component2.default));
+
+/***/ }),
 /* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 

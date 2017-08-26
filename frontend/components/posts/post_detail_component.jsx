@@ -11,7 +11,7 @@ class PostDetailComponent extends React.Component {
   }
 
   handleDelete() {
-    this.props.delete(this.props.post);
+    this.props.deletePost(this.props.post);
   }
 
   handleEdit() {
@@ -26,15 +26,15 @@ class PostDetailComponent extends React.Component {
     let actionsShow = (
       <PostActionComponent
         post={this.props.post}
-        delete={this.props.delete}
-        update={this.props.update}
+        delete={this.props.deletePost}
+        update={this.props.updatePost}
         currentUser={this.props.currentUser}
         showModal={this.props.showModal}
         hideModal={this.props.hideModal}
         >
       </PostActionComponent>
     )
-    
+    debugger
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>
