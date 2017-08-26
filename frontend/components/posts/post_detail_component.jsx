@@ -34,7 +34,7 @@ class PostDetailComponent extends React.Component {
         >
       </PostActionComponent>
     )
-    debugger
+    
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>

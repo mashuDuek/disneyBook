@@ -47546,7 +47546,7 @@ var PostDetailComponent = function (_React$Component) {
         showModal: this.props.showModal,
         hideModal: this.props.hideModal
       });
-      debugger;
+
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
           'p',
