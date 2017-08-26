@@ -9,7 +9,7 @@ class EditPost extends React.Component {
   }
 
   handleEdit(e) {
-    this.props.edit(this.state).then(() => {
+    this.props.updatePost(this.state).then(() => {
       this.props.hideModal();
     });
   }
@@ -23,10 +23,10 @@ class EditPost extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextPorps) {
-    
+  componentWillReceiveProps(nextProps) {
+
   const postToEdit = Object.assign(
-    {}, this.state.post, nextPorps.post
+    {}, this.state.post, nextProps.post
   );
   this.setState({ post: postToEdit });
 }
@@ -46,5 +46,3 @@ class EditPost extends React.Component {
 }
 
 export default EditPost;
-
-// props here include: edit(), post

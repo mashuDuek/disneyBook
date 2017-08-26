@@ -11,22 +11,19 @@ class PostActionComponent extends React.Component {
   // props include delete, update, post, showModal, and currentUser
 
   handleDelete() {
-    this.props.delete(this.props.post);
+    this.props.deletePost(this.props.post);
   }
 
   handleEdit() {
     this.props.showModal(
-      <EditPost
-        edit={this.props.update}
-        post={this.props.post}
-        hideModal={this.props.hideModal}
-      />
+      <EditPost post={this.props.post} />
     ).then(() => {
       setState(this.props.post)
     })
   }
 
   render() {
+    debugger
     let optionsList;
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (

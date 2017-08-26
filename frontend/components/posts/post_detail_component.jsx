@@ -1,5 +1,5 @@
 import React from 'react';
-import PostActionComponent from './post_action_component';
+import PostActionContainer from './post_action_container';
 
 class PostDetailComponent extends React.Component {
   constructor(props) {
@@ -23,18 +23,10 @@ class PostDetailComponent extends React.Component {
 //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 //2 eventually will add actions to this component. to defriend, etc.
 //2 so not just the post author will be able to access the actionComponent(EditComponent)
-    let actionsShow = (
-      <PostActionComponent
-        post={this.props.post}
-        delete={this.props.deletePost}
-        update={this.props.updatePost}
-        currentUser={this.props.currentUser}
-        showModal={this.props.showModal}
-        hideModal={this.props.hideModal}
-        >
-      </PostActionComponent>
+    const actionsShow = (
+      <PostActionContainer post={this.props.post} />
     )
-    
+
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>

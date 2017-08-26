@@ -45411,6 +45411,10 @@ var _post_detail_container = __webpack_require__(334);
 
 var _post_detail_container2 = _interopRequireDefault(_post_detail_container);
 
+var _post_action_container = __webpack_require__(336);
+
+var _post_action_container2 = _interopRequireDefault(_post_action_container);
+
 var _modal_container = __webpack_require__(329);
 
 var _modal_container2 = _interopRequireDefault(_modal_container);
@@ -47495,9 +47499,9 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _post_action_component = __webpack_require__(332);
+var _post_action_container = __webpack_require__(336);
 
-var _post_action_component2 = _interopRequireDefault(_post_action_component);
+var _post_action_container2 = _interopRequireDefault(_post_action_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47538,14 +47542,7 @@ var PostDetailComponent = function (_React$Component) {
       //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
       //2 eventually will add actions to this component. to defriend, etc.
       //2 so not just the post author will be able to access the actionComponent(EditComponent)
-      var actionsShow = _react2.default.createElement(_post_action_component2.default, {
-        post: this.props.post,
-        'delete': this.props.deletePost,
-        update: this.props.updatePost,
-        currentUser: this.props.currentUser,
-        showModal: this.props.showModal,
-        hideModal: this.props.hideModal
-      });
+      var actionsShow = _react2.default.createElement(_post_action_container2.default, { post: this.props.post });
 
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
@@ -48125,24 +48122,21 @@ var PostActionComponent = function (_React$Component) {
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      this.props.delete(this.props.post);
+      this.props.deletePost(this.props.post);
     }
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
       var _this2 = this;
 
-      this.props.showModal(_react2.default.createElement(_edit_post2.default, {
-        edit: this.props.update,
-        post: this.props.post,
-        hideModal: this.props.hideModal
-      })).then(function () {
+      this.props.showModal(_react2.default.createElement(_edit_post2.default, { post: this.props.post })).then(function () {
         setState(_this2.props.post);
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      debugger;
       var optionsList = void 0;
       if (this.props.post.author_id === this.props.currentUser.id) {
         optionsList = _react2.default.createElement(
@@ -48237,7 +48231,7 @@ var EditPost = function (_React$Component) {
     value: function handleEdit(e) {
       var _this2 = this;
 
-      this.props.edit(this.state).then(function () {
+      this.props.updatePost(this.state).then(function () {
         _this2.props.hideModal();
       });
     }
@@ -48253,9 +48247,9 @@ var EditPost = function (_React$Component) {
     }
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextPorps) {
+    value: function componentWillReceiveProps(nextProps) {
 
-      var postToEdit = Object.assign({}, this.state.post, nextPorps.post);
+      var postToEdit = Object.assign({}, this.state.post, nextProps.post);
       this.setState({ post: postToEdit });
     }
   }, {
@@ -48285,8 +48279,6 @@ var EditPost = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EditPost;
-
-// props here include: edit(), post
 
 /***/ }),
 /* 334 */
@@ -48412,6 +48404,57 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_feed_component2.default));
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _post_action_component = __webpack_require__(332);
+
+var _post_action_component2 = _interopRequireDefault(_post_action_component);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_actions = __webpack_require__(280);
+
+var _modal_actions = __webpack_require__(328);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser || {},
+    post: ownProps.post
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch((0, _posts_actions.updatePost)(post));
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_post_action_component2.default));
 
 /***/ })
 /******/ ]);
