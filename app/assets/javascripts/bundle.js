@@ -7101,7 +7101,7 @@ var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUse
 };
 
 var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
-  debugger;
+
   return {
     type: RECEIVE_ERRORS,
     errors: errors
@@ -7113,18 +7113,16 @@ var signup = exports.signup = function signup(user) {
     return APIUtil.signup(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      return dispatch(receiveErrors({ session: session }));
+      dispatch(receiveErrors([errors.statusText]));
     });
   };
 };
 
 var login = exports.login = function login(user) {
-  debugger;
   return function (dispatch) {
     return APIUtil.login(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      debugger;
       dispatch(receiveErrors(errors.responseJSON));
     });
   };
@@ -25213,13 +25211,11 @@ var signup = exports.signup = function signup(user) {
 };
 
 var login = exports.login = function login(user) {
-  debugger;
   return $.ajax({
     method: 'POST',
     url: '/api/session',
     data: { user: user }
   });
-  debugger;
 };
 
 var logout = exports.logout = function logout() {
@@ -45403,6 +45399,10 @@ var _session_footer = __webpack_require__(111);
 
 var _session_footer2 = _interopRequireDefault(_session_footer);
 
+var _feed_container = __webpack_require__(335);
+
+var _feed_container2 = _interopRequireDefault(_feed_container);
+
 var _posts_container = __webpack_require__(282);
 
 var _posts_container2 = _interopRequireDefault(_posts_container);
@@ -45425,6 +45425,7 @@ var App = function App(props) {
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_login2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_signup2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_footer2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _feed_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _posts_container2.default })
   );
 };
@@ -46164,9 +46165,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(40);
 
-var _feed_component = __webpack_require__(283);
+var _posts_component = __webpack_require__(284);
 
-var _feed_component2 = _interopRequireDefault(_feed_component);
+var _posts_component2 = _interopRequireDefault(_posts_component);
 
 var _reactRouterDom = __webpack_require__(19);
 
@@ -46185,28 +46186,19 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
     currentUser: state.session.currentUser || {},
     users: state.users,
     posts: state.posts,
-    errors: state.posts.errors
+    errors: state.errors
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-    fetchUsers: function fetchUsers() {
-      return dispatch((0, _user_actions.fetchUsers)());
-    },
     deletePost: function deletePost(post) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
     updatePost: function updatePost(post) {
       return dispatch((0, _posts_actions.updatePost)(post));
     },
-    fetchAllPosts: function fetchAllPosts() {
-      return dispatch((0, _posts_actions.fetchAllPosts)());
-    },
     createPost: function createPost(post) {
       return dispatch((0, _posts_actions.createPost)(post));
-    },
-    logout: function logout() {
-      return dispatch((0, _session_actions.logout)());
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
@@ -46217,7 +46209,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   };
 };
 
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_feed_component2.default));
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_posts_component2.default));
 
 /***/ }),
 /* 283 */
@@ -46245,14 +46237,6 @@ var _posts_component2 = _interopRequireDefault(_posts_component);
 var _nav_bar_component = __webpack_require__(317);
 
 var _nav_bar_component2 = _interopRequireDefault(_nav_bar_component);
-
-var _left_info_component = __webpack_require__(322);
-
-var _left_info_component2 = _interopRequireDefault(_left_info_component);
-
-var _right_info_component = __webpack_require__(323);
-
-var _right_info_component2 = _interopRequireDefault(_right_info_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46297,22 +46281,6 @@ var FeedComponent = function (_React$Component) {
               currentUser: this.props.currentUser,
               logout: this.props.logout
             })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'posts-and-info-components' },
-            _react2.default.createElement(_left_info_component2.default, null),
-            _react2.default.createElement(_posts_component2.default, {
-              posts: this.props.posts,
-              users: this.props.users,
-              createPost: this.props.createPost,
-              updatePost: this.props.updatePost,
-              deletePost: this.props.deletePost,
-              currentUser: this.props.currentUser,
-              showModal: this.props.showModal,
-              hideModal: this.props.hideModal
-            }),
-            _react2.default.createElement(_right_info_component2.default, null)
           )
         );
       }
@@ -46354,6 +46322,14 @@ var _new_post_component2 = _interopRequireDefault(_new_post_component);
 var _post_detail_component = __webpack_require__(318);
 
 var _post_detail_component2 = _interopRequireDefault(_post_detail_component);
+
+var _left_info_component = __webpack_require__(322);
+
+var _left_info_component2 = _interopRequireDefault(_left_info_component);
+
+var _right_info_component = __webpack_require__(323);
+
+var _right_info_component2 = _interopRequireDefault(_right_info_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46398,16 +46374,22 @@ var PostsComponent = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'create-post-all-posts' },
-        _react2.default.createElement(_new_post_component2.default, {
-          create: this.props.createPost,
-          currentUser: this.props.currentUser
-        }),
+        { className: 'posts-and-info-components' },
+        _react2.default.createElement(_left_info_component2.default, null),
         _react2.default.createElement(
-          'ul',
-          { className: 'all-posts-ul' },
-          posts
-        )
+          'div',
+          { className: 'create-post-all-posts' },
+          _react2.default.createElement(_new_post_component2.default, {
+            create: this.props.createPost,
+            currentUser: this.props.currentUser
+          }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'all-posts-ul' },
+            posts
+          )
+        ),
+        _react2.default.createElement(_right_info_component2.default, null)
       );
     }
   }]);
@@ -47852,7 +47834,6 @@ var NewPostComponent = function (_React$Component) {
     _this.state = {
       body: '',
       receiver_id: _this.props.currentUser.id
-
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -47927,7 +47908,7 @@ var errorsReducer = function errorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
   var action = arguments[1];
 
-  debugger;
+
   switch (action.type) {
     case _posts_actions.RECEIVE_ERRORS:
       {
@@ -48276,7 +48257,7 @@ var EditPost = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextPorps) {
-      debugger;
+
       var postToEdit = Object.assign({}, this.state.post, nextPorps.post);
       this.setState({ post: postToEdit });
     }
@@ -48309,6 +48290,76 @@ var EditPost = function (_React$Component) {
 exports.default = EditPost;
 
 // props here include: edit(), post
+
+/***/ }),
+/* 334 */,
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _feed_component = __webpack_require__(283);
+
+var _feed_component2 = _interopRequireDefault(_feed_component);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_actions = __webpack_require__(280);
+
+var _user_actions = __webpack_require__(320);
+
+var _session_actions = __webpack_require__(61);
+
+var _modal_actions = __webpack_require__(328);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+
+  return {
+    currentUser: state.session.currentUser || {},
+    users: state.users,
+    posts: state.posts,
+    errors: state.errors
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch((0, _posts_actions.updatePost)(post));
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      return dispatch((0, _posts_actions.fetchAllPosts)());
+    },
+    createPost: function createPost(post) {
+      return dispatch((0, _posts_actions.createPost)(post));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_feed_component2.default));
 
 /***/ })
 /******/ ]);

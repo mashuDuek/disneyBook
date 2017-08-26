@@ -3,6 +3,8 @@ import React from 'react';
 import values from 'lodash/values';
 import NewPostComponent from './new_post_component';
 import PostDetailComponent from './post_detail_component';
+import LeftInfoComponent from './left_info_component';
+import RightInfoComponent from './right_info_component';
 
 class PostsComponent extends React.Component {
   constructor(props) {
@@ -32,6 +34,8 @@ class PostsComponent extends React.Component {
     });
 
     return(
+    <div className="posts-and-info-components">
+      <LeftInfoComponent />
       <div className="create-post-all-posts">
         <NewPostComponent
           create={this.props.createPost}
@@ -41,6 +45,8 @@ class PostsComponent extends React.Component {
           {posts}
         </ul>
       </div>
+      <RightInfoComponent />
+    </div>
     );
   }
 }

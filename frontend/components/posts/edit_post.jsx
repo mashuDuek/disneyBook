@@ -24,7 +24,7 @@ class EditPost extends React.Component {
   }
 
   componentWillReceiveProps(nextPorps) {
-    debugger
+    
   const postToEdit = Object.assign(
     {}, this.state.post, nextPorps.post
   );

@@ -5,7 +5,7 @@ class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { actionsVisible: false }
+    this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
   }
@@ -34,8 +34,7 @@ class PostDetailComponent extends React.Component {
         >
       </PostActionComponent>
     )
-
-
+    
     if (!this.props.users[this.props.post.author_id]) {
       return (
         <p>Loading...</p>

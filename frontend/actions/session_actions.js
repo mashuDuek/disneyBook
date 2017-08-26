@@ -12,7 +12,7 @@ export const receiveCurrentUser = (currentUser) => {
 };
 
 export const receiveErrors = (errors) => {
-  debugger
+  
   return {
     type: RECEIVE_ERRORS,
     errors: errors
@@ -24,19 +24,19 @@ export const signup = (user) => {
     return APIUtil.signup(user).
       then(
         (user) => dispatch(receiveCurrentUser(user)),
-        (errors) => dispatch(receiveErrors({ session }))
+        (errors) => {
+          dispatch(receiveErrors([errors.statusText]));
+        }
     );
   };
 };
 
 export const login = (user) => {
-debugger
   return (dispatch) => {
     return APIUtil.login(user).
       then(
         (user) => dispatch(receiveCurrentUser(user)),
         (errors) => {
-          debugger
           dispatch(receiveErrors(errors.responseJSON));
         }
     );

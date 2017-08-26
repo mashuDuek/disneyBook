@@ -13,7 +13,7 @@ const preloadedState = {
 };
 
 const errorsReducer = (state = preloadedState, action) => {
-  debugger
+  
   switch(action.type) {
     case RECEIVE_ERRORS: {
       return action.errors;

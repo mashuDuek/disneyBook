@@ -7,7 +7,6 @@ class NewPostComponent extends React.Component {
     this.state = {
         body: '',
         receiver_id: this.props.currentUser.id
-
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
