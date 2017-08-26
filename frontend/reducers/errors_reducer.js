@@ -4,16 +4,21 @@ import { RECEIVE_ERRORS } from '../actions/posts_actions';
 
 //  do I need to import the same (RECEIVE_ERRORS) from all other actions ? ? ?
 
+const preloadedState = {
+  errors: {
+    users: [],
+    posts: [],
+    session: [],
+  }
+};
 
-preloadedState = { errors: [] };
 const errorsReducer = (state = preloadedState, action) => {
+  debugger
   switch(action.type) {
-
     case RECEIVE_ERRORS: {
-      let newState = merge({}, state);
-      newState.errors = action.errors;
-      return newState;
+      return action.errors;
     }
+    default: return state;
   }
 };
 

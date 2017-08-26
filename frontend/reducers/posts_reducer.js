@@ -3,11 +3,10 @@ import { RECEIVE_POST,
     FETCH_ALL_POSTS,
     UPDATE_POST,
     DELETE_POST,
-    RECEIVE_ERRORS,
-    RECEIVE_USERS
+    RECEIVE_ERRORS
   } from '../actions/posts_actions';
 
-const preloadedState = { errors: [] };
+const preloadedState = {};
 
 const postReducer = (state = preloadedState, action ) => {
   Object.freeze(state);
@@ -24,11 +23,6 @@ const postReducer = (state = preloadedState, action ) => {
     }
     case UPDATE_POST: {
       return merge({}, state, action.post);
-    }
-    case RECEIVE_ERRORS: {
-      let newState = merge({}, state);
-      newState.errors = action.errors;
-      return newState;
     }
     case DELETE_POST: {
       return action.post;

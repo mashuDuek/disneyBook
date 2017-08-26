@@ -12,6 +12,7 @@ export const receiveCurrentUser = (currentUser) => {
 };
 
 export const receiveErrors = (errors) => {
+  debugger
   return {
     type: RECEIVE_ERRORS,
     errors: errors
@@ -23,18 +24,21 @@ export const signup = (user) => {
     return APIUtil.signup(user).
       then(
         (user) => dispatch(receiveCurrentUser(user)),
-        (errors) => dispatch(receiveErrors(errors))
+        (errors) => dispatch(receiveErrors({ session }))
     );
   };
 };
 
 export const login = (user) => {
-
+debugger
   return (dispatch) => {
     return APIUtil.login(user).
       then(
         (user) => dispatch(receiveCurrentUser(user)),
-        (errors) => dispatch(receiveErrors(errors))
+        (errors) => {
+          debugger
+          dispatch(receiveErrors(errors.responseJSON));
+        }
     );
   };
 };
@@ -45,7 +49,7 @@ export const logout = () => {
     return APIUtil.logout().
       then(
         () => dispatch(receiveCurrentUser(null)),
-        (errors) => dispatch(receiveErrors(errors))
+        (errors) => dispatch(receiveErrors({ session }))
     );
   };
 };

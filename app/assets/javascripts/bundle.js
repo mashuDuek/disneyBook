@@ -7101,6 +7101,7 @@ var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUse
 };
 
 var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  debugger;
   return {
     type: RECEIVE_ERRORS,
     errors: errors
@@ -7112,18 +7113,19 @@ var signup = exports.signup = function signup(user) {
     return APIUtil.signup(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ session: session }));
     });
   };
 };
 
 var login = exports.login = function login(user) {
-
+  debugger;
   return function (dispatch) {
     return APIUtil.login(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      debugger;
+      dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -7133,7 +7135,7 @@ var logout = exports.logout = function logout() {
     return APIUtil.logout().then(function () {
       return dispatch(receiveCurrentUser(null));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ session: session }));
     });
   };
 };
@@ -25137,6 +25139,10 @@ var _modals_reducer = __webpack_require__(327);
 
 var _modals_reducer2 = _interopRequireDefault(_modals_reducer);
 
+var _errors_reducer = __webpack_require__(325);
+
+var _errors_reducer2 = _interopRequireDefault(_errors_reducer);
+
 var _redux = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -25145,10 +25151,10 @@ var rootReducer = (0, _redux.combineReducers)({
     session: _session_reducer2.default,
     posts: _posts_reducer2.default,
     users: _users_reducer2.default,
-    modals: _modals_reducer2.default
-    // errors: ErroresReducer
+    modals: _modals_reducer2.default,
+    errors: _errors_reducer2.default
 });
-// import ErroresReducer from './errors_reducer';
+
 exports.default = rootReducer;
 
 /***/ }),
@@ -25166,7 +25172,7 @@ var _session_actions = __webpack_require__(61);
 
 var _lodash = __webpack_require__(231);
 
-var preloadedState = { currentUser: null, errors: [] };
+var preloadedState = { currentUser: null };
 
 var sessionReducer = function sessionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
@@ -25180,12 +25186,6 @@ var sessionReducer = function sessionReducer() {
         var newState = (0, _lodash.merge)({}, state);
         newState.currentUser = action.currentUser;
         return newState;
-      }
-    case _session_actions.RECEIVE_ERRORS:
-      {
-        var _newState = (0, _lodash.merge)({}, state);
-        _newState.errors = action.errors;
-        return _newState;
       }
     default:
       return state;
@@ -25213,11 +25213,13 @@ var signup = exports.signup = function signup(user) {
 };
 
 var login = exports.login = function login(user) {
+  debugger;
   return $.ajax({
     method: 'POST',
     url: '/api/session',
     data: { user: user }
   });
+  debugger;
 };
 
 var logout = exports.logout = function logout() {
@@ -45955,7 +45957,7 @@ var _posts_actions = __webpack_require__(280);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var preloadedState = { errors: [] };
+var preloadedState = {};
 
 var postReducer = function postReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
@@ -45978,12 +45980,6 @@ var postReducer = function postReducer() {
     case _posts_actions.UPDATE_POST:
       {
         return (0, _lodash.merge)({}, state, action.post);
-      }
-    case _posts_actions.RECEIVE_ERRORS:
-      {
-        var newState = (0, _lodash.merge)({}, state);
-        newState.errors = action.errors;
-        return newState;
       }
     case _posts_actions.DELETE_POST:
       {
@@ -46063,7 +46059,7 @@ var createPost = exports.createPost = function createPost(post) {
     return APIUtil.createPost(post).then(function (post) {
       return dispatch(receivePost(post));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ posts: posts }));
     });
   };
 };
@@ -46073,7 +46069,7 @@ var updatePost = exports.updatePost = function updatePost(post) {
     return APIUtil.updatePost(post).then(function (post) {
       return dispatch(editPost(post));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ posts: posts }));
     });
   };
 };
@@ -46083,7 +46079,7 @@ var deletePost = exports.deletePost = function deletePost(post) {
     return APIUtil.deletePost(post).then(function (post) {
       return dispatch(destroyPost(post));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ posts: posts }));
     });
   };
 };
@@ -46093,7 +46089,7 @@ var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
     return APIUtil.fetchAllPosts().then(function (posts) {
       return dispatch(fetchPosts(posts));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ posts: posts }));
     });
   };
 };
@@ -47680,7 +47676,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
     return APIUtil.fetchUsers().then(function (users) {
       return dispatch(receiveUsers(users));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors({ users: users }));
     });
   };
 };
@@ -47902,7 +47898,49 @@ var NewPostComponent = function (_React$Component) {
 exports.default = NewPostComponent;
 
 /***/ }),
-/* 325 */,
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _posts_actions = __webpack_require__(280);
+
+// import { RECEIVE_ERRORS } from '../actions/posts_actions';
+// import { RECEIVE_ERRORS } from '../actions/posts_actions';
+
+//  do I need to import the same (RECEIVE_ERRORS) from all other actions ? ? ?
+
+var preloadedState = {
+  errors: {
+    users: [],
+    posts: [],
+    session: []
+  }
+};
+
+var errorsReducer = function errorsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
+  var action = arguments[1];
+
+  debugger;
+  switch (action.type) {
+    case _posts_actions.RECEIVE_ERRORS:
+      {
+        return action.errors;
+      }
+    default:
+      return state;
+  }
+};
+
+exports.default = errorsReducer;
+
+/***/ }),
 /* 326 */,
 /* 327 */
 /***/ (function(module, exports, __webpack_require__) {
