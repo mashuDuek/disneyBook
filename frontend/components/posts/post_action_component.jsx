@@ -30,14 +30,15 @@ class PostActionComponent extends React.Component {
       optionsList = (
         <ul>
           <li>
-            <button onClick={this.handleDelete}>
-              Delete Post
-            </button>
+              <button onClick={this.handleDelete}>
+                Delete
+              </button>
+
           </li>
           <li>
-            <button onClick={this.handleEdit}>
-              Edit Post
-            </button>
+              <button onClick={this.handleEdit}>
+                Edit
+              </button>
           </li>
         </ul>
       );
@@ -51,7 +52,7 @@ class PostActionComponent extends React.Component {
       )
     }
     return (
-      <div className="post-action-options">
+      <div id="post-action-options">
         {optionsList}
       </div>
     );

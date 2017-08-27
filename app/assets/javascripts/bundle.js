@@ -48145,7 +48145,7 @@ var PostActionComponent = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: this.handleDelete },
-              'Delete Post'
+              'Delete'
             )
           ),
           _react2.default.createElement(
@@ -48154,7 +48154,7 @@ var PostActionComponent = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: this.handleEdit },
-              'Edit Post'
+              'Edit'
             )
           )
         );
@@ -48171,7 +48171,7 @@ var PostActionComponent = function (_React$Component) {
       }
       return _react2.default.createElement(
         'div',
-        { className: 'post-action-options' },
+        { id: 'post-action-options' },
         optionsList
       );
     }
