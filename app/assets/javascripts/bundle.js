@@ -47510,6 +47510,7 @@ var PostDetailComponent = function (_React$Component) {
     _this.state = { actionsVisible: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.handleEdit = _this.handleEdit.bind(_this);
+    _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
     return _this;
   }
 
@@ -47524,6 +47525,11 @@ var PostDetailComponent = function (_React$Component) {
       this.setState({ actionsVisible: !this.state.actionsVisible });
     }
   }, {
+    key: 'toggleActionVisibility',
+    value: function toggleActionVisibility() {
+      this.setState({ actionsVisible: !this.state.actionsVisible });
+    }
+  }, {
     key: 'render',
     value: function render() {
       //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
@@ -47533,7 +47539,7 @@ var PostDetailComponent = function (_React$Component) {
       var actionsShow = _react2.default.createElement(_post_action_container2.default, {
         post: this.props.post,
         updatePost: boundUpdate,
-        actionsVisible: this.state.actionsVisible
+        toggleActionVisibility: this.toggleActionVisibility
       });
 
       if (!this.props.users[this.props.post.author_id]) {
@@ -48109,20 +48115,19 @@ var PostActionComponent = function (_React$Component) {
 
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.handleEdit = _this.handleEdit.bind(_this);
-    _this.state = { actionsVisible: _this.props.actionsVisible };
     return _this;
   }
 
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      this.setState({ actionsVisible: !this.props.actionsVisible });
+      this.props.toggleActionVisibility();
       this.props.deletePost(this.props.post);
     }
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
-      this.setState({ actionsVisible: !this.props.actionsVisible });
+      this.props.toggleActionVisibility();
       this.props.showModal(_react2.default.createElement(_edit_post_container2.default, { post: this.props.post, updatePost: this.props.updatePost }));
     }
   }, {
@@ -48412,8 +48417,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
-    post: ownProps.post,
-    actionsVisible: ownProps.actionsVisible
+    post: ownProps.post
   };
 };
 
@@ -48423,13 +48427,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
     updatePost: function updatePost(post) {
-      return dispatch(ownProps.updatePost(post));
+      return ownProps.updatePost(post);
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
+    },
+    toggleActionVisibility: function toggleActionVisibility() {
+      return ownProps.toggleActionVisibility();
     }
   };
 };

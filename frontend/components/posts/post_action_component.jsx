@@ -7,17 +7,16 @@ class PostActionComponent extends React.Component {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.state = { actionsVisible: this.props.actionsVisible }
   }
 
   handleDelete() {
-    this.setState({ actionsVisible: !this.props.actionsVisible });
+    this.props.toggleActionVisibility();
     this.props.deletePost(this.props.post);
 
   }
 
   handleEdit() {
-    this.setState({ actionsVisible: !this.props.actionsVisible });
+    this.props.toggleActionVisibility();
     this.props.showModal(
       <EditPostContainer post={this.props.post} updatePost={this.props.updatePost} />
     )

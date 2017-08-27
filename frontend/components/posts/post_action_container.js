@@ -8,16 +8,16 @@ const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
     post: ownProps.post,
-    actionsVisible: ownProps.actionsVisible,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deletePost: (post) => dispatch(deletePost(post)),
-    updatePost: (post) => dispatch(ownProps.updatePost(post)),
+    updatePost: (post) => ownProps.updatePost(post),
     showModal: (component) => dispatch(showModal(component)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
+    toggleActionVisibility: () => ownProps.toggleActionVisibility(),
   };
 };
 

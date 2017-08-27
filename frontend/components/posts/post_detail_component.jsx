@@ -8,6 +8,7 @@ class PostDetailComponent extends React.Component {
     this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
   }
 
   handleDelete() {
@@ -18,6 +19,9 @@ class PostDetailComponent extends React.Component {
     this.setState({ actionsVisible: !this.state.actionsVisible });
   }
 
+  toggleActionVisibility() {
+    this.setState({ actionsVisible: !this.state.actionsVisible });
+  }
 
 
   render() {
@@ -29,7 +33,7 @@ class PostDetailComponent extends React.Component {
       <PostActionContainer
         post={this.props.post}
         updatePost={boundUpdate}
-        actionsVisible={this.state.actionsVisible}
+        toggleActionVisibility={this.toggleActionVisibility}
         />
     )
 
