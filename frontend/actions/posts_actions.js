@@ -14,6 +14,7 @@ export const receivePost = (post) => {
 };
 
 export const editPost = (post) => {
+  
   return {
     type: UPDATE_POST,
     post: post

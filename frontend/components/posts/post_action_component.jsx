@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalComponent from '../modals/modal_component';
-import EditPost from './edit_post';
+import EditPostContainer from './edit_post_container';
 
 class PostActionComponent extends React.Component {
   constructor (props) {
@@ -8,7 +8,6 @@ class PostActionComponent extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
   }
-  // props include delete, update, post, showModal, and currentUser
 
   handleDelete() {
     this.props.deletePost(this.props.post);
@@ -16,14 +15,13 @@ class PostActionComponent extends React.Component {
 
   handleEdit() {
     this.props.showModal(
-      <EditPost post={this.props.post} />
-    ).then(() => {
-      setState(this.props.post)
-    })
+      <EditPostContainer post={this.props.post} updatePost={this.props.updatePost} />
+    )
+
   }
 
   render() {
-    debugger
+
     let optionsList;
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (

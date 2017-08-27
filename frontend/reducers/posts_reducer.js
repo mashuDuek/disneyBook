@@ -16,13 +16,15 @@ const postReducer = (state = preloadedState, action ) => {
       return merge({}, state, newPost);
     }
     case FETCH_ALL_POSTS: {
+      const newPosts = {};
       action.posts.map((post) => {
         delete post.author;
+        newPosts[post.id] = post;
       });
-      return merge({}, state, action.posts);
+      return merge({}, state, newPosts);
     }
     case UPDATE_POST: {
-      return merge({}, state, action.post);
+      return merge({}, state, { [action.post.id]: action.post });
     }
     case DELETE_POST: {
       return action.post;

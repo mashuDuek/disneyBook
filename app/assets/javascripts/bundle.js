@@ -45981,14 +45981,16 @@ var postReducer = function postReducer() {
       }
     case _posts_actions.FETCH_ALL_POSTS:
       {
+        var newPosts = {};
         action.posts.map(function (post) {
           delete post.author;
+          newPosts[post.id] = post;
         });
-        return (0, _lodash.merge)({}, state, action.posts);
+        return (0, _lodash.merge)({}, state, newPosts);
       }
     case _posts_actions.UPDATE_POST:
       {
-        return (0, _lodash.merge)({}, state, action.post);
+        return (0, _lodash.merge)({}, state, _defineProperty({}, action.post.id, action.post));
       }
     case _posts_actions.DELETE_POST:
       {
@@ -46035,6 +46037,7 @@ var receivePost = exports.receivePost = function receivePost(post) {
 };
 
 var editPost = exports.editPost = function editPost(post) {
+
   return {
     type: UPDATE_POST,
     post: post
@@ -47538,11 +47541,14 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
       //2 eventually will add actions to this component. to defriend, etc.
       //2 so not just the post author will be able to access the actionComponent(EditComponent)
-      var actionsShow = _react2.default.createElement(_post_action_container2.default, { post: this.props.post });
+      var boundUpdate = this.props.updatePost.bind(this);
+      var actionsShow = _react2.default.createElement(_post_action_container2.default, {
+        post: this.props.post,
+        updatePost: boundUpdate
+      });
 
       if (!this.props.users[this.props.post.author_id]) {
         return _react2.default.createElement(
@@ -48093,9 +48099,9 @@ var _modal_component = __webpack_require__(330);
 
 var _modal_component2 = _interopRequireDefault(_modal_component);
 
-var _edit_post = __webpack_require__(333);
+var _edit_post_container = __webpack_require__(337);
 
-var _edit_post2 = _interopRequireDefault(_edit_post);
+var _edit_post_container2 = _interopRequireDefault(_edit_post_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48117,7 +48123,6 @@ var PostActionComponent = function (_React$Component) {
     _this.handleEdit = _this.handleEdit.bind(_this);
     return _this;
   }
-  // props include delete, update, post, showModal, and currentUser
 
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
@@ -48127,16 +48132,12 @@ var PostActionComponent = function (_React$Component) {
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
-      var _this2 = this;
-
-      this.props.showModal(_react2.default.createElement(_edit_post2.default, { post: this.props.post })).then(function () {
-        setState(_this2.props.post);
-      });
+      this.props.showModal(_react2.default.createElement(_edit_post_container2.default, { post: this.props.post, updatePost: this.props.updatePost }));
     }
   }, {
     key: 'render',
     value: function render() {
-      debugger;
+
       var optionsList = void 0;
       if (this.props.post.author_id === this.props.currentUser.id) {
         optionsList = _react2.default.createElement(
@@ -48245,13 +48246,14 @@ var EditPost = function (_React$Component) {
         _this3.setState({ post: edited });
       };
     }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
 
-      var postToEdit = Object.assign({}, this.state.post, nextProps.post);
-      this.setState({ post: postToEdit });
-    }
+    // componentWillReceiveProps(nextProps) {
+    //   const postToEdit = Object.assign(
+    //     {}, this.state.post, nextProps.post
+    //   );
+    //   this.setState({ post: postToEdit });
+    // }
+
   }, {
     key: 'render',
     value: function render() {
@@ -48301,15 +48303,13 @@ var _reactRouterDom = __webpack_require__(19);
 
 var _posts_actions = __webpack_require__(280);
 
-var _user_actions = __webpack_require__(320);
-
-var _session_actions = __webpack_require__(61);
-
 var _modal_actions = __webpack_require__(328);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+
+  // debugger
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -48443,7 +48443,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
     updatePost: function updatePost(post) {
-      return dispatch((0, _posts_actions.updatePost)(post));
+      return dispatch(ownProps.updatePost(post));
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
@@ -48455,6 +48455,50 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_post_action_component2.default));
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(40);
+
+var _edit_post = __webpack_require__(333);
+
+var _edit_post2 = _interopRequireDefault(_edit_post);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _posts_actions = __webpack_require__(280);
+
+var _modal_actions = __webpack_require__(328);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    post: ownProps.post
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    updatePost: function updatePost(post) {
+      return dispatch(ownProps.updatePost(post));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_edit_post2.default));
 
 /***/ })
 /******/ ]);

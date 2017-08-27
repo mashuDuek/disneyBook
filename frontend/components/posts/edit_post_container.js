@@ -12,7 +12,7 @@ const mapStatetoProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    updatePost: (post) => dispatch(updatePost(post)),
+    updatePost: (post) => dispatch(ownProps.updatePost(post)),
     hideModal: () => dispatch(hideModal())
   };
 };

@@ -18,13 +18,18 @@ class PostDetailComponent extends React.Component {
     this.setState({ actionsVisible: !this.state.actionsVisible });
   }
 
-  render() {
 
+
+  render() {
 //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 //2 eventually will add actions to this component. to defriend, etc.
 //2 so not just the post author will be able to access the actionComponent(EditComponent)
+    const boundUpdate = this.props.updatePost.bind(this);
     const actionsShow = (
-      <PostActionContainer post={this.props.post} />
+      <PostActionContainer
+        post={this.props.post}
+        updatePost={boundUpdate}
+        />
     )
 
     if (!this.props.users[this.props.post.author_id]) {

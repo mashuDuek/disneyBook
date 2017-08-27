@@ -23,13 +23,12 @@ class EditPost extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-
-  const postToEdit = Object.assign(
-    {}, this.state.post, nextProps.post
-  );
-  this.setState({ post: postToEdit });
-}
+  // componentWillReceiveProps(nextProps) {
+  //   const postToEdit = Object.assign(
+  //     {}, this.state.post, nextProps.post
+  //   );
+  //   this.setState({ post: postToEdit });
+  // }
 
   render(){
     return(
