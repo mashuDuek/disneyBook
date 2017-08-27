@@ -5,8 +5,6 @@ import { createPost, updatePost, deletePost } from '../../actions/posts_actions'
 import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  
-  // debugger
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -19,7 +17,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(updatePost(post)),
     showModal: (component) => dispatch(showModal(component)),
-    hideModal: () => dispatch(hideModal())
   };
 };
 

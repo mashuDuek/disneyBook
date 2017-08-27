@@ -48229,9 +48229,10 @@ var EditPost = function (_React$Component) {
 
   _createClass(EditPost, [{
     key: 'handleEdit',
-    value: function handleEdit(e) {
+    value: function handleEdit() {
       var _this2 = this;
 
+      debugger;
       this.props.updatePost(this.state).then(function () {
         _this2.props.hideModal();
       });
@@ -48308,8 +48309,6 @@ var _modal_actions = __webpack_require__(328);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
-  // debugger
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -48327,9 +48326,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
-    },
-    hideModal: function hideModal() {
-      return dispatch((0, _modal_actions.hideModal)());
     }
   };
 };
@@ -48490,7 +48486,7 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     updatePost: function updatePost(post) {
-      return dispatch(ownProps.updatePost(post));
+      return dispatch((0, _posts_actions.updatePost)(post));
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());

@@ -8,7 +8,8 @@ class EditPost extends React.Component {
     this.state = { post: this.props.post };
   }
 
-  handleEdit(e) {
+  handleEdit() {
+    debugger
     this.props.updatePost(this.state).then(() => {
       this.props.hideModal();
     });
