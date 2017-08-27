@@ -46275,26 +46275,25 @@ var FeedComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.posts[0]) {
-        return _react2.default.createElement(
-          'p',
+      // debugger
+      // if (!this.props.posts[0]) {
+      //   return (
+      //     <p>loading... </p>
+      //   );
+      // } else {
+      //   debugger
+      return _react2.default.createElement(
+        'div',
+        { className: 'feed-page' },
+        _react2.default.createElement(
+          'header',
           null,
-          'loading... '
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          { className: 'feed-page' },
-          _react2.default.createElement(
-            'header',
-            null,
-            _react2.default.createElement(_nav_bar_component2.default, {
-              currentUser: this.props.currentUser,
-              logout: this.props.logout
-            })
-          )
-        );
-      }
+          _react2.default.createElement(_nav_bar_component2.default, {
+            currentUser: this.props.currentUser,
+            logout: this.props.logout
+          })
+        )
+      );
     }
   }]);
 

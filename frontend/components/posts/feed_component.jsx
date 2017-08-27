@@ -14,11 +14,13 @@ class FeedComponent extends React.Component {
   }
 
   render() {
-    if (!this.props.posts[0]) {
-      return (
-        <p>loading... </p>
-      );
-    } else {
+    // debugger
+    // if (!this.props.posts[0]) {
+    //   return (
+    //     <p>loading... </p>
+    //   );
+    // } else {
+    //   debugger
       return (
         <div className="feed-page">
           <header>
@@ -29,7 +31,7 @@ class FeedComponent extends React.Component {
           </header>
         </div>
       );
-    }
+    
   }
 }
 
