@@ -17,9 +17,8 @@ class PostsComponent extends React.Component {
 // friends of currentUser to this state ??
 // need friendships table now
 // need user up at the feed page
-
   render() {
-    const posts = values(this.props.posts).map((post) => {
+    const posts = values(this.props.posts).reverse().map((post) => {
       return(
         <PostDetailContainer post={post} />
       );

@@ -29,6 +29,7 @@ class PostDetailComponent extends React.Component {
       <PostActionContainer
         post={this.props.post}
         updatePost={boundUpdate}
+        actionsVisible={this.state.actionsVisible}
         />
     )
 

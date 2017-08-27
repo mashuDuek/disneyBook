@@ -14,24 +14,12 @@ class FeedComponent extends React.Component {
   }
 
   render() {
-    // debugger
-    // if (!this.props.posts[0]) {
-    //   return (
-    //     <p>loading... </p>
-    //   );
-    // } else {
-    //   debugger
       return (
-        <div className="feed-page">
-          <header>
-            <NavBar
-              currentUser={this.props.currentUser}
-              logout={this.props.logout}
-              />
-          </header>
-        </div>
+        <NavBar
+          currentUser={this.props.currentUser}
+          logout={this.props.logout}
+          />
       );
-    
   }
 }
 

@@ -9,7 +9,6 @@ class EditPost extends React.Component {
   }
 
   handleEdit() {
-    debugger
     this.props.updatePost(this.state).then(() => {
       this.props.hideModal();
     });
@@ -24,23 +23,17 @@ class EditPost extends React.Component {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const postToEdit = Object.assign(
-  //     {}, this.state.post, nextProps.post
-  //   );
-  //   this.setState({ post: postToEdit });
-  // }
-
   render(){
     return(
-      <form className='edit-post' onSubmit={this.handleEdit}>
-        <label>Edit Post
-          <input
-            value={this.state.post.body}
-            onChange={this.handleChange('body')} />
-        </label>
-        <button>Edit Post!</button>
-      </form>
+        <form className='edit-post' onSubmit={this.handleEdit}>
+          <label>Edit Post
+            <input
+              value={this.state.post.body}
+              onChange={this.handleChange('body')}
+            />
+          </label>
+          <button>Edit Post!</button>
+        </form>
     );
   }
 }

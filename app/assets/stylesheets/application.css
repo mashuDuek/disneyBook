@@ -15,6 +15,9 @@ s/*
  */
 
 /*the below is for the login page*/
+html {
+  background-color: #e9ebee;
+}
 body {
   padding: none;
   margin: 0px;
@@ -162,6 +165,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: #e9ebee;
 }
 
 .nav-bar {
@@ -173,7 +177,8 @@ body {
   min-height: 43px;
   background-color: #3b5998;
   margin: -8px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
+
 }
 
 .nav-bar input {
@@ -188,6 +193,7 @@ body {
   margin-top: 15px;
   color: white;
   size: 15px;
+  align-self: center;
 }
 
 .create-post-all-posts {
@@ -225,6 +231,7 @@ body {
   flex-direction: row;
   margin-right: 50px;
   align-items: center;
+  margin-top: 5px;
 }
 
 #nav-bar-welcome-logout button {
@@ -245,9 +252,24 @@ body {
   cursor: pointer;
 }
 
-.modal-background {
-  border: 1px solid black;
+.modal-backdrop {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.2);
 }
-.modal {
-  border: 1px solid black;
+
+.edit-post {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  background-color: white;
+  padding: 20px;
+}
+
+.post-action-options {
+  position: absolute;
+  background-color: yellow;
+  display: table-row-group;
 }

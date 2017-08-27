@@ -46275,25 +46275,10 @@ var FeedComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      // debugger
-      // if (!this.props.posts[0]) {
-      //   return (
-      //     <p>loading... </p>
-      //   );
-      // } else {
-      //   debugger
-      return _react2.default.createElement(
-        'div',
-        { className: 'feed-page' },
-        _react2.default.createElement(
-          'header',
-          null,
-          _react2.default.createElement(_nav_bar_component2.default, {
-            currentUser: this.props.currentUser,
-            logout: this.props.logout
-          })
-        )
-      );
+      return _react2.default.createElement(_nav_bar_component2.default, {
+        currentUser: this.props.currentUser,
+        logout: this.props.logout
+      });
     }
   }]);
 
@@ -46368,10 +46353,11 @@ var PostsComponent = function (_React$Component) {
   // need friendships table now
   // need user up at the feed page
 
+
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
-      var posts = (0, _values2.default)(this.props.posts).map(function (post) {
+      var posts = (0, _values2.default)(this.props.posts).reverse().map(function (post) {
         return _react2.default.createElement(_post_detail_container2.default, { post: post });
       });
 
@@ -47546,7 +47532,8 @@ var PostDetailComponent = function (_React$Component) {
       var boundUpdate = this.props.updatePost.bind(this);
       var actionsShow = _react2.default.createElement(_post_action_container2.default, {
         post: this.props.post,
-        updatePost: boundUpdate
+        updatePost: boundUpdate,
+        actionsVisible: this.state.actionsVisible
       });
 
       if (!this.props.users[this.props.post.author_id]) {
@@ -48057,15 +48044,19 @@ var ModalComponent = function (_React$Component) {
   _createClass(ModalComponent, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'modal-background' },
-        _react2.default.createElement(
+      if (!this.props.component) {
+        return null;
+      } else {
+        return _react2.default.createElement(
           'div',
-          { className: 'modal' },
-          this.props.component
-        )
-      );
+          { className: 'modal-backdrop' },
+          _react2.default.createElement(
+            'div',
+            { className: 'modal' },
+            this.props.component
+          )
+        );
+      }
     }
   }]);
 
@@ -48073,8 +48064,6 @@ var ModalComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ModalComponent;
-
-// props here include hide(), component, visible
 
 /***/ }),
 /* 331 */,
@@ -48120,17 +48109,20 @@ var PostActionComponent = function (_React$Component) {
 
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.handleEdit = _this.handleEdit.bind(_this);
+    _this.state = { actionsVisible: _this.props.actionsVisible };
     return _this;
   }
 
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
+      this.setState({ actionsVisible: !this.props.actionsVisible });
       this.props.deletePost(this.props.post);
     }
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
+      this.setState({ actionsVisible: !this.props.actionsVisible });
       this.props.showModal(_react2.default.createElement(_edit_post_container2.default, { post: this.props.post, updatePost: this.props.updatePost }));
     }
   }, {
@@ -48231,7 +48223,6 @@ var EditPost = function (_React$Component) {
     value: function handleEdit() {
       var _this2 = this;
 
-      debugger;
       this.props.updatePost(this.state).then(function () {
         _this2.props.hideModal();
       });
@@ -48246,14 +48237,6 @@ var EditPost = function (_React$Component) {
         _this3.setState({ post: edited });
       };
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //   const postToEdit = Object.assign(
-    //     {}, this.state.post, nextProps.post
-    //   );
-    //   this.setState({ post: postToEdit });
-    // }
-
   }, {
     key: 'render',
     value: function render() {
@@ -48266,7 +48249,8 @@ var EditPost = function (_React$Component) {
           'Edit Post',
           _react2.default.createElement('input', {
             value: this.state.post.body,
-            onChange: this.handleChange('body') })
+            onChange: this.handleChange('body')
+          })
         ),
         _react2.default.createElement(
           'button',
@@ -48428,7 +48412,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
-    post: ownProps.post
+    post: ownProps.post,
+    actionsVisible: ownProps.actionsVisible
   };
 };
 

@@ -7,7 +7,8 @@ import { showModal, hideModal } from '../../actions/modal_actions';
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
-    post: ownProps.post
+    post: ownProps.post,
+    actionsVisible: ownProps.actionsVisible,
   };
 };
 

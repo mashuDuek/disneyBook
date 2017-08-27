@@ -1,19 +1,19 @@
 import React from 'react';
 
-
 class ModalComponent extends React.Component {
   render() {
-    return(
-      <div className='modal-background'>
-        <div className="modal">
-          {this.props.component}
+    if (!this.props.component) {
+      return null;
+    } else {
+      return(
+        <div className='modal-backdrop'>
+          <div className="modal">
+            {this.props.component}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 export default ModalComponent;
-
-
-// props here include hide(), component, visible
