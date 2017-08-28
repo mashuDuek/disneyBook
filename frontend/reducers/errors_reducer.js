@@ -9,11 +9,12 @@ const preloadedState = {
     users: [],
     posts: [],
     session: [],
+    comments: [],
   }
 };
 
 const errorsReducer = (state = preloadedState, action) => {
-  
+
   switch(action.type) {
     case RECEIVE_ERRORS: {
       return action.errors;

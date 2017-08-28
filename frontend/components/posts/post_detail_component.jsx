@@ -36,13 +36,13 @@ class PostDetailComponent extends React.Component {
         toggleActionVisibility={this.toggleActionVisibility}
         />
     )
-
-    if (!this.props.users[this.props.post.author_id]) {
+debugger
+    if (!this.props.post) {
       return (
         <p>Loading...</p>
       );
     } else {
-      const authorObj = this.props.users[this.props.post.author_id]
+      const authorObj = this.props.currentUser
       return(
         <li key={this.props.post.id}>
           <div id="post-author-info">

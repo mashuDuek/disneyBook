@@ -4,10 +4,7 @@ import SessionSignUpFormContainer from './session/session_form_container_signup'
 import SessionFooter from './session/session_footer';
 import FeedContainer from './posts/feed_container';
 import PostsContainer from './posts/posts_container';
-import PostDetailContainer from './posts/post_detail_container';
-import PostActionContainer from './posts/post_action_container';
 import ModalContainer from './modals/modal_container';
-
 import { Route } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -20,11 +17,8 @@ const App = (props) => {
       <AuthRoute exact path="/" component={ SessionFooter } />
       <ProtectedRoute exact path="/feed" component={ FeedContainer } />
       <ProtectedRoute exact path="/feed" component={ PostsContainer } />
-
-
     </div>
   );
 };
-
 
 export default App;

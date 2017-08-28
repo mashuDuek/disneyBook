@@ -20,7 +20,6 @@ class PostActionComponent extends React.Component {
     this.props.showModal(
       <EditPostContainer post={this.props.post} updatePost={this.props.updatePost} />
     )
-
   }
 
   render() {

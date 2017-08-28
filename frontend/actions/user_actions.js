@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/user_util';
+import { normalize, schema } from 'normalizr';
 
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';

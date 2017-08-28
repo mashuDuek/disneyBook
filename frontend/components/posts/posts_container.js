@@ -5,7 +5,6 @@ import {
   createPost,
   updatePost,
   deletePost,
-  fetchAllPosts
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';

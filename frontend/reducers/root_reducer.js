@@ -3,6 +3,7 @@ import PostReducer from './posts_reducer';
 import UserReducer from './users_reducer';
 import ModalReducer from './modals_reducer';
 import ErroresReducer from './errors_reducer';
+import CommentsReducer from './comments_reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
     posts: PostReducer,
     users: UserReducer,
     modals: ModalReducer,
-    errors: ErroresReducer
+    comments: CommentsReducer,
+    errors: ErroresReducer,
   }
 );
 

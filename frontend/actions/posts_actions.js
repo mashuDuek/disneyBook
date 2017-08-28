@@ -1,4 +1,6 @@
 import * as APIUtil from '../util/post_util';
+import { normalize, schema } from 'normalizr';
+import { postSchema } from '../util/schemas';
 
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
@@ -6,25 +8,26 @@ export const DELETE_POST = 'DELETE_POST';
 export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
+
 export const receivePost = (post) => {
   return {
     type: RECEIVE_POST,
-    post: post
+    post: normalize(post, new schema(postSchema))
   };
 };
 
 export const editPost = (post) => {
-  
+
   return {
     type: UPDATE_POST,
-    post: post
+    post: normalize(post, new schema(postSchema))
   };
 };
 
 export const destroyPost = (post) => {
   return {
     type: DELETE_POST,
-    post: post
+    post: normalize(post, new schema(postSchema))
   };
 };
 
@@ -32,7 +35,7 @@ export const fetchPosts = (posts) => {
 
   return {
     type: FETCH_ALL_POSTS,
-    posts
+    ...normalize(posts, new schema.Array(postSchema))
   };
 };
 
@@ -79,12 +82,3 @@ export const fetchAllPosts = () => {
     );
   };
 };
-
-// export const fetchUsers = () => {
-//   return(dispatch) => {
-//     return APIUtil.fetchAllUsers().
-//       then((users) => dispatch(receiveUsers(users)),
-//       (errors) => dispatch(receiveErrors(errors))
-//     );
-//   };
-// };

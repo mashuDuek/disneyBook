@@ -5,6 +5,9 @@ import { RECEIVE_POST,
     DELETE_POST,
     RECEIVE_ERRORS
   } from '../actions/posts_actions';
+  import { normalize } from 'normalizr';
+  import { postSchema, commentSchema, actionSchema } from '../util/schemas';
+
 
 const preloadedState = {};
 
@@ -16,12 +19,7 @@ const postReducer = (state = preloadedState, action ) => {
       return merge({}, state, newPost);
     }
     case FETCH_ALL_POSTS: {
-      const newPosts = {};
-      action.posts.map((post) => {
-        delete post.author;
-        newPosts[post.id] = post;
-      });
-      return merge({}, state, newPosts);
+      return merge({}, state, action.entities.posts);
     }
     case UPDATE_POST: {
       return merge({}, state, { [action.post.id]: action.post });

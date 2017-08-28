@@ -10,7 +10,7 @@ User.destroy_all
 # USERS
 # Lion King
 lk = 'Lion King'
-User.create!(name: 'Mufasa', email: 'mufasa@lionking.com', movie: lk, password: pw)
+m = User.create!(name: 'Mufasa', email: 'mufasa@lionking.com', movie: lk, password: pw)
 User.create!(name: 'Sarabi', email: 'sarabi@lionking.com', movie: lk, password: pw)
 User.create!(name: 'Rafiki', email: 'rafiki@lionking.com', movie: lk, password: pw)
 User.create!(name: 'Shenzi', email: 'shenzi@lionking.com', movie: lk, password: pw)
@@ -43,7 +43,7 @@ User.create!(name: 'Cogsworth', email: 'cogsworth@aladdin.com', movie: bb, passw
 # POSTS
 Post.destroy_all
 Post.create!(body: 'Simbaa, do you see everything the light touches?',
-  author_id: User.where(name: 'Mufasa')[0].id,
+  author: m,
   receiver_id: User.where(name: 'Simba')[0].id)
 Post.create!(body: 'Hakuna Matata, Puumbaa!!',
   author_id: User.where(name: 'Timon')[0].id,
@@ -67,5 +67,8 @@ Post.create!(body: 'Enter, the cave of wonderrss!',
   author_id: User.where(name: 'Jafar')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
 # COMMENTS
-
+Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
+Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
+# Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id)
+# Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id)
 # FRIENDSHIPS

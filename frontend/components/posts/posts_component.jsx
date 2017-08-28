@@ -8,6 +8,7 @@ import LeftInfoComponent from './left_info_component';
 import RightInfoComponent from './right_info_component';
 
 class PostsComponent extends React.Component {
+
   constructor(props) {
     super(props);
   }
@@ -18,11 +19,17 @@ class PostsComponent extends React.Component {
 // need friendships table now
 // need user up at the feed page
   render() {
-    const posts = values(this.props.posts).reverse().map((post) => {
-      return(
-        <PostDetailContainer post={post} />
-      );
-    });
+    let posts;
+    if (Object.keys(this.props.posts).length < 1) {
+      return (<p>Loading posts...</p>)
+    } else {
+      const postValues = values(this.props.posts).reverse()
+      posts = postValues.map((post) => {
+        return(
+          <PostDetailContainer post={post} />
+        );
+      });
+    };
 
     return(
     <div className="posts-and-info-components">
