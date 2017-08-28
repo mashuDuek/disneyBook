@@ -24,6 +24,7 @@ const commentReducer = (state = preloadedState, action ) => {
       // })
       return Object.assign({}, state, action.entities.comments);
     case RECEIVE_COMMENT: {
+      debugger
       const newComment = { [action.comment.id]: action.comment };
       return merge({}, state, newComment);
     }
@@ -31,7 +32,7 @@ const commentReducer = (state = preloadedState, action ) => {
       console.log(postSchema, commentSchema, normalize);
       const normalizedPost = normalize(action, actionSchema);
 
-      
+
       const newComments = {};
       action.comments.map((comment) => {
         delete comment.author;

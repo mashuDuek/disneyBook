@@ -5,7 +5,6 @@ import {
   createPost,
   updatePost,
   deletePost,
-
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
@@ -27,7 +26,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createPost: (post) => dispatch(createPost(post)),
     showModal: (component) => dispatch(showModal(component)),
     hideModal: () => dispatch(hideModal()),
-    fetchUsers: () => dispatch(fetchUsers())
+    fetchUsers: () => dispatch(fetchUsers()),
+    
   };
 };
 

@@ -10,24 +10,24 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 
 export const receivePost = (post) => {
+  console.log(normalize(post, postSchema));
   return {
     type: RECEIVE_POST,
-    post: normalize(post, new schema(postSchema))
+    ...normalize(post, postSchema)
   };
 };
 
 export const editPost = (post) => {
-
   return {
     type: UPDATE_POST,
-    post: normalize(post, new schema(postSchema))
+    post: normalize(post, postSchema)
   };
 };
 
 export const destroyPost = (post) => {
   return {
     type: DELETE_POST,
-    post: normalize(post, new schema(postSchema))
+    post: normalize(post, postSchema)
   };
 };
 
@@ -78,6 +78,14 @@ export const fetchAllPosts = () => {
   return (dispatch) => {
     return APIUtil.fetchAllPosts().
       then((posts) => dispatch(fetchPosts(posts)),
+      (errors) => dispatch(receiveErrors({ posts }))
+    );
+  };
+};
+export const fetchPost = (post) => {
+  return (dispatch) => {
+    return APIUtil.fetchAllPosts(post).
+      then((post) => dispatch(receivePost(post)),
       (errors) => dispatch(receiveErrors({ posts }))
     );
   };

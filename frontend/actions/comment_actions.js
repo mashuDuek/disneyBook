@@ -1,5 +1,4 @@
 import * as APIUtil from '../util/comment_util';
-import { normalize, schema } from 'normalizr';
 
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
@@ -52,14 +51,6 @@ export const createComment = (comment) => {
   };
 };
 
-export const updateComment = (comment) => {
-  return (dispatch) => {
-    return APIUtil.updateComment(comment).
-      then((comment) => dispatch(editComment(comment)),
-      (errors) => dispatch(receiveErrors({ comments }))
-    );
-  };
-};
 
 export const deleteComment = (comment) => {
   return (dispatch) => {

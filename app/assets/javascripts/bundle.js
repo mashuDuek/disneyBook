@@ -2184,7 +2184,7 @@ module.exports = DOMProperty;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllPosts = exports.deletePost = exports.updatePost = exports.createPost = exports.receiveErrors = exports.fetchPosts = exports.destroyPost = exports.editPost = exports.receivePost = exports.RECEIVE_ERRORS = exports.FETCH_ALL_POSTS = exports.DELETE_POST = exports.UPDATE_POST = exports.RECEIVE_POST = undefined;
+exports.fetchPost = exports.fetchAllPosts = exports.deletePost = exports.updatePost = exports.createPost = exports.receiveErrors = exports.fetchPosts = exports.destroyPost = exports.editPost = exports.receivePost = exports.RECEIVE_ERRORS = exports.FETCH_ALL_POSTS = exports.DELETE_POST = exports.UPDATE_POST = exports.RECEIVE_POST = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2205,24 +2205,23 @@ var FETCH_ALL_POSTS = exports.FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receivePost = exports.receivePost = function receivePost(post) {
-  return {
-    type: RECEIVE_POST,
-    post: (0, _normalizr.normalize)(post, new _normalizr.schema(_schemas.postSchema))
-  };
+  console.log((0, _normalizr.normalize)(post, _schemas.postSchema));
+  return _extends({
+    type: RECEIVE_POST
+  }, (0, _normalizr.normalize)(post, _schemas.postSchema));
 };
 
 var editPost = exports.editPost = function editPost(post) {
-
   return {
     type: UPDATE_POST,
-    post: (0, _normalizr.normalize)(post, new _normalizr.schema(_schemas.postSchema))
+    post: (0, _normalizr.normalize)(post, _schemas.postSchema)
   };
 };
 
 var destroyPost = exports.destroyPost = function destroyPost(post) {
   return {
     type: DELETE_POST,
-    post: (0, _normalizr.normalize)(post, new _normalizr.schema(_schemas.postSchema))
+    post: (0, _normalizr.normalize)(post, _schemas.postSchema)
   };
 };
 
@@ -2274,6 +2273,15 @@ var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
   return function (dispatch) {
     return APIUtil.fetchAllPosts().then(function (posts) {
       return dispatch(fetchPosts(posts));
+    }, function (errors) {
+      return dispatch(receiveErrors({ posts: posts }));
+    });
+  };
+};
+var fetchPost = exports.fetchPost = function fetchPost(post) {
+  return function (dispatch) {
+    return APIUtil.fetchAllPosts(post).then(function (post) {
+      return dispatch(receivePost(post));
     }, function (errors) {
       return dispatch(receiveErrors({ posts: posts }));
     });
@@ -30312,6 +30320,9 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      debugger;
       //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
       //2 eventually will add actions to this component. to defriend, etc.
       //2 so not just the post author will be able to access the actionComponent(EditComponent)
@@ -30323,14 +30334,17 @@ var PostDetailComponent = function (_React$Component) {
       });
 
       var comments = void 0;
+      debugger;
       if (this.props.post.comments.length > 0) {
-        debugger;
         var commToPass = this.props.comments;
         comments = this.props.post.comments.map(function (comm) {
           return _react2.default.createElement(
             'div',
             { className: 'comments' },
-            _react2.default.createElement(_comment_container2.default, { comment: commToPass[comm] })
+            _react2.default.createElement(_comment_container2.default, {
+              comment: commToPass[comm],
+              post: _this2.props.post
+            })
           );
         });
       }
@@ -30362,7 +30376,7 @@ var PostDetailComponent = function (_React$Component) {
           comments,
           _react2.default.createElement(_new_comment_container2.default, {
             currentUser: this.props.currentUser,
-            postId: this.props.post.id
+            post: this.props.post
           })
         );
       };
@@ -43308,14 +43322,9 @@ var postReducer = function postReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
-      {
-        var newPost = _defineProperty({}, action.post.id, action.post);
-        return (0, _lodash.merge)({}, state, newPost);
-      }
     case _posts_actions.FETCH_ALL_POSTS:
-      {
-        return (0, _lodash.merge)({}, state, action.entities.posts);
-      }
+      return (0, _lodash.merge)({}, state, action.entities.posts);
+
     case _posts_actions.UPDATE_POST:
       {
         return (0, _lodash.merge)({}, state, _defineProperty({}, action.post.id, action.post));
@@ -43994,6 +44003,7 @@ var commentReducer = function commentReducer() {
       return Object.assign({}, state, action.entities.comments);
     case _comment_actions.RECEIVE_COMMENT:
       {
+        debugger;
         var newComment = _defineProperty({}, action.comment.id, action.comment);
         return (0, _lodash.merge)({}, state, newComment);
       }
@@ -44036,13 +44046,11 @@ exports.default = commentReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.receiveErrors = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_ERRORS = exports.FETCH_ALL_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
+exports.fetchAllComments = exports.deleteComment = exports.createComment = exports.receiveErrors = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_ERRORS = exports.FETCH_ALL_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
 
 var _comment_util = __webpack_require__(261);
 
 var APIUtil = _interopRequireWildcard(_comment_util);
-
-var _normalizr = __webpack_require__(34);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -44092,16 +44100,6 @@ var createComment = exports.createComment = function createComment(comment) {
   return function (dispatch) {
     return APIUtil.createComment(comment).then(function (comment) {
       return dispatch(receiveComment(comment));
-    }, function (errors) {
-      return dispatch(receiveErrors({ comments: comments }));
-    });
-  };
-};
-
-var updateComment = exports.updateComment = function updateComment(comment) {
-  return function (dispatch) {
-    return APIUtil.updateComment(comment).then(function (comment) {
-      return dispatch(editComment(comment));
     }, function (errors) {
       return dispatch(receiveErrors({ comments: comments }));
     });
@@ -49157,6 +49155,7 @@ var _modal_actions = __webpack_require__(22);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  debugger;
   return {
     comments: state.comments,
     currentUser: state.session.currentUser || {},
@@ -49175,6 +49174,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
+    },
+    fetchPost: function fetchPost(post) {
+      return dispatch((0, _posts_actions.fetchPost)(post));
     }
   };
 };
@@ -49439,6 +49441,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
     }
+
   };
 };
 
@@ -49556,14 +49559,18 @@ var _reactRouterDom = __webpack_require__(8);
 
 var _comment_actions = __webpack_require__(260);
 
+var _modal_actions = __webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+
   return {
     currentUser: state.session.currentUser || {},
     comment: ownProps.comment,
     users: state.users,
     posts: state.posts,
+    post: ownProps.post,
     errors: state.errors
   };
 };
@@ -49577,6 +49584,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     deleteComment: function deleteComment() {
       return dispatch((0, _comment_actions.deleteComment)());
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
     }
   };
 };
@@ -49600,6 +49613,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _edit_comment_component = __webpack_require__(351);
+
+var _edit_comment_component2 = _interopRequireDefault(_edit_comment_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49614,26 +49631,48 @@ var CommentsComponent = function (_React$Component) {
   function CommentsComponent(props) {
     _classCallCheck(this, CommentsComponent);
 
-    return _possibleConstructorReturn(this, (CommentsComponent.__proto__ || Object.getPrototypeOf(CommentsComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CommentsComponent.__proto__ || Object.getPrototypeOf(CommentsComponent)).call(this, props));
+
+    _this.handleModal = _this.handleModal.bind(_this);
+    return _this;
   }
 
   _createClass(CommentsComponent, [{
-    key: "render",
+    key: 'handleModal',
+    value: function handleModal() {
+      this.props.showModal(_react2.default.createElement(_edit_comment_component2.default, {
+        post: this.props.post,
+        hideModal: this.props.hideModal
+      }));
+    }
+  }, {
+    key: 'render',
     value: function render() {
-
+      var editComment = void 0;
+      if (this.props.currentUser.id === this.props.comment.author_id) {
+        // debugger
+        editComment = _react2.default.createElement(
+          'button',
+          { onClick: this.handleModal },
+          'Edit'
+        );
+      } else {
+        editComment = null;
+      }
       return _react2.default.createElement(
-        "div",
-        { className: "comment" },
+        'div',
+        { className: 'comment' },
         _react2.default.createElement(
-          "p",
-          { className: "comment-author" },
+          'p',
+          { className: 'comment-author' },
           this.props.users[this.props.comment.author_id].name
         ),
         _react2.default.createElement(
-          "p",
-          { className: "comment-body" },
+          'p',
+          { className: 'comment-body' },
           this.props.comment.body
-        )
+        ),
+        editComment
       );
     }
   }]);
@@ -49676,7 +49715,7 @@ var NewCommentComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (NewCommentComponent.__proto__ || Object.getPrototypeOf(NewCommentComponent)).call(this, props));
 
-    _this.state = { body: '', post_id: props.postId };
+    _this.state = { body: '', post_id: props.post.id };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
@@ -49685,8 +49724,12 @@ var NewCommentComponent = function (_React$Component) {
   _createClass(NewCommentComponent, [{
     key: 'handleSubmit',
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.createComment(this.state);
+      this.props.createComment(this.state).then(function () {
+        _this2.props.fetchPost(_this2.props.post);
+      });
     }
   }, {
     key: 'handleChange',
@@ -49697,6 +49740,7 @@ var NewCommentComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+
       var placeHolder = 'Any thoughts, ' + this.props.currentUser.name + '?';
       return _react2.default.createElement(
         'form',
@@ -49743,24 +49787,138 @@ var _reactRouterDom = __webpack_require__(8);
 
 var _comment_actions = __webpack_require__(260);
 
+var _posts_actions = __webpack_require__(19);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: ownProps.currentUser,
     errors: state.errors,
-    postId: ownProps.postId
+    post: ownProps.post
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+
   return {
     createComment: function createComment(comment) {
       return dispatch((0, _comment_actions.createComment)(comment));
+    },
+    fetchPost: function fetchPost(post) {
+      return dispatch((0, _posts_actions.fetchPost)(post));
     }
   };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_new_comment_component2.default));
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditComment = function (_React$Component) {
+  _inherits(EditComment, _React$Component);
+
+  function EditComment(props) {
+    _classCallCheck(this, EditComment);
+
+    var _this = _possibleConstructorReturn(this, (EditComment.__proto__ || Object.getPrototypeOf(EditComment)).call(this, props));
+
+    _this.handleEdit = _this.handleEdit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.state = { post: _this.props.post };
+    _this.modalClose = _this.modalClose.bind(_this);
+    return _this;
+  }
+
+  _createClass(EditComment, [{
+    key: 'handleEdit',
+    value: function handleEdit() {
+      var _this2 = this;
+
+      this.props.updateComent(this.state).then(function () {
+        _this2.props.hideModal();
+      });
+    }
+  }, {
+    key: 'modalClose',
+    value: function modalClose() {
+      this.props.hideModal();
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(field) {
+      var _this3 = this;
+
+      return function (e) {
+        var edited = Object.assign({}, _this3.state.post, _defineProperty({}, field, e.currentTarget.value));
+        _this3.setState({ comment: edited });
+      };
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'edit-post' },
+        _react2.default.createElement(
+          'div',
+          { className: 'edit-post-label' },
+          _react2.default.createElement(
+            'label',
+            null,
+            'Edit'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.modalClose },
+            'X'
+          )
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleEdit },
+          _react2.default.createElement('textarea', {
+            value: this.state.post.body,
+            onChange: this.handleChange('body')
+          }),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Save'
+          )
+        )
+      );
+    }
+  }]);
+
+  return EditComment;
+}(_react2.default.Component);
+
+exports.default = EditComment;
 
 /***/ })
 /******/ ]);

@@ -5,13 +5,17 @@ import { createComment,
   updateComment,
   deleteComment
 } from '../../actions/comment_actions';
+import { showModal, hideModal } from '../../actions/modal_actions';
+
 
 const mapStatetoProps = (state, ownProps) => {
+  
   return {
     currentUser: state.session.currentUser || {},
     comment: ownProps.comment,
     users: state.users,
     posts: state.posts,
+    post: ownProps.post,
     errors: state.errors,
   };
 };
@@ -20,6 +24,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createComment: (comment) => (dispatch(createComment(comment))),
     updateComment: (comment) => (dispatch(updateComment(comment))),
     deleteComment: () => (dispatch(deleteComment())),
+    showModal: (component) => (dispatch(showModal(component))),
+    hideModal: () => (dispatch(hideModal())),
   };
 };
 

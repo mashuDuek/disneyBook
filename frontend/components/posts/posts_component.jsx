@@ -15,8 +15,9 @@ class PostsComponent extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers();
+    
   }
-  
+
 // eventually, will need to add link to
 // author profile page, so Ill bring up list of
 // friends of currentUser to this state ??

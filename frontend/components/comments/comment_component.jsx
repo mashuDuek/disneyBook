@@ -1,12 +1,31 @@
 import React from 'react';
+import EditCommentComponent from './edit_comment_component';
 
 class CommentsComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.handleModal = this.handleModal.bind(this);
+  }
+
+  handleModal () {
+    this.props.showModal(
+      <EditCommentComponent
+        post={this.props.post}
+        hideModal={this.props.hideModal}
+        />
+    );
   }
 
   render() {
-
+    let editComment;
+    if (this.props.currentUser.id === this.props.comment.author_id) {
+      // debugger
+      editComment = (
+        <button onClick={this.handleModal}>Edit</button>
+      )
+    } else {
+      editComment = null;
+    }
     return (
       <div className="comment">
         <p className="comment-author">
@@ -15,6 +34,7 @@ class CommentsComponent extends React.Component {
         <p className="comment-body">
           {this.props.comment.body}
         </p>
+        {editComment}
       </div>
     );
   }

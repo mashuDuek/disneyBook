@@ -3,8 +3,10 @@ import PostDetailComponent from './post_detail_component';
 import { withRouter } from 'react-router-dom';
 import { createPost, updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
+import { fetchPost } from '../../actions/posts_actions';
 
 const mapStatetoProps = (state, ownProps) => {
+debugger
   return {
     comments: state.comments,
     currentUser: state.session.currentUser || {},
@@ -18,6 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(updatePost(post)),
     showModal: (component) => dispatch(showModal(component)),
+    fetchPost: (post) => dispatch(fetchPost(post)),
   };
 };
 
