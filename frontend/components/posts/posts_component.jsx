@@ -13,11 +13,16 @@ class PostsComponent extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
+  
 // eventually, will need to add link to
 // author profile page, so Ill bring up list of
 // friends of currentUser to this state ??
 // need friendships table now
 // need user up at the feed page
+
   render() {
     let posts;
     if (Object.keys(this.props.posts).length < 1) {

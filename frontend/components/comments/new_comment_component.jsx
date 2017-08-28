@@ -1,0 +1,45 @@
+import React from 'react';
+
+class NewCommentComponent extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { body: '' };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    debugger
+    this.props.createComment(this.state);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    this.setState(
+      Object.assign({}, this.state, { body: e.target.value})
+    );
+  }
+
+  render() {
+    debugger
+    const placeHolder = `Any thoughts, ${this.props.currentUser.name}?`;
+    return(
+      <form onSubmit={this.handleSubmit} className="create-comment">
+        <textarea
+          placeholder={placeHolder}
+          height="80"
+          width="400"
+          value={this.state.body}
+          onChange={this.handleChange}
+          ></textarea>
+        <button>
+          Comment
+        </button>
+      </form>
+    );
+  }
+}
+
+export default NewCommentComponent;

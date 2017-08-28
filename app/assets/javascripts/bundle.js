@@ -30107,14 +30107,19 @@ var PostsComponent = function (_React$Component) {
     return _possibleConstructorReturn(this, (PostsComponent.__proto__ || Object.getPrototypeOf(PostsComponent)).call(this, props));
   }
 
-  // eventually, will need to add link to
-  // author profile page, so Ill bring up list of
-  // friends of currentUser to this state ??
-  // need friendships table now
-  // need user up at the feed page
-
-
   _createClass(PostsComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUsers();
+    }
+
+    // eventually, will need to add link to
+    // author profile page, so Ill bring up list of
+    // friends of currentUser to this state ??
+    // need friendships table now
+    // need user up at the feed page
+
+  }, {
     key: 'render',
     value: function render() {
       var posts = void 0;
@@ -30254,9 +30259,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _comment_container = __webpack_require__(347);
+
+var _comment_container2 = _interopRequireDefault(_comment_container);
+
 var _post_action_container = __webpack_require__(336);
 
 var _post_action_container2 = _interopRequireDefault(_post_action_container);
+
+var _new_comment_component = __webpack_require__(349);
+
+var _new_comment_component2 = _interopRequireDefault(_new_comment_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30308,7 +30321,20 @@ var PostDetailComponent = function (_React$Component) {
         updatePost: boundUpdate,
         toggleActionVisibility: this.toggleActionVisibility
       });
-      debugger;
+
+      var comments = void 0;
+      if (this.props.post.comments.length > 0) {
+
+        var commToPass = this.props.comments;
+        comments = this.props.post.comments.map(function (comm) {
+          return _react2.default.createElement(
+            'div',
+            { className: 'comments' },
+            _react2.default.createElement(_comment_container2.default, { comment: commToPass[comm] })
+          );
+        });
+      }
+
       if (!this.props.post) {
         return _react2.default.createElement(
           'p',
@@ -30316,7 +30342,7 @@ var PostDetailComponent = function (_React$Component) {
           'Loading...'
         );
       } else {
-        var authorObj = this.props.currentUser;
+        var authorObj = this.props.users[this.props.post.author_id];
         return _react2.default.createElement(
           'li',
           { key: this.props.post.id },
@@ -30332,7 +30358,9 @@ var PostDetailComponent = function (_React$Component) {
             this.state.actionsVisible ? actionsShow : null
           ),
           _react2.default.createElement('br', null),
-          this.props.post.body
+          this.props.post.body,
+          comments,
+          _react2.default.createElement(_new_comment_component2.default, { currentUser: this.props.currentUser })
         );
       };
     }
@@ -43971,7 +43999,6 @@ var commentReducer = function commentReducer() {
         console.log(postSchema, commentSchema, normalize);
         var normalizedPost = normalize(action, actionSchema);
 
-        debugger;
         var newComments = {};
         action.comments.map(function (comment) {
           delete comment.author;
@@ -49128,6 +49155,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
+    comments: state.comments,
     currentUser: state.session.currentUser || {},
     users: state.users,
     post: ownProps.post
@@ -49389,6 +49417,7 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
+
     deletePost: function deletePost(post) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
@@ -49403,6 +49432,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
+    },
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
     }
   };
 };
@@ -49499,6 +49531,195 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
 var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(16);
+
+var _comment_component = __webpack_require__(348);
+
+var _comment_component2 = _interopRequireDefault(_comment_component);
+
+var _reactRouterDom = __webpack_require__(8);
+
+var _comment_actions = __webpack_require__(260);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser || {},
+    comment: ownProps.comment,
+    users: state.users,
+    posts: state.posts,
+    errors: state.errors
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    createComment: function createComment(comment) {
+      return dispatch((0, _comment_actions.createComment)(comment));
+    },
+    updateComment: function updateComment(comment) {
+      return dispatch((0, _comment_actions.updateComment)(comment));
+    },
+    deleteComment: function deleteComment() {
+      return dispatch((0, _comment_actions.deleteComment)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_comment_component2.default));
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentsComponent = function (_React$Component) {
+  _inherits(CommentsComponent, _React$Component);
+
+  function CommentsComponent(props) {
+    _classCallCheck(this, CommentsComponent);
+
+    return _possibleConstructorReturn(this, (CommentsComponent.__proto__ || Object.getPrototypeOf(CommentsComponent)).call(this, props));
+  }
+
+  _createClass(CommentsComponent, [{
+    key: "render",
+    value: function render() {
+
+      return _react2.default.createElement(
+        "div",
+        { className: "comment" },
+        _react2.default.createElement(
+          "p",
+          { className: "comment-author" },
+          this.props.users[this.props.comment.author_id].name
+        ),
+        _react2.default.createElement(
+          "p",
+          { className: "comment-body" },
+          this.props.comment.body
+        )
+      );
+    }
+  }]);
+
+  return CommentsComponent;
+}(_react2.default.Component);
+
+exports.default = CommentsComponent;
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewCommentComponent = function (_React$Component) {
+  _inherits(NewCommentComponent, _React$Component);
+
+  function NewCommentComponent(props) {
+    _classCallCheck(this, NewCommentComponent);
+
+    var _this = _possibleConstructorReturn(this, (NewCommentComponent.__proto__ || Object.getPrototypeOf(NewCommentComponent)).call(this, props));
+
+    _this.state = { body: '' };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(NewCommentComponent, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      debugger;
+      this.props.createComment(this.state);
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(e) {
+      e.preventDefault();
+      this.setState(Object.assign({}, this.state, { body: e.target.value }));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      debugger;
+      var placeHolder = 'Any thoughts, ' + this.props.currentUser.name + '?';
+      return _react2.default.createElement(
+        'form',
+        { onSubmit: this.handleSubmit, className: 'create-comment' },
+        _react2.default.createElement('textarea', {
+          placeholder: placeHolder,
+          height: '80',
+          width: '400',
+          value: this.state.body,
+          onChange: this.handleChange
+        }),
+        _react2.default.createElement(
+          'button',
+          null,
+          'Comment'
+        )
+      );
+    }
+  }]);
+
+  return NewCommentComponent;
+}(_react2.default.Component);
+
+exports.default = NewCommentComponent;
 
 /***/ })
 /******/ ]);

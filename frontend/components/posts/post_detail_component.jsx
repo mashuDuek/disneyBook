@@ -1,5 +1,8 @@
 import React from 'react';
+import CommentContainer from '../comments/comment_container';
 import PostActionContainer from './post_action_container';
+import NewCommentComponent from '../comments/new_comment_component';
+
 
 class PostDetailComponent extends React.Component {
   constructor(props) {
@@ -36,13 +39,26 @@ class PostDetailComponent extends React.Component {
         toggleActionVisibility={this.toggleActionVisibility}
         />
     )
-debugger
+
+    let comments;
+    if (this.props.post.comments.length > 0) {
+
+      const commToPass = this.props.comments
+      comments = this.props.post.comments.map(comm => {
+        return (
+          <div className='comments'>
+            <CommentContainer comment={commToPass[comm]}/>
+          </div>
+        );
+      })
+    }
+
     if (!this.props.post) {
       return (
         <p>Loading...</p>
       );
     } else {
-      const authorObj = this.props.currentUser
+      const authorObj = this.props.users[this.props.post.author_id];
       return(
         <li key={this.props.post.id}>
           <div id="post-author-info">
@@ -52,6 +68,8 @@ debugger
           </div>
           <br />
           {this.props.post.body}
+          {comments}
+          <NewCommentComponent currentUser={this.props.currentUser}/> 
         </li>
       )
     };

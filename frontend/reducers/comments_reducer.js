@@ -31,7 +31,7 @@ const commentReducer = (state = preloadedState, action ) => {
       console.log(postSchema, commentSchema, normalize);
       const normalizedPost = normalize(action, actionSchema);
 
-      debugger
+      
       const newComments = {};
       action.comments.map((comment) => {
         delete comment.author;

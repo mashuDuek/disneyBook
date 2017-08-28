@@ -5,6 +5,7 @@ import {
   createPost,
   updatePost,
   deletePost,
+
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
@@ -20,11 +21,13 @@ const mapStatetoProps = (state, ownProps) => {
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(updatePost(post)),
     createPost: (post) => dispatch(createPost(post)),
     showModal: (component) => dispatch(showModal(component)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
+    fetchUsers: () => dispatch(fetchUsers())
   };
 };
 
