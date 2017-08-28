@@ -30267,9 +30267,9 @@ var _post_action_container = __webpack_require__(336);
 
 var _post_action_container2 = _interopRequireDefault(_post_action_container);
 
-var _new_comment_component = __webpack_require__(349);
+var _new_comment_container = __webpack_require__(350);
 
-var _new_comment_component2 = _interopRequireDefault(_new_comment_component);
+var _new_comment_container2 = _interopRequireDefault(_new_comment_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30324,7 +30324,7 @@ var PostDetailComponent = function (_React$Component) {
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
-
+        debugger;
         var commToPass = this.props.comments;
         comments = this.props.post.comments.map(function (comm) {
           return _react2.default.createElement(
@@ -30360,7 +30360,10 @@ var PostDetailComponent = function (_React$Component) {
           _react2.default.createElement('br', null),
           this.props.post.body,
           comments,
-          _react2.default.createElement(_new_comment_component2.default, { currentUser: this.props.currentUser })
+          _react2.default.createElement(_new_comment_container2.default, {
+            currentUser: this.props.currentUser,
+            postId: this.props.post.id
+          })
         );
       };
     }
@@ -49673,7 +49676,7 @@ var NewCommentComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (NewCommentComponent.__proto__ || Object.getPrototypeOf(NewCommentComponent)).call(this, props));
 
-    _this.state = { body: '' };
+    _this.state = { body: '', post_id: props.postId };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
@@ -49683,7 +49686,6 @@ var NewCommentComponent = function (_React$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
-      debugger;
       this.props.createComment(this.state);
     }
   }, {
@@ -49695,7 +49697,6 @@ var NewCommentComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      debugger;
       var placeHolder = 'Any thoughts, ' + this.props.currentUser.name + '?';
       return _react2.default.createElement(
         'form',
@@ -49720,6 +49721,46 @@ var NewCommentComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = NewCommentComponent;
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(16);
+
+var _new_comment_component = __webpack_require__(349);
+
+var _new_comment_component2 = _interopRequireDefault(_new_comment_component);
+
+var _reactRouterDom = __webpack_require__(8);
+
+var _comment_actions = __webpack_require__(260);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: ownProps.currentUser,
+    errors: state.errors,
+    postId: ownProps.postId
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    createComment: function createComment(comment) {
+      return dispatch((0, _comment_actions.createComment)(comment));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_new_comment_component2.default));
 
 /***/ })
 /******/ ]);

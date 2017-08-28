@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentContainer from '../comments/comment_container';
 import PostActionContainer from './post_action_container';
-import NewCommentComponent from '../comments/new_comment_component';
+import NewCommentContainer from '../comments/new_comment_container';
 
 
 class PostDetailComponent extends React.Component {
@@ -42,7 +42,7 @@ class PostDetailComponent extends React.Component {
 
     let comments;
     if (this.props.post.comments.length > 0) {
-
+debugger
       const commToPass = this.props.comments
       comments = this.props.post.comments.map(comm => {
         return (
@@ -69,7 +69,10 @@ class PostDetailComponent extends React.Component {
           <br />
           {this.props.post.body}
           {comments}
-          <NewCommentComponent currentUser={this.props.currentUser}/> 
+          <NewCommentContainer
+            currentUser={this.props.currentUser}
+            postId={this.props.post.id}
+            />
         </li>
       )
     };

@@ -4,14 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { createComment } from '../../actions/comment_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  debugger
   return {
     currentUser: ownProps.currentUser,
     errors: state.errors,
+    postId: ownProps.postId
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
-  debugger
   return {
     createComment: (comment) => (dispatch(createComment(comment))),
   };

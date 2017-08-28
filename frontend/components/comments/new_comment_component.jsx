@@ -4,14 +4,13 @@ class NewCommentComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { body: '' };
+    this.state = { body: '', post_id: props.postId };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger
     this.props.createComment(this.state);
   }
 
@@ -23,7 +22,6 @@ class NewCommentComponent extends React.Component {
   }
 
   render() {
-    debugger
     const placeHolder = `Any thoughts, ${this.props.currentUser.name}?`;
     return(
       <form onSubmit={this.handleSubmit} className="create-comment">
