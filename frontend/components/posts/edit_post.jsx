@@ -6,6 +6,7 @@ class EditPost extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { post: this.props.post };
+    this.modalClose = this.modalClose.bind(this);
   }
 
   handleEdit() {
@@ -14,6 +15,9 @@ class EditPost extends React.Component {
     });
   }
 
+  modalClose() {
+    this.props.hideModal();
+  }
   handleChange(field) {
     return (e) => {
       const edited = Object.assign(
@@ -25,15 +29,20 @@ class EditPost extends React.Component {
 
   render(){
     return(
-        <form className='edit-post' onSubmit={this.handleEdit}>
-          <label>Edit Post
-            <input
+      <div className='edit-post'>
+
+        <div className='edit-post-label'>
+          <label>Edit Post</label>
+          <button onClick={this.modalClose}>X</button>
+        </div>
+        <form onSubmit={this.handleEdit}>
+            <textarea
               value={this.state.post.body}
               onChange={this.handleChange('body')}
             />
-          </label>
-          <button>Edit Post!</button>
+          <button>Save</button>
         </form>
+      </div>
     );
   }
 }

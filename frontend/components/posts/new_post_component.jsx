@@ -25,16 +25,18 @@ class NewPostComponent extends React.Component {
   }
 
   render() {
+    const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`
     return(
       <form onSubmit={this.handleSubmit} className="create-post">
         <textarea
+          placeholder={placeHolder}
           height="100"
           width="500"
           value={this.state.body}
           onChange={this.handleChange}
           ></textarea>
         <button>
-          Create Post
+          Post
         </button>
       </form>
     );

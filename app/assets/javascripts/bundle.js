@@ -47847,10 +47847,12 @@ var NewPostComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var placeHolder = 'What\'s on your mind, ' + this.props.currentUser.name + '?';
       return _react2.default.createElement(
         'form',
         { onSubmit: this.handleSubmit, className: 'create-post' },
         _react2.default.createElement('textarea', {
+          placeholder: placeHolder,
           height: '100',
           width: '500',
           value: this.state.body,
@@ -47859,7 +47861,7 @@ var NewPostComponent = function (_React$Component) {
         _react2.default.createElement(
           'button',
           null,
-          'Create Post'
+          'Post'
         )
       );
     }
@@ -48220,6 +48222,7 @@ var EditPost = function (_React$Component) {
     _this.handleEdit = _this.handleEdit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     _this.state = { post: _this.props.post };
+    _this.modalClose = _this.modalClose.bind(_this);
     return _this;
   }
 
@@ -48231,6 +48234,11 @@ var EditPost = function (_React$Component) {
       this.props.updatePost(this.state).then(function () {
         _this2.props.hideModal();
       });
+    }
+  }, {
+    key: 'modalClose',
+    value: function modalClose() {
+      this.props.hideModal();
     }
   }, {
     key: 'handleChange',
@@ -48246,21 +48254,34 @@ var EditPost = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'form',
-        { className: 'edit-post', onSubmit: this.handleEdit },
+        'div',
+        { className: 'edit-post' },
         _react2.default.createElement(
-          'label',
-          null,
-          'Edit Post',
-          _react2.default.createElement('input', {
-            value: this.state.post.body,
-            onChange: this.handleChange('body')
-          })
+          'div',
+          { className: 'edit-post-label' },
+          _react2.default.createElement(
+            'label',
+            null,
+            'Edit Post'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.modalClose },
+            'X'
+          )
         ),
         _react2.default.createElement(
-          'button',
-          null,
-          'Edit Post!'
+          'form',
+          { onSubmit: this.handleEdit },
+          _react2.default.createElement('textarea', {
+            value: this.state.post.body,
+            onChange: this.handleChange('body')
+          }),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Save'
+          )
         )
       );
     }
