@@ -25,13 +25,11 @@ class PostsComponent extends React.Component {
 // need user up at the feed page
 
   render() {
-    debugger
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)
     } else {
       const postValues = values(this.props.posts)
-      debugger
       posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;

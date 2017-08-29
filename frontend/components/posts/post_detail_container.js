@@ -6,7 +6,6 @@ import { showModal, hideModal } from '../../actions/modal_actions';
 import { fetchPost, fetchAllPosts } from '../../actions/posts_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-
   return {
     comments: state.comments,
     currentUser: state.session.currentUser || {},

@@ -30250,7 +30250,6 @@ var PostsComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      debugger;
       var posts = void 0;
       if (Object.keys(this.props.posts).length < 1) {
         return _react2.default.createElement(
@@ -30260,7 +30259,6 @@ var PostsComponent = function (_React$Component) {
         );
       } else {
         var postValues = (0, _values2.default)(this.props.posts);
-        debugger;
         posts = postValues.reverse().map(function (post) {
           if (!post) {
             return null;
@@ -30461,7 +30459,6 @@ var PostDetailComponent = function (_React$Component) {
       });
 
       var comments = void 0;
-      debugger;
       if (this.props.post.comments.length > 0) {
 
         var commToPass = this.props.comments;
@@ -30492,9 +30489,15 @@ var PostDetailComponent = function (_React$Component) {
             'div',
             { id: 'post-author-info' },
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users/' + authorObj.id },
-              authorObj.name
+              'div',
+              { id: 'author-pic-and-name' },
+              _react2.default.createElement('img', { src: authorObj.profilePicUrl,
+                sizes: '(max-height: 40px; max-width: 40px;)' }),
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/users/' + authorObj.id },
+                authorObj.name
+              )
             ),
             _react2.default.createElement(
               'button',
@@ -48945,6 +48948,8 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(7);
+
 var _edit_comment_component = __webpack_require__(338);
 
 var _edit_comment_component2 = _interopRequireDefault(_edit_comment_component);
@@ -48999,12 +49004,19 @@ var CommentsComponent = function (_React$Component) {
       } else {
         editComment = null;
       }
+
+      var author = this.props.users[this.props.comment.author_id];
       return _react2.default.createElement(
         'div',
         { className: 'comment' },
         _react2.default.createElement(
           'p',
           { className: 'comment-author' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/users/' + author.id },
+            author.name
+          ),
           this.props.users[this.props.comment.author_id].name,
           editComment
         ),
@@ -49293,7 +49305,7 @@ var PostActionComponent = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            'u no author'
+            'No author detected'
           )
         );
       }
@@ -49618,7 +49630,6 @@ var _modal_actions = __webpack_require__(20);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
   return {
     comments: state.comments,
     currentUser: state.session.currentUser || {},
@@ -50141,7 +50152,6 @@ var ProfileComponent = function (_React$Component) {
   _createClass(ProfileComponent, [{
     key: 'render',
     value: function render() {
-      debugger;
       return _react2.default.createElement(
         'div',
         null,

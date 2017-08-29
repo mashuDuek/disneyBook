@@ -43,7 +43,6 @@ class PostDetailComponent extends React.Component {
 
 
     let comments;
-    debugger
     if (this.props.post.comments.length > 0) {
 
       const commToPass = this.props.comments
@@ -68,7 +67,13 @@ class PostDetailComponent extends React.Component {
       return(
         <li key={this.props.post.id}>
           <div id="post-author-info">
-            <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
+            <div id="author-pic-and-name">
+              <img src={authorObj.profilePicUrl}
+                sizes="(max-height: 40px; max-width: 40px;)" >
+              </img>
+              <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
+            </div>
+
             <button onClick={this.handleEdit}>ˇ</button>
             {this.state.actionsVisible ? actionsShow : null}
           </div>

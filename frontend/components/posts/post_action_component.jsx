@@ -45,7 +45,7 @@ class PostActionComponent extends React.Component {
       optionsList = (
         <ul>
           <li>
-            u no author
+            No author detected
           </li>
         </ul>
       )

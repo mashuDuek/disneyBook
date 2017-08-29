@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import EditCommentComponent from './edit_comment_component';
 
 class CommentsComponent extends React.Component {
@@ -34,9 +35,13 @@ class CommentsComponent extends React.Component {
     } else {
       editComment = null;
     }
+
+    const author = this.props.users[this.props.comment.author_id];
     return (
       <div className="comment">
         <p className="comment-author">
+          <Link to={`/users/${author.id}`}>{author.name}</Link>
+
           {this.props.users[this.props.comment.author_id].name}
           {editComment}
         </p>
