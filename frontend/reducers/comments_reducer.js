@@ -14,24 +14,16 @@ const commentReducer = (state = preloadedState, action ) => {
   Object.freeze(state);
   switch(action.type) {
     case FETCH_ALL_POSTS:
-      // old bad stuff
-      // const { posts } = action;
-      // const newComments = {};
-      // posts.forEach(post =>{
-      //   post.comments.forEach(comment => {
-      //     Object.assign(newComments, { comment.id: comment})
-      //   })
-      // })
-      return Object.assign({}, state, action.entities.comments);
-    case RECEIVE_COMMENT: {
       debugger
+      return Object.assign({}, state, action.entities.comments);
+
+    case RECEIVE_COMMENT: {
+
       const newComment = { [action.comment.id]: action.comment };
       return merge({}, state, newComment);
     }
     case FETCH_ALL_COMMENTS: {
-      console.log(postSchema, commentSchema, normalize);
       const normalizedPost = normalize(action, actionSchema);
-
 
       const newComments = {};
       action.comments.map((comment) => {

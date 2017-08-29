@@ -28,7 +28,6 @@ class PostDetailComponent extends React.Component {
 
 
   render() {
-    debugger
 //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
 //2 eventually will add actions to this component. to defriend, etc.
 //2 so not just the post author will be able to access the actionComponent(EditComponent)
@@ -44,6 +43,7 @@ class PostDetailComponent extends React.Component {
     let comments;
     debugger
     if (this.props.post.comments.length > 0) {
+
       const commToPass = this.props.comments
       comments = this.props.post.comments.map(comm => {
         return (

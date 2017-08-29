@@ -16,12 +16,11 @@ const postReducer = (state = preloadedState, action ) => {
   switch(action.type) {
     case RECEIVE_POST:
     case FETCH_ALL_POSTS:
-      return merge({}, state, action.entities.posts);
-    
     case UPDATE_POST: {
-      return merge({}, state, { [action.post.id]: action.post });
+      return merge({}, state, action.entities.posts);
     }
     case DELETE_POST: {
+      
       return action.post;
     }
     default: {

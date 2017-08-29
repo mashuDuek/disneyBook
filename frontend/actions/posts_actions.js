@@ -10,7 +10,7 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 
 export const receivePost = (post) => {
-  console.log(normalize(post, postSchema));
+
   return {
     type: RECEIVE_POST,
     ...normalize(post, postSchema)
@@ -18,21 +18,21 @@ export const receivePost = (post) => {
 };
 
 export const editPost = (post) => {
+
   return {
     type: UPDATE_POST,
-    post: normalize(post, postSchema)
+    ...normalize(post, postSchema)
   };
 };
 
 export const destroyPost = (post) => {
   return {
     type: DELETE_POST,
-    post: normalize(post, postSchema)
+    post: post//normalize(post, postSchema)
   };
 };
 
 export const fetchPosts = (posts) => {
-
   return {
     type: FETCH_ALL_POSTS,
     ...normalize(posts, new schema.Array(postSchema))

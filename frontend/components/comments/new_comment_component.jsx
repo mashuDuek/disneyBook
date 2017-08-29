@@ -10,6 +10,7 @@ class NewCommentComponent extends React.Component {
   }
 
   handleSubmit(e) {
+    
     e.preventDefault();
     this.props.createComment(this.state).then(() => {
       this.props.fetchPost(this.props.post);

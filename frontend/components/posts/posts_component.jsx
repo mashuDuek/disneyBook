@@ -15,7 +15,7 @@ class PostsComponent extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers();
-    
+
   }
 
 // eventually, will need to add link to
@@ -31,9 +31,11 @@ class PostsComponent extends React.Component {
     } else {
       const postValues = values(this.props.posts).reverse()
       posts = postValues.map((post) => {
-        return(
-          <PostDetailContainer post={post} />
-        );
+        if (!post) {
+          return null;
+        } else {
+          return( <PostDetailContainer post={post} /> );
+        }
       });
     };
 

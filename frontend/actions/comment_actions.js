@@ -28,7 +28,6 @@ export const destroyComment = (comment) => {
 };
 
 export const fetchComments = (comments) => {
-
   return {
     type: FETCH_ALL_COMMENTS,
     comments

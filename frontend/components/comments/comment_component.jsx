@@ -17,9 +17,13 @@ class CommentsComponent extends React.Component {
   }
 
   render() {
+    if (!this.props.comment) {
+      return null;
+    }
+
     let editComment;
+
     if (this.props.currentUser.id === this.props.comment.author_id) {
-      // debugger
       editComment = (
         <button onClick={this.handleModal}>Edit</button>
       )
