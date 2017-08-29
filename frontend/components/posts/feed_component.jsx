@@ -10,10 +10,10 @@ class FeedComponent extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllPosts();
-    // this.props.fetchUsers();
   }
 
   render() {
+
       return (
         <NavBar
           currentUser={this.props.currentUser}

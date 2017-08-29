@@ -11,6 +11,7 @@ class NavBar extends React.Component {
     }
 
     render() {
+
       return (
         <div className="nav-bar">
 
@@ -18,7 +19,11 @@ class NavBar extends React.Component {
             <input placeholder="i do nothing yet"></input>
           </form>
           <div id="nav-bar-welcome-logout">
-            <p >Hello, {this.props.currentUser.name}</p>
+            <p>
+              <Link to={`/users/${this.props.currentUser.id}`}>
+                {this.props.currentUser.name}
+              </Link>
+            </p>
             <button onClick={this.handleLogout.bind(this)}>Logout</button>
           </div>
 
@@ -28,10 +33,3 @@ class NavBar extends React.Component {
 }
 
 export default withRouter(NavBar);
-
-
-// BELOW FOR THE SEARCH BUTTON
-
-// <button>
-//   <i className="fa fa-search" aria-hidden="true"></i>
-// </button>

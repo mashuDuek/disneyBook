@@ -1,5 +1,5 @@
+import ProfilePostsComponent from './profile_posts_component';
 import { connect } from 'react-redux';
-import FeedComponent from './feed_component';
 import { withRouter } from 'react-router-dom';
 import {
   createPost,
@@ -7,12 +7,11 @@ import {
   deletePost,
   fetchAllPosts
 } from '../../actions/posts_actions';
-import { fetchUsers } from '../../actions/user_actions';
+import { fetchUsers, fetchUser } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -36,4 +35,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default withRouter(connect(
   mapStatetoProps,
   mapDispatchToProps
-)(FeedComponent));
+)(ProfilePostsComponent));

@@ -39,12 +39,13 @@ class CommentsComponent extends React.Component {
     const author = this.props.users[this.props.comment.author_id];
     return (
       <div className="comment">
-        <p className="comment-author">
-          <Link to={`/users/${author.id}`}>{author.name}</Link>
-
-          {this.props.users[this.props.comment.author_id].name}
+        <div className="comment-author">
+          <div className="comment-author-pic-and-name">
+            <img src={author.profilePicUrl}></img>
+            <Link to={`/users/${author.id}`}>{author.name}</Link>
+          </div>
           {editComment}
-        </p>
+        </div>
         <p className="comment-body">
           {this.props.comment.body}
         </p>
