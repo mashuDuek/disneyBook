@@ -4,7 +4,7 @@ class SignUpInfoComponent extends React.Component {
 
   render() {
     return (
-      <div className='signup-info-component'>
+      <div id='signup-info-component'>
         <h3>Connect with characters from</h3>
         <h3>your movie, and now also</h3>
         <h3>from other disney movies!</h3>

@@ -29,7 +29,7 @@ class CommentsComponent extends React.Component {
 
     if (this.props.currentUser.id === this.props.comment.author_id) {
       editComment = (
-        <button onClick={this.handleModal}>Edit</button>
+        <button onClick={this.handleModal}>…</button>
       )
     } else {
       editComment = null;
@@ -38,11 +38,11 @@ class CommentsComponent extends React.Component {
       <div className="comment">
         <p className="comment-author">
           {this.props.users[this.props.comment.author_id].name}
+          {editComment}
         </p>
         <p className="comment-body">
           {this.props.comment.body}
         </p>
-        {editComment}
       </div>
     );
   }

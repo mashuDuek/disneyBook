@@ -49,11 +49,11 @@ class SessionFormSignUp extends React.Component {
     }
 
     return (
-      <div className="signup-info">
+      <div id="signup-info">
 
         <SignUpInfoComponent />
 
-        <div className='signup-form'>
+        <div id='signup-form'>
           <h1>Sign Up</h1>
           <h4>It's free and always will be</h4>
 

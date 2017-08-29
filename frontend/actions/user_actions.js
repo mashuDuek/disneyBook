@@ -22,7 +22,7 @@ export const fetchUsers = () => {
   return (dispatch) => {
     return APIUtil.fetchUsers().
       then((users) => dispatch(receiveUsers(users)),
-      (errors) => dispatch(receiveErrors({errors}))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };

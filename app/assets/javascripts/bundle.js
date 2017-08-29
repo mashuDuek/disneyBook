@@ -24737,7 +24737,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
     return APIUtil.fetchUsers().then(function (users) {
       return dispatch(receiveUsers(users));
     }, function (errors) {
-      return dispatch(receiveErrors({ errors: errors }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -30128,7 +30128,7 @@ var SessionFooter = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "ul",
-        { className: "footer-links" },
+        { id: "footer-links" },
         _react2.default.createElement(
           "a",
           { href: "http://movies.disney.com/all-movies" },
@@ -47415,7 +47415,7 @@ var SessionFormLogin = function (_React$Component) {
       }
       return _react2.default.createElement(
         'div',
-        { className: 'login' },
+        { id: 'login' },
         _react2.default.createElement(
           'h1',
           null,
@@ -47595,11 +47595,11 @@ var SessionFormSignUp = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'signup-info' },
+        { id: 'signup-info' },
         _react2.default.createElement(_sign_up_info_component2.default, null),
         _react2.default.createElement(
           'div',
-          { className: 'signup-form' },
+          { id: 'signup-form' },
           _react2.default.createElement(
             'h1',
             null,
@@ -47715,7 +47715,7 @@ var SignUpInfoComponent = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'signup-info-component' },
+        { id: 'signup-info-component' },
         _react2.default.createElement(
           'h3',
           null,
@@ -48953,7 +48953,7 @@ var CommentsComponent = function (_React$Component) {
         editComment = _react2.default.createElement(
           'button',
           { onClick: this.handleModal },
-          'Edit'
+          '\u2026'
         );
       } else {
         editComment = null;
@@ -48964,14 +48964,14 @@ var CommentsComponent = function (_React$Component) {
         _react2.default.createElement(
           'p',
           { className: 'comment-author' },
-          this.props.users[this.props.comment.author_id].name
+          this.props.users[this.props.comment.author_id].name,
+          editComment
         ),
         _react2.default.createElement(
           'p',
           { className: 'comment-body' },
           this.props.comment.body
-        ),
-        editComment
+        )
       );
     }
   }]);
@@ -49658,16 +49658,30 @@ var LeftInfoComponent = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'left-info-component' },
         _react2.default.createElement(
           'p',
           null,
-          'I will become a box on'
+          'Movie Awards'
         ),
         _react2.default.createElement(
-          'p',
-          null,
-          'the left of the posts'
+          'a',
+          { href: 'http://www.imdb.com/title/tt0110357/awards' },
+          'Lion King Awards'
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'a',
+          { href: 'http://www.imdb.com/title/tt0103639/awards' },
+          'Aladdin Awards'
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'a',
+          { href: 'http://www.imdb.com/title/tt0101414/awards' },
+          'Beauty and the Beast Awards'
         )
       );
     }
@@ -49717,16 +49731,24 @@ var RightInfoComponent = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'right-info-component' },
         _react2.default.createElement(
           'p',
           null,
-          'I will become a box on'
+          'Dev Info'
         ),
+        _react2.default.createElement('br', null),
         _react2.default.createElement(
-          'p',
-          null,
-          'the right of the posts'
+          'a',
+          { href: 'https://www.linkedin.com/in/matthew-duek-51489657' },
+          'LinkedIn Mashu'
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'a',
+          { href: 'https://github.com/mashuDuek' },
+          'GitHub Mashu'
         )
       );
     }

@@ -15,16 +15,18 @@
  */
 
 /*the below is for the login page*/
+
 html {
   background-color: #e9ebee;
 }
+
 body {
   padding: none;
   margin: 0px;
   font-family: "freight-sans-pro",sans-serif;
 }
 
-.login {
+#login {
   background-color: #3b5998;
   display: flex;
   flex-direction: row;
@@ -37,7 +39,7 @@ body {
   width: 100%;
 }
 
-.login h1 {
+#login h1 {
   margin-bottom: 10px;
 }
 
@@ -76,7 +78,7 @@ body {
   font-size: 12px;
 }
 
-.signup-info {
+#signup-info {
   font-family: sans-serif;
   display: flex;
   flex-direction: row;
@@ -85,11 +87,11 @@ body {
   height: calc(100vh - 82px);
 }
 
-.signup-info-component {
+#signup-info-component {
   padding: 50px;
 }
 
-.signup-form {
+#signup-form {
   padding-right: 100px;
 }
 
@@ -97,7 +99,7 @@ body {
   border-bottom: 1px solid #dddfe2;
 }
 
-.signup-form button {
+#signup-form button {
   background-color: #5c9449;
   height: 40px;
   width: 150px;
@@ -111,7 +113,7 @@ body {
   border-color: #2c5115;
 }
 
-.signup-form input {
+#signup-form input {
   width: 300px;
   height: 35px;
   font-size: 15px;
@@ -126,17 +128,17 @@ body {
   margin-bottom: 25px;
 }
 
-#disclaimer p {
+#disclaimer > p {
   font-size: 9px;
   margin-bottom: -7px;
 }
 
-.signup-form h4 {
+#signup-form > h4 {
   font-weight: normal;
   margin-top: -10px;
 }
 
-.footer-links {
+#footer-links {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
