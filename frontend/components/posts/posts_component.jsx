@@ -30,7 +30,7 @@ class PostsComponent extends React.Component {
       return (<p>Loading posts...</p>)
     } else {
       const postValues = values(this.props.posts)
-      postValues.pop();
+      debugger
       posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;

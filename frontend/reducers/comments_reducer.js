@@ -20,9 +20,9 @@ const commentReducer = (state = preloadedState, action ) => {
       return Object.assign({}, state, action.entities.comments);
     }
     case DELETE_COMMENT: {
-      debugger
-
-      return action.comment;
+      const newState = Object.assign({}, state);
+      delete newState[action.comment.id];
+      return newState;
     }
     default: {
       return state;

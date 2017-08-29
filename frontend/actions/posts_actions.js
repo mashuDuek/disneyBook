@@ -28,7 +28,7 @@ export const editPost = (post) => {
 export const destroyPost = (post) => {
   return {
     type: DELETE_POST,
-    post: post//normalize(post, postSchema)
+    post: post
   };
 };
 

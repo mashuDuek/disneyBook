@@ -2006,7 +2006,7 @@ var editPost = exports.editPost = function editPost(post) {
 var destroyPost = exports.destroyPost = function destroyPost(post) {
   return {
     type: DELETE_POST,
-    post: post //normalize(post, postSchema)
+    post: post
   };
 };
 
@@ -3937,7 +3937,7 @@ var login = exports.login = function login(user) {
     return APIUtil.login(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      dispatch(receiveErrors(errors.responseJSON));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -24785,7 +24785,7 @@ var editComment = exports.editComment = function editComment(comment) {
 };
 
 var destroyComment = exports.destroyComment = function destroyComment(comment) {
-  debugger;
+
   return {
     type: DELETE_COMMENT,
     comment: comment
@@ -24826,7 +24826,7 @@ var updateComment = exports.updateComment = function updateComment(comment) {
 };
 
 var deleteComment = exports.deleteComment = function deleteComment(comment) {
-  debugger;
+
   return function (dispatch) {
     return APIUtil.deleteComment(comment).then(function (comment) {
       return dispatch(destroyComment(comment));
@@ -30242,7 +30242,7 @@ var PostsComponent = function (_React$Component) {
         );
       } else {
         var postValues = (0, _values2.default)(this.props.posts);
-        postValues.pop();
+        debugger;
         posts = postValues.reverse().map(function (post) {
           if (!post) {
             return null;
@@ -30441,6 +30441,7 @@ var PostDetailComponent = function (_React$Component) {
       });
 
       var comments = void 0;
+      debugger;
       if (this.props.post.comments.length > 0) {
 
         var commToPass = this.props.comments;
@@ -30592,7 +30593,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
-
+  window.store = store;
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
@@ -43416,11 +43417,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _lodash = __webpack_require__(45);
 
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _posts_actions = __webpack_require__(18);
+
+var _comment_actions = __webpack_require__(70);
 
 var _normalizr = __webpack_require__(46);
 
 var _schemas = __webpack_require__(114);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var preloadedState = {};
 
@@ -43432,14 +43439,23 @@ var postReducer = function postReducer() {
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
     case _posts_actions.FETCH_ALL_POSTS:
+    case _comment_actions.RECEIVE_COMMENT:
     case _posts_actions.UPDATE_POST:
       {
         return (0, _lodash.merge)({}, state, action.entities.posts);
       }
     case _posts_actions.DELETE_POST:
       {
-
         return action.post;
+      }
+    case _comment_actions.DELETE_COMMENT:
+      {
+        var newState = Object.assign({}, state);
+        var post = newState[action.comment.post_id];
+        post.comments = post.comments.filter(function (commentId) {
+          return commentId !== action.comment.id;
+        });
+        return newState;
       }
     default:
       {
@@ -43493,8 +43509,7 @@ var createPost = exports.createPost = function createPost(post) {
 var fetchPost = exports.fetchPost = function fetchPost(post) {
   return $.ajax({
     method: "GET",
-    url: '/api/posts',
-    data: { post: post }
+    url: '/api/posts/' + post.id
   });
 };
 
@@ -44106,9 +44121,9 @@ var commentReducer = function commentReducer() {
       }
     case _comment_actions.DELETE_COMMENT:
       {
-        debugger;
-
-        return action.comment;
+        var newState = Object.assign({}, state);
+        delete newState[action.comment.id];
+        return newState;
       }
     default:
       {
@@ -44145,7 +44160,6 @@ var updateComment = exports.updateComment = function updateComment(comment) {
 };
 
 var deleteComment = exports.deleteComment = function deleteComment(comment) {
-  debugger;
   return $.ajax({
     method: 'DELETE',
     url: '/api/comments/' + comment.id
@@ -49017,9 +49031,7 @@ var EditComment = function (_React$Component) {
       var _this2 = this;
 
       this.props.deleteComment(this.state.comment).then(function () {
-        _this2.props.fetchPost(_this2.props.comment.post).then(function () {
-          _this2.props.fetchAllComments();
-        });
+        _this2.modalClose();
       });
     }
   }, {
@@ -49028,7 +49040,7 @@ var EditComment = function (_React$Component) {
       var _this3 = this;
 
       this.props.updateComment(this.state).then(function () {
-        _this3.props.hideModal();
+        _this3.modalClose();
       });
     }
   }, {
@@ -49077,12 +49089,12 @@ var EditComment = function (_React$Component) {
             'button',
             null,
             'Save'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.handleDelete },
-            'Delete'
           )
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.handleDelete },
+          'Delete'
         )
       );
     }
@@ -49349,7 +49361,7 @@ var EditPost = function (_React$Component) {
       var _this2 = this;
 
       this.props.updatePost(this.state).then(function () {
-        _this2.props.hideModal();
+        _this2.modalClose();
       });
     }
   }, {

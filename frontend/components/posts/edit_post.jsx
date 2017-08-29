@@ -11,13 +11,14 @@ class EditPost extends React.Component {
 
   handleEdit() {
     this.props.updatePost(this.state).then(() => {
-      this.props.hideModal();
+      this.modalClose();
     });
   }
 
   modalClose() {
     this.props.hideModal();
   }
+  
   handleChange(field) {
     return (e) => {
       const edited = Object.assign(

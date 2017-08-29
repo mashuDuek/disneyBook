@@ -23,7 +23,7 @@ export const editComment = (comment) => {
 };
 
 export const destroyComment = (comment) => {
-  debugger
+
   return {
     type: DELETE_COMMENT,
     comment: comment
@@ -63,7 +63,7 @@ export const updateComment = (comment) => {
 };
 
 export const deleteComment = (comment) => {
-  debugger
+
   return (dispatch) => {
     return APIUtil.deleteComment(comment).
       then((comment) => dispatch(destroyComment(comment)),

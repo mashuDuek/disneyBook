@@ -12,22 +12,21 @@ class EditComment extends React.Component {
   }
 
   handleDelete() {
-    this.props.deleteComment(this.state.comment).then(() => {
-      this.props.fetchPost(this.props.comment.post).then(() => {
-        this.props.fetchAllComments();
-      });
+    this.props.deleteComment(this.state.comment).then (() => {
+      this.modalClose();
     });
   }
 
   handleEdit() {
     this.props.updateComment(this.state).then(() => {
-      this.props.hideModal();
+      this.modalClose();
     });
   }
 
   modalClose() {
     this.props.hideModal();
   }
+
   handleChange(field) {
     return (e) => {
       const edited = Object.assign(
@@ -51,8 +50,8 @@ class EditComment extends React.Component {
               onChange={this.handleChange('body')}
             />
           <button>Save</button>
-          <button onClick={this.handleDelete}>Delete</button>
         </form>
+        <button onClick={this.handleDelete}>Delete</button>
       </div>
     );
   }

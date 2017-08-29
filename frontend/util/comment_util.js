@@ -14,7 +14,6 @@ export const updateComment = (comment) => {
 };
 
 export const deleteComment = (comment) => {
-  debugger
   return $.ajax({
     method: 'DELETE',
     url: `/api/comments/${comment.id}`

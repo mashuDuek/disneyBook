@@ -10,6 +10,12 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  def show
+
+    @post = Post.find(params[:id])
+    render :show
+  end
+
   def index
     @posts = Post.includes(:author, comments: :author).all
     render :index
