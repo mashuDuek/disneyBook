@@ -5,6 +5,7 @@ import SessionFooter from './session/session_footer';
 import FeedContainer from './posts/feed_container';
 import PostsContainer from './posts/posts_container';
 import ModalContainer from './modals/modal_container';
+import ProfileContainer from './users/profile_container';
 import { Route } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -17,6 +18,7 @@ const App = (props) => {
       <AuthRoute exact path="/" component={ SessionFooter } />
       <ProtectedRoute exact path="/feed" component={ FeedContainer } />
       <ProtectedRoute exact path="/feed" component={ PostsContainer } />
+      <ProtectedRoute exact path="/users/:userId" component={ ProfileContainer } />
     </div>
   );
 };

@@ -24705,7 +24705,7 @@ exports.default = PolymorphicSchema;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUsers = exports.receiveErrors = exports.receiveUsers = exports.RECEIVE_ERRORS = exports.RECEIVE_USERS = undefined;
+exports.fetchUser = exports.fetchUsers = exports.receiveErrors = exports.receiveUser = exports.receiveUsers = exports.RECEIVE_ERRORS = exports.RECEIVE_USER = exports.RECEIVE_USERS = undefined;
 
 var _user_util = __webpack_require__(257);
 
@@ -24716,12 +24716,20 @@ var _normalizr = __webpack_require__(46);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_USERS = exports.RECEIVE_USERS = 'RECEIVE_USERS';
+var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
   return {
     type: RECEIVE_USERS,
     users: users
+  };
+};
+
+var receiveUser = exports.receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
   };
 };
 
@@ -24736,6 +24744,16 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return function (dispatch) {
     return APIUtil.fetchUsers().then(function (users) {
       return dispatch(receiveUsers(users));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(user) {
+  return function (dispatch) {
+    return APIUtil.fetchUser(user).then(function (user) {
+      return dispatch(receiveUser(user));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
     });
@@ -43986,6 +44004,10 @@ var userReducer = function userReducer() {
       {
         return action.users;
       }
+    case _user_actions.RECEIVE_USER:
+      {
+        return action.user;
+      }
     default:
       return state;
   }
@@ -44007,6 +44029,13 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return $.ajax({
     method: "GET",
     url: "/api/users"
+  });
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(user) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/" + user.id
   });
 };
 
@@ -47276,6 +47305,10 @@ var _modal_container = __webpack_require__(350);
 
 var _modal_container2 = _interopRequireDefault(_modal_container);
 
+var _profile_container = __webpack_require__(352);
+
+var _profile_container2 = _interopRequireDefault(_profile_container);
+
 var _reactRouterDom = __webpack_require__(7);
 
 var _route_util = __webpack_require__(351);
@@ -47291,7 +47324,8 @@ var App = function App(props) {
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_signup2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_footer2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _feed_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _posts_container2.default })
+    _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/feed', component: _posts_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/users/:userId', component: _profile_container2.default })
   );
 };
 
@@ -49994,6 +50028,130 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
 var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _profile_component = __webpack_require__(353);
+
+var _profile_component2 = _interopRequireDefault(_profile_component);
+
+var _reactRedux = __webpack_require__(14);
+
+var _reactRouterDom = __webpack_require__(7);
+
+var _posts_actions = __webpack_require__(18);
+
+var _user_actions = __webpack_require__(69);
+
+var _session_actions = __webpack_require__(33);
+
+var _modal_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser || {},
+    users: state.users,
+    posts: state.posts,
+    errors: state.errors
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch((0, _posts_actions.updatePost)(post));
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      return dispatch((0, _posts_actions.fetchAllPosts)());
+    },
+    createPost: function createPost(post) {
+      return dispatch((0, _posts_actions.createPost)(post));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_profile_component2.default));
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProfileComponent = function (_React$Component) {
+  _inherits(ProfileComponent, _React$Component);
+
+  function ProfileComponent(props) {
+    _classCallCheck(this, ProfileComponent);
+
+    return _possibleConstructorReturn(this, (ProfileComponent.__proto__ || Object.getPrototypeOf(ProfileComponent)).call(this, props));
+  }
+
+  _createClass(ProfileComponent, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Hello, ',
+          this.props.currentUser.name,
+          '!'
+        )
+      );
+    }
+  }]);
+
+  return ProfileComponent;
+}(_react2.default.Component);
+
+exports.default = ProfileComponent;
 
 /***/ })
 /******/ ]);
