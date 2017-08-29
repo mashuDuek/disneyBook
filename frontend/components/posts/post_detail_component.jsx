@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CommentContainer from '../comments/comment_container';
 import PostActionContainer from './post_action_container';
 import NewCommentContainer from '../comments/new_comment_container';
@@ -67,7 +68,7 @@ class PostDetailComponent extends React.Component {
       return(
         <li key={this.props.post.id}>
           <div id="post-author-info">
-            <a>{authorObj.name}</a>
+            <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             <button onClick={this.handleEdit}>ˇ</button>
             {this.state.actionsVisible ? actionsShow : null}
           </div>

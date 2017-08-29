@@ -30238,9 +30238,8 @@ var PostsComponent = function (_React$Component) {
 
   _createClass(PostsComponent, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUsers();
-    }
+    value: function componentDidMount() {}
+    // this.props.fetchUsers();
 
     // eventually, will need to add link to
     // author profile page, so Ill bring up list of
@@ -30251,6 +30250,7 @@ var PostsComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      debugger;
       var posts = void 0;
       if (Object.keys(this.props.posts).length < 1) {
         return _react2.default.createElement(
@@ -30393,6 +30393,8 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(7);
+
 var _comment_container = __webpack_require__(336);
 
 var _comment_container2 = _interopRequireDefault(_comment_container);
@@ -30490,8 +30492,8 @@ var PostDetailComponent = function (_React$Component) {
             'div',
             { id: 'post-author-info' },
             _react2.default.createElement(
-              'a',
-              null,
+              _reactRouterDom.Link,
+              { to: '/users/' + authorObj.id },
               authorObj.name
             ),
             _react2.default.createElement(
@@ -43992,6 +43994,8 @@ var _lodash = __webpack_require__(45);
 
 var _user_actions = __webpack_require__(69);
 
+var _posts_actions = __webpack_require__(18);
+
 var preloadedState = {};
 
 var userReducer = function userReducer() {
@@ -44008,6 +44012,9 @@ var userReducer = function userReducer() {
       {
         return action.user;
       }
+    case _posts_actions.FETCH_ALL_POSTS:
+    case _posts_actions.RECEIVE_POST:
+      return Object.assign({}, state, action.entities.users);
     default:
       return state;
   }
@@ -47905,7 +47912,7 @@ var FeedComponent = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchAllPosts();
-      this.props.fetchUsers();
+      // this.props.fetchUsers();
     }
   }, {
     key: 'render',
@@ -50134,6 +50141,7 @@ var ProfileComponent = function (_React$Component) {
   _createClass(ProfileComponent, [{
     key: 'render',
     value: function render() {
+      debugger;
       return _react2.default.createElement(
         'div',
         null,

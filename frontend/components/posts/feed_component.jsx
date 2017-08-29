@@ -10,7 +10,7 @@ class FeedComponent extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllPosts();
-    this.props.fetchUsers();
+    // this.props.fetchUsers();
   }
 
   render() {

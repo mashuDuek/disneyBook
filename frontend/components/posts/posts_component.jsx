@@ -14,7 +14,7 @@ class PostsComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUsers();
+    // this.props.fetchUsers();
 
   }
 
@@ -25,6 +25,7 @@ class PostsComponent extends React.Component {
 // need user up at the feed page
 
   render() {
+    debugger
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)
