@@ -11,6 +11,11 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def index
+    @comments = Comment.all
+    render :index
+  end
+
   def update
     @comment = Comment.find(params[:comment][:id])
     if current_user.id == @comment.author_id && @comment.update(comment_params)

@@ -9,7 +9,6 @@ export const FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const receiveComment = (comment) => {
-
   return {
     type: RECEIVE_COMMENT,
     ...normalize(comment, commentSchema)
@@ -24,6 +23,7 @@ export const editComment = (comment) => {
 };
 
 export const destroyComment = (comment) => {
+  debugger
   return {
     type: DELETE_COMMENT,
     comment: comment
@@ -63,6 +63,7 @@ export const updateComment = (comment) => {
 };
 
 export const deleteComment = (comment) => {
+  debugger
   return (dispatch) => {
     return APIUtil.deleteComment(comment).
       then((comment) => dispatch(destroyComment(comment)),

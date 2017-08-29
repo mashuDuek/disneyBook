@@ -3,9 +3,11 @@ import CommentComponent from './comment_component';
 import { withRouter } from 'react-router-dom';
 import { createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  fetchAllComments
 } from '../../actions/comment_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
+import { fetchPost } from '../../actions/posts_actions';
 
 
 const mapStatetoProps = (state, ownProps) => {
@@ -23,9 +25,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     createComment: (comment) => (dispatch(createComment(comment))),
     updateComment: (comment) => (dispatch(updateComment(comment))),
-    deleteComment: () => (dispatch(deleteComment())),
+    deleteComment: (comment) => (dispatch(deleteComment(comment))),
     showModal: (component) => (dispatch(showModal(component))),
     hideModal: () => (dispatch(hideModal())),
+    fetchPost: (post) => (dispatch(fetchPost(post))),
+    fetchAllComments: () => (dispatch(fetchAllComments())),
   };
 };
 

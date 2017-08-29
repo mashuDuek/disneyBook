@@ -40,7 +40,7 @@ class PostDetailComponent extends React.Component {
         />
     )
 
-    
+
     let comments;
     if (this.props.post.comments.length > 0) {
 
@@ -67,7 +67,7 @@ class PostDetailComponent extends React.Component {
         <li key={this.props.post.id}>
           <div id="post-author-info">
             <a>{authorObj.name}</a>
-            <button onClick={this.handleEdit}></button>
+            <button onClick={this.handleEdit}>ˇ</button>
             {this.state.actionsVisible ? actionsShow : null}
           </div>
           <br />

@@ -24773,7 +24773,6 @@ var FETCH_ALL_COMMENTS = exports.FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveComment = exports.receiveComment = function receiveComment(comment) {
-
   return _extends({
     type: RECEIVE_COMMENT
   }, (0, _normalizr.normalize)(comment, _schemas.commentSchema));
@@ -24786,6 +24785,7 @@ var editComment = exports.editComment = function editComment(comment) {
 };
 
 var destroyComment = exports.destroyComment = function destroyComment(comment) {
+  debugger;
   return {
     type: DELETE_COMMENT,
     comment: comment
@@ -24826,6 +24826,7 @@ var updateComment = exports.updateComment = function updateComment(comment) {
 };
 
 var deleteComment = exports.deleteComment = function deleteComment(comment) {
+  debugger;
   return function (dispatch) {
     return APIUtil.deleteComment(comment).then(function (comment) {
       return dispatch(destroyComment(comment));
@@ -30474,7 +30475,11 @@ var PostDetailComponent = function (_React$Component) {
               null,
               authorObj.name
             ),
-            _react2.default.createElement('button', { onClick: this.handleEdit }),
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleEdit },
+              '\u02C7'
+            ),
             this.state.actionsVisible ? actionsShow : null
           ),
           _react2.default.createElement('br', null),
@@ -44097,29 +44102,12 @@ var commentReducer = function commentReducer() {
     case _comment_actions.FETCH_ALL_COMMENTS:
     case _comment_actions.UPDATE_COMMENT:
       {
-
         return Object.assign({}, state, action.entities.comments);
-        // const newComment = action.entities.comments[action.result];
-        // return merge({}, state, newComment);
-        // return Object.assign({}, state, action.entities.comments);
       }
-    // console.log(postSchema, commentSchema, normalize);
-    // const normalizedPost = normalize(action, actionSchema);
-    // const newComments = {};
-    // action.comments.map((comment) => {
-    //   delete comment.author;
-    //   newComments[comment.id] = comment;
-    // });
-    // return merge({}, state, newComments);
-    //
-    // return Object.assign({}, state, action.entities.comments);
-
-
-    //   debugger
-    //   return merge({}, state, { [action.comment.id]: action.comment });
-    // }
     case _comment_actions.DELETE_COMMENT:
       {
+        debugger;
+
         return action.comment;
       }
     default:
@@ -44157,6 +44145,7 @@ var updateComment = exports.updateComment = function updateComment(comment) {
 };
 
 var deleteComment = exports.deleteComment = function deleteComment(comment) {
+  debugger;
   return $.ajax({
     method: 'DELETE',
     url: '/api/comments/' + comment.id
@@ -48841,6 +48830,8 @@ var _comment_actions = __webpack_require__(70);
 
 var _modal_actions = __webpack_require__(20);
 
+var _posts_actions = __webpack_require__(18);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -48862,14 +48853,20 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     updateComment: function updateComment(comment) {
       return dispatch((0, _comment_actions.updateComment)(comment));
     },
-    deleteComment: function deleteComment() {
-      return dispatch((0, _comment_actions.deleteComment)());
+    deleteComment: function deleteComment(comment) {
+      return dispatch((0, _comment_actions.deleteComment)(comment));
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
+    },
+    fetchPost: function fetchPost(post) {
+      return dispatch((0, _posts_actions.fetchPost)(post));
+    },
+    fetchAllComments: function fetchAllComments() {
+      return dispatch((0, _comment_actions.fetchAllComments)());
     }
   };
 };
@@ -48923,7 +48920,10 @@ var CommentsComponent = function (_React$Component) {
       this.props.showModal(_react2.default.createElement(_edit_comment_component2.default, {
         comment: this.props.comment,
         hideModal: this.props.hideModal,
-        updateComment: this.props.updateComment
+        updateComment: this.props.updateComment,
+        deleteComment: this.props.deleteComment,
+        fetchPost: this.props.fetchPost,
+        fetchAllComments: this.props.fetchAllComments
       }));
     }
   }, {
@@ -49006,17 +49006,29 @@ var EditComment = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
     _this.state = { comment: _this.props.comment };
     _this.modalClose = _this.modalClose.bind(_this);
+    _this.handleDelete = _this.handleDelete.bind(_this);
+
     return _this;
   }
 
   _createClass(EditComment, [{
-    key: 'handleEdit',
-    value: function handleEdit() {
+    key: 'handleDelete',
+    value: function handleDelete() {
       var _this2 = this;
 
-      debugger;
+      this.props.deleteComment(this.state.comment).then(function () {
+        _this2.props.fetchPost(_this2.props.comment.post).then(function () {
+          _this2.props.fetchAllComments();
+        });
+      });
+    }
+  }, {
+    key: 'handleEdit',
+    value: function handleEdit() {
+      var _this3 = this;
+
       this.props.updateComment(this.state).then(function () {
-        _this2.props.hideModal();
+        _this3.props.hideModal();
       });
     }
   }, {
@@ -49027,17 +49039,16 @@ var EditComment = function (_React$Component) {
   }, {
     key: 'handleChange',
     value: function handleChange(field) {
-      var _this3 = this;
+      var _this4 = this;
 
       return function (e) {
-        var edited = Object.assign({}, _this3.state.comment, _defineProperty({}, field, e.currentTarget.value));
-        _this3.setState({ comment: edited });
+        var edited = Object.assign({}, _this4.state.comment, _defineProperty({}, field, e.currentTarget.value));
+        _this4.setState({ comment: edited });
       };
     }
   }, {
     key: 'render',
     value: function render() {
-      debugger;
       return _react2.default.createElement(
         'div',
         { className: 'edit-comment' },
@@ -49066,6 +49077,11 @@ var EditComment = function (_React$Component) {
             'button',
             null,
             'Save'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handleDelete },
+            'Delete'
           )
         )
       );

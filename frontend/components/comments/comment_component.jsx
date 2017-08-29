@@ -13,6 +13,9 @@ class CommentsComponent extends React.Component {
         comment={this.props.comment}
         hideModal={this.props.hideModal}
         updateComment={this.props.updateComment}
+        deleteComment={this.props.deleteComment}
+        fetchPost={this.props.fetchPost}
+        fetchAllComments={this.props.fetchAllComments}
         />
     );
   }

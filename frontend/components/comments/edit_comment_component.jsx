@@ -7,10 +7,19 @@ class EditComment extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = { comment: this.props.comment };
     this.modalClose = this.modalClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
+  }
+
+  handleDelete() {
+    this.props.deleteComment(this.state.comment).then(() => {
+      this.props.fetchPost(this.props.comment.post).then(() => {
+        this.props.fetchAllComments();
+      });
+    });
   }
 
   handleEdit() {
-    debugger
     this.props.updateComment(this.state).then(() => {
       this.props.hideModal();
     });
@@ -29,7 +38,6 @@ class EditComment extends React.Component {
   }
 
   render(){
-    debugger
     return(
       <div className='edit-comment'>
 
@@ -43,6 +51,7 @@ class EditComment extends React.Component {
               onChange={this.handleChange('body')}
             />
           <button>Save</button>
+          <button onClick={this.handleDelete}>Delete</button>
         </form>
       </div>
     );

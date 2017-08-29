@@ -128,7 +128,7 @@
 
 #post-author-info button {
   display: block;
-  border: .5px solid lightgray;
+  border: none;
   background-color: white;
   max-width: 10px;
   max-height: 10px;
