@@ -12,7 +12,7 @@ export const receiveCurrentUser = (currentUser) => {
 };
 
 export const receiveErrors = (errors) => {
-  
+
   return {
     type: RECEIVE_ERRORS,
     errors: errors
@@ -49,7 +49,7 @@ export const logout = () => {
     return APIUtil.logout().
       then(
         () => dispatch(receiveCurrentUser(null)),
-        (errors) => dispatch(receiveErrors({ session }))
+        (errors) => dispatch(receiveErrors(errors))
     );
   };
 };

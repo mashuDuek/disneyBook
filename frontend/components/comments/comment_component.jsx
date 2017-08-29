@@ -10,8 +10,9 @@ class CommentsComponent extends React.Component {
   handleModal () {
     this.props.showModal(
       <EditCommentComponent
-        post={this.props.post}
+        comment={this.props.comment}
         hideModal={this.props.hideModal}
+        updateComment={this.props.updateComment}
         />
     );
   }

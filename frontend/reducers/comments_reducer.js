@@ -14,27 +14,31 @@ const commentReducer = (state = preloadedState, action ) => {
   Object.freeze(state);
   switch(action.type) {
     case FETCH_ALL_POSTS:
-      debugger
-      return Object.assign({}, state, action.entities.comments);
-
-    case RECEIVE_COMMENT: {
-
-      const newComment = { [action.comment.id]: action.comment };
-      return merge({}, state, newComment);
-    }
-    case FETCH_ALL_COMMENTS: {
-      const normalizedPost = normalize(action, actionSchema);
-
-      const newComments = {};
-      action.comments.map((comment) => {
-        delete comment.author;
-        newComments[comment.id] = comment;
-      });
-      return merge({}, state, newComments);
-    }
+    case RECEIVE_COMMENT:
+    case FETCH_ALL_COMMENTS:
     case UPDATE_COMMENT: {
-      return merge({}, state, { [action.comment.id]: action.comment });
+
+      return Object.assign({}, state, action.entities.comments);
+      // const newComment = action.entities.comments[action.result];
+      // return merge({}, state, newComment);
+      // return Object.assign({}, state, action.entities.comments);
+
     }
+      // console.log(postSchema, commentSchema, normalize);
+      // const normalizedPost = normalize(action, actionSchema);
+      // const newComments = {};
+      // action.comments.map((comment) => {
+      //   delete comment.author;
+      //   newComments[comment.id] = comment;
+      // });
+      // return merge({}, state, newComments);
+      //
+      // return Object.assign({}, state, action.entities.comments);
+
+
+    //   debugger
+    //   return merge({}, state, { [action.comment.id]: action.comment });
+    // }
     case DELETE_COMMENT: {
       return action.comment;
     }

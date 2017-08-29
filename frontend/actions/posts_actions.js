@@ -50,7 +50,7 @@ export const createPost = (post) => {
   return (dispatch) => {
     return APIUtil.createPost(post).
       then((post) => dispatch(receivePost(post)),
-      (errors) => dispatch(receiveErrors({ posts }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
@@ -60,7 +60,7 @@ export const updatePost = (post) => {
   return (dispatch) => {
     return APIUtil.updatePost(post).
       then((post) => dispatch(editPost(post)),
-      (errors) => dispatch(receiveErrors({ posts }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
@@ -69,7 +69,7 @@ export const deletePost = (post) => {
   return (dispatch) => {
     return APIUtil.deletePost(post).
       then((post) => dispatch(destroyPost(post)),
-      (errors) => dispatch(receiveErrors({ posts }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
@@ -78,15 +78,15 @@ export const fetchAllPosts = () => {
   return (dispatch) => {
     return APIUtil.fetchAllPosts().
       then((posts) => dispatch(fetchPosts(posts)),
-      (errors) => dispatch(receiveErrors({ posts }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
 export const fetchPost = (post) => {
   return (dispatch) => {
-    return APIUtil.fetchAllPosts(post).
+    return APIUtil.fetchPost(post).
       then((post) => dispatch(receivePost(post)),
-      (errors) => dispatch(receiveErrors({ posts }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };

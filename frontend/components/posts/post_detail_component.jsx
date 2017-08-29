@@ -40,8 +40,8 @@ class PostDetailComponent extends React.Component {
         />
     )
 
+    
     let comments;
-    debugger
     if (this.props.post.comments.length > 0) {
 
       const commToPass = this.props.comments

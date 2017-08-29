@@ -29,8 +29,9 @@ class PostsComponent extends React.Component {
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)
     } else {
-      const postValues = values(this.props.posts).reverse()
-      posts = postValues.map((post) => {
+      const postValues = values(this.props.posts)
+      postValues.pop();
+      posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
         } else {

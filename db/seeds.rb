@@ -67,6 +67,7 @@ Post.create!(body: 'Enter, the cave of wonderrss!',
   author_id: User.where(name: 'Jafar')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
 # COMMENTS
+Comment.destroy_all
 Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
 Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
 # Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id)

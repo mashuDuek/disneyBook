@@ -2028,7 +2028,7 @@ var createPost = exports.createPost = function createPost(post) {
     return APIUtil.createPost(post).then(function (post) {
       return dispatch(receivePost(post));
     }, function (errors) {
-      return dispatch(receiveErrors({ posts: posts }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -2038,7 +2038,7 @@ var updatePost = exports.updatePost = function updatePost(post) {
     return APIUtil.updatePost(post).then(function (post) {
       return dispatch(editPost(post));
     }, function (errors) {
-      return dispatch(receiveErrors({ posts: posts }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -2048,7 +2048,7 @@ var deletePost = exports.deletePost = function deletePost(post) {
     return APIUtil.deletePost(post).then(function (post) {
       return dispatch(destroyPost(post));
     }, function (errors) {
-      return dispatch(receiveErrors({ posts: posts }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -2058,16 +2058,16 @@ var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
     return APIUtil.fetchAllPosts().then(function (posts) {
       return dispatch(fetchPosts(posts));
     }, function (errors) {
-      return dispatch(receiveErrors({ posts: posts }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
 var fetchPost = exports.fetchPost = function fetchPost(post) {
   return function (dispatch) {
-    return APIUtil.fetchAllPosts(post).then(function (post) {
+    return APIUtil.fetchPost(post).then(function (post) {
       return dispatch(receivePost(post));
     }, function (errors) {
-      return dispatch(receiveErrors({ posts: posts }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -3947,7 +3947,7 @@ var logout = exports.logout = function logout() {
     return APIUtil.logout().then(function () {
       return dispatch(receiveCurrentUser(null));
     }, function (errors) {
-      return dispatch(receiveErrors({ session: session }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -24737,7 +24737,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
     return APIUtil.fetchUsers().then(function (users) {
       return dispatch(receiveUsers(users));
     }, function (errors) {
-      return dispatch(receiveErrors({ users: users }));
+      return dispatch(receiveErrors({ errors: errors }));
     });
   };
 };
@@ -24752,11 +24752,17 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllComments = exports.deleteComment = exports.createComment = exports.receiveErrors = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_ERRORS = exports.FETCH_ALL_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
+exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.receiveErrors = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_ERRORS = exports.FETCH_ALL_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _comment_util = __webpack_require__(261);
 
 var APIUtil = _interopRequireWildcard(_comment_util);
+
+var _normalizr = __webpack_require__(46);
+
+var _schemas = __webpack_require__(114);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -24767,17 +24773,16 @@ var FETCH_ALL_COMMENTS = exports.FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
 var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 var receiveComment = exports.receiveComment = function receiveComment(comment) {
-  return {
-    type: RECEIVE_COMMENT,
-    comment: comment
-  };
+
+  return _extends({
+    type: RECEIVE_COMMENT
+  }, (0, _normalizr.normalize)(comment, _schemas.commentSchema));
 };
 
 var editComment = exports.editComment = function editComment(comment) {
-  return {
-    type: UPDATE_COMMENT,
-    comment: comment
-  };
+  return _extends({
+    type: UPDATE_COMMENT
+  }, (0, _normalizr.normalize)(comment, _schemas.commentSchema));
 };
 
 var destroyComment = exports.destroyComment = function destroyComment(comment) {
@@ -24788,10 +24793,9 @@ var destroyComment = exports.destroyComment = function destroyComment(comment) {
 };
 
 var fetchComments = exports.fetchComments = function fetchComments(comments) {
-  return {
-    type: FETCH_ALL_COMMENTS,
-    comments: comments
-  };
+  return _extends({
+    type: FETCH_ALL_COMMENTS
+  }, (0, _normalizr.normalize)(comments, new _normalizr.schema.Array(_schemas.commentSchema)));
 };
 
 var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
@@ -24806,7 +24810,17 @@ var createComment = exports.createComment = function createComment(comment) {
     return APIUtil.createComment(comment).then(function (comment) {
       return dispatch(receiveComment(comment));
     }, function (errors) {
-      return dispatch(receiveErrors({ comments: comments }));
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+
+var updateComment = exports.updateComment = function updateComment(comment) {
+  return function (dispatch) {
+    return APIUtil.updateComment(comment).then(function (comment) {
+      return dispatch(editComment(comment));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -24816,7 +24830,7 @@ var deleteComment = exports.deleteComment = function deleteComment(comment) {
     return APIUtil.deleteComment(comment).then(function (comment) {
       return dispatch(destroyComment(comment));
     }, function (errors) {
-      return dispatch(receiveErrors({ comments: comments }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -24826,7 +24840,7 @@ var fetchAllComments = exports.fetchAllComments = function fetchAllComments() {
     return APIUtil.fetchAllComments().then(function (comments) {
       return dispatch(fetchComments(comments));
     }, function (errors) {
-      return dispatch(receiveErrors({ comments: comments }));
+      return dispatch(receiveErrors(errors));
     });
   };
 };
@@ -30226,8 +30240,9 @@ var PostsComponent = function (_React$Component) {
           'Loading posts...'
         );
       } else {
-        var postValues = (0, _values2.default)(this.props.posts).reverse();
-        posts = postValues.map(function (post) {
+        var postValues = (0, _values2.default)(this.props.posts);
+        postValues.pop();
+        posts = postValues.reverse().map(function (post) {
           if (!post) {
             return null;
           } else {
@@ -30425,7 +30440,6 @@ var PostDetailComponent = function (_React$Component) {
       });
 
       var comments = void 0;
-      debugger;
       if (this.props.post.comments.length > 0) {
 
         var commToPass = this.props.comments;
@@ -44070,8 +44084,6 @@ var _comment_actions = __webpack_require__(70);
 
 var _posts_actions = __webpack_require__(18);
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var preloadedState = {};
 
 var commentReducer = function commentReducer() {
@@ -44081,30 +44093,31 @@ var commentReducer = function commentReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _posts_actions.FETCH_ALL_POSTS:
-      debugger;
-      return Object.assign({}, state, action.entities.comments);
-
     case _comment_actions.RECEIVE_COMMENT:
-      {
-
-        var newComment = _defineProperty({}, action.comment.id, action.comment);
-        return (0, _lodash.merge)({}, state, newComment);
-      }
     case _comment_actions.FETCH_ALL_COMMENTS:
-      {
-        var normalizedPost = normalize(action, actionSchema);
-
-        var newComments = {};
-        action.comments.map(function (comment) {
-          delete comment.author;
-          newComments[comment.id] = comment;
-        });
-        return (0, _lodash.merge)({}, state, newComments);
-      }
     case _comment_actions.UPDATE_COMMENT:
       {
-        return (0, _lodash.merge)({}, state, _defineProperty({}, action.comment.id, action.comment));
+
+        return Object.assign({}, state, action.entities.comments);
+        // const newComment = action.entities.comments[action.result];
+        // return merge({}, state, newComment);
+        // return Object.assign({}, state, action.entities.comments);
       }
+    // console.log(postSchema, commentSchema, normalize);
+    // const normalizedPost = normalize(action, actionSchema);
+    // const newComments = {};
+    // action.comments.map((comment) => {
+    //   delete comment.author;
+    //   newComments[comment.id] = comment;
+    // });
+    // return merge({}, state, newComments);
+    //
+    // return Object.assign({}, state, action.entities.comments);
+
+
+    //   debugger
+    //   return merge({}, state, { [action.comment.id]: action.comment });
+    // }
     case _comment_actions.DELETE_COMMENT:
       {
         return action.comment;
@@ -48908,8 +48921,9 @@ var CommentsComponent = function (_React$Component) {
     key: 'handleModal',
     value: function handleModal() {
       this.props.showModal(_react2.default.createElement(_edit_comment_component2.default, {
-        post: this.props.post,
-        hideModal: this.props.hideModal
+        comment: this.props.comment,
+        hideModal: this.props.hideModal,
+        updateComment: this.props.updateComment
       }));
     }
   }, {
@@ -48990,7 +49004,7 @@ var EditComment = function (_React$Component) {
 
     _this.handleEdit = _this.handleEdit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
-    _this.state = { post: _this.props.post };
+    _this.state = { comment: _this.props.comment };
     _this.modalClose = _this.modalClose.bind(_this);
     return _this;
   }
@@ -49000,7 +49014,8 @@ var EditComment = function (_React$Component) {
     value: function handleEdit() {
       var _this2 = this;
 
-      this.props.updateComent(this.state).then(function () {
+      debugger;
+      this.props.updateComment(this.state).then(function () {
         _this2.props.hideModal();
       });
     }
@@ -49015,19 +49030,20 @@ var EditComment = function (_React$Component) {
       var _this3 = this;
 
       return function (e) {
-        var edited = Object.assign({}, _this3.state.post, _defineProperty({}, field, e.currentTarget.value));
+        var edited = Object.assign({}, _this3.state.comment, _defineProperty({}, field, e.currentTarget.value));
         _this3.setState({ comment: edited });
       };
     }
   }, {
     key: 'render',
     value: function render() {
+      debugger;
       return _react2.default.createElement(
         'div',
-        { className: 'edit-post' },
+        { className: 'edit-comment' },
         _react2.default.createElement(
           'div',
-          { className: 'edit-post-label' },
+          { className: 'edit-comment-label' },
           _react2.default.createElement(
             'label',
             null,
@@ -49043,7 +49059,7 @@ var EditComment = function (_React$Component) {
           'form',
           { onSubmit: this.handleEdit },
           _react2.default.createElement('textarea', {
-            value: this.state.post.body,
+            value: this.state.comment.body,
             onChange: this.handleChange('body')
           }),
           _react2.default.createElement(
@@ -49533,7 +49549,7 @@ var _modal_actions = __webpack_require__(20);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
+
   return {
     comments: state.comments,
     currentUser: state.session.currentUser || {},
@@ -49805,6 +49821,7 @@ var _modal_actions = __webpack_require__(20);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -49814,7 +49831,6 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-
     deletePost: function deletePost(post) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
@@ -49833,7 +49849,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
     }
-
   };
 };
 

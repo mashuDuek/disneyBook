@@ -12,7 +12,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def update
-    @comment.find(params[:id])
+    @comment = Comment.find(params[:comment][:id])
     if current_user.id == @comment.author_id && @comment.update(comment_params)
       render :show
     else

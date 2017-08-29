@@ -1,4 +1,6 @@
 import * as APIUtil from '../util/comment_util';
+import { normalize, schema } from 'normalizr';
+import { commentSchema } from '../util/schemas';
 
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
@@ -7,16 +9,17 @@ export const FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const receiveComment = (comment) => {
+
   return {
     type: RECEIVE_COMMENT,
-    comment: comment
+    ...normalize(comment, commentSchema)
   };
 };
 
 export const editComment = (comment) => {
   return {
     type: UPDATE_COMMENT,
-    comment: comment
+    ...normalize(comment, commentSchema)
   };
 };
 
@@ -30,7 +33,7 @@ export const destroyComment = (comment) => {
 export const fetchComments = (comments) => {
   return {
     type: FETCH_ALL_COMMENTS,
-    comments
+    ...normalize(comments, new schema.Array(commentSchema))
   };
 };
 
@@ -45,17 +48,25 @@ export const createComment = (comment) => {
   return (dispatch) => {
     return APIUtil.createComment(comment).
       then((comment) => dispatch(receiveComment(comment)),
-      (errors) => dispatch(receiveErrors({ comments }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
 
+export const updateComment = (comment) => {
+  return (dispatch) => {
+    return APIUtil.updateComment(comment).
+      then((comment) => dispatch(editComment(comment)),
+      (errors) => dispatch(receiveErrors(errors))
+    );
+  };
+};
 
 export const deleteComment = (comment) => {
   return (dispatch) => {
     return APIUtil.deleteComment(comment).
       then((comment) => dispatch(destroyComment(comment)),
-      (errors) => dispatch(receiveErrors({ comments }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };
@@ -64,7 +75,7 @@ export const fetchAllComments = () => {
   return (dispatch) => {
     return APIUtil.fetchAllComments().
       then((comments) => dispatch(fetchComments(comments)),
-      (errors) => dispatch(receiveErrors({ comments }))
+      (errors) => dispatch(receiveErrors(errors))
     );
   };
 };

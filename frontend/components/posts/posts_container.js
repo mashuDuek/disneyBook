@@ -11,6 +11,7 @@ import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
+  
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -20,14 +21,12 @@ const mapStatetoProps = (state, ownProps) => {
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(updatePost(post)),
     createPost: (post) => dispatch(createPost(post)),
     showModal: (component) => dispatch(showModal(component)),
     hideModal: () => dispatch(hideModal()),
     fetchUsers: () => dispatch(fetchUsers()),
-    
   };
 };
 

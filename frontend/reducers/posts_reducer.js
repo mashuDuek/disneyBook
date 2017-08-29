@@ -20,7 +20,7 @@ const postReducer = (state = preloadedState, action ) => {
       return merge({}, state, action.entities.posts);
     }
     case DELETE_POST: {
-      
+
       return action.post;
     }
     default: {
