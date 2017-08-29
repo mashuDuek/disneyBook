@@ -17,6 +17,7 @@ const mapStatetoProps = (state, ownProps) => {
     users: state.users,
     posts: state.posts,
     errors: state.errors,
+    user: ownProps.user,
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

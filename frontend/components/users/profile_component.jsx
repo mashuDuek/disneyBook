@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../posts/nav_bar_component';
 import ProfPicComponent from './profile_pic_component';
 import UserInfoComponent from './user_info_component';
-import ProfilePostsComponent from './profile_posts_component';
+import ProfilePostsContainer from './profile_posts_container';
 
 class ProfileComponent extends React.Component {
   constructor(props) {
@@ -10,7 +10,9 @@ class ProfileComponent extends React.Component {
   }
 
   render(){
-    debugger
+    if (Object.keys(this.props.users).length < 1) {
+      return (<p>Loading...</p>);
+    }
     const user = this.props.users[this.props.match.params.userId];
     return (
       <div id="profile-page">
@@ -23,7 +25,7 @@ class ProfileComponent extends React.Component {
             user={user}
             />
         </div>
-          <ProfilePostsComponent />
+          <ProfilePostsContainer user={user}/>
       </div>
 
     );

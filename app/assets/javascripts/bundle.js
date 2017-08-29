@@ -48814,6 +48814,8 @@ var NewPostComponent = function (_React$Component) {
   function NewPostComponent(props) {
     _classCallCheck(this, NewPostComponent);
 
+    debugger;
+
     var _this = _possibleConstructorReturn(this, (NewPostComponent.__proto__ || Object.getPrototypeOf(NewPostComponent)).call(this, props));
 
     _this.state = {
@@ -50067,9 +50069,9 @@ var _user_info_component = __webpack_require__(355);
 
 var _user_info_component2 = _interopRequireDefault(_user_info_component);
 
-var _profile_posts_component = __webpack_require__(356);
+var _profile_posts_container = __webpack_require__(357);
 
-var _profile_posts_component2 = _interopRequireDefault(_profile_posts_component);
+var _profile_posts_container2 = _interopRequireDefault(_profile_posts_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50091,7 +50093,13 @@ var ProfileComponent = function (_React$Component) {
   _createClass(ProfileComponent, [{
     key: 'render',
     value: function render() {
-      debugger;
+      if (Object.keys(this.props.users).length < 1) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading...'
+        );
+      }
       var user = this.props.users[this.props.match.params.userId];
       return _react2.default.createElement(
         'div',
@@ -50107,7 +50115,7 @@ var ProfileComponent = function (_React$Component) {
             user: user
           })
         ),
-        _react2.default.createElement(_profile_posts_component2.default, null)
+        _react2.default.createElement(_profile_posts_container2.default, { user: user })
       );
     }
   }]);
@@ -50261,10 +50269,23 @@ var UserInfoComponent = function (_React$Component) {
   _createClass(UserInfoComponent, [{
     key: 'render',
     value: function render() {
+      debugger;
       return _react2.default.createElement(
         'h1',
         null,
-        ' I am info'
+        this.props.user.name,
+        _react2.default.createElement(
+          'p',
+          null,
+          'I acted in: ',
+          this.props.user.movie
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'For future gigs: ',
+          this.props.user.email
+        )
       );
     }
   }]);
@@ -50295,6 +50316,10 @@ var _user_info_component = __webpack_require__(355);
 
 var _user_info_component2 = _interopRequireDefault(_user_info_component);
 
+var _new_post_component = __webpack_require__(335);
+
+var _new_post_component2 = _interopRequireDefault(_new_post_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50315,10 +50340,16 @@ var ProfilePostsComponent = function (_React$Component) {
   _createClass(ProfilePostsComponent, [{
     key: 'render',
     value: function render() {
+      debugger;
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_user_info_component2.default, null)
+        _react2.default.createElement(_user_info_component2.default, { user: this.props.user }),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_new_post_component2.default, { currentUser: this.props.currentUser })
+        )
       );
     }
   }]);
@@ -50327,6 +50358,75 @@ var ProfilePostsComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ProfilePostsComponent;
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _profile_posts_component = __webpack_require__(356);
+
+var _profile_posts_component2 = _interopRequireDefault(_profile_posts_component);
+
+var _reactRedux = __webpack_require__(11);
+
+var _reactRouterDom = __webpack_require__(7);
+
+var _posts_actions = __webpack_require__(15);
+
+var _user_actions = __webpack_require__(49);
+
+var _session_actions = __webpack_require__(28);
+
+var _modal_actions = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser || {},
+    users: state.users,
+    posts: state.posts,
+    errors: state.errors,
+    user: ownProps.user
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
+    deletePost: function deletePost(post) {
+      return dispatch((0, _posts_actions.deletePost)(post));
+    },
+    updatePost: function updatePost(post) {
+      return dispatch((0, _posts_actions.updatePost)(post));
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      return dispatch((0, _posts_actions.fetchAllPosts)());
+    },
+    createPost: function createPost(post) {
+      return dispatch((0, _posts_actions.createPost)(post));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_profile_posts_component2.default));
 
 /***/ })
 /******/ ]);

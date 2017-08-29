@@ -3,8 +3,13 @@ import React from 'react';
 class UserInfoComponent extends React.Component {
 
   render () {
+    debugger
     return (
-      <h1> I am info</h1>
+      <h1>
+        {this.props.user.name}
+        <p>I acted in: {this.props.user.movie}</p>
+        <p>For future gigs: {this.props.user.email}</p>
+      </h1>
     );
   }
 }
