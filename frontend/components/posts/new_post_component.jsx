@@ -3,7 +3,7 @@ import React from 'react';
 class NewPostComponent extends React.Component {
 
   constructor(props) {
-    
+
     super(props);
     this.state = {
         body: '',
@@ -15,7 +15,9 @@ class NewPostComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.create(this.state);
+    this.props.create(this.state).then(() => {
+      this.setState({ body: '' });
+    });
   }
 
   handleChange(e) {

@@ -11,16 +11,11 @@ class PostDetailComponent extends React.Component {
 
     this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
     this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
   }
 
   handleDelete() {
     this.props.deletePost(this.props.post);
-  }
-
-  handleEdit() {
-    this.setState({ actionsVisible: !this.state.actionsVisible });
   }
 
   toggleActionVisibility() {
@@ -74,12 +69,23 @@ class PostDetailComponent extends React.Component {
               </img>
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             </div>
-
-            <button onClick={this.handleEdit}>ˇ</button>
+            <button onClick={this.toggleActionVisibility}>ˇ</button>
             {this.state.actionsVisible ? actionsShow : null}
           </div>
           <br />
-          {this.props.post.body}
+          <div id="post-body">
+            {this.props.post.body}
+          </div>
+          <div id="create-comment-icons">
+            <div className='icons-create-comment'>
+              <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+              <p>Like</p>
+            </div>
+            <div className='icons-create-comment'>
+              <i className="fa fa-comment" aria-hidden="true"></i>
+              <p>Comment</p>
+            </div>
+          </div>
           {comments}
           <NewCommentContainer
             currentUser={this.props.currentUser}

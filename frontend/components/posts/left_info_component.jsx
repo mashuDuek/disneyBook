@@ -6,6 +6,7 @@ class LeftInfoComponent extends React.Component {
     return (
       <div id='left-info-component'>
         <p>Movie Awards</p>
+  
         <a href='http://www.imdb.com/title/tt0110357/awards'>Lion King Awards</a>
         <br />
         <br />

@@ -7,6 +7,14 @@
   background-color: #e9ebee;
 }
 
+.linkedIn i {
+  margin: 10px;
+}
+
+.github i {
+  margin: 10px;
+}
+
 .all-posts {
   display: flex;
   flex-direction: column;
@@ -64,16 +72,18 @@
   padding: 5px;
   border: .5px solid lightgray;
   border-radius: 3px;
-  max-width: 520px;
+  min-width: 510px;
+  max-width: 510px;
+  margin-left: 5px;
 }
 
 .create-post textarea {
   border: none;
   border-bottom: .2px solid lightgray;
-  min-width: 150px;
-  min-height: 100px;
+  min-width: 490px;
+  min-height: 80px;
   font-size: 16px;
-  max-width: 510px;
+  max-width: 500px;
 
 }
 
@@ -132,26 +142,35 @@
   margin-left: -35px;
 }
 
-
-
-#nav-bar-welcome-logout div {
+#nav-bar-welcome-logout {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
 }
 
-#nav-bar-welcome-logout img {
+#user-pic-name-and-home {
+  display: flex;
+  flex-direction: row;
+}
+
+#user-pic-name-and-home img {
   width: 30px;
   height: 30px;
   border-radius: 2px;
   border: solid .1px lightgray;
   margin-right: 5px;
-  margin-bottom: 7px;
+  margin-top: 5px;
 }
 
-i {
-  background-color: yellow;
-  size: x-large;
+#search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#search-form i {
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 #nav-bar-welcome-logout a {
@@ -162,8 +181,19 @@ i {
   font-weight: bold;
 }
 
-#nav-bar-welcome-logout button {
-  max-height: 20px;
+#nav-bar-actions button {
+  border: none;
+  width: 100%;
+  background-color: white;
+}
+
+#nav-bar-actions {
+  display: flex;
+  position: absolute;
+  margin-top: 35px;
+  padding: 10px;
+  background-color: white;
+  border: .5px solid lightgray;
 }
 
 #post-author-info {
@@ -185,7 +215,31 @@ i {
   border-radius: 5px;
   cursor: pointer;
   font-size: x-large;
-  margin-right: 5px;
+  margin-right: 10px;
+}
+
+#nav-bar-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+#nav-bar-icons i:hover {
+  cursor: pointer;
+}
+
+#first-three-icons {
+  border-right: .5px solid #355089;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#first-three-icons i {
+  margin: 5px;
 }
 
 #author-pic-and-name {
@@ -214,6 +268,19 @@ i {
 #author-pic-and-name a:hover {
   text-decoration: underline;
 }
+
+
+.question-icon-and-options {
+  display: flex;
+  flex-direction: row;
+  margin-left: 15px;
+}
+
+.question-icon-and-options i {
+  margin: 5px;
+}
+
+
 
 .modal-backdrop {
   position: fixed;
@@ -287,31 +354,32 @@ i {
 #post-action-options {
   position: absolute;
   background-color: white;
-  display: table-row-group;
-  border: .1px solid black;
-  border-radius: 1px;
-  border-color: lightgray;
-  margin-left: 240px;
-  margin-top: 30px;
+  border: .1px solid lightgray;
+  border-radius: 2px;
+  margin-left: 400px;
+  margin-top: 60px;
 }
 
 #post-action-options ul {
-  padding-left: 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 90px;
+  width: 100px;
+  margin-bottom: 20px;
 }
 
 #post-action-options li {
   border: none;
   list-style: none;
+  font-size: 14px;
 }
+
 #post-action-options button {
   border: none;
   width: 80px;
   height: 20px;
   background-color: white;
+  font-size: 14px;
 }
 
 #left-info-component p {
@@ -338,11 +406,18 @@ i {
 
 #right-info-component {
   font-size: 12px;
-  margin: 10px;
-  margin-left: 40px;
+  margin-left: 30px;
   margin-top: 40px;
+}
+
+#right-info-component div {
+  margin-left: -15px;
 }
 
 #right-info-component a:hover {
   cursor: pointer;
+}
+
+#post-body {
+  border-bottom: .5px solid lightgray;
 }

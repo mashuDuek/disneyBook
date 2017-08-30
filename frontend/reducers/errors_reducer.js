@@ -1,8 +1,4 @@
-import { RECEIVE_ERRORS } from '../actions/posts_actions';
-// import { RECEIVE_ERRORS } from '../actions/posts_actions';
-// import { RECEIVE_ERRORS } from '../actions/posts_actions';
-
-//  do I need to import the same (RECEIVE_ERRORS) from all other actions ? ? ?
+import { RECEIVE_ERRORS } from '../actions/errors_actions';
 
 const preloadedState = {
   errors: {

@@ -1,12 +1,12 @@
 import * as APIUtil from '../util/post_util';
 import { normalize, schema } from 'normalizr';
 import { postSchema } from '../util/schemas';
+import { receiveErrors } from './errors_actions';
 
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
-export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 
 export const receivePost = (post) => {
@@ -36,13 +36,6 @@ export const fetchPosts = (posts) => {
   return {
     type: FETCH_ALL_POSTS,
     ...normalize(posts, new schema.Array(postSchema))
-  };
-};
-
-export const receiveErrors = (errors) => {
-  return {
-    type: RECEIVE_ERRORS,
-    errors: errors
   };
 };
 

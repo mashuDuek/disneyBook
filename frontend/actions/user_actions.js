@@ -1,9 +1,9 @@
 import * as APIUtil from '../util/user_util';
 import { normalize, schema } from 'normalizr';
+import { receiveErrors } from './errors_actions';
 
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER = 'RECEIVE_USER';
-export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const receiveUsers = (users) => {
   return {
@@ -16,13 +16,6 @@ export const receiveUser = (user) => {
   return {
     type: RECEIVE_USER,
     user: user
-  };
-};
-
-export const receiveErrors = (errors) => {
-  return {
-    type: RECEIVE_ERRORS,
-    errors: errors
   };
 };
 

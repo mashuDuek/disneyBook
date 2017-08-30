@@ -52,3 +52,11 @@ textarea {
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+
+button:hover {
+	cursor: pointer;
+}
+
+i:hover {
+	cursor: pointer;
+}
