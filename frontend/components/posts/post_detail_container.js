@@ -12,7 +12,8 @@ const mapStatetoProps = (state, ownProps) => {
     currentUser: state.session.currentUser || {},
     users: state.users,
     post: ownProps.post,
-    posts: state.posts
+    posts: state.posts,
+    dropdownVisible: state.dropdowns.component === `post-${ownProps.post.id}`
   };
 };
 

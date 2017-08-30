@@ -8,10 +8,7 @@ import DropdownContainer from '../dropdowns/dropdown_container';
 class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
-
-    // this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
-    // this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
     this.handleDropdowns = this.handleDropdowns.bind(this);
   }
 
@@ -19,32 +16,13 @@ class PostDetailComponent extends React.Component {
     this.props.deletePost(this.props.post);
   }
 
-  // toggleActionVisibility() {
-  //   this.setState({ actionsVisible: !this.state.actionsVisible });
-  // }
-
-  // toggleActionVisibility={this.toggleActionVisibility}
   handleDropdowns(e) {
-    const boundUpdate = this.props.updatePost.bind(this);
+    // const boundUpdate = ;
     e.stopPropagation();
-    this.props.showDropdown(
-      <PostActionContainer
-        post={this.props.post}
-        updatePost={boundUpdate}
-      />
-    )
+    this.props.showDropdown(`post-${this.props.post.id}`);
   }
 
   render() {
-    // const boundUpdate = this.props.updatePost.bind(this);
-    // const actionsShow = (
-    //   <PostActionContainer
-    //     post={this.props.post}
-    //     updatePost={boundUpdate}
-    //     toggleActionVisibility={this.toggleActionVisibility}
-    //     />
-    // )
-
 
     let comments;
     if (this.props.post.comments.length > 0) {
@@ -74,12 +52,18 @@ class PostDetailComponent extends React.Component {
             <div id="author-pic-and-name">
               <img src={authorObj.profilePicUrl}
                 sizes="(max-height: 40px; max-width: 40px;)" >
-
               </img>
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             </div>
             <button onClick={this.handleDropdowns}>ˇ</button>
-
+            {
+              this.props.dropdownVisible ?
+                <PostActionContainer
+                  post={this.props.post}
+                  updatePost={this.props.updatePost.bind(this)}
+                /> :
+                null
+            }
           </div>
           <br />
           <div id="post-body">

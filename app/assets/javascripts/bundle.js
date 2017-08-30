@@ -30512,11 +30512,9 @@ var PostDetailComponent = function (_React$Component) {
   function PostDetailComponent(props) {
     _classCallCheck(this, PostDetailComponent);
 
-    // this.state = { actionsVisible: false };
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
     _this.handleDelete = _this.handleDelete.bind(_this);
-    // this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
     _this.handleDropdowns = _this.handleDropdowns.bind(_this);
     return _this;
   }
@@ -30526,37 +30524,17 @@ var PostDetailComponent = function (_React$Component) {
     value: function handleDelete() {
       this.props.deletePost(this.props.post);
     }
-
-    // toggleActionVisibility() {
-    //   this.setState({ actionsVisible: !this.state.actionsVisible });
-    // }
-
-    // toggleActionVisibility={this.toggleActionVisibility}
-
   }, {
     key: 'handleDropdowns',
     value: function handleDropdowns(e) {
-      var boundUpdate = this.props.updatePost.bind(this);
+      // const boundUpdate = ;
       e.stopPropagation();
-      this.props.showDropdown(_react2.default.createElement(_post_action_container2.default, {
-        post: this.props.post,
-        updatePost: boundUpdate
-      }));
+      this.props.showDropdown('post-' + this.props.post.id);
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
-
-      // const boundUpdate = this.props.updatePost.bind(this);
-      // const actionsShow = (
-      //   <PostActionContainer
-      //     post={this.props.post}
-      //     updatePost={boundUpdate}
-      //     toggleActionVisibility={this.toggleActionVisibility}
-      //     />
-      // )
-
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
@@ -30603,7 +30581,11 @@ var PostDetailComponent = function (_React$Component) {
               'button',
               { onClick: this.handleDropdowns },
               '\u02C7'
-            )
+            ),
+            this.props.dropdownVisible ? _react2.default.createElement(_post_action_container2.default, {
+              post: this.props.post,
+              updatePost: this.props.updatePost.bind(this)
+            }) : null
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
@@ -30743,7 +30725,8 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
     currentUser: state.session.currentUser || {},
     users: state.users,
     post: ownProps.post,
-    posts: state.posts
+    posts: state.posts,
+    dropdownVisible: state.dropdowns.component === 'post-' + ownProps.post.id
   };
 };
 
@@ -50522,13 +50505,6 @@ var ProfilePostsComponent = function (_React$Component) {
 
   _createClass(ProfilePostsComponent, [{
     key: 'render',
-
-
-    // MISSING POSTS COMPONENT BENEATH NEWPOSTCOMP - ASK TOMMY
-    // - also fa fa fonts.. wtf-
-    // check application.html.erb tags, rehma sent me
-    // check posts.css at end. and nav_bar_component.
-
     value: function render() {
       var _this2 = this;
 
@@ -50779,13 +50755,9 @@ var DropdownComponent = function (_React$Component) {
       if (!this.props.component) {
         return null;
       } else {
-        return _react2.default.createElement(
-          "div",
-          { className: "dropdown", onClick: function onClick(e) {
-              return e.stopPropagation();
-            } },
-          this.props.component
-        );
+        return _react2.default.createElement("div", { className: "dropdown", onClick: function onClick(e) {
+            return e.stopPropagation();
+          } });
       }
     }
   }]);

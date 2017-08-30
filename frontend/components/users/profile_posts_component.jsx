@@ -6,13 +6,7 @@ import values from 'lodash/values';
 
 class ProfilePostsComponent extends React.Component {
 
-  // MISSING POSTS COMPONENT BENEATH NEWPOSTCOMP - ASK TOMMY
-  // - also fa fa fonts.. wtf-
-  // check application.html.erb tags, rehma sent me
-  // check posts.css at end. and nav_bar_component.
-
   render() {
-    
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)
