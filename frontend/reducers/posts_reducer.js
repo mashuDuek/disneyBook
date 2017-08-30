@@ -13,7 +13,7 @@ import { RECEIVE_POST,
 
 const preloadedState = {};
 
-const postReducer = (state = preloadedState, action ) => {
+const postReducer = (state = preloadedState, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_POST:

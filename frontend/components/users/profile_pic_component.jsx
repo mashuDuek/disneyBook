@@ -2,10 +2,11 @@ import React from 'react';
 
 class ProfPicComponent extends React.Component {
   render() {
-    
     return (
       <div>
-        <img src={this.props.user.profilePicUrl}></img>
+        <div id="profile-photo">
+          <img src={this.props.user.profilePicUrl}></img>
+        </div>
         <p className="user-name">
           {this.props.user.name}
         </p>

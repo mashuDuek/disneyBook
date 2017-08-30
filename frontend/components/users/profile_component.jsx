@@ -3,6 +3,7 @@ import NavBar from '../posts/nav_bar_component';
 import ProfPicComponent from './profile_pic_component';
 import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
+import CoverPhotoComponent from './cover_photo_component';
 
 class ProfileComponent extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class ProfileComponent extends React.Component {
   }
 
   render(){
+    debugger
     if (Object.keys(this.props.users).length < 1) {
       return (<p>Loading...</p>);
     }
@@ -21,11 +23,10 @@ class ProfileComponent extends React.Component {
             currentUser={this.props.currentUser}
             logout={this.props.logout}
             />
-          <ProfPicComponent
-            user={user}
-            />
         </div>
-          <ProfilePostsContainer user={user}/>
+          <CoverPhotoComponent user={user} />
+          <ProfPicComponent user={user} />
+          <ProfilePostsContainer user={user} />
       </div>
 
     );
