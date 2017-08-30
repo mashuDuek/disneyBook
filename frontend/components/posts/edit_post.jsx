@@ -9,6 +9,10 @@ class EditPost extends React.Component {
     this.modalClose = this.modalClose.bind(this);
   }
 
+  componentDidMount () {
+    this.props.hideDropdown();
+  }
+
   handleEdit() {
     this.props.updatePost(this.state).then(() => {
       this.modalClose();
@@ -18,7 +22,7 @@ class EditPost extends React.Component {
   modalClose() {
     this.props.hideModal();
   }
-  
+
   handleChange(field) {
     return (e) => {
       const edited = Object.assign(

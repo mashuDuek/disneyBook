@@ -14,7 +14,7 @@ class NavBar extends React.Component {
     }
 
     toggleActionVisibility () {
-      debugger
+      
       this.setState({ actionsVisible: !this.state.actionsVisible })
     }
 

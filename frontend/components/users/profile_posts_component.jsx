@@ -12,7 +12,7 @@ class ProfilePostsComponent extends React.Component {
   // check posts.css at end. and nav_bar_component.
 
   render() {
-    debugger
+    
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)

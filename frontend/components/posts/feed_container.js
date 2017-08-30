@@ -12,7 +12,7 @@ import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  debugger
+  
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,

@@ -30512,11 +30512,11 @@ var PostDetailComponent = function (_React$Component) {
   function PostDetailComponent(props) {
     _classCallCheck(this, PostDetailComponent);
 
+    // this.state = { actionsVisible: false };
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
-    _this.state = { actionsVisible: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
-    _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
+    // this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
     _this.handleDropdowns = _this.handleDropdowns.bind(_this);
     return _this;
   }
@@ -30526,19 +30526,18 @@ var PostDetailComponent = function (_React$Component) {
     value: function handleDelete() {
       this.props.deletePost(this.props.post);
     }
-  }, {
-    key: 'toggleActionVisibility',
-    value: function toggleActionVisibility() {
-      this.setState({ actionsVisible: !this.state.actionsVisible });
-    }
+
+    // toggleActionVisibility() {
+    //   this.setState({ actionsVisible: !this.state.actionsVisible });
+    // }
 
     // toggleActionVisibility={this.toggleActionVisibility}
 
   }, {
     key: 'handleDropdowns',
-    value: function handleDropdowns() {
+    value: function handleDropdowns(e) {
       var boundUpdate = this.props.updatePost.bind(this);
-      debugger;
+      e.stopPropagation();
       this.props.showDropdown(_react2.default.createElement(_post_action_container2.default, {
         post: this.props.post,
         updatePost: boundUpdate
@@ -30549,12 +30548,15 @@ var PostDetailComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var boundUpdate = this.props.updatePost.bind(this);
-      var actionsShow = _react2.default.createElement(_post_action_container2.default, {
-        post: this.props.post,
-        updatePost: boundUpdate,
-        toggleActionVisibility: this.toggleActionVisibility
-      });
+      // const boundUpdate = this.props.updatePost.bind(this);
+      // const actionsShow = (
+      //   <PostActionContainer
+      //     post={this.props.post}
+      //     updatePost={boundUpdate}
+      //     toggleActionVisibility={this.toggleActionVisibility}
+      //     />
+      // )
+
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
@@ -30599,10 +30601,9 @@ var PostDetailComponent = function (_React$Component) {
             ),
             _react2.default.createElement(
               'button',
-              { onClick: this.toggleActionVisibility },
+              { onClick: this.handleDropdowns },
               '\u02C7'
-            ),
-            this.state.actionsVisible ? this.handleDropdowns() : null
+            )
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
@@ -30833,7 +30834,7 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'toggleActionVisibility',
     value: function toggleActionVisibility() {
-      debugger;
+
       this.setState({ actionsVisible: !this.state.actionsVisible });
     }
   }, {
@@ -47853,7 +47854,7 @@ var SessionFormLogin = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      debugger;
+
       if (this.props.loggedIn) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
       }
@@ -48229,7 +48230,7 @@ var _modal_actions = __webpack_require__(19);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
+
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -49622,6 +49623,8 @@ var _posts_actions = __webpack_require__(15);
 
 var _modal_actions = __webpack_require__(19);
 
+var _dropdown_actions = __webpack_require__(361);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -49637,6 +49640,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
+    },
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
     }
   };
 };
@@ -49686,6 +49692,11 @@ var EditPost = function (_React$Component) {
   }
 
   _createClass(EditPost, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.hideDropdown();
+    }
+  }, {
     key: 'handleEdit',
     value: function handleEdit() {
       var _this2 = this;
@@ -50521,7 +50532,6 @@ var ProfilePostsComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      debugger;
       var posts = void 0;
       if (Object.keys(this.props.posts).length < 1) {
         return _react2.default.createElement(
@@ -50682,7 +50692,6 @@ var SHOW_DROPDOWN = exports.SHOW_DROPDOWN = 'SHOW_DROPDOWN';
 var HIDE_DROPDOWN = exports.HIDE_DROPDOWN = 'HIDE_DROPDOWN';
 
 var showDropdown = exports.showDropdown = function showDropdown(component) {
-  debugger;
   return {
     type: SHOW_DROPDOWN,
     component: component
@@ -50717,7 +50726,6 @@ var _dropdown_component2 = _interopRequireDefault(_dropdown_component);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
   return {
     component: state.dropdowns.component,
     visible: Boolean(state.dropdowns.component)
@@ -50767,7 +50775,7 @@ var DropdownComponent = function (_React$Component) {
   _createClass(DropdownComponent, [{
     key: "render",
     value: function render() {
-      debugger;
+
       if (!this.props.component) {
         return null;
       } else {

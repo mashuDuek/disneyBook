@@ -9,9 +9,9 @@ class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { actionsVisible: false };
+    // this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
-    this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
+    // this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
     this.handleDropdowns = this.handleDropdowns.bind(this);
   }
 
@@ -19,14 +19,14 @@ class PostDetailComponent extends React.Component {
     this.props.deletePost(this.props.post);
   }
 
-  toggleActionVisibility() {
-    this.setState({ actionsVisible: !this.state.actionsVisible });
-  }
+  // toggleActionVisibility() {
+  //   this.setState({ actionsVisible: !this.state.actionsVisible });
+  // }
 
   // toggleActionVisibility={this.toggleActionVisibility}
-  handleDropdowns() {
+  handleDropdowns(e) {
     const boundUpdate = this.props.updatePost.bind(this);
-    debugger
+    e.stopPropagation();
     this.props.showDropdown(
       <PostActionContainer
         post={this.props.post}
@@ -36,14 +36,14 @@ class PostDetailComponent extends React.Component {
   }
 
   render() {
-    const boundUpdate = this.props.updatePost.bind(this);
-    const actionsShow = (
-      <PostActionContainer
-        post={this.props.post}
-        updatePost={boundUpdate}
-        toggleActionVisibility={this.toggleActionVisibility}
-        />
-    )
+    // const boundUpdate = this.props.updatePost.bind(this);
+    // const actionsShow = (
+    //   <PostActionContainer
+    //     post={this.props.post}
+    //     updatePost={boundUpdate}
+    //     toggleActionVisibility={this.toggleActionVisibility}
+    //     />
+    // )
 
 
     let comments;
@@ -78,8 +78,8 @@ class PostDetailComponent extends React.Component {
               </img>
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             </div>
-            <button onClick={this.toggleActionVisibility}>ˇ</button>
-            {this.state.actionsVisible ? this.handleDropdowns() : null}
+            <button onClick={this.handleDropdowns}>ˇ</button>
+
           </div>
           <br />
           <div id="post-body">

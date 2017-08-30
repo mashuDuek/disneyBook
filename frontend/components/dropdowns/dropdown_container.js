@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import DropdownComponent from './dropdown_component';
 
 const mapStatetoProps = (state, ownProps) => {
-  debugger
   return {
     component: state.dropdowns.component,
     visible: Boolean(state.dropdowns.component)

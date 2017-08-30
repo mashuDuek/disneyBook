@@ -2,7 +2,7 @@ import React from 'react';
 
 class DropdownComponent extends React.Component {
   render() {
-    debugger
+    
     if (!this.props.component) {
       return null;
     } else {
