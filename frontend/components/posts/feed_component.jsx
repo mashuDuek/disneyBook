@@ -14,12 +14,12 @@ class FeedComponent extends React.Component {
 
   render() {
 
-      return (
-        <NavBar
-          currentUser={this.props.currentUser}
-          logout={this.props.logout}
-          />
-      );
+    return (
+      <NavBar
+        currentUser={this.props.currentUser}
+        logout={this.props.logout}
+        />
+    );
   }
 }
 

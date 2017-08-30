@@ -121,6 +121,37 @@
   margin-right: 50px;
   align-items: center;
   margin-top: 5px;
+  margin-bottom: -10px;
+}
+
+.user-name {
+  border-right: .1px solid #355089;
+}
+
+.home-link {
+  margin-left: -35px;
+}
+
+
+
+#nav-bar-welcome-logout div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#nav-bar-welcome-logout img {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  border: solid .1px lightgray;
+  margin-right: 5px;
+  margin-bottom: 7px;
+}
+
+i {
+  background-color: yellow;
+  size: x-large;
 }
 
 #nav-bar-welcome-logout a {
@@ -174,10 +205,14 @@
   border: .1px solid lightgray;
 }
 
-
 #author-pic-and-name a {
   text-decoration: none;
   font-size: 14.5px;
+  color: #365899;
+}
+
+#author-pic-and-name a:hover {
+  text-decoration: underline;
 }
 
 .modal-backdrop {

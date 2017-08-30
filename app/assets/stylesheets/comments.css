@@ -31,6 +31,7 @@
   justify-content: space-between;
   align-items: center;
   margin-left: 5px;
+  margin-top: 5px;
 }
 
 .comment-author a {
@@ -38,6 +39,11 @@
   text-decoration: none;
   font-size: 12px;
   margin-left: 15px;
+  color: #365899;
+}
+
+.comment-author a:hover {
+  text-decoration: underline;
 }
 
 .comment-author button {

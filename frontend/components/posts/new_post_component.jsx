@@ -3,7 +3,7 @@ import React from 'react';
 class NewPostComponent extends React.Component {
 
   constructor(props) {
-    debugger
+    
     super(props);
     this.state = {
         body: '',

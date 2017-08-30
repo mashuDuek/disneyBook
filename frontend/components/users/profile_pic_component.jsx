@@ -2,7 +2,7 @@ import React from 'react';
 
 class ProfPicComponent extends React.Component {
   render() {
-    debugger
+    
     return (
       <div>
         <img src={this.props.user.profilePicUrl}></img>

@@ -30236,17 +30236,6 @@ var PostsComponent = function (_React$Component) {
   }
 
   _createClass(PostsComponent, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-    // this.props.fetchUsers();
-
-    // eventually, will need to add link to
-    // author profile page, so Ill bring up list of
-    // friends of currentUser to this state ??
-    // need friendships table now
-    // need user up at the feed page
-
-  }, {
     key: 'render',
     value: function render() {
       var posts = void 0;
@@ -43382,6 +43371,7 @@ var sessionReducer = function sessionReducer() {
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       {
+        debugger;
         var newState = (0, _lodash.merge)({}, state);
         newState.currentUser = action.currentUser;
         return newState;
@@ -47453,6 +47443,7 @@ var SessionFormLogin = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      debugger;
       if (this.props.loggedIn) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
       }
@@ -47828,7 +47819,7 @@ var _modal_actions = __webpack_require__(19);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
+  debugger;
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -48813,8 +48804,6 @@ var NewPostComponent = function (_React$Component) {
 
   function NewPostComponent(props) {
     _classCallCheck(this, NewPostComponent);
-
-    debugger;
 
     var _this = _possibleConstructorReturn(this, (NewPostComponent.__proto__ || Object.getPrototypeOf(NewPostComponent)).call(this, props));
 
@@ -49868,18 +49857,33 @@ var NavBar = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { id: 'search-form' },
-          _react2.default.createElement('input', { placeholder: 'i do nothing yet' })
+          _react2.default.createElement('input', { placeholder: 'i do nothing yet' }),
+          _react2.default.createElement('i', { 'class': 'fa fa-meetup', 'aria-hidden': 'true' })
         ),
         _react2.default.createElement(
           'div',
           { id: 'nav-bar-welcome-logout' },
+          _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl }),
           _react2.default.createElement(
-            'p',
+            'div',
             null,
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users/' + this.props.currentUser.id },
-              this.props.currentUser.name
+              'p',
+              { className: 'user-name' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/users/' + this.props.currentUser.id },
+                this.props.currentUser.name
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'home-link' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/feed' },
+                'Home'
+              )
             )
           ),
           _react2.default.createElement(
@@ -50213,7 +50217,7 @@ var ProfPicComponent = function (_React$Component) {
   _createClass(ProfPicComponent, [{
     key: "render",
     value: function render() {
-      debugger;
+
       return _react2.default.createElement(
         "div",
         null,
@@ -50269,7 +50273,7 @@ var UserInfoComponent = function (_React$Component) {
   _createClass(UserInfoComponent, [{
     key: 'render',
     value: function render() {
-      debugger;
+
       return _react2.default.createElement(
         'h1',
         null,
@@ -50320,6 +50324,14 @@ var _new_post_component = __webpack_require__(335);
 
 var _new_post_component2 = _interopRequireDefault(_new_post_component);
 
+var _post_detail_container = __webpack_require__(345);
+
+var _post_detail_container2 = _interopRequireDefault(_post_detail_container);
+
+var _values = __webpack_require__(310);
+
+var _values2 = _interopRequireDefault(_values);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50339,16 +50351,50 @@ var ProfilePostsComponent = function (_React$Component) {
 
   _createClass(ProfilePostsComponent, [{
     key: 'render',
+
+
+    // MISSING POSTS COMPONENT BENEATH NEWPOSTCOMP - ASK TOMMY
+    // - also fa fa fonts.. wtf-
+    // check application.html.erb tags, rehma sent me
+    // check posts.css at end. and nav_bar_component.
+
     value: function render() {
+      var _this2 = this;
+
       debugger;
+      var posts = void 0;
+      if (Object.keys(this.props.posts).length < 1) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading posts...'
+        );
+      } else {
+        var postValues = (0, _values2.default)(this.props.posts);
+        posts = postValues.reverse().map(function (post) {
+          if (post.receiver_id === _this2.props.user.id) {
+            return _react2.default.createElement(_post_detail_container2.default, { post: post });
+          } else {
+            return null;
+          }
+        });
+      };
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'profile-info-and-posts' },
         _react2.default.createElement(_user_info_component2.default, { user: this.props.user }),
         _react2.default.createElement(
           'div',
-          null,
-          _react2.default.createElement(_new_post_component2.default, { currentUser: this.props.currentUser })
+          { className: 'profile-posts-and-create-post' },
+          _react2.default.createElement(_new_post_component2.default, {
+            currentUser: this.props.currentUser,
+            create: this.props.createPost
+          }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'profile-posts' },
+            posts
+          )
         )
       );
     }

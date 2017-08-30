@@ -17,13 +17,20 @@ class NavBar extends React.Component {
 
           <form id="search-form">
             <input placeholder="i do nothing yet"></input>
+              <i class="fa fa-meetup" aria-hidden="true"></i>
           </form>
           <div id="nav-bar-welcome-logout">
-            <p>
-              <Link to={`/users/${this.props.currentUser.id}`}>
-                {this.props.currentUser.name}
-              </Link>
-            </p>
+            <img src={this.props.currentUser.profilePicUrl}></img>
+            <div>
+              <p className="user-name">
+                <Link to={`/users/${this.props.currentUser.id}`}>
+                  {this.props.currentUser.name}
+                </Link>
+              </p>
+              <p className="home-link">
+                <Link to={`/feed`}>Home</Link>
+              </p>
+            </div>
             <button onClick={this.handleLogout.bind(this)}>Logout</button>
           </div>
 
