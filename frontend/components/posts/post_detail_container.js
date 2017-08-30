@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { createPost, updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { fetchPost, fetchAllPosts } from '../../actions/posts_actions';
+import { showDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -22,6 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     showModal: (component) => dispatch(showModal(component)),
     fetchPost: (post) => dispatch(fetchPost(post)),
     fetchPosts: (posts) => dispatch(fetchPosts(posts)),
+    showDropdown: (component) => dispatch(showDropdown(component)),
   };
 };
 

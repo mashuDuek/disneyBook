@@ -1,5 +1,4 @@
 import React from 'react';
-import ModalComponent from '../modals/modal_component';
 import EditPostContainer from './edit_post_container';
 
 class PostActionComponent extends React.Component {
@@ -10,13 +9,10 @@ class PostActionComponent extends React.Component {
   }
 
   handleDelete() {
-    this.props.toggleActionVisibility();
     this.props.deletePost(this.props.post);
-
   }
 
   handleEdit() {
-    this.props.toggleActionVisibility();
     this.props.showModal(
       <EditPostContainer post={this.props.post} updatePost={this.props.updatePost} />
     )

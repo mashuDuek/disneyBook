@@ -419,5 +419,6 @@
 }
 
 #post-body {
+  padding-bottom: 10px;
   border-bottom: .5px solid lightgray;
 }

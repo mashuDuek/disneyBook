@@ -30494,6 +30494,10 @@ var _new_comment_container = __webpack_require__(346);
 
 var _new_comment_container2 = _interopRequireDefault(_new_comment_container);
 
+var _dropdown_container = __webpack_require__(362);
+
+var _dropdown_container2 = _interopRequireDefault(_dropdown_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30513,6 +30517,7 @@ var PostDetailComponent = function (_React$Component) {
     _this.state = { actionsVisible: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
+    _this.handleDropdowns = _this.handleDropdowns.bind(_this);
     return _this;
   }
 
@@ -30526,14 +30531,24 @@ var PostDetailComponent = function (_React$Component) {
     value: function toggleActionVisibility() {
       this.setState({ actionsVisible: !this.state.actionsVisible });
     }
+
+    // toggleActionVisibility={this.toggleActionVisibility}
+
+  }, {
+    key: 'handleDropdowns',
+    value: function handleDropdowns() {
+      var boundUpdate = this.props.updatePost.bind(this);
+      debugger;
+      this.props.showDropdown(_react2.default.createElement(_post_action_container2.default, {
+        post: this.props.post,
+        updatePost: boundUpdate
+      }));
+    }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      //1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
-      //2 eventually will add actions to this component. to defriend, etc.
-      //2 so not just the post author will be able to access the actionComponent(EditComponent)
       var boundUpdate = this.props.updatePost.bind(this);
       var actionsShow = _react2.default.createElement(_post_action_container2.default, {
         post: this.props.post,
@@ -30587,7 +30602,7 @@ var PostDetailComponent = function (_React$Component) {
               { onClick: this.toggleActionVisibility },
               '\u02C7'
             ),
-            this.state.actionsVisible ? actionsShow : null
+            this.state.actionsVisible ? this.handleDropdowns() : null
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
@@ -30679,7 +30694,9 @@ var ModalComponent = function (_React$Component) {
           { className: 'modal-backdrop', onClick: this.props.hide },
           _react2.default.createElement(
             'div',
-            { className: 'modal' },
+            { className: 'modal', onClick: function onClick(e) {
+                return e.stopPropagation();
+              } },
             this.props.component
           )
         );
@@ -30714,6 +30731,8 @@ var _reactRouterDom = __webpack_require__(6);
 var _posts_actions = __webpack_require__(15);
 
 var _modal_actions = __webpack_require__(19);
+
+var _dropdown_actions = __webpack_require__(361);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30753,7 +30772,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return fetchPosts;
     }(function (posts) {
       return dispatch(fetchPosts(posts));
-    })
+    }),
+    showDropdown: function showDropdown(component) {
+      return dispatch((0, _dropdown_actions.showDropdown)(component));
+    }
   };
 };
 
@@ -43706,6 +43728,10 @@ var _modals_reducer = __webpack_require__(264);
 
 var _modals_reducer2 = _interopRequireDefault(_modals_reducer);
 
+var _dropdowns_reducer = __webpack_require__(360);
+
+var _dropdowns_reducer2 = _interopRequireDefault(_dropdowns_reducer);
+
 var _errors_reducer = __webpack_require__(265);
 
 var _errors_reducer2 = _interopRequireDefault(_errors_reducer);
@@ -43723,6 +43749,7 @@ var rootReducer = (0, _redux.combineReducers)({
     posts: _posts_reducer2.default,
     users: _users_reducer2.default,
     modals: _modals_reducer2.default,
+    dropdowns: _dropdowns_reducer2.default,
     comments: _comments_reducer2.default,
     errors: _errors_reducer2.default
 });
@@ -43755,7 +43782,6 @@ var sessionReducer = function sessionReducer() {
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       {
-        debugger;
         var newState = (0, _lodash.merge)({}, state);
         newState.currentUser = action.currentUser;
         return newState;
@@ -44645,9 +44671,9 @@ var _reactRedux = __webpack_require__(9);
 
 var _reactRouterDom = __webpack_require__(6);
 
-var _App = __webpack_require__(307);
+var _app_container = __webpack_require__(364);
 
-var _App2 = _interopRequireDefault(_App);
+var _app_container2 = _interopRequireDefault(_app_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44658,7 +44684,7 @@ var Root = function Root(props) {
     _react2.default.createElement(
       _reactRouterDom.HashRouter,
       null,
-      _react2.default.createElement(_App2.default, null)
+      _react2.default.createElement(_app_container2.default, null)
     )
   );
 };
@@ -47687,6 +47713,10 @@ var _profile_container = __webpack_require__(353);
 
 var _profile_container2 = _interopRequireDefault(_profile_container);
 
+var _dropdown_container = __webpack_require__(362);
+
+var _dropdown_container2 = _interopRequireDefault(_dropdown_container);
+
 var _reactRouterDom = __webpack_require__(6);
 
 var _route_util = __webpack_require__(358);
@@ -47696,8 +47726,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = function App(props) {
   return _react2.default.createElement(
     'div',
-    null,
+    { onClick: props.hideDropdown },
     _react2.default.createElement(_modal_container2.default, null),
+    _react2.default.createElement(_dropdown_container2.default, null),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_login2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_signup2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_footer2.default }),
@@ -49481,10 +49512,6 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _modal_component = __webpack_require__(131);
-
-var _modal_component2 = _interopRequireDefault(_modal_component);
-
 var _edit_post_container = __webpack_require__(344);
 
 var _edit_post_container2 = _interopRequireDefault(_edit_post_container);
@@ -49513,13 +49540,11 @@ var PostActionComponent = function (_React$Component) {
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      this.props.toggleActionVisibility();
       this.props.deletePost(this.props.post);
     }
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
-      this.props.toggleActionVisibility();
       this.props.showModal(_react2.default.createElement(_edit_post_container2.default, { post: this.props.post, updatePost: this.props.updatePost }));
     }
   }, {
@@ -50609,6 +50634,198 @@ var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
     errors: errors
   };
 };
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _dropdown_actions = __webpack_require__(361);
+
+var dropdownReducer = function dropdownReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _dropdown_actions.SHOW_DROPDOWN:
+      {
+        return { component: action.component };
+      }
+    case _dropdown_actions.HIDE_DROPDOWN:
+      {
+        return { component: null };
+      }
+    default:
+      return state;
+  }
+};
+
+exports.default = dropdownReducer;
+
+/***/ }),
+/* 361 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SHOW_DROPDOWN = exports.SHOW_DROPDOWN = 'SHOW_DROPDOWN';
+var HIDE_DROPDOWN = exports.HIDE_DROPDOWN = 'HIDE_DROPDOWN';
+
+var showDropdown = exports.showDropdown = function showDropdown(component) {
+  debugger;
+  return {
+    type: SHOW_DROPDOWN,
+    component: component
+  };
+};
+
+var hideDropdown = exports.hideDropdown = function hideDropdown() {
+  return {
+    type: HIDE_DROPDOWN
+  };
+};
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _reactRouterDom = __webpack_require__(6);
+
+var _dropdown_component = __webpack_require__(363);
+
+var _dropdown_component2 = _interopRequireDefault(_dropdown_component);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  debugger;
+  return {
+    component: state.dropdowns.component,
+    visible: Boolean(state.dropdowns.component)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {};
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, null)(_dropdown_component2.default));
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DropdownComponent = function (_React$Component) {
+  _inherits(DropdownComponent, _React$Component);
+
+  function DropdownComponent() {
+    _classCallCheck(this, DropdownComponent);
+
+    return _possibleConstructorReturn(this, (DropdownComponent.__proto__ || Object.getPrototypeOf(DropdownComponent)).apply(this, arguments));
+  }
+
+  _createClass(DropdownComponent, [{
+    key: "render",
+    value: function render() {
+      debugger;
+      if (!this.props.component) {
+        return null;
+      } else {
+        return _react2.default.createElement(
+          "div",
+          { className: "dropdown", onClick: function onClick(e) {
+              return e.stopPropagation();
+            } },
+          this.props.component
+        );
+      }
+    }
+  }]);
+
+  return DropdownComponent;
+}(_react2.default.Component);
+
+exports.default = DropdownComponent;
+
+/***/ }),
+/* 364 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _reactRouterDom = __webpack_require__(6);
+
+var _App = __webpack_require__(307);
+
+var _App2 = _interopRequireDefault(_App);
+
+var _dropdown_actions = __webpack_require__(361);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    component: state.dropdowns.component,
+    visible: Boolean(state.dropdowns.component)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_App2.default));
 
 /***/ })
 /******/ ]);

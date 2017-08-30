@@ -7,7 +7,7 @@ class ModalComponent extends React.Component {
     } else {
       return(
         <div className='modal-backdrop' onClick={this.props.hide}>
-          <div className="modal">
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
             {this.props.component}
           </div>
         </div>

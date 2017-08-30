@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CommentContainer from '../comments/comment_container';
 import PostActionContainer from './post_action_container';
 import NewCommentContainer from '../comments/new_comment_container';
-
+import DropdownContainer from '../dropdowns/dropdown_container';
 
 class PostDetailComponent extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class PostDetailComponent extends React.Component {
     this.state = { actionsVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
+    this.handleDropdowns = this.handleDropdowns.bind(this);
   }
 
   handleDelete() {
@@ -22,11 +23,19 @@ class PostDetailComponent extends React.Component {
     this.setState({ actionsVisible: !this.state.actionsVisible });
   }
 
+  // toggleActionVisibility={this.toggleActionVisibility}
+  handleDropdowns() {
+    const boundUpdate = this.props.updatePost.bind(this);
+    debugger
+    this.props.showDropdown(
+      <PostActionContainer
+        post={this.props.post}
+        updatePost={boundUpdate}
+      />
+    )
+  }
 
   render() {
-//1 INSTEAD OF THE A TAG I WILL NEED A LINK TAG TO THE PROFILE
-//2 eventually will add actions to this component. to defriend, etc.
-//2 so not just the post author will be able to access the actionComponent(EditComponent)
     const boundUpdate = this.props.updatePost.bind(this);
     const actionsShow = (
       <PostActionContainer
@@ -70,7 +79,7 @@ class PostDetailComponent extends React.Component {
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             </div>
             <button onClick={this.toggleActionVisibility}>ˇ</button>
-            {this.state.actionsVisible ? actionsShow : null}
+            {this.state.actionsVisible ? this.handleDropdowns() : null}
           </div>
           <br />
           <div id="post-body">
