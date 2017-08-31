@@ -10,7 +10,7 @@ User.destroy_all
 # USERS
 # Lion King
 lk = 'Lion King'
-User.create!(name: 'Mufasa', email: 'mufasa@lionking.com', movie: lk, password: pw, profilePicUrl: "http://images4.fanpop.com/image/photos/17900000/Mufasa-Simba-mufasa-and-simba-17932595-635-350.jpg", cover_url: "https://coverfiles.alphacoders.com/732/7323.jpg")
+User.create!(name: 'Mufasa', email: 'mufasa@lionking.com', movie: lk, password: pw, profilePicUrl: "https://pbs.twimg.com/profile_images/541987353963687936/WR1oaJVu.jpeg", cover_url: "https://coverfiles.alphacoders.com/732/7323.jpg")
 User.create!(name: 'Sarabi', email: 'sarabi@lionking.com', movie: lk, password: pw, profilePicUrl: "http://orig00.deviantart.net/4e79/f/2008/168/4/d/sarabi_and_simba_by_nienna51.jpg", cover_url: "https://coverfiles.alphacoders.com/732/7323.jpg")
 User.create!(name: 'Rafiki', email: 'rafiki@lionking.com', movie: lk, password: pw, profilePicUrl: "https://s-media-cache-ak0.pinimg.com/736x/e2/f0/fa/e2f0fa040bf11c644a736f8c3ba5032a.jpg", cover_url: "https://coverfiles.alphacoders.com/732/7323.jpg")
 User.create!(name: 'Shenzi', email: 'shenzi@lionking.com', movie: lk, password: pw, profilePicUrl: "https://vignette4.wikia.nocookie.net/disney/images/2/2d/Shenzibanzaieddisney.jpeg/revision/latest/scale-to-width-down/350?cb=20120725125315", cover_url: "https://coverfiles.alphacoders.com/732/7323.jpg")

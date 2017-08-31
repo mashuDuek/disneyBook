@@ -7,6 +7,15 @@ class User < ApplicationRecord
     primary_key: :id,
     class_name: :Post
 
+  has_many :friend_requests,
+    foreign_key: :friender_id,
+    class_name: :Friendship
+
+  has_many :friends_requested,
+    foreign_key: :friendee_id,
+    class_name: :Friendship
+
+
   attr_reader :password
 
   after_initialize :ensure_session_token

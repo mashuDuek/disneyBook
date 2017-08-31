@@ -18,12 +18,12 @@
 
 html {
   background-color: #e9ebee;
+  font-family: "freight-sans-pro",sans-serif;
 }
 
 body {
   padding: none;
   margin: 0px;
-  font-family: "freight-sans-pro",sans-serif;
 }
 
 #login {
