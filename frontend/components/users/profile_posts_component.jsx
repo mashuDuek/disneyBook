@@ -7,6 +7,13 @@ import values from 'lodash/values';
 class ProfilePostsComponent extends React.Component {
 
   render() {
+
+    if (!this.props.user) {
+      return (
+        <p>Loading...</p>
+      );
+    }
+
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>)

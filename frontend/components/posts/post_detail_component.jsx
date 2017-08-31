@@ -17,7 +17,6 @@ class PostDetailComponent extends React.Component {
   }
 
   handleDropdowns(e) {
-    // const boundUpdate = ;
     e.stopPropagation();
     this.props.showDropdown(`post-${this.props.post.id}`);
   }
@@ -26,8 +25,7 @@ class PostDetailComponent extends React.Component {
 
     let comments;
     if (this.props.post.comments.length > 0) {
-
-      const commToPass = this.props.comments
+      const commToPass = this.props.comments;
       comments = this.props.post.comments.map(comm => {
         return (
           <div className='comments'>
@@ -45,7 +43,16 @@ class PostDetailComponent extends React.Component {
         <p>Loading...</p>
       );
     } else {
-      const authorObj = this.props.users[this.props.post.author_id];
+
+      let authorObj;
+      if (!this.props.users[this.props.post.author_id]) {
+        return (
+          <p>Loading...</p>
+        )
+      } else {
+        authorObj = this.props.users[this.props.post.author_id];
+      }
+
       return(
         <li key={this.props.post.id}>
           <div id="post-author-info">

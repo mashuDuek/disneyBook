@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.user-name {
+  margin-left: 40%;
+  color: white;
+}
+
 #cover-photo {
   width: 848px;
   max-width: 848px;
@@ -34,4 +39,8 @@
   margin-top: -60px;
 }
 
-/*OBJECT-FIT*/
+.profile-info-and-posts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

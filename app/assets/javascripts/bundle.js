@@ -30527,7 +30527,6 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'handleDropdowns',
     value: function handleDropdowns(e) {
-      // const boundUpdate = ;
       e.stopPropagation();
       this.props.showDropdown('post-' + this.props.post.id);
     }
@@ -30538,7 +30537,6 @@ var PostDetailComponent = function (_React$Component) {
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
-
         var commToPass = this.props.comments;
         comments = this.props.post.comments.map(function (comm) {
           return _react2.default.createElement(
@@ -30559,7 +30557,18 @@ var PostDetailComponent = function (_React$Component) {
           'Loading...'
         );
       } else {
-        var authorObj = this.props.users[this.props.post.author_id];
+
+        var authorObj = void 0;
+        if (!this.props.users[this.props.post.author_id]) {
+          return _react2.default.createElement(
+            'p',
+            null,
+            'Loading...'
+          );
+        } else {
+          authorObj = this.props.users[this.props.post.author_id];
+        }
+
         return _react2.default.createElement(
           'li',
           { key: this.props.post.id },
@@ -44430,6 +44439,8 @@ var _user_actions = __webpack_require__(49);
 
 var _posts_actions = __webpack_require__(15);
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var preloadedState = {};
 
 var userReducer = function userReducer() {
@@ -44444,7 +44455,7 @@ var userReducer = function userReducer() {
       }
     case _user_actions.RECEIVE_USER:
       {
-        return action.user;
+        return Object.assign({}, state, _defineProperty({}, action.user.id, action.user));
       }
     case _posts_actions.FETCH_ALL_POSTS:
     case _posts_actions.RECEIVE_POST:
@@ -50224,12 +50235,14 @@ var _reactRouterDom = __webpack_require__(6);
 
 var _session_actions = __webpack_require__(23);
 
+var _user_actions = __webpack_require__(49);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
+    user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
-    users: state.users,
     errors: state.errors
   };
 };
@@ -50237,6 +50250,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     logout: function logout() {
       return dispatch((0, _session_actions.logout)());
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
     }
   };
 };
@@ -50298,17 +50314,21 @@ var ProfileComponent = function (_React$Component) {
   }
 
   _createClass(ProfileComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUser({ id: this.props.match.params.userId });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      debugger;
-      if (Object.keys(this.props.users).length < 1) {
+      if (!this.props.user) {
         return _react2.default.createElement(
           'p',
           null,
           'Loading...'
         );
       }
-      var user = this.props.users[this.props.match.params.userId];
+
       return _react2.default.createElement(
         'div',
         { id: 'profile-page' },
@@ -50320,9 +50340,9 @@ var ProfileComponent = function (_React$Component) {
             logout: this.props.logout
           })
         ),
-        _react2.default.createElement(_cover_photo_component2.default, { user: user }),
-        _react2.default.createElement(_profile_pic_component2.default, { user: user }),
-        _react2.default.createElement(_profile_posts_container2.default, { user: user })
+        _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+        _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
+        _react2.default.createElement(_profile_posts_container2.default, { user: this.props.user })
       );
     }
   }]);
@@ -50369,18 +50389,26 @@ var ProfPicComponent = function (_React$Component) {
   _createClass(ProfPicComponent, [{
     key: "render",
     value: function render() {
+
+      if (!this.props.user) {
+        return _react2.default.createElement(
+          "p",
+          null,
+          "Loading..."
+        );
+      }
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
           "div",
           { id: "profile-photo" },
-          _react2.default.createElement("img", { src: this.props.user.profilePicUrl })
-        ),
-        _react2.default.createElement(
-          "p",
-          { className: "user-name" },
-          this.props.user.name
+          _react2.default.createElement("img", { src: this.props.user.profilePicUrl }),
+          _react2.default.createElement(
+            "p",
+            { className: "user-name" },
+            this.props.user.name
+          )
         )
       );
     }
@@ -50514,6 +50542,14 @@ var ProfilePostsComponent = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _this2 = this;
+
+      if (!this.props.user) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading...'
+        );
+      }
 
       var posts = void 0;
       if (Object.keys(this.props.posts).length < 1) {
@@ -50851,10 +50887,25 @@ var CoverPhotoComponent = function (_React$Component) {
   _createClass(CoverPhotoComponent, [{
     key: "render",
     value: function render() {
+
+      if (!this.props.user) {
+        return _react2.default.createElement(
+          "p",
+          null,
+          "Loading..."
+        );
+      }
+
+      var cover = void 0;
+      if (!this.props.user.cover_url) {
+        cover = "https://i.pinimg.com/originals/77/a7/e3/77a7e37f42d25404191efc8ca82f5842.jpg";
+      } else {
+        cover = this.props.user.cover_url;
+      }
       return _react2.default.createElement(
         "div",
         { id: "cover-photo" },
-        _react2.default.createElement("img", { src: this.props.user.cover_url })
+        _react2.default.createElement("img", { src: cover })
       );
     }
   }]);

@@ -11,7 +11,7 @@ const userReducer = (state = preloadedState, action ) => {
       return action.users;
     }
     case RECEIVE_USER: {
-      return action.user;
+      return Object.assign({}, state, { [action.user.id]: action.user });
     }
     case FETCH_ALL_POSTS:
     case RECEIVE_POST:

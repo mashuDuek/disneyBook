@@ -10,12 +10,17 @@ class ProfileComponent extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchUser({id: this.props.match.params.userId});
+  }
+
   render(){
-    debugger
-    if (Object.keys(this.props.users).length < 1) {
-      return (<p>Loading...</p>);
+    if (!this.props.user) {
+      return (
+        <p>Loading...</p>
+      )
     }
-    const user = this.props.users[this.props.match.params.userId];
+
     return (
       <div id="profile-page">
         <div className="nav-and-profile-pic-components">
@@ -24,9 +29,9 @@ class ProfileComponent extends React.Component {
             logout={this.props.logout}
             />
         </div>
-          <CoverPhotoComponent user={user} />
-          <ProfPicComponent user={user} />
-          <ProfilePostsContainer user={user} />
+          <CoverPhotoComponent user={this.props.user} />
+          <ProfPicComponent user={this.props.user} />
+          <ProfilePostsContainer user={this.props.user} />
       </div>
 
     );
