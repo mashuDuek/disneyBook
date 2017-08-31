@@ -68,10 +68,50 @@ Post.create!(body: 'Who does that beast think he is!?',
 Post.create!(body: 'Enter, the cave of wonderrss!',
   author_id: User.where(name: 'Jafar')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
+Post.create!(body: 'I laguh in the face of danger! HAHAHAHA',
+  author_id: User.where(name: 'Simba')[0].id,
+  receiver_id: User.where(name: 'Nala')[0].id)
+Post.create!(body: 'Your not even a reala prince!!',
+  author_id: User.where(name: 'Jasmine')[0].id,
+  receiver_id: User.where(name: 'Aladdin')[0].id)
+Post.create!(body: 'Oh yeah Jafar, great idea!! Mwahaha',
+  author_id: User.where(name: 'Iago')[0].id,
+  receiver_id: User.where(name: 'Jafar')[0].id)
+Post.create!(body: 'Bring me the lampp!!',
+  author_id: User.where(name: 'Jafar')[0].id,
+  receiver_id: User.where(name: 'Aladdin')[0].id)
+Post.create!(body: 'uh uh ih ih -- awhhh',
+  author_id: User.where(name: 'Abu')[0].id,
+  receiver_id: User.where(name: 'Aladdin')[0].id)
+Post.create!(body: 'Asante sana squash banana!',
+  author_id: User.where(name: 'Rafiki')[0].id,
+  receiver_id: User.where(name: 'Rafiki')[0].id)
+Post.create!(body: 'The question is: who are you?',
+  author_id: User.where(name: 'Rafiki')[0].id,
+  receiver_id: User.where(name: 'Simba')[0].id)
+
 # COMMENTS
 Comment.destroy_all
-Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
-Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id, post: Post.first)
-# Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id)
-# Comment.create!(body: 'hey', author_id: User.where(name: 'Mufasa')[0].id)
+Comment.create!(body: 'Yes, dad?', author_id: User.where(name: 'Simba')[0].id, post: Post.where(body: 'Simbaa, do you see everything the light touches?')[0])
+Comment.create!(body: 'Dont do it Aladdin!! I saw the movie!', author_id: User.where(name: 'Mufasa')[0].id, post: Post.where(body: 'Enter, the cave of wonderrss!')[0])
+Comment.create!(body: 'Hey, loved your song... roar!', author_id: User.where(name: 'Mufasa')[0].id, post: Post.where(body: 'Be.. ourr.... gueesssttt')[0])
+Comment.create!(body: 'No, Simba! Dont!!', author_id: User.where(name: 'Nala')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
+Comment.create!(body: 'hahAHhAhAhHAhaHihihIhihHihiHiI', author_id: User.where(name: 'Ed')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
+Comment.create!(body: 'Aww, man... you had to do it!!??', author_id: User.where(name: 'Nala')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
+Comment.create!(body: 'HIhihhIhIHAHA', author_id: User.where(name: 'Shenzi')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
+Comment.create!(body: 'uhAHuHAUhUAHuaihaiha', author_id: User.where(name: 'Benzai')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
+
 # FRIENDSHIPS
+Friendship.destroy_all
+Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Rafiki')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Simba')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Nala')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Abu')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'pending')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Genie')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Simba')[0].id, status: 'pending')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Iago')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Nala')[0].id, status: 'accepted')
+Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Abu')[0].id, status: 'pending')

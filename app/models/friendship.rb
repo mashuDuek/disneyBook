@@ -1,5 +1,5 @@
 class Friendship < ApplicationRecord
-  validates :friendee_id, :friender_id, :status presence: true
+  validates :friendee_id, :friender_id, :status, presence: true
   validates :status, inclusion: { in: ['pending', 'accepted', 'rejected'] }
 
   belongs_to :friendee,

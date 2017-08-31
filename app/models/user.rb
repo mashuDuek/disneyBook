@@ -7,13 +7,21 @@ class User < ApplicationRecord
     primary_key: :id,
     class_name: :Post
 
-  has_many :friend_requests,
+  has_many :received_friend_requests,
     foreign_key: :friender_id,
     class_name: :Friendship
 
-  has_many :friends_requested,
+  has_many :sent_friend_requests,
     foreign_key: :friendee_id,
     class_name: :Friendship
+
+  has_many :requested_friends,
+    through: :sent_friend_requests,
+    source: :friendee
+
+  has_many :received_friends,
+    through: :received_friend_requests,
+    source: :friender
 
 
   attr_reader :password
