@@ -27,7 +27,6 @@ class NewCommentComponent extends React.Component {
   }
 
   render() {
-
     const placeHolder = `Any thoughts, ${this.props.currentUser.name}?`;
     return(
       <div id="create-comment-all">

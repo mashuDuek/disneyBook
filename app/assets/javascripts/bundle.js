@@ -30969,7 +30969,6 @@ var UserInfoComponent = function (_React$Component) {
   _createClass(UserInfoComponent, [{
     key: "render",
     value: function render() {
-      debugger;
       return _react2.default.createElement(
         "div",
         { id: "profile-user-info" },
@@ -49890,7 +49889,6 @@ var NewCommentComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       var placeHolder = 'Any thoughts, ' + this.props.currentUser.name + '?';
       return _react2.default.createElement(
         'div',

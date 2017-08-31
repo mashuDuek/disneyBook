@@ -3,7 +3,6 @@ import React from 'react';
 class UserInfoComponent extends React.Component {
 
   render () {
-debugger
     return (
       <div id="profile-user-info">
         {this.props.user.name}
