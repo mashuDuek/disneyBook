@@ -8,11 +8,11 @@ class User < ApplicationRecord
     class_name: :Post
 
   has_many :received_friend_requests,
-    foreign_key: :friender_id,
+    foreign_key: :friendee_id,
     class_name: :Friendship
 
   has_many :sent_friend_requests,
-    foreign_key: :friendee_id,
+    foreign_key: :friender_id,
     class_name: :Friendship
 
   has_many :requested_friends,
@@ -23,13 +23,29 @@ class User < ApplicationRecord
     through: :received_friend_requests,
     source: :friender
 
-
   attr_reader :password
 
   after_initialize :ensure_session_token
 
-  def self.find_by_credentials(email, password)
+  def all_status_friends
+    User.find_by_sql(<<-SQL)
+      SELECT friends.*
+      FROM users
+      JOIN friendships on friendships.friender_id = #{self.id} or friendships.friendee_id = #{self.id}
+      JOIN users as friends on friends.id = friendships.friender_id or friends.id = friendships.friendee_id
+      WHERE friends.id != #{self.id} and users.id = #{self.id}
+    SQL
+  end
 
+  def accepted_friends
+    all_status_friends.where(status: 'accepted')
+  end
+
+  def pending_friends
+    all_status_friends.where(status: 'pending')
+  end
+
+  def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
   end

@@ -19,3 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
 });
+
+
+// ASK TOMMY
+// - HANDLING ERRORS
+// - ENTIRE USER ON THE FRONTEND ?
+// - FRIENDSHIPS ?
+// AND FINISH

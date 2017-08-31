@@ -29,8 +29,10 @@ class ProfileComponent extends React.Component {
             logout={this.props.logout}
             />
         </div>
-          <CoverPhotoComponent user={this.props.user} />
-          <ProfPicComponent user={this.props.user} />
+          <div id="cover-and-profile-pics">
+            <CoverPhotoComponent user={this.props.user} />
+            <ProfPicComponent user={this.props.user} />
+          </div>
           <ProfilePostsContainer user={this.props.user} />
       </div>
 

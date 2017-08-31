@@ -7,8 +7,9 @@
 }
 
 .user-name {
-  margin-left: 40%;
   color: white;
+  margin-left: 245px;
+  margin-top: -80px;
 }
 
 #cover-photo {
@@ -20,7 +21,7 @@
 }
 
 #cover-photo img {
-  margin-top: 40px;
+  margin-top: 44px;
   width: 848px;
   max-width: 848px;
   height: 311px;
@@ -35,16 +36,21 @@
   border: .5px solid lightgray;
   padding: 2px;
   border-radius: 3px;
-  position: absolute;
-  margin-left: 20%;
-  margin-top: -60px;
+  margin-left: 50px;
+  margin-top: -80px;
+}
+
+#cover-and-profile-pics {
+  width: 858px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .profile-info-and-posts {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 55px;
+    margin-top: 90px;
 }
 
 #profile-user-info {

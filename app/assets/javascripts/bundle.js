@@ -31034,6 +31034,12 @@ document.addEventListener('DOMContentLoaded', function () {
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
 
+// ASK TOMMY
+// - HANDLING ERRORS
+// - ENTIRE USER ON THE FRONTEND ?
+// - FRIENDSHIPS ?
+// AND FINISH
+
 /***/ }),
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -50367,8 +50373,12 @@ var ProfileComponent = function (_React$Component) {
             logout: this.props.logout
           })
         ),
-        _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
-        _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
+        _react2.default.createElement(
+          'div',
+          { id: 'cover-and-profile-pics' },
+          _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+          _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user })
+        ),
         _react2.default.createElement(_profile_posts_container2.default, { user: this.props.user })
       );
     }
