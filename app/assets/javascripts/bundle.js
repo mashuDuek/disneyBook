@@ -30969,7 +30969,7 @@ var UserInfoComponent = function (_React$Component) {
   _createClass(UserInfoComponent, [{
     key: "render",
     value: function render() {
-
+      debugger;
       return _react2.default.createElement(
         "div",
         { id: "profile-user-info" },
