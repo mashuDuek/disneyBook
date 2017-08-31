@@ -50169,13 +50169,7 @@ var _modal_actions = __webpack_require__(19);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  // let receiverId;
-  // if (ownProps.match.path === '/feed') {
-  //   receiverId = state.session.currentUser.id;
-  // } else {
-  //   debugger
-  //   receiverId = ownProps.match.params.userId;
-  // }
+
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -50274,6 +50268,7 @@ var _user_actions = __webpack_require__(49);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  debugger;
   return {
     user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
@@ -50930,17 +50925,17 @@ var CoverPhotoComponent = function (_React$Component) {
           "Loading..."
         );
       }
-
-      var cover = void 0;
-      if (!this.props.user.cover_url) {
-        cover = "https://i.pinimg.com/originals/77/a7/e3/77a7e37f42d25404191efc8ca82f5842.jpg";
-      } else {
-        cover = this.props.user.cover_url;
-      }
+      // CURRENTLY COVER PHOTO FOR NEW USERS BEING HANDLED IN CONTROLLER
+      // let cover;
+      // if (!this.props.user.cover_url) {
+      //   cover = "https://i.pinimg.com/originals/77/a7/e3/77a7e37f42d25404191efc8ca82f5842.jpg";
+      // } else {
+      //   cover = this.props.user.cover_url;
+      // }
       return _react2.default.createElement(
         "div",
         { id: "cover-photo" },
-        _react2.default.createElement("img", { src: cover })
+        _react2.default.createElement("img", { src: this.props.user.cover_url })
       );
     }
   }]);

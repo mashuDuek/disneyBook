@@ -25,6 +25,7 @@
   max-width: 848px;
   height: 311px;
   max-height: 311px;
+  border-radius: 3px;
 }
 
 #profile-photo img {
@@ -40,10 +41,10 @@
 }
 
 .profile-info-and-posts {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 45px;
 }
 
 #profile-user-info {
@@ -52,4 +53,58 @@
   background: white;
   min-width: 100px;
   padding: 20px;
+  width: 300px;
+  margin-right: 60px;
+}
+
+.profile-posts li {
+  background-color: white;
+  width: 510px;
+  padding: 15px;
+  margin-left: 5px;
+  border: .5px solid lightgray;
+  border-radius: 3px;
+}
+
+
+.profile-posts-and-create-post .profile-posts {
+  margin-top: 30px;
+}
+
+.profile-posts #create-comment-all #create-comment {
+  width: 509px;
+  margin-left: -15px;
+  border-right: .5px solid lightgray;
+  border-bottom: none;
+}
+
+.profile-posts #create-comment-all #create-comment textarea {
+  width: auto;
+}
+
+
+#post-author-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+#post-author-info button {
+  display: block;
+  border: none;
+  background-color: white;
+  max-width: 10px;
+  max-height: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: x-large;
+  margin-right: 10px;
+}
+
+.profile-posts-and-create-post {
+  margin-left: -25px;
 }

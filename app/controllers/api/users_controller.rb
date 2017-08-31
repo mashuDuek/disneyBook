@@ -4,6 +4,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save!
       @user.profilePicUrl = "https://i.pinimg.com/736x/10/3c/09/103c097872200038dd538c8f7e56403e--silhouette-mickey-mouse-free-disney-silhouette-cut-files.jpg"
+      @user.cover_url = "https://i.pinimg.com/originals/77/a7/e3/77a7e37f42d25404191efc8ca82f5842.jpg"
       login(@user)
       render :show
     else
