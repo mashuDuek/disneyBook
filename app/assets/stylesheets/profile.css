@@ -43,4 +43,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin-top: 35px;
+}
+
+#profile-user-info {
+  border-radius: 3px;
+  border: .1px solid lightgray;
+  background: white;
+  min-width: 100px;
+  padding: 20px;
 }

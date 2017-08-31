@@ -30240,7 +30240,8 @@ var PostsComponent = function (_React$Component) {
           { className: 'create-post-all-posts' },
           _react2.default.createElement(_new_post_component2.default, {
             create: this.props.createPost,
-            currentUser: this.props.currentUser
+            currentUser: this.props.currentUser,
+            receiverId: this.props.receiverId
           }),
           _react2.default.createElement(
             'ul',
@@ -30412,7 +30413,7 @@ var NewPostComponent = function (_React$Component) {
 
     _this.state = {
       body: '',
-      receiver_id: _this.props.currentUser.id
+      receiver_id: null
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -30420,6 +30421,18 @@ var NewPostComponent = function (_React$Component) {
   }
 
   _createClass(NewPostComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var receiver = void 0;
+      if (!this.props.user) {
+        receiver = this.props.currentUser;
+      } else {
+        receiver = this.props.user;
+      }
+
+      this.setState({ receiver_id: receiver.id });
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       var _this2 = this;
@@ -30438,6 +30451,20 @@ var NewPostComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      if (!this.state.receiver_id) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading...'
+        );
+      }
+      if (!this.props.currentUser) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          'Loading...'
+        );
+      }
       var placeHolder = 'What\'s on your mind, ' + this.props.currentUser.name + '?';
       return _react2.default.createElement(
         'form',
@@ -30940,23 +30967,23 @@ var UserInfoComponent = function (_React$Component) {
   }
 
   _createClass(UserInfoComponent, [{
-    key: 'render',
+    key: "render",
     value: function render() {
 
       return _react2.default.createElement(
-        'h1',
-        null,
+        "div",
+        { id: "profile-user-info" },
         this.props.user.name,
         _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'I acted in: ',
+          "I acted in: ",
           this.props.user.movie
         ),
         _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'For future gigs: ',
+          "For future gigs: ",
           this.props.user.email
         )
       );
@@ -43914,6 +43941,7 @@ var deletePost = exports.deletePost = function deletePost(post) {
 };
 
 var createPost = exports.createPost = function createPost(post) {
+  debugger;
   return $.ajax({
     method: "POST",
     url: '/api/posts',
@@ -50141,7 +50169,13 @@ var _modal_actions = __webpack_require__(19);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
+  // let receiverId;
+  // if (ownProps.match.path === '/feed') {
+  //   receiverId = state.session.currentUser.id;
+  // } else {
+  //   debugger
+  //   receiverId = ownProps.match.params.userId;
+  // }
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -50576,8 +50610,9 @@ var ProfilePostsComponent = function (_React$Component) {
           'div',
           { className: 'profile-posts-and-create-post' },
           _react2.default.createElement(_new_post_component2.default, {
-            currentUser: this.props.currentUser,
-            create: this.props.createPost
+            user: this.props.user,
+            create: this.props.createPost,
+            currentUser: this.props.currentUser
           }),
           _react2.default.createElement(
             'ul',

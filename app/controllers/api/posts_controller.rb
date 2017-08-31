@@ -11,7 +11,6 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-
     @post = Post.find(params[:id])
     render :show
   end

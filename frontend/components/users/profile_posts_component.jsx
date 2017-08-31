@@ -32,8 +32,9 @@ class ProfilePostsComponent extends React.Component {
         <UserInfoComponent user={this.props.user}/>
         <div className="profile-posts-and-create-post">
           <NewPostComponent
-            currentUser={this.props.currentUser}
+            user={this.props.user}
             create={this.props.createPost}
+            currentUser={this.props.currentUser}
             />
           <ul className="profile-posts">
             {posts}

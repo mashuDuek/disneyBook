@@ -35,6 +35,7 @@ class PostsComponent extends React.Component {
         <NewPostComponent
           create={this.props.createPost}
           currentUser={this.props.currentUser}
+          receiverId={this.props.receiverId}
           />
         <ul className="all-posts-ul">
           {posts}

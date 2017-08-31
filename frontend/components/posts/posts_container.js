@@ -11,12 +11,18 @@ import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  
+  // let receiverId;
+  // if (ownProps.match.path === '/feed') {
+  //   receiverId = state.session.currentUser.id;
+  // } else {
+  //   debugger
+  //   receiverId = ownProps.match.params.userId;
+  // }
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
     posts: state.posts,
-    errors: state.errors
+    errors: state.errors,
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
