@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 class FriendDetailComponent extends React.Component {
 
   constructor (props) {
-    super(props)
+    super(props);
   }
 
   render() {
-debugger
     return (
       <li id="friend-detail-component">
         <img src={this.props.user.profilePicUrl}></img>

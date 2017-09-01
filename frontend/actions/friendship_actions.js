@@ -31,6 +31,7 @@ export const createFriendship = (user) => {
       then((user) => {
         dispatch(receiveUsers(user.accepted_friends));
         dispatch(receiveUsers(user.pending_friends));
+
         // const pending = user.pending_friends;
         // const accepted = user.accepted_friends;
         // delete user.pending_friends;
