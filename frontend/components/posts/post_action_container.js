@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 
+
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},

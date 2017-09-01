@@ -109,7 +109,6 @@ Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: U
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Nala')[0].id, status: 'accepted')
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Abu')[0].id, status: 'accepted')
 Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'accepted')
-Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'pending')
 Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Genie')[0].id, status: 'accepted')
 Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Simba')[0].id, status: 'pending')
 Friendship.create!(friendee_id: User.where(name: 'Rafiki')[0].id, friender_id: User.where(name: 'Iago')[0].id, status: 'accepted')

@@ -2,6 +2,10 @@ import React from 'react';
 
 class UserInfoComponent extends React.Component {
 
+  constructor (props) {
+    super(props);
+  }
+
   render () {
     return (
       <div id="profile-user-info">

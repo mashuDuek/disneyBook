@@ -8,7 +8,11 @@ const userReducer = (state = preloadedState, action ) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_USERS: {
-      return action.users;
+      const newState = Object.assign({}, state);
+      action.users.forEach((user) => {
+        newState[user.id] = user;
+      });
+      return newState;
     }
     case RECEIVE_USER: {
       return Object.assign({}, state, { [action.user.id]: action.user });

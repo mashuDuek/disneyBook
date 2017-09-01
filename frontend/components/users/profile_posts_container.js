@@ -29,10 +29,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createPost: (post) => dispatch(createPost(post)),
     logout: () => dispatch(logout()),
     showModal: (component) => dispatch(showModal(component)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
   };
 };
-
 export default withRouter(connect(
   mapStatetoProps,
   mapDispatchToProps

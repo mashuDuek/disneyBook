@@ -25,4 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // - HANDLING ERRORS
 // - ENTIRE USER ON THE FRONTEND ?
 // - FRIENDSHIPS ?
-// AND FINISH
+// checlk friendship routes
+// COVER PHOTO GOES BEHIND NAV BAR

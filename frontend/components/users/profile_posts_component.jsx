@@ -7,7 +7,7 @@ import values from 'lodash/values';
 class ProfilePostsComponent extends React.Component {
 
   render() {
-
+    debugger
     if (!this.props.user) {
       return (
         <p>Loading...</p>

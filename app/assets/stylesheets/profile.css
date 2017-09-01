@@ -26,7 +26,7 @@
   max-width: 848px;
   height: 311px;
   max-height: 311px;
-  border-radius: 3px;
+  border-radius: 1px;
 }
 
 #profile-photo img {
@@ -151,4 +151,65 @@
   height: 20px;
   background-color: white;
   font-size: 14px;
+}
+
+#profile-bar-component {
+  display: block;
+  min-height: 100px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: .5px solid lightgray;
+  z-index: 100;
+}
+
+#profile-bar-component button {
+  height: -webkit-fill-available;
+  font-weight: bold;
+}
+
+#friend-detail-component img {
+  width: 100px;
+  height: auto;
+}
+
+#friend-detail-component {
+  background: white;
+
+}
+
+#accepted li {
+  margin: 15px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  position: relative;
+}
+
+#accepted {
+  background-color: white;
+  display: flex;
+  margin-top: 30px;
+}
+
+#pending li {
+  margin: 15px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  position: relative;
+}
+
+#pending {
+  background-color: white;
+  display: flex;
+  margin-top: 30px;
+}
+
+#accepted-pending-friends {
+  background-color: white;
+  border-radius: 3px;
+  padding: 5px;
+  border: 1px solid lightgray;
 }

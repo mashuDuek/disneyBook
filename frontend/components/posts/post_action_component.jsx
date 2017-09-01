@@ -18,6 +18,7 @@ class PostActionComponent extends React.Component {
     )
   }
 
+
   render() {
 
     let optionsList;
@@ -25,25 +26,22 @@ class PostActionComponent extends React.Component {
       optionsList = (
         <ul>
           <li>
-              <button onClick={this.handleDelete}>
-                Delete
-              </button>
-
+            <button onClick={this.handleDelete}>
+              Delete
+            </button>
           </li>
           <li>
-              <button onClick={this.handleEdit}>
-                Edit
-              </button>
+            <button onClick={this.handleEdit}>
+              Edit
+            </button>
           </li>
         </ul>
       );
     } else {
       optionsList = (
-        <ul>
-          <li>
-            No author detected
-          </li>
-        </ul>
+        <p>
+          No actions
+        </p>
       )
     }
     return (

@@ -28,21 +28,39 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   def all_status_friends
-    User.find_by_sql(<<-SQL)
-      SELECT friends.*
-      FROM users
-      JOIN friendships on friendships.friender_id = #{self.id} or friendships.friendee_id = #{self.id}
-      JOIN users as friends on friends.id = friendships.friender_id or friends.id = friendships.friendee_id
-      WHERE friends.id != #{self.id} and users.id = #{self.id}
+    join_friendships = <<-SQL
+      JOIN
+        friendships
+      ON friendships.friender_id = users.id OR friendships.friendee_id = users.id
     SQL
+
+    # join_friends = <<-SQL
+    #   JOIN
+    #     users AS friends
+    #   ON
+    #     friends.id = friendships.friender_id OR friends.id = friendships.friendee_id
+    # SQL
+
+    # .select("friends.*")
+    # .joins(join_friends)
+    User
+      .joins(join_friendships)
+      .where("users.id != ? AND (friendships.friender_id = ? OR friendships.friendee_id = ?)", id, id, id)
+    # User.find_by_sql(<<-SQL)
+    #   SELECT friends.*
+    #   FROM users
+    #   JOIN friendships on friendships.friender_id = #{self.id} or friendships.friendee_id = #{self.id}
+    #   JOIN users as friends on friends.id = friendships.friender_id or friends.id = friendships.friendee_id
+    #   WHERE friends.id != #{self.id} and users.id = #{self.id}
+    # SQL
   end
 
   def accepted_friends
-    all_status_friends.where(status: 'accepted')
+    all_status_friends.where(friendships: { status: 'accepted' })
   end
 
   def pending_friends
-    all_status_friends.where(status: 'pending')
+    all_status_friends.where(friendships: { status: 'pending' })
   end
 
   def self.find_by_credentials(email, password)

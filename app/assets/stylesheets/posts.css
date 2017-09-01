@@ -40,7 +40,7 @@
   background-color: #3b5998;
   margin: -8px;
   margin-bottom: 0px;
-
+  z-index: 1100;
 }
 
 .nav-bar input {
@@ -391,7 +391,6 @@
   margin: 10px;
   margin-right: 40px;
   margin-top: 40px;
-
 }
 
 #left-info-component a:hover {
