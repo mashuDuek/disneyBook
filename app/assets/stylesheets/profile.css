@@ -24,8 +24,8 @@
   margin-top: 44px;
   width: 848px;
   max-width: 848px;
-  height: 311px;
-  max-height: 311px;
+  height: 365px;
+  max-height: 365px;
   border-radius: 1px;
 }
 
@@ -167,7 +167,8 @@
 }
 
 #profile-bar-component button {
-  height: -webkit-fill-available;
+  height: 44px;
+  margin-top: 54px;
   font-weight: bold;
 }
 
