@@ -100,7 +100,7 @@ Comment.create!(body: 'Aww, man... you had to do it!!??', author_id: User.where(
 Comment.create!(body: 'HIhihhIhIHAHA', author_id: User.where(name: 'Shenzi')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
 Comment.create!(body: 'uhAHuHAUhUAHuaihaiha', author_id: User.where(name: 'Benzai')[0].id, post: Post.where(body: 'I laguh in the face of danger! HAHAHAHA')[0])
 
-# FRIENDSHIPS
+# FRIENDSHIPSs
 Friendship.destroy_all
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Simba')[0].id, status: 'pending')
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Nala')[0].id, status: 'accepted')
