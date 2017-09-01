@@ -52,6 +52,9 @@ Post.create!(body: 'Hakuna Matata, Puumbaa!!',
 Post.create!(body: 'Its our problem free, philosophy',
   author_id: User.where(name: 'Pumba')[0].id,
   receiver_id: User.where(name: 'Timon')[0].id)
+  Post.create!(body: 'I laguh in the face of danger! HAHAHAHA',
+  author_id: User.where(name: 'Simba')[0].id,
+  receiver_id: User.where(name: 'Nala')[0].id)
 Post.create!(body: 'Be.. ourr.... gueesssttt',
   author_id: User.where(name: 'Lumiere')[0].id,
   receiver_id: User.where(name: 'Belle')[0].id)
@@ -67,16 +70,13 @@ Post.create!(body: 'Who does that beast think he is!?',
 Post.create!(body: 'Enter, the cave of wonderrss!',
   author_id: User.where(name: 'Jafar')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
-Post.create!(body: 'I laguh in the face of danger! HAHAHAHA',
-  author_id: User.where(name: 'Simba')[0].id,
-  receiver_id: User.where(name: 'Nala')[0].id)
-Post.create!(body: 'Your not even a reala prince!!',
+Post.create!(body: 'You\'re not even a real prince...',
   author_id: User.where(name: 'Jasmine')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
 Post.create!(body: 'Oh yeah Jafar, great idea!! Mwahaha',
   author_id: User.where(name: 'Iago')[0].id,
   receiver_id: User.where(name: 'Jafar')[0].id)
-Post.create!(body: 'Bring me the lampp!!',
+Post.create!(body: 'Bring me the lamp!!',
   author_id: User.where(name: 'Jafar')[0].id,
   receiver_id: User.where(name: 'Aladdin')[0].id)
 Post.create!(body: 'uh uh ih ih -- awhhh',
@@ -102,8 +102,6 @@ Comment.create!(body: 'uhAHuHAUhUAHuaihaiha', author_id: User.where(name: 'Benza
 
 # FRIENDSHIPS
 Friendship.destroy_all
-Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Aladdin')[0].id, status: 'accepted')
-Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Rafiki')[0].id, status: 'pending')
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Simba')[0].id, status: 'pending')
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Nala')[0].id, status: 'accepted')
 Friendship.create!(friendee_id: User.where(name: 'Mufasa')[0].id, friender_id: User.where(name: 'Abu')[0].id, status: 'accepted')

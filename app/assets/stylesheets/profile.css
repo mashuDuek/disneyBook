@@ -10,6 +10,8 @@
   color: white;
   margin-left: 245px;
   margin-top: -80px;
+  position: inherit;
+  top: 145px;
 }
 
 #cover-photo {
@@ -27,6 +29,7 @@
   height: 365px;
   max-height: 365px;
   border-radius: 1px;
+
 }
 
 #profile-photo img {
@@ -36,8 +39,9 @@
   border: .5px solid lightgray;
   padding: 2px;
   border-radius: 3px;
-  margin-left: 50px;
-  margin-top: -80px;
+  position: absolute;
+  top: 42px;
+  left: 50px
 }
 
 #cover-and-profile-pics {
@@ -160,11 +164,11 @@
   background-color: white;
   display: flex;
   justify-content: center;
-  height: 40px;
   margin-left: 5px;
   margin-right: 5px;
   border: .5px solid lightgray;
-  z-index: 100;
+  position: unset;
+  margin-top: 107px;
 }
 
 #profile-bar-component button {
@@ -224,6 +228,7 @@
   justify-content: center;
   max-width: 850px;
   margin: auto;
+  flex-wrap: wrap-reverse;
 }
 
 #root {
