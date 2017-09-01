@@ -3,6 +3,7 @@ class Api::FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     @friendship.friender_id = current_user.id
+
     if @friendship.save
       @user = current_user
       render '/api/users/show'

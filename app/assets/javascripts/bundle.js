@@ -31017,6 +31017,8 @@ var _root = __webpack_require__(269);
 
 var _root2 = _interopRequireDefault(_root);
 
+var _friendship_actions = __webpack_require__(366);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -31029,6 +31031,9 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
+
+  window.createFriendship = _friendship_actions.createFriendship;
+
   window.store = store;
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
@@ -43947,7 +43952,7 @@ var deletePost = exports.deletePost = function deletePost(post) {
 };
 
 var createPost = exports.createPost = function createPost(post) {
-  debugger;
+
   return $.ajax({
     method: "POST",
     url: '/api/posts',
@@ -50270,12 +50275,17 @@ var _session_actions = __webpack_require__(23);
 
 var _user_actions = __webpack_require__(49);
 
+var _friendship_actions = __webpack_require__(366);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   debugger;
   return {
     user: state.users[ownProps.match.params.userId],
+    pendingFriendIds: state.session.currentUser.pending_friends,
+    acceptedFriendIds: state.session.currentUser.accepted_friends,
+    users: state.users,
     currentUser: state.session.currentUser || {},
     errors: state.errors
   };
@@ -50287,6 +50297,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchUser: function fetchUser(user) {
       return dispatch((0, _user_actions.fetchUser)(user));
+    },
+    createFriendship: function createFriendship(user) {
+      return dispatch((0, _friendship_actions.createFriendship)(user));
     }
   };
 };
@@ -50330,9 +50343,9 @@ var _cover_photo_component = __webpack_require__(365);
 
 var _cover_photo_component2 = _interopRequireDefault(_cover_photo_component);
 
-var _profile_bar_container = __webpack_require__(369);
+var _friend_detail_component = __webpack_require__(371);
 
-var _profile_bar_container2 = _interopRequireDefault(_profile_bar_container);
+var _friend_detail_component2 = _interopRequireDefault(_friend_detail_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50348,10 +50361,33 @@ var ProfileComponent = function (_React$Component) {
   function ProfileComponent(props) {
     _classCallCheck(this, ProfileComponent);
 
-    return _possibleConstructorReturn(this, (ProfileComponent.__proto__ || Object.getPrototypeOf(ProfileComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ProfileComponent.__proto__ || Object.getPrototypeOf(ProfileComponent)).call(this, props));
+
+    _this.toggleFriends = _this.toggleFriends.bind(_this);
+    _this.state = { showFriends: false };
+    _this.handleAddFriend = _this.handleAddFriend.bind(_this);
+    return _this;
   }
 
   _createClass(ProfileComponent, [{
+    key: 'handleAddFriend',
+    value: function handleAddFriend() {
+      debugger;
+      (function (e) {
+        return e.stopPropagation();
+      });
+      this.props.createFriendship({ friendship: { friendee_id: this.props.users[this.props.match.params.userId].id }
+      });
+    }
+  }, {
+    key: 'toggleFriends',
+    value: function toggleFriends() {
+      (function (e) {
+        return e.stopPropagation();
+      });
+      this.setState({ showFriends: !this.state.showFriends });
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUser({ id: this.props.match.params.userId });
@@ -50366,27 +50402,100 @@ var ProfileComponent = function (_React$Component) {
           'Loading...'
         );
       }
+      debugger;
+      if (this.state.showFriends) {
+        var accepted = this.props.acceptedFriendIds.map(function (user) {
+          return _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' });
+        });
+        var pending = this.props.pendingFriendIds.map(function (user) {
+          return _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' });
+        });
 
-      return _react2.default.createElement(
-        'div',
-        { id: 'profile-page' },
-        _react2.default.createElement(
+        return _react2.default.createElement(
           'div',
-          { className: 'nav-and-profile-pic-components' },
-          _react2.default.createElement(_nav_bar_component2.default, {
-            currentUser: this.props.currentUser,
-            logout: this.props.logout
-          })
-        ),
-        _react2.default.createElement(
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'nav-and-profile-pic-components' },
+            _react2.default.createElement(_nav_bar_component2.default, {
+              currentUser: this.props.currentUser,
+              logout: this.props.logout
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { id: 'cover-and-profile-pics' },
+            _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+            _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
+            _react2.default.createElement(
+              'div',
+              { id: 'profile-bar-component' },
+              _react2.default.createElement(
+                'button',
+                { onClick: this.handleAddFriend },
+                'Add Friend'
+              ),
+              _react2.default.createElement(
+                'button',
+                { onClick: this.toggleFriends },
+                'Friends'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { id: 'all-friends' },
+            _react2.default.createElement(
+              'div',
+              { id: 'accepted-pending-friends' },
+              _react2.default.createElement(
+                'ul',
+                { id: 'accepted' },
+                accepted
+              ),
+              _react2.default.createElement(
+                'ul',
+                { id: 'pending' },
+                pending
+              )
+            )
+          )
+        );
+      } else {
+        return _react2.default.createElement(
           'div',
-          { id: 'cover-and-profile-pics' },
-          _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
-          _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
-          _react2.default.createElement(_profile_bar_container2.default, null)
-        ),
-        _react2.default.createElement(_profile_posts_container2.default, { user: this.props.user })
-      );
+          { id: 'profile-page' },
+          _react2.default.createElement(
+            'div',
+            { className: 'nav-and-profile-pic-components' },
+            _react2.default.createElement(_nav_bar_component2.default, {
+              currentUser: this.props.currentUser,
+              logout: this.props.logout
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { id: 'cover-and-profile-pics' },
+            _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+            _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
+            _react2.default.createElement(
+              'div',
+              { id: 'profile-bar-component' },
+              _react2.default.createElement(
+                'button',
+                { onClick: this.handleAddFriend },
+                'Add Friend'
+              ),
+              _react2.default.createElement(
+                'button',
+                { onClick: this.toggleFriends },
+                'Friends'
+              )
+            )
+          ),
+          _react2.default.createElement(_profile_posts_container2.default, { user: this.props.user })
+        );
+      }
     }
   }]);
 
@@ -50585,7 +50694,6 @@ var ProfilePostsComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      debugger;
       if (!this.props.user) {
         return _react2.default.createElement(
           'p',
@@ -50997,21 +51105,22 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 //   };
 // };
 
+// below, user is currentUser
 var createFriendship = exports.createFriendship = function createFriendship(user) {
   return function (dispatch) {
     return APIUtil.createFriendship(user).then(function (user) {
       dispatch((0, _user_actions.receiveUsers)(user.accepted_friends));
       dispatch((0, _user_actions.receiveUsers)(user.pending_friends));
-      var pending = user.pending_friends;
-      var accepted = user.accepted_friends;
-      delete user.pending_friends;
-      delete user.accepted_friends;
-      user.pending_friend_ids = pending.map(function (user) {
-        return user.id;
-      });
-      user.accepted_friend_ids = accepted.map(function (user) {
-        return user.id;
-      });
+      // const pending = user.pending_friends;
+      // const accepted = user.accepted_friends;
+      // delete user.pending_friends;
+      // delete user.accepted_friends;
+      // user.pending_friend_ids = pending.map((user) => {
+      //   return user.id;
+      // });
+      // user.accepted_friend_ids = accepted.map((user) => {
+      //   return user.id;
+      // });
 
       dispatch((0, _session_actions.receiveCurrentUser)(user));
     });
@@ -51045,6 +51154,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var createFriendship = exports.createFriendship = function createFriendship(user) {
+  debugger;
   return $.ajax({
     method: "POST",
     url: '/api/friendships',
@@ -51067,226 +51177,9 @@ var acceptFriendship = exports.acceptFriendship = function acceptFriendship(user
 };
 
 /***/ }),
-/* 368 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _friends_component = __webpack_require__(370);
-
-var _friends_component2 = _interopRequireDefault(_friends_component);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ProfileBarComponent = function (_React$Component) {
-  _inherits(ProfileBarComponent, _React$Component);
-
-  function ProfileBarComponent(props) {
-    _classCallCheck(this, ProfileBarComponent);
-
-    var _this = _possibleConstructorReturn(this, (ProfileBarComponent.__proto__ || Object.getPrototypeOf(ProfileBarComponent)).call(this, props));
-
-    _this.toggleFriends = _this.toggleFriends.bind(_this);
-    _this.state = { showComponentVisibility: false };
-
-    return _this;
-  }
-
-  _createClass(ProfileBarComponent, [{
-    key: 'toggleFriends',
-    value: function toggleFriends() {
-      (function (e) {
-        return e.stopPropagation();
-      });
-      this.setState({ showComponentVisibility: !this.state.showComponentVisibility });
-      this.handleAddFriend = this.handleAddFriend.bind(this);
-    }
-  }, {
-    key: 'handleAddFriend',
-    value: function handleAddFriend() {
-      this.props.createFriendship({ friendship: { friendee_id: this.props.user.id } });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var showComponent = void 0;
-      if (this.state.showComponentVisibility) {
-        showComponent = _react2.default.createElement(_friends_component2.default, {
-          users: this.props.users,
-          acceptedFriendIds: this.props.acceptedFriendIds,
-          pendingFriendIds: this.props.pendingFriendIds,
-          hideComponent: this.toggleFriends
-        });
-      } else {
-        showComponent = null;
-      }
-      return _react2.default.createElement(
-        'div',
-        { id: 'profile-bar-component' },
-        _react2.default.createElement(
-          'button',
-          { onClick: this.props.handleAddFriend },
-          'Add Friend'
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.toggleFriends },
-          'Friends'
-        ),
-        showComponent
-      );
-    }
-  }]);
-
-  return ProfileBarComponent;
-}(_react2.default.Component);
-
-exports.default = ProfileBarComponent;
-
-/***/ }),
-/* 369 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _profile_bar_component = __webpack_require__(368);
-
-var _profile_bar_component2 = _interopRequireDefault(_profile_bar_component);
-
-var _reactRedux = __webpack_require__(9);
-
-var _reactRouterDom = __webpack_require__(6);
-
-var _friendship_actions = __webpack_require__(366);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import { logout } from '../../actions/session_actions';
-var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
-  return {
-    user: state.users[ownProps.match.params.userId],
-    currentUser: state.session.currentUser || {},
-    pendingFriendIds: state.session.currentUser.pending_friends,
-    acceptedFriendIds: state.session.currentUser.accepted_friends,
-    users: state.users,
-    errors: state.errors
-  };
-};
-var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    createFriendship: function createFriendship(user) {
-      return dispatch((0, _friendship_actions.createFriendship)(user));
-    }
-  };
-};
-
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_profile_bar_component2.default));
-
-/***/ }),
-/* 370 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _friend_detail_component = __webpack_require__(371);
-
-var _friend_detail_component2 = _interopRequireDefault(_friend_detail_component);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FriendsComponent = function (_React$Component) {
-  _inherits(FriendsComponent, _React$Component);
-
-  function FriendsComponent(props) {
-    _classCallCheck(this, FriendsComponent);
-
-    return _possibleConstructorReturn(this, (FriendsComponent.__proto__ || Object.getPrototypeOf(FriendsComponent)).call(this, props));
-  }
-
-  _createClass(FriendsComponent, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var accepted = this.props.acceptedFriendIds.map(function (user) {
-        return _react2.default.createElement(_friend_detail_component2.default, { user: _this2.props.users[user.id], status: 'accepted' });
-      });
-      var pending = this.props.pendingFriendIds.map(function (user) {
-        return _react2.default.createElement(_friend_detail_component2.default, { user: _this2.props.users[user.id], status: 'pending' });
-      });
-
-      return _react2.default.createElement(
-        'div',
-        { id: 'all-friends' },
-        _react2.default.createElement(
-          'button',
-          { onClick: this.props.toggleFriends },
-          'X'
-        ),
-        _react2.default.createElement(
-          'div',
-          { id: 'accepted-pending-friends' },
-          _react2.default.createElement(
-            'ul',
-            { id: 'accepted' },
-            accepted
-          ),
-          _react2.default.createElement(
-            'ul',
-            { id: 'pending' },
-            pending
-          )
-        )
-      );
-    }
-  }]);
-
-  return FriendsComponent;
-}(_react2.default.Component);
-
-exports.default = FriendsComponent;
-
-/***/ }),
+/* 368 */,
+/* 369 */,
+/* 370 */,
 /* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51302,6 +51195,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51321,22 +51216,22 @@ var FriendDetailComponent = function (_React$Component) {
   }
 
   _createClass(FriendDetailComponent, [{
-    key: "render",
+    key: 'render',
     value: function render() {
-
+      debugger;
       return _react2.default.createElement(
-        "li",
-        { id: "friend-detail-component" },
-        _react2.default.createElement("img", { src: this.props.user.profilePicUrl }),
+        'li',
+        { id: 'friend-detail-component' },
+        _react2.default.createElement('img', { src: this.props.user.profilePicUrl }),
         _react2.default.createElement(
-          "p",
-          null,
+          _reactRouterDom.Link,
+          { to: '/users/' + this.props.user.id },
           this.props.user.name
         ),
         _react2.default.createElement(
-          "p",
+          'p',
           null,
-          "Status: ",
+          'Status: ',
           this.props.status
         )
       );

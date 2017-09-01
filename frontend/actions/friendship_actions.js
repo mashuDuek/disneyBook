@@ -24,22 +24,23 @@ import { receiveUsers } from './user_actions';
 //   };
 // };
 
+// below, user is currentUser
 export const createFriendship = (user) => {
   return (dispatch) => {
     return APIUtil.createFriendship(user).
       then((user) => {
         dispatch(receiveUsers(user.accepted_friends));
         dispatch(receiveUsers(user.pending_friends));
-        const pending = user.pending_friends;
-        const accepted = user.accepted_friends;
-        delete user.pending_friends;
-        delete user.accepted_friends;
-        user.pending_friend_ids = pending.map((user) => {
-          return user.id;
-        });
-        user.accepted_friend_ids = accepted.map((user) => {
-          return user.id;
-        });
+        // const pending = user.pending_friends;
+        // const accepted = user.accepted_friends;
+        // delete user.pending_friends;
+        // delete user.accepted_friends;
+        // user.pending_friend_ids = pending.map((user) => {
+        //   return user.id;
+        // });
+        // user.accepted_friend_ids = accepted.map((user) => {
+        //   return user.id;
+        // });
 
         dispatch(receiveCurrentUser(user));
       }

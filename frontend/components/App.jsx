@@ -22,6 +22,7 @@ const App = (props) => {
       <ProtectedRoute exact path="/feed" component={ FeedContainer } />
       <ProtectedRoute exact path="/feed" component={ PostsContainer } />
       <ProtectedRoute exact path="/users/:userId" component={ ProfileContainer } />
+
     </div>
   );
 };
