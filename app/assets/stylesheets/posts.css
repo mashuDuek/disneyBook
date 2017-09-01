@@ -212,7 +212,6 @@
   max-height: 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: x-large;
   margin-right: 10px;
 }
 
@@ -372,7 +371,11 @@
   font-size: 14px;
 }
 
-#post-action-options button {
+#post-action-options p {
+  padding: 10px;
+}
+
+#post-author-info #post-action-options button {
   border: none;
   width: 80px;
   height: 20px;
