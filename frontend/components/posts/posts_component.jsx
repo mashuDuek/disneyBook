@@ -16,9 +16,9 @@ class PostsComponent extends React.Component {
   render() {
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
-      return (<p>Loading posts...</p>)
+      return (<p>Loading posts...</p>);
     } else {
-      const postValues = values(this.props.posts)
+      const postValues = values(this.props.posts);
       posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
@@ -26,9 +26,9 @@ class PostsComponent extends React.Component {
           return( <PostDetailContainer post={post} /> );
         }
       });
-    };
+    }
 
-    return(
+    return (
     <div className="posts-and-info-components">
       <LeftInfoComponent />
       <div className="create-post-all-posts">

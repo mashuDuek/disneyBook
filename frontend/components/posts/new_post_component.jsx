@@ -21,7 +21,7 @@ class NewPostComponent extends React.Component {
       receiver = this.props.user;
     }
 
-    this.setState({ receiver_id: receiver.id })
+    this.setState({ receiver_id: receiver.id });
   }
 
   handleSubmit(e) {
@@ -34,19 +34,19 @@ class NewPostComponent extends React.Component {
   handleChange(e) {
     e.preventDefault();
     this.setState(
-      Object.assign({}, this.state, { body: e.target.value})
+      Object.assign({}, this.state, { body: e.target.value })
     );
   }
 
   render() {
     if (!this.state.receiver_id) {
-      return (<p>Loading...</p>)
+      return (<p>Loading...</p>);
     }
     if (!this.props.currentUser) {
-      return (<p>Loading...</p>)
+      return (<p>Loading...</p>);
     }
-    const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`
-    return(
+    const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`;
+    return (
       <form onSubmit={this.handleSubmit} className="create-post">
         <textarea
           placeholder={placeHolder}
@@ -54,7 +54,8 @@ class NewPostComponent extends React.Component {
           width="500"
           value={this.state.body}
           onChange={this.handleChange}
-          ></textarea>
+          >
+        </textarea>
         <button>
           Post
         </button>

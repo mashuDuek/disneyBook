@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(<Root store={store} />, root);
 });
 
-
-// ASK TOMMY
+// MISSING STUFF - OR TOO MUCH STUFF ??
 // - HANDLING ERRORS
-// - ENTIRE USER ON THE FRONTEND ?
-// - FRIENDSHIPS ?
-// checlk friendship routes
-// COVER PHOTO GOES BEHIND NAV BAR
+// - ENTIRE USER ON THE FRONTEND - fix
+// - FRIENDSHIPS - fix
+// checlk friendship routes .. ? whaa
+// COVER PHOTO GOES BEHIND NAV BAR .. ? whaa

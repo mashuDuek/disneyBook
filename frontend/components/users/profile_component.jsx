@@ -15,7 +15,6 @@ class ProfileComponent extends React.Component {
   }
 
   handleAddFriend() {
-    debugger
     (e) => e.stopPropagation();
     this.props.createFriendship(
       { friendship:
@@ -37,15 +36,14 @@ class ProfileComponent extends React.Component {
     if (!this.props.user) {
       return (
         <p>Loading...</p>
-      )
+      );
     }
-    debugger
     if (this.state.showFriends) {
       const accepted = this.props.acceptedFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="accepted" />
+        return <FriendDetailComponent user={user} status="accepted" />;
       });
       const pending = this.props.pendingFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="pending" />
+        return <FriendDetailComponent user={user} status="pending" />;
       });
 
       return (
