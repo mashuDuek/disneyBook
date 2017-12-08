@@ -6,15 +6,17 @@ import { createFriendship } from './actions/friendship_actions';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
   let store;
   if (window.currentUser) {
+  
     const preloadedState = { session: { currentUser: window.currentUser }};
     store = configureStore(preloadedState);
     delete window.currentUser;
   } else {
+  
     store = configureStore();
   }
+
 
   window.createFriendship = createFriendship;
 
@@ -24,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(<Root store={store} />, root);
 });
 
-// MISSING STUFF - OR TOO MUCH STUFF ??
-// - HANDLING ERRORS
+// MISSING STUFF
 // - ENTIRE USER ON THE FRONTEND - fix
 // - FRIENDSHIPS - fix
-// checlk friendship routes .. ? whaa
+// - HANDLING ERRORS - make
+// check friendship routes .. ? whaa
 // COVER PHOTO GOES BEHIND NAV BAR .. ? whaa

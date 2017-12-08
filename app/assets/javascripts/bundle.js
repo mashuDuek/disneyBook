@@ -22714,7 +22714,6 @@ var updateComment = exports.updateComment = function updateComment(comment) {
 };
 
 var deleteComment = exports.deleteComment = function deleteComment(comment) {
-
   return function (dispatch) {
     return APIUtil.deleteComment(comment).then(function (comment) {
       return dispatch(destroyComment(comment));
@@ -31222,7 +31221,11 @@ var PostsComponent = function (_React$Component) {
           if (!post) {
             return null;
           } else {
-            return _react2.default.createElement(_post_detail_container2.default, { post: post });
+            return _react2.default.createElement(
+              'li',
+              { key: post.id },
+              _react2.default.createElement(_post_detail_container2.default, { post: post })
+            );
           }
         });
       }
@@ -32074,13 +32077,14 @@ var _friendship_actions = __webpack_require__(151);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
-
   var store = void 0;
   if (window.currentUser) {
+
     var preloadedState = { session: { currentUser: window.currentUser } };
     store = (0, _store2.default)(preloadedState);
     delete window.currentUser;
   } else {
+
     store = (0, _store2.default)();
   }
 
@@ -32091,11 +32095,11 @@ document.addEventListener('DOMContentLoaded', function () {
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
 
-// MISSING STUFF - OR TOO MUCH STUFF ??
-// - HANDLING ERRORS
+// MISSING STUFF
 // - ENTIRE USER ON THE FRONTEND - fix
 // - FRIENDSHIPS - fix
-// checlk friendship routes .. ? whaa
+// - HANDLING ERRORS - make
+// check friendship routes .. ? whaa
 // COVER PHOTO GOES BEHIND NAV BAR .. ? whaa
 
 /***/ }),
@@ -45485,7 +45489,6 @@ var errorsReducer = function errorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
   var action = arguments[1];
 
-
   switch (action.type) {
     case _errors_actions.RECEIVE_ERRORS:
       {
@@ -50563,7 +50566,6 @@ var PostActionComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       var optionsList = void 0;
       if (this.props.post.author_id === this.props.currentUser.id) {
         optionsList = _react2.default.createElement(
@@ -51490,10 +51492,19 @@ var ProfileComponent = function (_React$Component) {
       }
       if (this.state.showFriends) {
         var accepted = this.props.acceptedFriendIds.map(function (user) {
-          return _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' });
+          return _react2.default.createElement(
+            'li',
+            { key: user.id },
+            _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' })
+          );
         });
         var pending = this.props.pendingFriendIds.map(function (user) {
-          return _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' });
+          return _react2.default.createElement(
+            'li',
+            { key: user.id },
+            _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' }),
+            ';'
+          );
         });
 
         return _react2.default.createElement(

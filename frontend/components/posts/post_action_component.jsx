@@ -15,12 +15,11 @@ class PostActionComponent extends React.Component {
   handleEdit() {
     this.props.showModal(
       <EditPostContainer post={this.props.post} updatePost={this.props.updatePost} />
-    )
+    );
   }
 
 
   render() {
-
     let optionsList;
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (
@@ -42,7 +41,7 @@ class PostActionComponent extends React.Component {
         <p>
           No actions
         </p>
-      )
+      );
     }
     return (
       <div id="post-action-options">

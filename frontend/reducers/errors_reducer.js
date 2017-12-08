@@ -10,7 +10,6 @@ const preloadedState = {
 };
 
 const errorsReducer = (state = preloadedState, action) => {
-
   switch(action.type) {
     case RECEIVE_ERRORS: {
       return action.errors;
@@ -18,6 +17,5 @@ const errorsReducer = (state = preloadedState, action) => {
     default: return state;
   }
 };
-
 
 export default errorsReducer;

@@ -14,14 +14,14 @@ class NavBar extends React.Component {
     }
 
     toggleActionVisibility () {
-      
-      this.setState({ actionsVisible: !this.state.actionsVisible })
+
+      this.setState({ actionsVisible: !this.state.actionsVisible });
     }
 
     render() {
       let actionsComponent;
       if (this.state.actionsVisible) {
-        actionsComponent = (<NavBarActionComponent logout={this.props.logout} />)
+        actionsComponent = (<NavBarActionComponent logout={this.props.logout} />);
       } else {
         actionsComponent = null;
       }

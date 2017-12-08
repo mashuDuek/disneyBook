@@ -3,20 +3,19 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #f6f7f9;
+  background-color: #e9ebee;
   margin: -10px;
   margin-bottom: -15px;
-  margin-top: 5px;
+  margin-top: 10px;
+  border-radius: 25px;
 }
-
 
 #comment-author img {
   max-width: 30px;
   min-width: 30px;
   max-height: 30px;
   min-height: 30px;
-  border-radius: 1px;
-  border: .1px solid lightgray;
+  border-radius: 15px;
 }
 
 #comment-author-pic-and-name {
@@ -74,16 +73,14 @@
   margin-left: -200px;
   display: flex;
   flex-direction: column;
-  top: 50%;
-  left: 50%;
+  top: 30%;
+  left: 52%;
   height: inherit;
   background-color: white;
   border-radius: 3px;
 }
 
 #create-comment {
-  background-color: #f6f7f9;
-  border-bottom: .5px solid lightgray;
   margin: -10px;
   margin-bottom: -15px;
   margin-top: 5px;
@@ -92,13 +89,14 @@
 #create-comment textarea {
   border: .5px solid #dddfe2;
   margin: 10px;
-  min-width: 485px;
+  margin-top: 30px;
+  border-radius: 25px;
+  width: -webkit-fill-available;
   max-width: 485px;
   min-height: 30px;
   max-height: 150px;
   font-size: 14px;
 }
-
 
 .edit-comment-label {
   display: flex;

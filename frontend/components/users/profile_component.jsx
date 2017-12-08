@@ -40,10 +40,18 @@ class ProfileComponent extends React.Component {
     }
     if (this.state.showFriends) {
       const accepted = this.props.acceptedFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="accepted" />;
+        return(
+          <li key={user.id}>
+            <FriendDetailComponent user={user} status="accepted" />
+          </li>
+        );
       });
       const pending = this.props.pendingFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="pending" />;
+        return (
+          <li key={user.id}>
+            <FriendDetailComponent user={user} status="pending" />;
+          </li>
+        );
       });
 
       return (
