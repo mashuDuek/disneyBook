@@ -90,11 +90,6 @@
   border-bottom: none;
 }
 
-.profile-posts #create-comment-all #create-comment textarea {
-  width: auto;
-}
-
-
 #post-author-info {
   display: flex;
   flex-direction: row;

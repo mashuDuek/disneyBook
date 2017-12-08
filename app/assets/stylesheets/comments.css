@@ -84,16 +84,16 @@
 }
 
 #create-comment textarea {
-  text-align: center;
   border: .5px solid #dddfe2;
   margin: 10px;
   margin-top: 30px;
   border-radius: 25px;
   width: -webkit-fill-available;
   max-width: 485px;
-  min-height: 30px;
+  height: 20px;
   max-height: 150px;
   font-size: 14px;
+  padding-left: 10px;
 }
 
 .edit-comment-label {
