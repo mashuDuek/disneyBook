@@ -60,7 +60,7 @@
 
 #profile-user-info {
   border-radius: 3px;
-  border: .1px solid lightgray;
+  border: 1px solid lightgray;
   background: white;
   min-width: 100px;
   padding: 20px;
@@ -80,10 +80,6 @@
   margin-bottom: 10px;
 }
 
-.profile-posts #comment-author {
-  margin-left: -15px;
-  margin-right: -15px;
-}
 .profile-posts-and-create-post .profile-posts {
   margin-top: 30px;
 }
@@ -91,7 +87,6 @@
 .profile-posts #create-comment-all #create-comment {
   width: 509px;
   margin-left: -15px;
-  border-right: .5px solid lightgray;
   border-bottom: none;
 }
 

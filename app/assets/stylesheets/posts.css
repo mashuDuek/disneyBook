@@ -67,6 +67,7 @@
 }
 
 .create-post {
+  border: 1px solid lightgray;
   display: grid;
   min-height: 100px;
   background-color: white;
@@ -112,15 +113,19 @@
 }
 
 .all-posts-ul li {
+  border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
-  padding: 10px;
+  padding: 5px;
   background-color: white;
   border-radius: 2px;
-
   max-width: 510px;
+}
+
+#post-item {
+  border: none;
 }
 
 #nav-bar-welcome-logout {

@@ -31597,7 +31597,7 @@ var PostDetailComponent = function (_React$Component) {
 
         return _react2.default.createElement(
           'li',
-          { key: this.props.post.id },
+          { key: this.props.post.id, id: 'post-item' },
           _react2.default.createElement(
             'div',
             { id: 'post-author-info' },

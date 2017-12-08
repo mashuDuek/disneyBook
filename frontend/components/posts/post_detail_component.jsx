@@ -54,7 +54,7 @@ class PostDetailComponent extends React.Component {
       }
 
       return(
-        <li key={this.props.post.id}>
+        <li key={this.props.post.id} id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
               <img src={authorObj.profilePicUrl}
