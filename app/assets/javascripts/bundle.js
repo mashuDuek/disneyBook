@@ -51504,8 +51504,7 @@ var ProfileComponent = function (_React$Component) {
             return _react2.default.createElement(
               'li',
               { key: user.id },
-              _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' }),
-              ';'
+              _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' })
             );
           });
         } else {
@@ -51548,17 +51547,18 @@ var ProfileComponent = function (_React$Component) {
             { id: 'all-friends' },
             _react2.default.createElement(
               'div',
+              { id: 'friends-bar' },
+              'All of ',
+              this.props.user.name,
+              's friends!'
+            ),
+            _react2.default.createElement(
+              'div',
               { id: 'accepted-pending-friends' },
               _react2.default.createElement(
                 'ul',
                 { id: 'pending' },
                 pending
-              ),
-              _react2.default.createElement(
-                'h3',
-                null,
-                this.props.user.name,
-                's Friends'
               ),
               _react2.default.createElement(
                 'ul',

@@ -51,7 +51,7 @@ class ProfileComponent extends React.Component {
         pending = this.props.pendingFriendIds.map((user) => {
           return (
             <li key={user.id}>
-              <FriendDetailComponent user={user} status="pending" />;
+              <FriendDetailComponent user={user} status="pending" />
             </li>
           );
         });
@@ -80,11 +80,11 @@ class ProfileComponent extends React.Component {
               </div>
           </div>
           <div id="all-friends">
+            <div id="friends-bar">All of {this.props.user.name}s friends!</div>
             <div id="accepted-pending-friends">
               <ul id="pending">
                 {pending}
               </ul>
-              <h3>{this.props.user.name}s Friends</h3>
               <ul id="accepted">
                 {accepted}
               </ul>
