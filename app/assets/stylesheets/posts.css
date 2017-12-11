@@ -287,7 +287,7 @@
   margin-left: -200px;
   display: flex;
   flex-direction: column;
-  top: 50%;
+  top: 40%;
   left: 50%;
   height: inherit;
   background-color: white;
@@ -295,6 +295,7 @@
 }
 
 .edit-post-label {
+  border-radius: 3px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -336,6 +337,7 @@
   border: none;
   font-size: 16px;
   max-width: 360px;
+  border-bottom: 1px solid lightgray;
 }
 
 .edit-post form {
