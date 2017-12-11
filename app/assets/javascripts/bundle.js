@@ -51498,14 +51498,19 @@ var ProfileComponent = function (_React$Component) {
             _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' })
           );
         });
-        var pending = this.props.pendingFriendIds.map(function (user) {
-          return _react2.default.createElement(
-            'li',
-            { key: user.id },
-            _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' }),
-            ';'
-          );
-        });
+        var pending = void 0;
+        if (this.props.user.id === this.props.currentUser.id) {
+          pending = this.props.pendingFriendIds.map(function (user) {
+            return _react2.default.createElement(
+              'li',
+              { key: user.id },
+              _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' }),
+              ';'
+            );
+          });
+        } else {
+          pending = null;
+        }
 
         return _react2.default.createElement(
           'div',
@@ -51546,13 +51551,19 @@ var ProfileComponent = function (_React$Component) {
               { id: 'accepted-pending-friends' },
               _react2.default.createElement(
                 'ul',
-                { id: 'accepted' },
-                accepted
+                { id: 'pending' },
+                pending
+              ),
+              _react2.default.createElement(
+                'h3',
+                null,
+                this.props.user.name,
+                's Friends'
               ),
               _react2.default.createElement(
                 'ul',
-                { id: 'pending' },
-                pending
+                { id: 'accepted' },
+                accepted
               )
             )
           )
