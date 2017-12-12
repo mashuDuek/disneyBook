@@ -33,7 +33,7 @@ class SessionFormLogin extends React.Component {
   }
 
   render () {
-    
+
     if (this.props.loggedIn) {
       return (
         <Redirect to="/" />
@@ -55,6 +55,7 @@ class SessionFormLogin extends React.Component {
               onChange={this.handlePassword}
               value={this.state.password} />
           </label>
+
           <button onClick={this.handleSubmit}>Log In</button>
           <button onClick={this.demoLogin}>Demo Mufasa</button>
         </form>

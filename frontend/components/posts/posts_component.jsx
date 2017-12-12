@@ -16,19 +16,23 @@ class PostsComponent extends React.Component {
   render() {
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
-      return (<p>Loading posts...</p>)
+      return (<p>Loading posts...</p>);
     } else {
-      const postValues = values(this.props.posts)
+      const postValues = values(this.props.posts);
       posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
         } else {
-          return( <PostDetailContainer post={post} /> );
+          return(
+            <li key={post.id}>
+              <PostDetailContainer post={post} />
+            </li>
+          );
         }
       });
-    };
+    }
 
-    return(
+    return (
     <div className="posts-and-info-components">
       <LeftInfoComponent />
       <div className="create-post-all-posts">

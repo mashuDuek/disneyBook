@@ -19,7 +19,7 @@ class NavBarActionComponent extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 

@@ -35,7 +35,7 @@ class PostDetailComponent extends React.Component {
               />
           </div>
         );
-      })
+      });
     }
 
     if (!this.props.post) {
@@ -48,13 +48,13 @@ class PostDetailComponent extends React.Component {
       if (!this.props.users[this.props.post.author_id]) {
         return (
           <p>Loading...</p>
-        )
+        );
       } else {
         authorObj = this.props.users[this.props.post.author_id];
       }
 
       return(
-        <li key={this.props.post.id}>
+        <li key={this.props.post.id} id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
               <img src={authorObj.profilePicUrl}
@@ -92,8 +92,8 @@ class PostDetailComponent extends React.Component {
             post={this.props.post}
             />
         </li>
-      )
-    };
+      );
+    }
   }
 }
 

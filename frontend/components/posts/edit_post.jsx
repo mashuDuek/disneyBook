@@ -35,7 +35,6 @@ class EditPost extends React.Component {
   render(){
     return(
       <div className='edit-post'>
-
         <div className='edit-post-label'>
           <label>Edit Post</label>
           <button onClick={this.modalClose}>X</button>

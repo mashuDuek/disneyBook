@@ -6,7 +6,6 @@ import { fetchUser } from '../../actions/user_actions';
 import { createFriendship } from '../../actions/friendship_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  debugger
   return {
     user: state.users[ownProps.match.params.userId],
     pendingFriendIds: state.session.currentUser.pending_friends,

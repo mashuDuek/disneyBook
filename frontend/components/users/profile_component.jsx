@@ -15,7 +15,6 @@ class ProfileComponent extends React.Component {
   }
 
   handleAddFriend() {
-    debugger
     (e) => e.stopPropagation();
     this.props.createFriendship(
       { friendship:
@@ -37,16 +36,28 @@ class ProfileComponent extends React.Component {
     if (!this.props.user) {
       return (
         <p>Loading...</p>
-      )
+      );
     }
-    debugger
     if (this.state.showFriends) {
       const accepted = this.props.acceptedFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="accepted" />
+        return(
+          <li key={user.id}>
+            <FriendDetailComponent user={user} status="accepted" />
+          </li>
+        );
       });
-      const pending = this.props.pendingFriendIds.map((user) => {
-        return <FriendDetailComponent user={user} status="pending" />
-      });
+      let pending;
+      if (this.props.user.id === this.props.currentUser.id) {
+        pending = this.props.pendingFriendIds.map((user) => {
+          return (
+            <li key={user.id}>
+              <FriendDetailComponent user={user} status="pending" />
+            </li>
+          );
+        });
+      } else {
+        pending = null;
+      }
 
       return (
         <div>
@@ -69,12 +80,13 @@ class ProfileComponent extends React.Component {
               </div>
           </div>
           <div id="all-friends">
+            <div id="friends-bar">All of {this.props.user.name}s friends!</div>
             <div id="accepted-pending-friends">
-              <ul id="accepted">
-                {accepted}
-              </ul>
               <ul id="pending">
                 {pending}
+              </ul>
+              <ul id="accepted">
+                {accepted}
               </ul>
             </div>
           </div>
