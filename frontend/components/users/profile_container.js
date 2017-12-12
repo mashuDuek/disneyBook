@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { createFriendship } from '../../actions/friendship_actions';
-import { showDropDown } from '../../actions/dropdown_actions';
+import { showDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {

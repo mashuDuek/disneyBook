@@ -51414,19 +51414,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     createFriendship: function createFriendship(user) {
       return dispatch((0, _friendship_actions.createFriendship)(user));
     },
-    showDropdown: function (_showDropdown) {
-      function showDropdown(_x) {
-        return _showDropdown.apply(this, arguments);
-      }
-
-      showDropdown.toString = function () {
-        return _showDropdown.toString();
-      };
-
-      return showDropdown;
-    }(function (component) {
-      return dispatch(showDropdown(component));
-    })
+    showDropdown: function showDropdown(component) {
+      return dispatch((0, _dropdown_actions.showDropdown)(component));
+    }
   };
 };
 
@@ -52183,14 +52173,52 @@ var PendingReqs = function (_React$Component) {
   _createClass(PendingReqs, [{
     key: 'render',
     value: function render() {
-      debugger;
+      var _this2 = this;
+
+      var pendingFriends = void 0;
+      var requestCount = void 0;
+      if (!this.props.pendingFriends) {
+        pendingFriends = null;
+        requestCount = 0;
+      } else {
+        // here, i need to include buttons to delete and accept requests.
+        // have to make both of those actions to dispatch on click of those buttons
+        requestCount = this.props.pendingFriends.length;
+        pendingFriends = this.props.pendingFriends.map(function (requester) {
+          return _react2.default.createElement(
+            'li',
+            { key: requester.id },
+            _react2.default.createElement('img', { src: requester.profilePicUrl }),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/users/' + requester.id,
+                onClick: _this2.props.hideDropdown },
+              _react2.default.createElement(
+                'p',
+                null,
+                requester.name,
+                ' from ',
+                requester.movie
+              )
+            )
+          );
+        });
+      }
+
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          'h1',
-          null,
-          'Heyyy'
+          'ul',
+          { id: 'pending-friends' },
+          _react2.default.createElement(
+            'p',
+            { className: 'pending-p-tag' },
+            'You have ',
+            requestCount,
+            ' pending requests!'
+          ),
+          pendingFriends
         )
       );
     }
@@ -52225,12 +52253,17 @@ var _dropdown_actions = __webpack_require__(51);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-  debugger;
-  return {};
+  return {
+    pendingFriends: state.session.currentUser.pending_friends
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  return {};
+  return {
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
+    }
+  };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_nav_bar_pending_reqs2.default));

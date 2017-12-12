@@ -1,0 +1,27 @@
+#pending-friends {
+  background-color: white;
+  border: 1px solid lightgray;
+  width: 250px;
+  position: fixed;
+  left: 60%;
+  margin-top: 44px;
+  padding: 15px 0px 15px 0px;
+
+  img {
+    width: 30px;
+    height: inherit;
+    border-radius: 15px;
+    margin: 5px;
+  }
+
+  li {
+    border-top: .5px solid lightgray;
+    display: flex;
+    height: 30px;
+    margin: 10px;
+  }
+
+  .pending-p-tag {
+    margin-left: 15px;
+  }
+}
