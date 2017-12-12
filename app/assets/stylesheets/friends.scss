@@ -6,6 +6,7 @@
   left: 60%;
   margin-top: 44px;
   padding: 15px 0px 15px 0px;
+  z-index: 1;
 
   img {
     width: 30px;
@@ -22,6 +23,6 @@
   }
 
   .pending-p-tag {
-    margin-left: 15px;
+    margin: 0 15px;
   }
 }

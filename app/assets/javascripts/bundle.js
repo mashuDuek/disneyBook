@@ -31771,153 +31771,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_post_detail_component2.default));
 
 /***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(5);
-
-var _nav_bar_actions_component = __webpack_require__(362);
-
-var _nav_bar_actions_component2 = _interopRequireDefault(_nav_bar_actions_component);
-
-var _nav_bar_pending_reqs_container = __webpack_require__(377);
-
-var _nav_bar_pending_reqs_container2 = _interopRequireDefault(_nav_bar_pending_reqs_container);
-
-var _nav_bar_pending_reqs = __webpack_require__(376);
-
-var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NavBar = function (_React$Component) {
-  _inherits(NavBar, _React$Component);
-
-  function NavBar(props) {
-    _classCallCheck(this, NavBar);
-
-    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
-
-    _this.state = { actionsVisible: false };
-    _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
-    _this.showPendingRequests = _this.showPendingRequests.bind(_this);
-    return _this;
-  }
-
-  _createClass(NavBar, [{
-    key: 'handleLogout',
-    value: function handleLogout() {
-      this.props.logout().then(this.props.history.push('/'));
-    }
-  }, {
-    key: 'toggleActionVisibility',
-    value: function toggleActionVisibility() {
-      this.setState({ actionsVisible: !this.state.actionsVisible });
-    }
-  }, {
-    key: 'showPendingRequests',
-    value: function showPendingRequests(e) {
-      e.stopPropagation();
-      this.props.showDropdown(_react2.default.createElement(_nav_bar_pending_reqs_container2.default, null));
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      var actionsComponent = void 0;
-      if (this.state.actionsVisible) {
-        actionsComponent = _react2.default.createElement(_nav_bar_actions_component2.default, { logout: this.props.logout });
-      } else {
-        actionsComponent = null;
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'nav-bar' },
-        _react2.default.createElement(
-          'form',
-          { id: 'search-form' },
-          _react2.default.createElement('input', { placeholder: 'i do nothing yet' }),
-          _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'div',
-            { id: 'nav-bar-welcome-logout' },
-            _react2.default.createElement(
-              'div',
-              { id: 'user-pic-name-and-home' },
-              _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl }),
-              _react2.default.createElement(
-                'p',
-                { className: 'user-name' },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/users/' + this.props.currentUser.id },
-                  this.props.currentUser.name
-                )
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'home-link' },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/feed' },
-                  'Home'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'nav-bar-icons' },
-              _react2.default.createElement(
-                'div',
-                { id: 'first-three-icons' },
-                _react2.default.createElement('i', { className: 'fa fa-users', 'aria-hidden': 'true', onClick: this.showPendingRequests }),
-                _react2.default.createElement('i', { className: 'fa fa-comments', 'aria-hidden': 'true' }),
-                _react2.default.createElement('i', { className: 'fa fa-globe', 'aria-hidden': 'true' })
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'question-icon-and-options' },
-                _react2.default.createElement('i', { className: 'fa fa-question', 'aria-hidden': 'true', id: 'question' }),
-                _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true', onClick: this.toggleActionVisibility }),
-                actionsComponent
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return NavBar;
-}(_react2.default.Component);
-
-exports.default = (0, _reactRouterDom.withRouter)(NavBar);
-
-/***/ }),
+/* 149 */,
 /* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49325,9 +49179,9 @@ var _posts_component = __webpack_require__(139);
 
 var _posts_component2 = _interopRequireDefault(_posts_component);
 
-var _nav_bar_component = __webpack_require__(149);
+var _nav_bar_container = __webpack_require__(379);
 
-var _nav_bar_component2 = _interopRequireDefault(_nav_bar_component);
+var _nav_bar_container2 = _interopRequireDefault(_nav_bar_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49355,11 +49209,7 @@ var FeedComponent = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement(_nav_bar_component2.default, {
-        currentUser: this.props.currentUser,
-        logout: this.props.logout,
-        showDropdown: this.props.showDropdown
-      });
+      return _react2.default.createElement(_nav_bar_container2.default, null);
     }
   }]);
 
@@ -51132,76 +50982,7 @@ var RightInfoComponent = function (_React$Component) {
 exports.default = RightInfoComponent;
 
 /***/ }),
-/* 362 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NavBarActionComponent = function (_React$Component) {
-  _inherits(NavBarActionComponent, _React$Component);
-
-  function NavBarActionComponent(props) {
-    _classCallCheck(this, NavBarActionComponent);
-
-    var _this = _possibleConstructorReturn(this, (NavBarActionComponent.__proto__ || Object.getPrototypeOf(NavBarActionComponent)).call(this, props));
-
-    _this.handleLogout = _this.handleLogout.bind(_this);
-    return _this;
-  }
-
-  _createClass(NavBarActionComponent, [{
-    key: 'handleLogout',
-    value: function handleLogout() {
-      this.props.logout().then(this.props.history.push('/'));
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'nav-bar-actions' },
-        _react2.default.createElement(
-          'ul',
-          null,
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'button',
-              { onClick: this.handleLogout },
-              'Logout'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return NavBarActionComponent;
-}(_react2.default.Component);
-
-exports.default = NavBarActionComponent;
-
-/***/ }),
+/* 362 */,
 /* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51439,9 +51220,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _nav_bar_component = __webpack_require__(149);
+var _nav_bar_container = __webpack_require__(379);
 
-var _nav_bar_component2 = _interopRequireDefault(_nav_bar_component);
+var _nav_bar_container2 = _interopRequireDefault(_nav_bar_container);
 
 var _profile_pic_component = __webpack_require__(368);
 
@@ -51541,12 +51322,7 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'nav-and-profile-pic-components' },
-            _react2.default.createElement(_nav_bar_component2.default, {
-              currentUser: this.props.currentUser,
-              logout: this.props.logout,
-              pendingRequests: this.props.pendingFriendIds,
-              showDropdown: this.props.showDropdown
-            })
+            _react2.default.createElement(_nav_bar_container2.default, null)
           ),
           _react2.default.createElement(
             'div',
@@ -51596,12 +51372,7 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'nav-and-profile-pic-components' },
-            _react2.default.createElement(_nav_bar_component2.default, {
-              currentUser: this.props.currentUser,
-              logout: this.props.logout,
-              pendingRequests: this.props.pendingFriendIds,
-              showDropdown: this.props.showDropdown
-            })
+            _react2.default.createElement(_nav_bar_container2.default, null)
           ),
           _react2.default.createElement(
             'div',
@@ -52132,7 +51903,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 376 */
+/* 376 */,
+/* 377 */,
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52230,7 +52003,7 @@ var PendingReqs = function (_React$Component) {
 exports.default = PendingReqs;
 
 /***/ }),
-/* 377 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52242,7 +52015,272 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(9);
 
-var _nav_bar_pending_reqs = __webpack_require__(376);
+var _nav_bar_component = __webpack_require__(380);
+
+var _nav_bar_component2 = _interopRequireDefault(_nav_bar_component);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _dropdown_actions = __webpack_require__(51);
+
+var _session_actions = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    pendingFriends: state.session.currentUser.pending_friends,
+    currentUser: state.session.currentUser
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
+    },
+    showDropdown: function showDropdown(comp) {
+      return dispatch((0, _dropdown_actions.showDropdown)(comp));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_nav_bar_component2.default));
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _nav_bar_actions_component = __webpack_require__(381);
+
+var _nav_bar_actions_component2 = _interopRequireDefault(_nav_bar_actions_component);
+
+var _nav_bar_pending_reqs_container = __webpack_require__(382);
+
+var _nav_bar_pending_reqs_container2 = _interopRequireDefault(_nav_bar_pending_reqs_container);
+
+var _nav_bar_pending_reqs = __webpack_require__(378);
+
+var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBar = function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
+
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = { actionsVisible: false };
+    _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
+    _this.showPendingRequests = _this.showPendingRequests.bind(_this);
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'handleLogout',
+    value: function handleLogout() {
+      this.props.logout().then(this.props.history.push('/'));
+    }
+  }, {
+    key: 'toggleActionVisibility',
+    value: function toggleActionVisibility() {
+      this.setState({ actionsVisible: !this.state.actionsVisible });
+    }
+  }, {
+    key: 'showPendingRequests',
+    value: function showPendingRequests(e) {
+      e.stopPropagation();
+      this.props.showDropdown(_react2.default.createElement(_nav_bar_pending_reqs_container2.default, null));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      var actionsComponent = void 0;
+      if (this.state.actionsVisible) {
+        actionsComponent = _react2.default.createElement(_nav_bar_actions_component2.default, { logout: this.props.logout });
+      } else {
+        actionsComponent = null;
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'nav-bar' },
+        _react2.default.createElement(
+          'form',
+          { id: 'search-form' },
+          _react2.default.createElement('input', { placeholder: 'i do nothing yet' }),
+          _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            { id: 'nav-bar-welcome-logout' },
+            _react2.default.createElement(
+              'div',
+              { id: 'user-pic-name-and-home' },
+              _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl }),
+              _react2.default.createElement(
+                'p',
+                { className: 'user-name' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/users/' + this.props.currentUser.id },
+                  this.props.currentUser.name
+                )
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'home-link' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/feed' },
+                  'Home'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { id: 'nav-bar-icons' },
+              _react2.default.createElement(
+                'div',
+                { id: 'first-three-icons' },
+                _react2.default.createElement('i', { className: 'fa fa-users', 'aria-hidden': 'true', onClick: this.showPendingRequests }),
+                _react2.default.createElement('i', { className: 'fa fa-comments', 'aria-hidden': 'true' }),
+                _react2.default.createElement('i', { className: 'fa fa-globe', 'aria-hidden': 'true' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'question-icon-and-options' },
+                _react2.default.createElement('i', { className: 'fa fa-question', 'aria-hidden': 'true', id: 'question' }),
+                _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true', onClick: this.toggleActionVisibility }),
+                actionsComponent
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(NavBar);
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBarActionComponent = function (_React$Component) {
+  _inherits(NavBarActionComponent, _React$Component);
+
+  function NavBarActionComponent(props) {
+    _classCallCheck(this, NavBarActionComponent);
+
+    var _this = _possibleConstructorReturn(this, (NavBarActionComponent.__proto__ || Object.getPrototypeOf(NavBarActionComponent)).call(this, props));
+
+    _this.handleLogout = _this.handleLogout.bind(_this);
+    return _this;
+  }
+
+  _createClass(NavBarActionComponent, [{
+    key: 'handleLogout',
+    value: function handleLogout() {
+      this.props.logout().then(this.props.history.push('/'));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'nav-bar-actions' },
+        _react2.default.createElement(
+          'ul',
+          null,
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleLogout },
+              'Logout'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NavBarActionComponent;
+}(_react2.default.Component);
+
+exports.default = NavBarActionComponent;
+
+/***/ }),
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _nav_bar_pending_reqs = __webpack_require__(378);
 
 var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
 
