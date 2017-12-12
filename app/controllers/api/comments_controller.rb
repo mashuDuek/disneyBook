@@ -5,7 +5,6 @@ class Api::CommentsController < ApplicationController
     @comment.author_id = current_user.id
     if @comment.save
       render :show
-      # render the posts page, whether it be profile or feed
     else
       render json: @comment.errors.full_messages, status: 422
     end
