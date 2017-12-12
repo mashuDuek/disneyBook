@@ -118,18 +118,10 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
-  padding: 5px;
+  padding: 15px;
   background-color: white;
   border-radius: 2px;
   max-width: 510px;
-}
-
-#post-item {
-  border: none;
-}
-
-.profile-posts #post-item {
-  border: 1px solid lightgray;
 }
 
 #nav-bar-welcome-logout {

@@ -24,9 +24,7 @@ class PostsComponent extends React.Component {
           return null;
         } else {
           return(
-            <li key={post.id}>
-              <PostDetailContainer post={post} />
-            </li>
+            <PostDetailContainer post={post} />
           );
         }
       });

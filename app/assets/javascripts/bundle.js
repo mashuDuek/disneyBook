@@ -31221,11 +31221,7 @@ var PostsComponent = function (_React$Component) {
           if (!post) {
             return null;
           } else {
-            return _react2.default.createElement(
-              'li',
-              { key: post.id },
-              _react2.default.createElement(_post_detail_container2.default, { post: post })
-            );
+            return _react2.default.createElement(_post_detail_container2.default, { post: post });
           }
         });
       }
@@ -51502,11 +51498,7 @@ var ProfileComponent = function (_React$Component) {
         var pending = void 0;
         if (this.props.user.id === this.props.currentUser.id) {
           pending = this.props.pendingFriendIds.map(function (user) {
-            return _react2.default.createElement(
-              'li',
-              { key: user.id },
-              _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' })
-            );
+            return _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'pending' });
           });
         } else {
           pending = null;
@@ -51826,7 +51818,7 @@ var ProfilePostsComponent = function (_React$Component) {
             return null;
           }
         });
-      };
+      }
       return _react2.default.createElement(
         'div',
         { className: 'profile-info-and-posts' },
@@ -51952,21 +51944,28 @@ var FriendDetailComponent = function (_React$Component) {
   _createClass(FriendDetailComponent, [{
     key: 'render',
     value: function render() {
+
+      var status = void 0;
+      if (this.props.status == 'pending') {
+        status = _react2.default.createElement(
+          'p',
+          null,
+          'Status: Pending'
+        );
+      } else {
+        status = null;
+      }
+
       return _react2.default.createElement(
         'li',
-        { id: 'friend-detail-component' },
+        { id: 'friend-detail-component', key: this.props.user.id },
         _react2.default.createElement('img', { src: this.props.user.profilePicUrl }),
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: '/users/' + this.props.user.id },
           this.props.user.name
         ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'Status: ',
-          this.props.status
-        )
+        status
       );
     }
   }]);

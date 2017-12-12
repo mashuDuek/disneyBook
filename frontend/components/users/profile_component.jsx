@@ -29,7 +29,7 @@ class ProfileComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser({id: this.props.match.params.userId});
+    this.props.fetchUser({ id: this.props.match.params.userId });
   }
 
   render(){
@@ -50,9 +50,7 @@ class ProfileComponent extends React.Component {
       if (this.props.user.id === this.props.currentUser.id) {
         pending = this.props.pendingFriendIds.map((user) => {
           return (
-            <li key={user.id}>
-              <FriendDetailComponent user={user} status="pending" />
-            </li>
+            <FriendDetailComponent user={user} status="pending" />
           );
         });
       } else {
