@@ -7,7 +7,7 @@ import values from 'lodash/values';
 class ProfilePostsComponent extends React.Component {
 
   render() {
-    
+
     if (!this.props.user) {
       return (
         <p>Loading...</p>
@@ -16,9 +16,9 @@ class ProfilePostsComponent extends React.Component {
 
     let posts;
     if (Object.keys(this.props.posts).length < 1) {
-      return (<p>Loading posts...</p>)
+      return (<p>Loading posts...</p>);
     } else {
-      const postValues = values(this.props.posts)
+      const postValues = values(this.props.posts);
       posts = postValues.reverse().map((post) => {
         if (post.receiver_id === this.props.user.id) {
           return( <PostDetailContainer post={post} /> );
@@ -26,7 +26,7 @@ class ProfilePostsComponent extends React.Component {
           return null;
         }
       });
-    };
+    }
     return (
       <div className="profile-info-and-posts">
         <UserInfoComponent user={this.props.user}/>

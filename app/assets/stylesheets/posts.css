@@ -128,6 +128,10 @@
   border: none;
 }
 
+.profile-posts #post-item {
+  border: 1px solid lightgray;
+}
+
 #nav-bar-welcome-logout {
   display: flex;
   flex-direction: row;
