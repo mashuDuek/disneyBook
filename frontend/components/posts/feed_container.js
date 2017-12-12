@@ -10,9 +10,10 @@ import {
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
+import { showDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  
+
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createPost: (post) => dispatch(createPost(post)),
     logout: () => dispatch(logout()),
     showModal: (component) => dispatch(showModal(component)),
+    showDropdown: (component) => dispatch(showDropdown(component)),
     hideModal: () => dispatch(hideModal())
   };
 };

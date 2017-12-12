@@ -46,6 +46,7 @@ class ProfileComponent extends React.Component {
           </li>
         );
       });
+
       let pending;
       if (this.props.user.id === this.props.currentUser.id) {
         pending = this.props.pendingFriendIds.map((user) => {
@@ -63,6 +64,8 @@ class ProfileComponent extends React.Component {
             <NavBar
               currentUser={this.props.currentUser}
               logout={this.props.logout}
+              pendingRequests={this.props.pendingFriendIds}
+              showDropdown={this.props.showDropdown}
               />
           </div>
           <div id="cover-and-profile-pics">
@@ -80,9 +83,6 @@ class ProfileComponent extends React.Component {
           <div id="all-friends">
             <div id="friends-bar">All of {this.props.user.name}s friends!</div>
             <div id="accepted-pending-friends">
-              <ul id="pending">
-                {pending}
-              </ul>
               <ul id="accepted">
                 {accepted}
               </ul>
@@ -97,6 +97,8 @@ class ProfileComponent extends React.Component {
             <NavBar
               currentUser={this.props.currentUser}
               logout={this.props.logout}
+              pendingRequests={this.props.pendingFriendIds}
+              showDropdown={this.props.showDropdown}
               />
           </div>
           <div id="cover-and-profile-pics">

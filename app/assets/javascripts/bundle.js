@@ -31793,6 +31793,14 @@ var _nav_bar_actions_component = __webpack_require__(362);
 
 var _nav_bar_actions_component2 = _interopRequireDefault(_nav_bar_actions_component);
 
+var _nav_bar_pending_reqs_container = __webpack_require__(377);
+
+var _nav_bar_pending_reqs_container2 = _interopRequireDefault(_nav_bar_pending_reqs_container);
+
+var _nav_bar_pending_reqs = __webpack_require__(376);
+
+var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31811,6 +31819,7 @@ var NavBar = function (_React$Component) {
 
     _this.state = { actionsVisible: false };
     _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
+    _this.showPendingRequests = _this.showPendingRequests.bind(_this);
     return _this;
   }
 
@@ -31822,18 +31831,25 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'toggleActionVisibility',
     value: function toggleActionVisibility() {
-
       this.setState({ actionsVisible: !this.state.actionsVisible });
+    }
+  }, {
+    key: 'showPendingRequests',
+    value: function showPendingRequests(e) {
+      e.stopPropagation();
+      this.props.showDropdown(_react2.default.createElement(_nav_bar_pending_reqs_container2.default, null));
     }
   }, {
     key: 'render',
     value: function render() {
+
       var actionsComponent = void 0;
       if (this.state.actionsVisible) {
         actionsComponent = _react2.default.createElement(_nav_bar_actions_component2.default, { logout: this.props.logout });
       } else {
         actionsComponent = null;
       }
+
       return _react2.default.createElement(
         'div',
         { className: 'nav-bar' },
@@ -31878,7 +31894,7 @@ var NavBar = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { id: 'first-three-icons' },
-                _react2.default.createElement('i', { className: 'fa fa-users', 'aria-hidden': 'true' }),
+                _react2.default.createElement('i', { className: 'fa fa-users', 'aria-hidden': 'true', onClick: this.showPendingRequests }),
                 _react2.default.createElement('i', { className: 'fa fa-comments', 'aria-hidden': 'true' }),
                 _react2.default.createElement('i', { className: 'fa fa-globe', 'aria-hidden': 'true' })
               ),
@@ -49239,6 +49255,8 @@ var _session_actions = __webpack_require__(22);
 
 var _modal_actions = __webpack_require__(20);
 
+var _dropdown_actions = __webpack_require__(51);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -49272,6 +49290,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
+    },
+    showDropdown: function showDropdown(component) {
+      return dispatch((0, _dropdown_actions.showDropdown)(component));
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
@@ -49336,7 +49357,8 @@ var FeedComponent = function (_React$Component) {
 
       return _react2.default.createElement(_nav_bar_component2.default, {
         currentUser: this.props.currentUser,
-        logout: this.props.logout
+        logout: this.props.logout,
+        showDropdown: this.props.showDropdown
       });
     }
   }]);
@@ -50942,13 +50964,16 @@ var DropdownComponent = function (_React$Component) {
   _createClass(DropdownComponent, [{
     key: "render",
     value: function render() {
-
       if (!this.props.component) {
         return null;
       } else {
-        return _react2.default.createElement("div", { className: "dropdown", onClick: function onClick(e) {
-            return e.stopPropagation();
-          } });
+        return _react2.default.createElement(
+          "div",
+          { className: "dropdown", onClick: function onClick(e) {
+              return e.stopPropagation();
+            } },
+          this.props.component
+        );
       }
     }
   }]);
@@ -51364,6 +51389,8 @@ var _user_actions = __webpack_require__(29);
 
 var _friendship_actions = __webpack_require__(151);
 
+var _dropdown_actions = __webpack_require__(51);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -51386,7 +51413,20 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     createFriendship: function createFriendship(user) {
       return dispatch((0, _friendship_actions.createFriendship)(user));
-    }
+    },
+    showDropdown: function (_showDropdown) {
+      function showDropdown(_x) {
+        return _showDropdown.apply(this, arguments);
+      }
+
+      showDropdown.toString = function () {
+        return _showDropdown.toString();
+      };
+
+      return showDropdown;
+    }(function (component) {
+      return dispatch(showDropdown(component));
+    })
   };
 };
 
@@ -51495,6 +51535,7 @@ var ProfileComponent = function (_React$Component) {
             _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' })
           );
         });
+
         var pending = void 0;
         if (this.props.user.id === this.props.currentUser.id) {
           pending = this.props.pendingFriendIds.map(function (user) {
@@ -51512,7 +51553,9 @@ var ProfileComponent = function (_React$Component) {
             { className: 'nav-and-profile-pic-components' },
             _react2.default.createElement(_nav_bar_component2.default, {
               currentUser: this.props.currentUser,
-              logout: this.props.logout
+              logout: this.props.logout,
+              pendingRequests: this.props.pendingFriendIds,
+              showDropdown: this.props.showDropdown
             })
           ),
           _react2.default.createElement(
@@ -51550,11 +51593,6 @@ var ProfileComponent = function (_React$Component) {
               { id: 'accepted-pending-friends' },
               _react2.default.createElement(
                 'ul',
-                { id: 'pending' },
-                pending
-              ),
-              _react2.default.createElement(
-                'ul',
                 { id: 'accepted' },
                 accepted
               )
@@ -51570,7 +51608,9 @@ var ProfileComponent = function (_React$Component) {
             { className: 'nav-and-profile-pic-components' },
             _react2.default.createElement(_nav_bar_component2.default, {
               currentUser: this.props.currentUser,
-              logout: this.props.logout
+              logout: this.props.logout,
+              pendingRequests: this.props.pendingFriendIds,
+              showDropdown: this.props.showDropdown
             })
           ),
           _react2.default.createElement(
@@ -52100,6 +52140,100 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(5);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PendingReqs = function (_React$Component) {
+  _inherits(PendingReqs, _React$Component);
+
+  function PendingReqs(props) {
+    _classCallCheck(this, PendingReqs);
+
+    var _this = _possibleConstructorReturn(this, (PendingReqs.__proto__ || Object.getPrototypeOf(PendingReqs)).call(this, props));
+
+    _this.state = { hello: 'hello' };
+    return _this;
+  }
+
+  _createClass(PendingReqs, [{
+    key: 'render',
+    value: function render() {
+      debugger;
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Heyyy'
+        )
+      );
+    }
+  }]);
+
+  return PendingReqs;
+}(_react2.default.Component);
+
+exports.default = PendingReqs;
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _nav_bar_pending_reqs = __webpack_require__(376);
+
+var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _dropdown_actions = __webpack_require__(51);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  debugger;
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {};
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_nav_bar_pending_reqs2.default));
 
 /***/ })
 /******/ ]);

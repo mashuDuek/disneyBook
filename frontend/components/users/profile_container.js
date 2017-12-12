@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { createFriendship } from '../../actions/friendship_actions';
+import { showDropDown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -19,7 +20,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout()),
     fetchUser: (user) => dispatch(fetchUser(user)),
-    createFriendship: (user) => dispatch(createFriendship(user))
+    createFriendship: (user) => dispatch(createFriendship(user)),
+    showDropdown: (component) => dispatch(showDropdown(component))
   };
 };
 

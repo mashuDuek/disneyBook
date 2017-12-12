@@ -18,6 +18,7 @@ class FeedComponent extends React.Component {
       <NavBar
         currentUser={this.props.currentUser}
         logout={this.props.logout}
+        showDropdown={this.props.showDropdown}
         />
     );
   }
