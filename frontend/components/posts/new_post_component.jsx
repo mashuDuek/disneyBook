@@ -3,11 +3,10 @@ import React from 'react';
 class NewPostComponent extends React.Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
-        body: '',
-        receiver_id: null
+      body: '',
+      receiverId: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,13 +19,12 @@ class NewPostComponent extends React.Component {
     } else {
       receiver = this.props.user;
     }
-
-    this.setState({ receiver_id: receiver.id });
+    this.setState({ receiverId: receiver.id });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.create(this.state).then(() => {
+    this.props.create({ body: this.state.body, receiver_id: this.state.receiverId }).then(() => {
       this.setState({ body: '' });
     });
   }
@@ -39,13 +37,23 @@ class NewPostComponent extends React.Component {
   }
 
   render() {
-    if (!this.state.receiver_id) {
-      return (<p>Loading...</p>);
-    }
     if (!this.props.currentUser) {
       return (<p>Loading...</p>);
     }
+
+    if (this.props.user) {
+      if (this.props.user.id !== this.state.receiverId) {
+        this.setState({ receiverId: this.props.user.id });
+      }
+    }
+
+    if (!this.state.receiverId) {
+      this.setState({ receiverId: this.props.currentUser.id });
+    }
+
+
     const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`;
+
     return (
       <form onSubmit={this.handleSubmit} className="create-post">
         <textarea

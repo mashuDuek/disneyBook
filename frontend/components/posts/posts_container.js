@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import {
   createPost,
   updatePost,
-  deletePost,
+  deletePost
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';

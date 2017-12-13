@@ -31168,9 +31168,9 @@ var _values = __webpack_require__(140);
 
 var _values2 = _interopRequireDefault(_values);
 
-var _new_post_component = __webpack_require__(145);
+var _new_post_container = __webpack_require__(383);
 
-var _new_post_component2 = _interopRequireDefault(_new_post_component);
+var _new_post_container2 = _interopRequireDefault(_new_post_container);
 
 var _post_detail_component = __webpack_require__(146);
 
@@ -31233,11 +31233,7 @@ var PostsComponent = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'create-post-all-posts' },
-          _react2.default.createElement(_new_post_component2.default, {
-            create: this.props.createPost,
-            currentUser: this.props.currentUser,
-            receiverId: this.props.receiverId
-          }),
+          _react2.default.createElement(_new_post_container2.default, null),
           _react2.default.createElement(
             'ul',
             { className: 'all-posts-ul' },
@@ -31408,7 +31404,7 @@ var NewPostComponent = function (_React$Component) {
 
     _this.state = {
       body: '',
-      receiver_id: null
+      receiverId: null
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -31424,8 +31420,7 @@ var NewPostComponent = function (_React$Component) {
       } else {
         receiver = this.props.user;
       }
-
-      this.setState({ receiver_id: receiver.id });
+      this.setState({ receiverId: receiver.id });
     }
   }, {
     key: 'handleSubmit',
@@ -31433,7 +31428,7 @@ var NewPostComponent = function (_React$Component) {
       var _this2 = this;
 
       e.preventDefault();
-      this.props.create(this.state).then(function () {
+      this.props.create({ body: this.state.body, receiver_id: this.state.receiverId }).then(function () {
         _this2.setState({ body: '' });
       });
     }
@@ -31446,13 +31441,6 @@ var NewPostComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.state.receiver_id) {
-        return _react2.default.createElement(
-          'p',
-          null,
-          'Loading...'
-        );
-      }
       if (!this.props.currentUser) {
         return _react2.default.createElement(
           'p',
@@ -31460,7 +31448,19 @@ var NewPostComponent = function (_React$Component) {
           'Loading...'
         );
       }
+
+      if (this.props.user) {
+        if (this.props.user.id !== this.state.receiverId) {
+          this.setState({ receiverId: this.props.user.id });
+        }
+      }
+
+      if (!this.state.receiverId) {
+        this.setState({ receiverId: this.props.currentUser.id });
+      }
+
       var placeHolder = 'What\'s on your mind, ' + this.props.currentUser.name + '?';
+
       return _react2.default.createElement(
         'form',
         { onSubmit: this.handleSubmit, className: 'create-post' },
@@ -51561,9 +51561,9 @@ var _user_info_component = __webpack_require__(150);
 
 var _user_info_component2 = _interopRequireDefault(_user_info_component);
 
-var _new_post_component = __webpack_require__(145);
+var _new_post_container = __webpack_require__(383);
 
-var _new_post_component2 = _interopRequireDefault(_new_post_component);
+var _new_post_container2 = _interopRequireDefault(_new_post_container);
 
 var _post_detail_container = __webpack_require__(148);
 
@@ -51620,6 +51620,7 @@ var ProfilePostsComponent = function (_React$Component) {
           }
         });
       }
+
       return _react2.default.createElement(
         'div',
         { className: 'profile-info-and-posts' },
@@ -51627,11 +51628,7 @@ var ProfilePostsComponent = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'profile-posts-and-create-post' },
-          _react2.default.createElement(_new_post_component2.default, {
-            user: this.props.user,
-            create: this.props.createPost,
-            currentUser: this.props.currentUser
-          }),
+          _react2.default.createElement(_new_post_container2.default, { user: this.props.user }),
           _react2.default.createElement(
             'ul',
             { className: 'profile-posts' },
@@ -52305,6 +52302,46 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_nav_bar_pending_reqs2.default));
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _new_post_component = __webpack_require__(145);
+
+var _new_post_component2 = _interopRequireDefault(_new_post_component);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _posts_actions = __webpack_require__(16);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+
+  return {
+    currentUser: state.session.currentUser || {},
+    user: ownProps.user
+  };
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    create: function create(post) {
+      return dispatch((0, _posts_actions.createPost)(post));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_new_post_component2.default));
 
 /***/ })
 /******/ ]);

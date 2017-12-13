@@ -1,6 +1,6 @@
 import React from 'react';
 import UserInfoComponent from './user_info_component';
-import NewPostComponent from '../posts/new_post_component';
+import NewPostContainer from '../posts/new_post_container';
 import PostDetailContainer from '../posts/post_detail_container';
 import values from 'lodash/values';
 
@@ -27,15 +27,12 @@ class ProfilePostsComponent extends React.Component {
         }
       });
     }
+
     return (
       <div className="profile-info-and-posts">
         <UserInfoComponent user={this.props.user}/>
         <div className="profile-posts-and-create-post">
-          <NewPostComponent
-            user={this.props.user}
-            create={this.props.createPost}
-            currentUser={this.props.currentUser}
-            />
+          <NewPostContainer user={this.props.user} />
           <ul className="profile-posts">
             {posts}
           </ul>

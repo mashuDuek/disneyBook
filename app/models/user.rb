@@ -28,9 +28,8 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   def all_status_friends
-    join_friendships = <<-SQL
-      JOIN
-        friendships
+    all_friendships = <<-SQL
+      JOIN friendships
       ON friendships.friender_id = users.id OR friendships.friendee_id = users.id
     SQL
 
@@ -44,7 +43,7 @@ class User < ApplicationRecord
     # .select("friends.*")
     # .joins(join_friends)
     User
-      .joins(join_friendships)
+      .joins(all_friendships)
       .where("users.id != ? AND (friendships.friender_id = ? OR friendships.friendee_id = ?)", id, id, id)
     # User.find_by_sql(<<-SQL)
     #   SELECT friends.*
