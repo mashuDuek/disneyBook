@@ -5,6 +5,12 @@ class PendingReqs extends React.Component {
   constructor (props) {
     super(props);
     this.state = { hello: 'hello' };
+    this.acceptFriend = this.acceptFriend.bind(this);
+  }
+
+  acceptFriend (e, user) {
+    e.preventDefault();
+    this.props.acceptFriendship(user);
   }
 
   render() {
@@ -25,6 +31,7 @@ class PendingReqs extends React.Component {
               onClick={this.props.hideDropdown}>
               <p>{requester.name} from {requester.movie}</p>
             </Link>
+            <button onClick={(e) => this.acceptFriend(e, requester)}>Accept</button>
           </li>
         );
       });

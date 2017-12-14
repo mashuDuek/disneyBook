@@ -59,7 +59,8 @@ class User < ApplicationRecord
   end
 
   def pending_friends
-    all_status_friends.where(friendships: { status: 'pending' })
+    all_status_friends.where(friendships: { status: 'pending' }).
+      where("friendee_id = ?", id)
   end
 
   def self.find_by_credentials(email, password)

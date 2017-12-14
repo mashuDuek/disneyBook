@@ -51,7 +51,6 @@ class NewPostComponent extends React.Component {
       this.setState({ receiverId: this.props.currentUser.id });
     }
 
-
     const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`;
 
     return (

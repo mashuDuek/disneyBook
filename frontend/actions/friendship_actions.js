@@ -50,6 +50,7 @@ export const createFriendship = (user) => {
 };
 
 export const acceptFriendship = (user) => {
+  debugger
   return (dispatch) => {
     return APIUtil.acceptFriendship(user).
       then((user) => dispatch(receiveCurrentUser(user))
