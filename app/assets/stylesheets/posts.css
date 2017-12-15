@@ -183,9 +183,11 @@
 }
 
 #nav-bar-actions {
+  left: 90%;
+  border: .5px solid lightgray;
   display: flex;
   position: absolute;
-  margin-top: 35px;
+  margin-top: 44px;
   padding: 10px;
   background-color: white;
 }

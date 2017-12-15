@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link, withRouter, Redirect } from 'react-router-dom';
-import NavBarActionComponent from './nav_bar_actions_component';
+import NavBarActionContainer from './nav_bar_action_container';
 import PendingReqsContainer from './nav_bar_pending_reqs_container';
 import PendingReqs from './nav_bar_pending_reqs';
 
 class NavBar extends React.Component {
   constructor (props) {
     super (props);
-    this.state = { actionsVisible: false };
-    this.toggleActionVisibility = this.toggleActionVisibility.bind(this);
+    this.showActionsContainer = this.showActionsContainer.bind(this);
     this.showPendingRequests = this.showPendingRequests.bind(this);
   }
 
@@ -16,8 +15,9 @@ class NavBar extends React.Component {
     this.props.logout().then(this.props.history.push('/'));
   }
 
-  toggleActionVisibility () {
-    this.setState({ actionsVisible: !this.state.actionsVisible });
+  showActionsContainer (e) {
+    e.stopPropagation();
+    this.props.showDropdown(<NavBarActionContainer />);
   }
 
   showPendingRequests (e) {
@@ -26,13 +26,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-
-    let actionsComponent;
-    if (this.state.actionsVisible) {
-      actionsComponent = (<NavBarActionComponent logout={this.props.logout} />);
-    } else {
-      actionsComponent = null;
-    }
 
     return (
       <div className="nav-bar">
@@ -63,8 +56,7 @@ class NavBar extends React.Component {
               </div>
               <div className='question-icon-and-options'>
                 <i className="fa fa-question" aria-hidden="true" id="question"></i>
-                <i className="fa fa-bars" aria-hidden="true" onClick={this.toggleActionVisibility}></i>
-                {actionsComponent}
+                <i className="fa fa-bars" aria-hidden="true" onClick={this.showActionsContainer}></i>
               </div>
             </div>
           </div>

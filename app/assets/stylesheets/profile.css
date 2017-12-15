@@ -180,7 +180,7 @@
 #friend-detail-component img {
   height: 100px;
   width: 100px;
-  margin: -1;
+  border-bottom: 1px solid lightgray;
 }
 
 #friend-detail-component .friend-info {

@@ -20,8 +20,6 @@ class PendingReqs extends React.Component {
       pendingFriends = null;
       requestCount = 0;
     } else {
-      // here, i need to include buttons to delete and accept requests.
-      // have to make both of those actions to dispatch on click of those buttons
       requestCount = this.props.pendingFriends.length;
       pendingFriends = this.props.pendingFriends.map( (requester) => {
         return (

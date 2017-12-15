@@ -31799,8 +31799,6 @@ var PendingReqs = function (_React$Component) {
         pendingFriends = null;
         requestCount = 0;
       } else {
-        // here, i need to include buttons to delete and accept requests.
-        // have to make both of those actions to dispatch on click of those buttons
         requestCount = this.props.pendingFriends.length;
         pendingFriends = this.props.pendingFriends.map(function (requester) {
           return _react2.default.createElement(
@@ -31984,7 +31982,6 @@ var createFriendship = exports.createFriendship = function createFriendship(user
 };
 
 var acceptFriendship = exports.acceptFriendship = function acceptFriendship(user) {
-  debugger;
   return function (dispatch) {
     return APIUtil.acceptFriendship(user).then(function (user) {
       return dispatch((0, _session_actions.receiveCurrentUser)(user));
@@ -51200,9 +51197,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(5);
 
-var _nav_bar_actions_component = __webpack_require__(365);
+var _nav_bar_action_container = __webpack_require__(380);
 
-var _nav_bar_actions_component2 = _interopRequireDefault(_nav_bar_actions_component);
+var _nav_bar_action_container2 = _interopRequireDefault(_nav_bar_action_container);
 
 var _nav_bar_pending_reqs_container = __webpack_require__(366);
 
@@ -51228,8 +51225,7 @@ var NavBar = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
 
-    _this.state = { actionsVisible: false };
-    _this.toggleActionVisibility = _this.toggleActionVisibility.bind(_this);
+    _this.showActionsContainer = _this.showActionsContainer.bind(_this);
     _this.showPendingRequests = _this.showPendingRequests.bind(_this);
     return _this;
   }
@@ -51240,9 +51236,10 @@ var NavBar = function (_React$Component) {
       this.props.logout().then(this.props.history.push('/'));
     }
   }, {
-    key: 'toggleActionVisibility',
-    value: function toggleActionVisibility() {
-      this.setState({ actionsVisible: !this.state.actionsVisible });
+    key: 'showActionsContainer',
+    value: function showActionsContainer(e) {
+      e.stopPropagation();
+      this.props.showDropdown(_react2.default.createElement(_nav_bar_action_container2.default, null));
     }
   }, {
     key: 'showPendingRequests',
@@ -51253,13 +51250,6 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
-      var actionsComponent = void 0;
-      if (this.state.actionsVisible) {
-        actionsComponent = _react2.default.createElement(_nav_bar_actions_component2.default, { logout: this.props.logout });
-      } else {
-        actionsComponent = null;
-      }
 
       return _react2.default.createElement(
         'div',
@@ -51313,8 +51303,7 @@ var NavBar = function (_React$Component) {
                 'div',
                 { className: 'question-icon-and-options' },
                 _react2.default.createElement('i', { className: 'fa fa-question', 'aria-hidden': 'true', id: 'question' }),
-                _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true', onClick: this.toggleActionVisibility }),
-                actionsComponent
+                _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true', onClick: this.showActionsContainer })
               )
             )
           )
@@ -52256,7 +52245,6 @@ var rejectFriendship = exports.rejectFriendship = function rejectFriendship(user
 };
 
 var acceptFriendship = exports.acceptFriendship = function acceptFriendship(user) {
-  debugger;
   return $.ajax({
     method: "PATCH",
     url: "/api/friendships/" + user.id,
@@ -52361,6 +52349,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(8);
+
+var _nav_bar_actions_component = __webpack_require__(365);
+
+var _nav_bar_actions_component2 = _interopRequireDefault(_nav_bar_actions_component);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _dropdown_actions = __webpack_require__(23);
+
+var _session_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    currentUser: state.session.currentUser
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
+    },
+    showDropdown: function showDropdown(comp) {
+      return dispatch((0, _dropdown_actions.showDropdown)(comp));
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_nav_bar_actions_component2.default));
 
 /***/ })
 /******/ ]);

@@ -14,7 +14,6 @@ export const rejectFriendship = (user) => {
 };
 
 export const acceptFriendship = (user) => {
-  debugger
   return $.ajax({
       method: "PATCH",
       url: `/api/friendships/${user.id}`,
