@@ -21,7 +21,9 @@ class ProfilePostsComponent extends React.Component {
       const postValues = values(this.props.posts);
       posts = postValues.reverse().map((post) => {
         if (post.receiver_id === this.props.user.id) {
-          return( <PostDetailContainer post={post} /> );
+          return(
+            <PostDetailContainer post={post} key={post.id}/>
+          );
         } else {
           return null;
         }

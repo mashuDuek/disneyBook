@@ -47,17 +47,6 @@ class ProfileComponent extends React.Component {
         );
       });
 
-      let pending;
-      if (this.props.user.id === this.props.currentUser.id) {
-        pending = this.props.pendingFriendIds.map((user) => {
-          return (
-            <FriendDetailComponent user={user} status="pending" />
-          );
-        });
-      } else {
-        pending = null;
-      }
-
       return (
         <div>
           <div className="nav-and-profile-pic-components">

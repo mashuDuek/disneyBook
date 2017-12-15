@@ -24,12 +24,12 @@ class PostActionComponent extends React.Component {
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (
         <ul>
-          <li>
+          <li key="1">
             <button onClick={this.handleDelete}>
               Delete
             </button>
           </li>
-          <li>
+          <li key="2">
             <button onClick={this.handleEdit}>
               Edit
             </button>
