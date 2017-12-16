@@ -22,13 +22,12 @@ class PostDetailComponent extends React.Component {
   }
 
   render() {
-
     let comments;
     if (this.props.post.comments.length > 0) {
       const commToPass = this.props.comments;
       comments = this.props.post.comments.map(comm => {
         return (
-          <div className='comments'>
+          <div className='comments' key={comm.id}>
             <CommentContainer
               comment={commToPass[comm]}
               post={this.props.post}
@@ -43,7 +42,6 @@ class PostDetailComponent extends React.Component {
         <p>Loading...</p>
       );
     } else {
-
       let authorObj;
       if (!this.props.users[this.props.post.author_id]) {
         return (

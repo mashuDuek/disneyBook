@@ -7,6 +7,7 @@ import PostsContainer from './posts/posts_container';
 import ModalContainer from './modals/modal_container';
 import ProfileContainer from './users/profile_container';
 import DropdownContainer from './dropdowns/dropdown_container';
+import NavBarContainer from './nav_bar/nav_bar_container';
 
 import { Route } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';

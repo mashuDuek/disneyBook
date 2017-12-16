@@ -29,7 +29,7 @@ class PostsComponent extends React.Component {
         }
       });
     }
-    
+
     return (
     <div className="posts-and-info-components">
       <LeftInfoComponent />
