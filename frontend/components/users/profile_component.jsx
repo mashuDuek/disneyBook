@@ -39,13 +39,22 @@ class ProfileComponent extends React.Component {
       );
     }
     if (this.state.showFriends) {
-      const accepted = this.props.acceptedFriendIds.map((user) => {
-        return(
-          <li key={user.id}>
-            <FriendDetailComponent user={user} status="accepted" />
-          </li>
-        );
-      });
+      let accepted;
+      if (!this.props.acceptedFriendIds) {
+        accepted = `${this.props.user.name} has no friends yet!`
+      } else {
+        accepted = this.props.acceptedFriendIds.map((user) => {
+          return(
+            <li key={user.id}>
+              <FriendDetailComponent
+                user={user}
+                status="accepted"
+                toggleFriends={this.toggleFriends}
+                />
+            </li>
+          );
+        });
+      }
 
       return (
         <div>

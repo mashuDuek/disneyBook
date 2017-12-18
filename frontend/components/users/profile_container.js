@@ -10,7 +10,7 @@ const mapStatetoProps = (state, ownProps) => {
   return {
     user: state.users[ownProps.match.params.userId],
     pendingFriendIds: state.session.currentUser.pending_friends,
-    acceptedFriendIds: state.session.currentUser.accepted_friends,
+    acceptedFriendIds: state.users[ownProps.match.params.userId].accepted_friends,
     users: state.users,
     currentUser: state.session.currentUser || {},
     errors: state.errors,

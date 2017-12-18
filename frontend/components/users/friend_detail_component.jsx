@@ -13,7 +13,12 @@ class FriendDetailComponent extends React.Component {
       <li id="friend-detail-component" key={this.props.user.id}>
         <img src={this.props.user.profilePicUrl}></img>
         <div className="friend-info">
-          <Link to={`/users/${this.props.user.id}`}>{this.props.user.name}</Link>
+          <Link
+            onClick={this.props.toggleFriends}
+            to={`/users/${this.props.user.id}`}
+            >
+            {this.props.user.name}
+          </Link>
           <p>{this.props.user.movie}</p>
         </div>
       </li>

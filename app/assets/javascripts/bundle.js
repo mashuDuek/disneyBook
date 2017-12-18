@@ -51714,7 +51714,7 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     user: state.users[ownProps.match.params.userId],
     pendingFriendIds: state.session.currentUser.pending_friends,
-    acceptedFriendIds: state.session.currentUser.accepted_friends,
+    acceptedFriendIds: state.users[ownProps.match.params.userId].accepted_friends,
     users: state.users,
     currentUser: state.session.currentUser || {},
     errors: state.errors
@@ -51827,6 +51827,8 @@ var ProfileComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       if (!this.props.user) {
         return _react2.default.createElement(
           'p',
@@ -51835,13 +51837,22 @@ var ProfileComponent = function (_React$Component) {
         );
       }
       if (this.state.showFriends) {
-        var accepted = this.props.acceptedFriendIds.map(function (user) {
-          return _react2.default.createElement(
-            'li',
-            { key: user.id },
-            _react2.default.createElement(_friend_detail_component2.default, { user: user, status: 'accepted' })
-          );
-        });
+        var accepted = void 0;
+        if (!this.props.acceptedFriendIds) {
+          accepted = this.props.user.name + ' has no friends yet!';
+        } else {
+          accepted = this.props.acceptedFriendIds.map(function (user) {
+            return _react2.default.createElement(
+              'li',
+              { key: user.id },
+              _react2.default.createElement(_friend_detail_component2.default, {
+                user: user,
+                status: 'accepted',
+                toggleFriends: _this2.toggleFriends
+              })
+            );
+          });
+        }
 
         return _react2.default.createElement(
           'div',
@@ -52279,7 +52290,10 @@ var FriendDetailComponent = function (_React$Component) {
           { className: 'friend-info' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/users/' + this.props.user.id },
+            {
+              onClick: this.props.toggleFriends,
+              to: '/users/' + this.props.user.id
+            },
             this.props.user.name
           ),
           _react2.default.createElement(
