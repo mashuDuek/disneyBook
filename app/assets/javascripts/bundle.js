@@ -31339,7 +31339,8 @@ var PostsComponent = function (_React$Component) {
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
-      var posts = void 0;
+      var _this2 = this;
+
       if (Object.keys(this.props.posts).length < 1) {
         return _react2.default.createElement(
           'p',
@@ -31347,8 +31348,21 @@ var PostsComponent = function (_React$Component) {
           'Loading posts...'
         );
       } else {
-        var postValues = (0, _values2.default)(this.props.posts);
-        posts = postValues.reverse().map(function (post) {
+        var acceptedFriendIds = this.props.currentUser.accepted_friends.map(function (friend) {
+          return friend.id;
+        });
+
+        var goodPosts = [];
+        Object.keys(this.props.posts).forEach(function (id) {
+          if (_this2.props.currentUser.id === _this2.props.posts[id].author_id) {
+            goodPosts.push(_this2.props.posts[id]);
+          } else if (acceptedFriendIds.includes(_this2.props.posts[id].author_id)) {
+            goodPosts.push(_this2.props.posts[id]);
+          }
+        });
+
+        var postValues = (0, _values2.default)(goodPosts);
+        var posts = postValues.reverse().map(function (post) {
           if (!post) {
             return null;
           } else {
@@ -51548,7 +51562,6 @@ var _modal_actions = __webpack_require__(21);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,

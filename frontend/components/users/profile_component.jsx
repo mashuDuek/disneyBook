@@ -41,7 +41,7 @@ class ProfileComponent extends React.Component {
     if (this.state.showFriends) {
       let accepted;
       if (!this.props.acceptedFriendIds) {
-        accepted = `${this.props.user.name} has no friends yet!`
+        accepted = `${this.props.user.name} has no friends yet!`;
       } else {
         accepted = this.props.acceptedFriendIds.map((user) => {
           return(

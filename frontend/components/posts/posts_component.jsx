@@ -14,18 +14,29 @@ class PostsComponent extends React.Component {
   }
 
   render() {
-    let posts;
+
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>);
     } else {
-      const postValues = values(this.props.posts);
-      posts = postValues.reverse().map((post) => {
+      const acceptedFriendIds = this.props.currentUser.accepted_friends.map((friend) => {
+        return friend.id;
+      });
+
+      let goodPosts = [];
+      Object.keys(this.props.posts).forEach((id) => {
+        if (this.props.currentUser.id === this.props.posts[id].author_id) {
+          goodPosts.push(this.props.posts[id]);
+        } else if (acceptedFriendIds.includes(this.props.posts[id].author_id)) {
+          goodPosts.push(this.props.posts[id]);
+        }
+      });
+
+      const postValues = values(goodPosts);
+      var posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
         } else {
-          return(
-            <PostDetailContainer post={post} />
-          );
+          return(<PostDetailContainer post={post} />);
         }
       });
     }
