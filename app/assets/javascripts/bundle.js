@@ -31366,7 +31366,11 @@ var PostsComponent = function (_React$Component) {
           if (!post) {
             return null;
           } else {
-            return _react2.default.createElement(_post_detail_container2.default, { post: post });
+            return _react2.default.createElement(
+              'li',
+              { key: post.id },
+              _react2.default.createElement(_post_detail_container2.default, { post: post })
+            );
           }
         });
       }
@@ -31660,8 +31664,8 @@ var PostDetailComponent = function (_React$Component) {
         }
 
         return _react2.default.createElement(
-          'li',
-          { key: this.props.post.id, id: 'post-item' },
+          'div',
+          { id: 'post-item' },
           _react2.default.createElement(
             'div',
             { id: 'post-author-info' },
@@ -31681,10 +31685,10 @@ var PostDetailComponent = function (_React$Component) {
               { onClick: this.handleDropdowns },
               '\u02C7'
             ),
-            this.props.dropdownVisible ? _react2.default.createElement(_post_action_container2.default, {
+            this.props.dropdownVisible ? this.props.showDropdown(_react2.default.createElement(_post_action_container2.default, {
               post: this.props.post,
               updatePost: this.props.updatePost.bind(this)
-            }) : null
+            })) : null
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
@@ -50181,6 +50185,19 @@ var NewPostComponent = function (_React$Component) {
       this.setState({ receiverId: receiver.id });
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      if (this.props.user) {
+        if (this.props.user.id !== this.state.receiverId) {
+          this.setState({ receiverId: this.props.user.id });
+        }
+      }
+
+      if (!this.state.receiverId) {
+        this.setState({ receiverId: this.props.currentUser.id });
+      }
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       var _this2 = this;
@@ -50205,16 +50222,6 @@ var NewPostComponent = function (_React$Component) {
           null,
           'Loading...'
         );
-      }
-
-      if (this.props.user) {
-        if (this.props.user.id !== this.state.receiverId) {
-          this.setState({ receiverId: this.props.user.id });
-        }
-      }
-
-      if (!this.state.receiverId) {
-        this.setState({ receiverId: this.props.currentUser.id });
       }
 
       var placeHolder = 'What\'s on your mind, ' + this.props.currentUser.name + '?';
@@ -50563,6 +50570,8 @@ var _posts_actions = __webpack_require__(15);
 
 var _modal_actions = __webpack_require__(21);
 
+var _dropdown_actions = __webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -50574,17 +50583,20 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    },
     deletePost: function deletePost(post) {
       return dispatch((0, _posts_actions.deletePost)(post));
     },
     updatePost: function updatePost(post) {
-      return ownProps.updatePost(post);
+      return dispatch((0, _posts_actions.updatePost)(post));
     },
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
     },
-    hideModal: function hideModal() {
-      return dispatch((0, _modal_actions.hideModal)());
+    showDropdown: function showDropdown(component) {
+      return dispatch((0, _dropdown_actions.showDropdown)(component));
     },
     toggleActionVisibility: function toggleActionVisibility() {
       return ownProps.toggleActionVisibility();
@@ -51286,7 +51298,11 @@ var NavBar = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { id: 'user-pic-name-and-home' },
-              _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl }),
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/users/' + this.props.currentUser.id },
+                _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl })
+              ),
               _react2.default.createElement(
                 'p',
                 { className: 'user-name' },
@@ -51849,7 +51865,10 @@ var ProfileComponent = function (_React$Component) {
           'Loading...'
         );
       }
+
+      var buttonText = void 0;
       if (this.state.showFriends) {
+        buttonText = 'Back to Profile';
         var accepted = void 0;
         if (!this.props.acceptedFriendIds) {
           accepted = this.props.user.name + ' has no friends yet!';
@@ -51891,7 +51910,7 @@ var ProfileComponent = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { onClick: this.toggleFriends },
-                'Friends'
+                buttonText
               )
             )
           ),
@@ -51917,6 +51936,7 @@ var ProfileComponent = function (_React$Component) {
           )
         );
       } else {
+        buttonText = this.props.user.name + '\'s Friends\'';
         return _react2.default.createElement(
           'div',
           { id: 'profile-page' },
@@ -51941,7 +51961,7 @@ var ProfileComponent = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { onClick: this.toggleFriends },
-                'Friends'
+                buttonText
               )
             )
           ),

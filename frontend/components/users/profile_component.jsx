@@ -33,12 +33,16 @@ class ProfileComponent extends React.Component {
   }
 
   render(){
+
     if (!this.props.user) {
       return (
         <p>Loading...</p>
       );
     }
+
+    let buttonText;
     if (this.state.showFriends) {
+      buttonText = 'Back to Profile';
       let accepted;
       if (!this.props.acceptedFriendIds) {
         accepted = `${this.props.user.name} has no friends yet!`;
@@ -69,7 +73,7 @@ class ProfileComponent extends React.Component {
                   Add Friend
                 </button>
                 <button onClick={this.toggleFriends}>
-                  Friends
+                  {buttonText}
                 </button>
               </div>
           </div>
@@ -84,6 +88,7 @@ class ProfileComponent extends React.Component {
         </div>
       );
     } else {
+      buttonText = `${this.props.user.name}'s Friends'`;
       return (
         <div id="profile-page">
           <div className="nav-and-profile-pic-components">
@@ -97,7 +102,7 @@ class ProfileComponent extends React.Component {
                 Add Friend
               </button>
               <button onClick={this.toggleFriends}>
-                Friends
+                {buttonText}
               </button>
             </div>
           </div>

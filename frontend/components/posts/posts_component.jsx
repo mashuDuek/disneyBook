@@ -36,7 +36,11 @@ class PostsComponent extends React.Component {
         if (!post) {
           return null;
         } else {
-          return(<PostDetailContainer post={post} />);
+          return(
+            <li key={post.id}>
+              <PostDetailContainer post={post} />
+            </li>
+          );
         }
       });
     }

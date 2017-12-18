@@ -52,7 +52,7 @@ class PostDetailComponent extends React.Component {
       }
 
       return(
-        <li key={this.props.post.id} id="post-item">
+        <div id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
               <img src={authorObj.profilePicUrl}
@@ -63,10 +63,11 @@ class PostDetailComponent extends React.Component {
             <button onClick={this.handleDropdowns}>ˇ</button>
             {
               this.props.dropdownVisible ?
+                this.props.showDropdown(
                 <PostActionContainer
                   post={this.props.post}
                   updatePost={this.props.updatePost.bind(this)}
-                /> :
+                />) :
                 null
             }
           </div>
@@ -89,7 +90,7 @@ class PostDetailComponent extends React.Component {
             currentUser={this.props.currentUser}
             post={this.props.post}
             />
-        </li>
+        </div>
       );
     }
   }

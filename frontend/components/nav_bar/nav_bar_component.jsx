@@ -38,7 +38,9 @@ class NavBar extends React.Component {
         <div>
           <div id="nav-bar-welcome-logout">
             <div id="user-pic-name-and-home">
-              <img src={this.props.currentUser.profilePicUrl}></img>
+              <Link to={`/users/${this.props.currentUser.id}`}>
+                <img src={this.props.currentUser.profilePicUrl}></img>
+              </Link>
               <p className="user-name">
                 <Link to={`/users/${this.props.currentUser.id}`}>
                   {this.props.currentUser.name}
