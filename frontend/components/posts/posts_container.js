@@ -9,6 +9,7 @@ import {
 import { fetchUsers } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
+import { hideDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -16,6 +17,7 @@ const mapStatetoProps = (state, ownProps) => {
     users: state.users,
     posts: state.posts,
     errors: state.errors,
+    dropdowns: state.dropdowns
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -25,6 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createPost: (post) => dispatch(createPost(post)),
     showModal: (component) => dispatch(showModal(component)),
     hideModal: () => dispatch(hideModal()),
+    hideDropdown: () => dispatch(hideDropdown()),
     fetchUsers: () => dispatch(fetchUsers()),
   };
 };

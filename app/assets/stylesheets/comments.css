@@ -58,14 +58,9 @@
   margin-top: 3px;
 }
 
-.modal-backdrop {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0,0,0,0.2);
-}
-
 .edit-comment {
+  z-index: 1;
+  border: .5px solid lightgray;
   position: fixed;
   width: 400px;
   margin-left: -200px;
@@ -86,7 +81,7 @@
 #create-comment textarea {
   border: .5px solid #dddfe2;
   margin: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
   border-radius: 25px;
   width: -webkit-fill-available;
   max-width: 485px;

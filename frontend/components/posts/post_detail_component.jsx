@@ -8,33 +8,33 @@ import DropdownContainer from '../dropdowns/dropdown_container';
 class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { dropdownVisible: false };
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleDropdowns = this.handleDropdowns.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
   }
 
   handleDelete() {
     this.props.deletePost(this.props.post);
   }
 
-  handleDropdowns(e) {
+  handleDropdown(e) {
     e.stopPropagation();
-    this.props.showDropdown(`post-${this.props.post.id}`);
+    this.props.displayDropdown(this.props.post.id);
   }
 
   render() {
     let comments;
     if (this.props.post.comments.length > 0) {
-      const commToPass = this.props.comments;
       comments = this.props.post.comments.map(comm => {
         return (
-          <div className='comments' key={comm.id}>
-            <CommentContainer
-              comment={commToPass[comm]}
-              post={this.props.post}
-              />
-          </div>
+          <CommentContainer
+            comment={this.props.comments[comm]}
+            post={this.props.post}
+          />
         );
       });
+    } else {
+      comments = null;
     }
 
     if (!this.props.post) {
@@ -51,7 +51,7 @@ class PostDetailComponent extends React.Component {
         authorObj = this.props.users[this.props.post.author_id];
       }
 
-      return(
+      return (
         <div id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
@@ -60,15 +60,13 @@ class PostDetailComponent extends React.Component {
               </img>
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
             </div>
-            <button onClick={this.handleDropdowns}>ˇ</button>
+            <button onClick={this.handleDropdown}>ˇ</button>
             {
               this.props.dropdownVisible ?
-                this.props.showDropdown(
-                <PostActionContainer
-                  post={this.props.post}
-                  updatePost={this.props.updatePost.bind(this)}
-                />) :
-                null
+              <PostActionContainer
+                post={this.props.post}
+                updatePost={this.props.updatePost.bind(this)}
+                /> : null
             }
           </div>
           <br />
@@ -85,9 +83,10 @@ class PostDetailComponent extends React.Component {
               <p>Comment</p>
             </div>
           </div>
-          {comments}
+          <ul>
+            {comments}
+          </ul>
           <NewCommentContainer
-            currentUser={this.props.currentUser}
             post={this.props.post}
             />
         </div>

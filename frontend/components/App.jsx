@@ -14,7 +14,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 const App = (props) => {
   return(
-    <div onClick={props.hideDropdown}>
+    <div>
       <ModalContainer />
       <DropdownContainer />
       <AuthRoute exact path="/" component={ SessionLoginFormContainer } />

@@ -14,8 +14,8 @@ class ProfileComponent extends React.Component {
     this.handleAddFriend = this.handleAddFriend.bind(this);
   }
 
-  handleAddFriend() {
-    (e) => e.stopPropagation();
+  handleAddFriend(e) {
+    e.stopPropagation();
     this.props.createFriendship(
       { friendship:
         { friendee_id: this.props.users[this.props.match.params.userId].id }
@@ -23,8 +23,8 @@ class ProfileComponent extends React.Component {
     );
   }
 
-  toggleFriends() {
-    (e) => e.stopPropagation();
+  toggleFriends(e) {
+    e.stopPropagation();
     this.setState({ showFriends: !this.state.showFriends });
   }
 

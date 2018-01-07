@@ -6,7 +6,7 @@ import { fetchPost } from '../../actions/posts_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    currentUser: ownProps.currentUser,
+    currentUser: state.session.currentUser,
     errors: state.errors,
     post: ownProps.post
   };

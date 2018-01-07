@@ -13,7 +13,6 @@ import { showModal, hideModal } from '../../actions/modal_actions';
 import { showDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,

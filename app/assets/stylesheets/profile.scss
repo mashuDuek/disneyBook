@@ -70,16 +70,6 @@
   height: fit-content;
 }
 
-/*.profile-posts li {
-  background-color: white;
-  width: 510px;
-  padding: 15px;
-  margin-left: 5px;
-  border: .5px solid lightgray;
-  border-radius: 3px;
-  margin-bottom: 10px;
-}*/
-
 .profile-posts {
   list-style: none;
   display: flex;
@@ -123,7 +113,7 @@
 #post-author-info button {
   display: block;
   border: none;
-  background-color: white;
+  background-color: inherit;
   max-width: 10px;
   max-height: 10px;
   border-radius: 5px;
@@ -134,38 +124,38 @@
 
 .profile-posts-and-create-post {
   margin-left: -25px;
-}
 
-.profile-posts-and-create-post #post-action-options {
-  position: absolute;
-  background-color: white;
-  border: .1px solid lightgray;
-  border-radius: 2px;
-  margin-left: 400px;
-  margin-top: 60px;
-}
+  #post-action-options {
+    position: absolute;
+    background-color: white;
+    border: .1px solid lightgray;
+    border-radius: 2px;
+    margin-left: 400px;
+    margin-top: 60px;
 
-.profile-posts-and-create-post #post-action-options ul {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100px;
-  margin-bottom: 20px;
-}
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100px;
+      margin-bottom: 20px;
+    }
 
-.profile-posts-and-create-post #post-action-options li {
-  border: none;
-  list-style: none;
-  font-size: 14px;
-  width: 80px;
-}
+    li {
+      border: none;
+      list-style: none;
+      font-size: 14px;
+      width: 80px;
+    }
 
-.profile-posts-and-create-post #post-action-options button {
-  border: none;
-  width: 80px;
-  height: 20px;
-  background-color: white;
-  font-size: 14px;
+    button {
+      border: none;
+      width: 80px;
+      height: 20px;
+      background-color: white;
+      font-size: 14px;
+    }
+  }
 }
 
 #profile-bar-component {
@@ -179,13 +169,13 @@
   border: .5px solid lightgray;
   position: unset;
   margin-top: 107px;
-}
 
-#profile-bar-component button {
-  color: #365799;
-  background-color: unset;
-  margin-top: 54px;
-  font-weight: bold;
+  button {
+    color: #365799;
+    background-color: unset;
+    margin-top: 54px;
+    font-weight: bold;
+  }
 }
 
 #friends-bar {

@@ -111,8 +111,16 @@
   max-width: 550px;
   min-width: 550px;
 
-  li {
+  .comments {
+    padding: 0px;
+  }
+
+  .individual-post {
     border: 1px solid lightgray;
+  }
+
+  li {
+    border: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -133,7 +141,7 @@
   margin-bottom: -10px;
   display: flex;
   flex-direction: row;
-  
+
   a {
     color: white;
     margin-right: 10px;
@@ -178,10 +186,11 @@
   left: 90%;
   border: .5px solid lightgray;
   display: flex;
-  position: absolute;
+  position: fixed;
   margin-top: 44px;
   padding: 10px;
   background-color: white;
+  z-index: 1;
 
   button {
     border: none;
@@ -338,39 +347,41 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    position: relative;
+  }
+}
+
+#post-action-options {
+  position: absolute;
+  background-color: white;
+  border-radius: 2px;
+  border: .5px solid lightgray;
+  margin-left: 400px;
+  margin-top: 60px;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100px;
+    margin-bottom: 20px;
   }
 
-  #post-action-options {
-    position: absolute;
+  li {
+    border: none;
+    list-style: none;
+    font-size: 14px;
+  }
+
+  p {
+    padding: 10px;
+  }
+
+  button {
+    width: 80px;
+    height: 20px;
     background-color: white;
-    border-radius: 2px;
-    margin-left: 400px;
-    margin-top: 60px;
-
-    ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100px;
-      margin-bottom: 20px;
-    }
-
-    li {
-      border: none;
-      list-style: none;
-      font-size: 14px;
-    }
-
-    p {
-      padding: 10px;
-    }
-
-    button {
-      width: 80px;
-      height: 20px;
-      background-color: white;
-      font-size: 14px;
-    }
+    font-size: 14px;
   }
 }
 

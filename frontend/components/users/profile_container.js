@@ -7,15 +7,22 @@ import { createFriendship } from '../../actions/friendship_actions';
 import { showDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
+  let acceptedFriendIds;
+  if (!state.users[ownProps.match.params.userId]) {
+    acceptedFriendIds = null;
+  } else {
+    acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
+  }
   return {
-    user: state.users[ownProps.match.params.userId],
     pendingFriendIds: state.session.currentUser.pending_friends,
-    acceptedFriendIds: state.users[ownProps.match.params.userId].accepted_friends,
-    users: state.users,
+    user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
+    users: state.users,
     errors: state.errors,
+    acceptedFriendIds,
   };
 };
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout()),

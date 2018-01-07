@@ -2228,11 +2228,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 var SHOW_DROPDOWN = exports.SHOW_DROPDOWN = 'SHOW_DROPDOWN';
 var HIDE_DROPDOWN = exports.HIDE_DROPDOWN = 'HIDE_DROPDOWN';
+var DISPLAY_DROPDOWN = exports.DISPLAY_DROPDOWN = 'DISPLAY_DROPDOWN';
 
 var showDropdown = exports.showDropdown = function showDropdown(component) {
   return {
     type: SHOW_DROPDOWN,
     component: component
+  };
+};
+
+var displayDropdown = exports.displayDropdown = function displayDropdown(component) {
+  return {
+    type: DISPLAY_DROPDOWN,
+    displayed: component
   };
 };
 
@@ -31341,6 +31349,16 @@ var PostsComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var drops = this.props.dropdowns;
+      var dropdownAction = void 0;
+      if (Boolean(drops.displayed) || Boolean(drops.component)) {
+        dropdownAction = this.props.hideDropdown;
+      } else {
+        dropdownAction = function dropdownAction(e) {
+          e.stopPropagation();
+        };
+      }
+
       if (Object.keys(this.props.posts).length < 1) {
         return _react2.default.createElement(
           'p',
@@ -31368,7 +31386,7 @@ var PostsComponent = function (_React$Component) {
           } else {
             return _react2.default.createElement(
               'li',
-              { key: post.id },
+              { key: post.id, className: 'individual-post' },
               _react2.default.createElement(_post_detail_container2.default, { post: post })
             );
           }
@@ -31377,7 +31395,7 @@ var PostsComponent = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'posts-and-info-components' },
+        { className: 'posts-and-info-components', onClick: dropdownAction },
         _react2.default.createElement(_left_info_component2.default, null),
         _react2.default.createElement(
           'div',
@@ -31609,8 +31627,9 @@ var PostDetailComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
+    _this.state = { dropdownVisible: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
-    _this.handleDropdowns = _this.handleDropdowns.bind(_this);
+    _this.handleDropdown = _this.handleDropdown.bind(_this);
     return _this;
   }
 
@@ -31620,10 +31639,10 @@ var PostDetailComponent = function (_React$Component) {
       this.props.deletePost(this.props.post);
     }
   }, {
-    key: 'handleDropdowns',
-    value: function handleDropdowns(e) {
+    key: 'handleDropdown',
+    value: function handleDropdown(e) {
       e.stopPropagation();
-      this.props.showDropdown('post-' + this.props.post.id);
+      this.props.displayDropdown(this.props.post.id);
     }
   }, {
     key: 'render',
@@ -31632,17 +31651,14 @@ var PostDetailComponent = function (_React$Component) {
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
-        var commToPass = this.props.comments;
         comments = this.props.post.comments.map(function (comm) {
-          return _react2.default.createElement(
-            'div',
-            { className: 'comments', key: comm.id },
-            _react2.default.createElement(_comment_container2.default, {
-              comment: commToPass[comm],
-              post: _this2.props.post
-            })
-          );
+          return _react2.default.createElement(_comment_container2.default, {
+            comment: _this2.props.comments[comm],
+            post: _this2.props.post
+          });
         });
+      } else {
+        comments = null;
       }
 
       if (!this.props.post) {
@@ -31682,13 +31698,13 @@ var PostDetailComponent = function (_React$Component) {
             ),
             _react2.default.createElement(
               'button',
-              { onClick: this.handleDropdowns },
+              { onClick: this.handleDropdown },
               '\u02C7'
             ),
-            this.props.dropdownVisible ? this.props.showDropdown(_react2.default.createElement(_post_action_container2.default, {
+            this.props.dropdownVisible ? _react2.default.createElement(_post_action_container2.default, {
               post: this.props.post,
               updatePost: this.props.updatePost.bind(this)
-            })) : null
+            }) : null
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
@@ -31720,9 +31736,12 @@ var PostDetailComponent = function (_React$Component) {
               )
             )
           ),
-          comments,
+          _react2.default.createElement(
+            'ul',
+            null,
+            comments
+          ),
           _react2.default.createElement(_new_comment_container2.default, {
-            currentUser: this.props.currentUser,
             post: this.props.post
           })
         );
@@ -31803,7 +31822,7 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
     users: state.users,
     post: ownProps.post,
     posts: state.posts,
-    dropdownVisible: state.dropdowns.component === 'post-' + ownProps.post.id
+    dropdownVisible: state.dropdowns.displayed === ownProps.post.id
   };
 };
 
@@ -31836,6 +31855,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     }),
     showDropdown: function showDropdown(component) {
       return dispatch((0, _dropdown_actions.showDropdown)(component));
+    },
+    displayDropdown: function displayDropdown(component) {
+      return dispatch((0, _dropdown_actions.displayDropdown)(component));
     }
   };
 };
@@ -45419,7 +45441,11 @@ var dropdownReducer = function dropdownReducer() {
       }
     case _dropdown_actions.HIDE_DROPDOWN:
       {
-        return { component: null };
+        return { component: null, displayed: null };
+      }
+    case _dropdown_actions.DISPLAY_DROPDOWN:
+      {
+        return { displayed: action.displayed };
       }
     default:
       return state;
@@ -48711,7 +48737,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = function App(props) {
   return _react2.default.createElement(
     'div',
-    { onClick: props.hideDropdown },
+    null,
     _react2.default.createElement(_modal_container2.default, null),
     _react2.default.createElement(_dropdown_container2.default, null),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _session_form_container_login2.default }),
@@ -49216,7 +49242,6 @@ var _dropdown_actions = __webpack_require__(22);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
   return {
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -50379,7 +50404,6 @@ var CommentsComponent = function (_React$Component) {
       }
 
       var editComment = void 0;
-
       if (this.props.currentUser.id === this.props.comment.author_id) {
         editComment = _react2.default.createElement(
           'button',
@@ -50595,11 +50619,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
     },
-    showDropdown: function showDropdown(component) {
-      return dispatch((0, _dropdown_actions.showDropdown)(component));
-    },
     toggleActionVisibility: function toggleActionVisibility() {
       return ownProps.toggleActionVisibility();
+    },
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
     }
   };
 };
@@ -50651,12 +50675,15 @@ var PostActionComponent = function (_React$Component) {
   _createClass(PostActionComponent, [{
     key: 'handleDelete',
     value: function handleDelete() {
-      this.props.deletePost(this.props.post);
+      this.props.deletePost(this.props.post).then(this.props.hideDropdown);
     }
   }, {
     key: 'handleEdit',
     value: function handleEdit() {
-      this.props.showModal(_react2.default.createElement(_edit_post_container2.default, { post: this.props.post, updatePost: this.props.updatePost }));
+      this.props.showModal(_react2.default.createElement(_edit_post_container2.default, {
+        post: this.props.post,
+        updatePost: this.props.updatePost
+      }));
     }
   }, {
     key: 'render',
@@ -50894,7 +50921,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    currentUser: ownProps.currentUser,
+    currentUser: state.session.currentUser,
     errors: state.errors,
     post: ownProps.post
   };
@@ -51265,6 +51292,11 @@ var NavBar = function (_React$Component) {
       this.props.logout().then(this.props.history.push('/'));
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.props.hideDropdown();
+    }
+  }, {
     key: 'showActionsContainer',
     value: function showActionsContainer(e) {
       e.stopPropagation();
@@ -51575,6 +51607,8 @@ var _session_actions = __webpack_require__(19);
 
 var _modal_actions = __webpack_require__(21);
 
+var _dropdown_actions = __webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -51582,7 +51616,8 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
     currentUser: state.session.currentUser || {},
     users: state.users,
     posts: state.posts,
-    errors: state.errors
+    errors: state.errors,
+    dropdowns: state.dropdowns
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -51601,6 +51636,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     hideModal: function hideModal() {
       return dispatch((0, _modal_actions.hideModal)());
+    },
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
     },
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
@@ -51740,15 +51778,22 @@ var _dropdown_actions = __webpack_require__(22);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  var acceptedFriendIds = void 0;
+  if (!state.users[ownProps.match.params.userId]) {
+    acceptedFriendIds = null;
+  } else {
+    acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
+  }
   return {
-    user: state.users[ownProps.match.params.userId],
     pendingFriendIds: state.session.currentUser.pending_friends,
-    acceptedFriendIds: state.users[ownProps.match.params.userId].accepted_friends,
-    users: state.users,
+    user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
-    errors: state.errors
+    users: state.users,
+    errors: state.errors,
+    acceptedFriendIds: acceptedFriendIds
   };
 };
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     logout: function logout() {
@@ -51833,19 +51878,15 @@ var ProfileComponent = function (_React$Component) {
 
   _createClass(ProfileComponent, [{
     key: 'handleAddFriend',
-    value: function handleAddFriend() {
-      (function (e) {
-        return e.stopPropagation();
-      });
+    value: function handleAddFriend(e) {
+      e.stopPropagation();
       this.props.createFriendship({ friendship: { friendee_id: this.props.users[this.props.match.params.userId].id }
       });
     }
   }, {
     key: 'toggleFriends',
-    value: function toggleFriends() {
-      (function (e) {
-        return e.stopPropagation();
-      });
+    value: function toggleFriends(e) {
+      e.stopPropagation();
       this.setState({ showFriends: !this.state.showFriends });
     }
   }, {

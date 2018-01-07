@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { createPost, updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { fetchPost, fetchAllPosts } from '../../actions/posts_actions';
-import { showDropdown } from '../../actions/dropdown_actions';
+import { showDropdown, displayDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -13,7 +13,7 @@ const mapStatetoProps = (state, ownProps) => {
     users: state.users,
     post: ownProps.post,
     posts: state.posts,
-    dropdownVisible: state.dropdowns.component === `post-${ownProps.post.id}`
+    dropdownVisible: state.dropdowns.displayed === ownProps.post.id
   };
 };
 
@@ -25,6 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     fetchPost: (post) => dispatch(fetchPost(post)),
     fetchPosts: (posts) => dispatch(fetchPosts(posts)),
     showDropdown: (component) => dispatch(showDropdown(component)),
+    displayDropdown: (component) => dispatch(displayDropdown(component)),
   };
 };
 

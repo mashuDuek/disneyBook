@@ -14,6 +14,13 @@ class PostsComponent extends React.Component {
   }
 
   render() {
+    const drops = this.props.dropdowns;
+    let dropdownAction;
+    if (Boolean(drops.displayed) || Boolean(drops.component)) {
+      dropdownAction = this.props.hideDropdown;
+    } else {
+      dropdownAction = (e) => { e.stopPropagation(); };
+    }
 
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>);
@@ -37,7 +44,7 @@ class PostsComponent extends React.Component {
           return null;
         } else {
           return(
-            <li key={post.id}>
+            <li key={post.id} className='individual-post'>
               <PostDetailContainer post={post} />
             </li>
           );
@@ -46,7 +53,7 @@ class PostsComponent extends React.Component {
     }
 
     return (
-    <div className="posts-and-info-components">
+    <div className="posts-and-info-components" onClick={ dropdownAction }>
       <LeftInfoComponent />
       <div className="create-post-all-posts">
         <NewPostContainer />

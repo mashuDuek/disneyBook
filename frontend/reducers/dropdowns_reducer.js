@@ -1,4 +1,7 @@
-import { SHOW_DROPDOWN, HIDE_DROPDOWN } from '../actions/dropdown_actions';
+import { SHOW_DROPDOWN,
+  HIDE_DROPDOWN,
+  DISPLAY_DROPDOWN
+} from '../actions/dropdown_actions';
 
 const dropdownReducer = (state = {}, action) => {
   switch(action.type) {
@@ -6,7 +9,10 @@ const dropdownReducer = (state = {}, action) => {
       return {component: action.component};
     }
     case HIDE_DROPDOWN: {
-      return {component: null};
+      return {component: null, displayed: null};
+    }
+    case DISPLAY_DROPDOWN: {
+      return {displayed: action.displayed};
     }
     default: return state;
   }
