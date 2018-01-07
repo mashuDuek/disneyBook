@@ -40,7 +40,7 @@ class CommentsComponent extends React.Component {
       <div className="comment">
         <div id="comment-author">
           <div id="comment-author-pic-and-name">
-            <img src={author.profilePicUrl}></img>
+            <img src={author.profilePic}></img>
             <Link to={`/users/${author.id}`}>{author.name}</Link>
             <p className="comment-body">
               {this.props.comment.body}

@@ -2,7 +2,6 @@ import React from 'react';
 
 class CoverPhotoComponent extends React.Component {
   render () {
-
     if (!this.props.user) {
       return (
         <p>Loading...</p>
@@ -11,9 +10,9 @@ class CoverPhotoComponent extends React.Component {
 
     return (
       <div id="cover-photo">
-        <img src={this.props.user.cover_url}></img>
+        <img src={this.props.user.coverPic}></img>
       </div>
-    )
+    );
   }
 }
 

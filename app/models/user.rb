@@ -2,6 +2,12 @@ class User < ApplicationRecord
   validates :session_token, :password_digest, :email, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
+  has_attached_file :profile_pic, default_url: "micky_mouse.png"
+  validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\z/
+
+  has_attached_file :cover_pic, default_url: "disney.jpg"
+  validates_attachment_content_type :cover_pic, content_type: /\Aimage\/.*\z/
+
   has_many :posts,
     foreign_key: :author_id,
     primary_key: :id,

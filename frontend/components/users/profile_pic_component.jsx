@@ -2,7 +2,6 @@ import React from 'react';
 
 class ProfPicComponent extends React.Component {
   render() {
-
     if (!this.props.user) {
       return (
         <p>Loading...</p>
@@ -11,7 +10,7 @@ class ProfPicComponent extends React.Component {
     return (
       <div>
         <div id="profile-photo">
-          <img src={this.props.user.profilePicUrl}></img>
+          <img src={this.props.user.profilePic}></img>
           <p className="user-name">
             {this.props.user.name}
           </p>

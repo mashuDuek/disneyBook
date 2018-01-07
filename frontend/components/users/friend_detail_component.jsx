@@ -11,7 +11,7 @@ class FriendDetailComponent extends React.Component {
 
     return (
       <li id="friend-detail-component" key={this.props.user.id}>
-        <img src={this.props.user.profilePicUrl}></img>
+        <img src={this.props.user.profilePic}></img>
         <div className="friend-info">
           <Link
             onClick={this.props.toggleFriends}

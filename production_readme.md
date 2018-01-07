@@ -26,7 +26,7 @@ The beneath code shows the post detail component, in which the link to the post 
 <li key={this.props.post.id}>
   <div id="post-author-info">
     <div id="author-pic-and-name">
-      <img src={authorObj.profilePicUrl}
+      <img src={authorObj.profilePic}
         sizes="(max-height: 40px; max-width: 40px;)" >
       </img>
       <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
@@ -78,6 +78,6 @@ The beneath code shows the post detail component, in which the link to the post 
 
   ##### Friending
 
-  A user has friends and can add friends. They can see who their friends are and other users friends through the profile page. They can also see the status of that friendship, whether its pending or accepted. 
+  A user has friends and can add friends. They can see who their friends are and other users friends through the profile page. They can also see the status of that friendship, whether its pending or accepted.
 
   ![friends_list](docs/friends_list.png)

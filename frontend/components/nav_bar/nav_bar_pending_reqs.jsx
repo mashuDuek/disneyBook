@@ -24,7 +24,7 @@ class PendingReqs extends React.Component {
       pendingFriends = this.props.pendingFriends.map( (requester) => {
         return (
           <li key={requester.id}>
-            <img src={requester.profilePicUrl}></img>
+            <img src={requester.profilePic}></img>
             <Link to={`/users/${requester.id}`}
               onClick={this.props.hideDropdown}>
               <p>{requester.name} from {requester.movie}</p>

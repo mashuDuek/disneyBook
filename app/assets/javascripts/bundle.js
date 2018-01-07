@@ -31688,7 +31688,7 @@ var PostDetailComponent = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { id: 'author-pic-and-name' },
-              _react2.default.createElement('img', { src: authorObj.profilePicUrl,
+              _react2.default.createElement('img', { src: authorObj.profilePic,
                 sizes: '(max-height: 40px; max-width: 40px;)' }),
               _react2.default.createElement(
                 _reactRouterDom.Link,
@@ -31926,7 +31926,7 @@ var PendingReqs = function (_React$Component) {
           return _react2.default.createElement(
             'li',
             { key: requester.id },
-            _react2.default.createElement('img', { src: requester.profilePicUrl }),
+            _react2.default.createElement('img', { src: requester.profilePic }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/users/' + requester.id,
@@ -50424,7 +50424,7 @@ var CommentsComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'comment-author-pic-and-name' },
-            _react2.default.createElement('img', { src: author.profilePicUrl }),
+            _react2.default.createElement('img', { src: author.profilePic }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/users/' + author.id },
@@ -51311,7 +51311,6 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'div',
         { className: 'nav-bar' },
@@ -51333,7 +51332,7 @@ var NavBar = function (_React$Component) {
               _react2.default.createElement(
                 _reactRouterDom.Link,
                 { to: '/users/' + this.props.currentUser.id },
-                _react2.default.createElement('img', { src: this.props.currentUser.profilePicUrl })
+                _react2.default.createElement('img', { src: this.props.currentUser.profilePic })
               ),
               _react2.default.createElement(
                 'p',
@@ -52054,7 +52053,6 @@ var ProfPicComponent = function (_React$Component) {
   _createClass(ProfPicComponent, [{
     key: "render",
     value: function render() {
-
       if (!this.props.user) {
         return _react2.default.createElement(
           "p",
@@ -52068,7 +52066,7 @@ var ProfPicComponent = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { id: "profile-photo" },
-          _react2.default.createElement("img", { src: this.props.user.profilePicUrl }),
+          _react2.default.createElement("img", { src: this.props.user.profilePic }),
           _react2.default.createElement(
             "p",
             { className: "user-name" },
@@ -52293,7 +52291,6 @@ var CoverPhotoComponent = function (_React$Component) {
   _createClass(CoverPhotoComponent, [{
     key: "render",
     value: function render() {
-
       if (!this.props.user) {
         return _react2.default.createElement(
           "p",
@@ -52305,7 +52302,7 @@ var CoverPhotoComponent = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         { id: "cover-photo" },
-        _react2.default.createElement("img", { src: this.props.user.cover_url })
+        _react2.default.createElement("img", { src: this.props.user.coverPic })
       );
     }
   }]);
@@ -52358,7 +52355,7 @@ var FriendDetailComponent = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { id: 'friend-detail-component', key: this.props.user.id },
-        _react2.default.createElement('img', { src: this.props.user.profilePicUrl }),
+        _react2.default.createElement('img', { src: this.props.user.profilePic }),
         _react2.default.createElement(
           'div',
           { className: 'friend-info' },

@@ -30,7 +30,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-
     return (
       <div className="nav-bar">
 
@@ -43,7 +42,7 @@ class NavBar extends React.Component {
           <div id="nav-bar-welcome-logout">
             <div id="user-pic-name-and-home">
               <Link to={`/users/${this.props.currentUser.id}`}>
-                <img src={this.props.currentUser.profilePicUrl}></img>
+                <img src={this.props.currentUser.profilePic}></img>
               </Link>
               <p className="user-name">
                 <Link to={`/users/${this.props.currentUser.id}`}>

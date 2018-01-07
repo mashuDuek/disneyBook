@@ -55,7 +55,7 @@ class PostDetailComponent extends React.Component {
         <div id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
-              <img src={authorObj.profilePicUrl}
+              <img src={authorObj.profilePic}
                 sizes="(max-height: 40px; max-width: 40px;)" >
               </img>
               <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
