@@ -9,8 +9,8 @@ import FriendDetailComponent from './friend_detail_component';
 class ProfileComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.toggleFriends = this.toggleFriends.bind(this);
     this.state = { showFriends: false };
+    this.toggleFriends = this.toggleFriends.bind(this);
     this.handleAddFriend = this.handleAddFriend.bind(this);
   }
 
@@ -33,6 +33,13 @@ class ProfileComponent extends React.Component {
   }
 
   render(){
+    const drops = this.props.dropdowns;
+    let dropdownAction;
+    if (Boolean(drops.displayed) || Boolean(drops.component)) {
+      dropdownAction = this.props.hideDropdown;
+    } else {
+      dropdownAction = (e) => e.stopPropagation();
+    }
 
     if (!this.props.user) {
       return (
@@ -61,7 +68,7 @@ class ProfileComponent extends React.Component {
       }
 
       return (
-        <div>
+        <div onClick={ dropdownAction }>
           <div className="nav-and-profile-pic-components">
             <NavBarContainer/>
           </div>
@@ -89,8 +96,9 @@ class ProfileComponent extends React.Component {
       );
     } else {
       buttonText = `${this.props.user.name}'s Friends'`;
+
       return (
-        <div id="profile-page">
+        <div id="profile-page" onClick={ dropdownAction }>
           <div className="nav-and-profile-pic-components">
             <NavBarContainer/>
           </div>

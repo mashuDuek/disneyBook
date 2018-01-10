@@ -25,7 +25,7 @@ class PostsComponent extends React.Component {
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>);
     } else {
-      const acceptedFriendIds = this.props.currentUser.accepted_friends.map((friend) => {
+      const acceptedFriendIds = this.props.currentUser.acceptedFriends.map((friend) => {
         return friend.id;
       });
 

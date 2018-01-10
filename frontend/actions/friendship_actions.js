@@ -29,13 +29,13 @@ export const createFriendship = (user) => {
   return (dispatch) => {
     return APIUtil.createFriendship(user).
       then((user) => {
-        dispatch(receiveUsers(user.accepted_friends));
-        dispatch(receiveUsers(user.pending_friends));
+        dispatch(receiveUsers(user.acceptedFriends));
+        dispatch(receiveUsers(user.pendingFriends));
 
-        // const pending = user.pending_friends;
-        // const accepted = user.accepted_friends;
-        // delete user.pending_friends;
-        // delete user.accepted_friends;
+        // const pending = user.pendingFriends;
+        // const accepted = user.acceptedFriends;
+        // delete user.pendingFriends;
+        // delete user.acceptedFriends;
         // user.pending_friend_ids = pending.map((user) => {
         //   return user.id;
         // });

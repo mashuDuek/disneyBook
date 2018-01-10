@@ -25737,13 +25737,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var createFriendship = exports.createFriendship = function createFriendship(user) {
   return function (dispatch) {
     return APIUtil.createFriendship(user).then(function (user) {
-      dispatch((0, _user_actions.receiveUsers)(user.accepted_friends));
-      dispatch((0, _user_actions.receiveUsers)(user.pending_friends));
+      dispatch((0, _user_actions.receiveUsers)(user.acceptedFriends));
+      dispatch((0, _user_actions.receiveUsers)(user.pendingFriends));
 
-      // const pending = user.pending_friends;
-      // const accepted = user.accepted_friends;
-      // delete user.pending_friends;
-      // delete user.accepted_friends;
+      // const pending = user.pendingFriends;
+      // const accepted = user.acceptedFriends;
+      // delete user.pendingFriends;
+      // delete user.acceptedFriends;
       // user.pending_friend_ids = pending.map((user) => {
       //   return user.id;
       // });
@@ -31366,7 +31366,7 @@ var PostsComponent = function (_React$Component) {
           'Loading posts...'
         );
       } else {
-        var acceptedFriendIds = this.props.currentUser.accepted_friends.map(function (friend) {
+        var acceptedFriendIds = this.props.currentUser.acceptedFriends.map(function (friend) {
           return friend.id;
         });
 
@@ -51783,13 +51783,15 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   } else {
     acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
   }
+
   return {
     pendingFriendIds: state.session.currentUser.pending_friends,
     user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     users: state.users,
     errors: state.errors,
-    acceptedFriendIds: acceptedFriendIds
+    acceptedFriendIds: acceptedFriendIds,
+    dropdowns: state.dropdowns
   };
 };
 
@@ -51797,6 +51799,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     logout: function logout() {
       return dispatch((0, _session_actions.logout)());
+    },
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
     },
     fetchUser: function fetchUser(user) {
       return dispatch((0, _user_actions.fetchUser)(user));
@@ -51869,8 +51874,8 @@ var ProfileComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ProfileComponent.__proto__ || Object.getPrototypeOf(ProfileComponent)).call(this, props));
 
-    _this.toggleFriends = _this.toggleFriends.bind(_this);
     _this.state = { showFriends: false };
+    _this.toggleFriends = _this.toggleFriends.bind(_this);
     _this.handleAddFriend = _this.handleAddFriend.bind(_this);
     return _this;
   }
@@ -51897,6 +51902,16 @@ var ProfileComponent = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _this2 = this;
+
+      var drops = this.props.dropdowns;
+      var dropdownAction = void 0;
+      if (Boolean(drops.displayed) || Boolean(drops.component)) {
+        dropdownAction = this.props.hideDropdown;
+      } else {
+        dropdownAction = function dropdownAction(e) {
+          return e.stopPropagation();
+        };
+      }
 
       if (!this.props.user) {
         return _react2.default.createElement(
@@ -51928,7 +51943,7 @@ var ProfileComponent = function (_React$Component) {
 
         return _react2.default.createElement(
           'div',
-          null,
+          { onClick: dropdownAction },
           _react2.default.createElement(
             'div',
             { className: 'nav-and-profile-pic-components' },
@@ -51977,9 +51992,10 @@ var ProfileComponent = function (_React$Component) {
         );
       } else {
         buttonText = this.props.user.name + '\'s Friends\'';
+
         return _react2.default.createElement(
           'div',
-          { id: 'profile-page' },
+          { id: 'profile-page', onClick: dropdownAction },
           _react2.default.createElement(
             'div',
             { className: 'nav-and-profile-pic-components' },
