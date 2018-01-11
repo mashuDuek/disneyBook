@@ -73,7 +73,11 @@ class ProfileComponent extends React.Component {
             <NavBarContainer/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoComponent user={this.props.user} />
+            <CoverPhotoComponent
+              user={this.props.user}
+              showModal={this.props.showModal}
+              updateCover={this.props.updateCover}
+              />
             <ProfPicComponent user={this.props.user} />
               <div id="profile-bar-component">
                 <button onClick={this.handleAddFriend}>
@@ -103,7 +107,10 @@ class ProfileComponent extends React.Component {
             <NavBarContainer/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoComponent user={this.props.user} />
+            <CoverPhotoComponent user={this.props.user}
+              showModal={this.props.showModal}
+              updateCover={this.props.updateCover}
+              />
             <ProfPicComponent user={this.props.user} />
             <div id="profile-bar-component">
               <button onClick={this.handleAddFriend}>

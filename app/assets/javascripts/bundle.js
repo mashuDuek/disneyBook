@@ -45328,6 +45328,8 @@ var _user_actions = __webpack_require__(30);
 
 var _posts_actions = __webpack_require__(15);
 
+var _image_actions = __webpack_require__(383);
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var preloadedState = {};
@@ -45353,6 +45355,11 @@ var userReducer = function userReducer() {
     case _posts_actions.FETCH_ALL_POSTS:
     case _posts_actions.RECEIVE_POST:
       return Object.assign({}, state, action.entities.users);
+    case _image_actions.RECEIVE_COVER_PIC:
+      {
+        debugger;
+        return {};
+      }
     default:
       return state;
   }
@@ -51774,6 +51781,10 @@ var _friendship_actions = __webpack_require__(86);
 
 var _dropdown_actions = __webpack_require__(22);
 
+var _modal_actions = __webpack_require__(21);
+
+var _image_actions = __webpack_require__(383);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -51811,6 +51822,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     showDropdown: function showDropdown(component) {
       return dispatch((0, _dropdown_actions.showDropdown)(component));
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    updateCover: function updateCover(image) {
+      return dispatch((0, _image_actions.updateCoverPic)(image));
     }
   };
 };
@@ -51952,7 +51969,11 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'cover-and-profile-pics' },
-            _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+            _react2.default.createElement(_cover_photo_component2.default, {
+              user: this.props.user,
+              showModal: this.props.showModal,
+              updateCover: this.props.updateCover
+            }),
             _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
             _react2.default.createElement(
               'div',
@@ -52004,7 +52025,10 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'cover-and-profile-pics' },
-            _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user }),
+            _react2.default.createElement(_cover_photo_component2.default, { user: this.props.user,
+              showModal: this.props.showModal,
+              updateCover: this.props.updateCover
+            }),
             _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
             _react2.default.createElement(
               'div',
@@ -52287,6 +52311,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _edit_cover_pic_component = __webpack_require__(382);
+
+var _edit_cover_pic_component2 = _interopRequireDefault(_edit_cover_pic_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52298,27 +52326,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CoverPhotoComponent = function (_React$Component) {
   _inherits(CoverPhotoComponent, _React$Component);
 
-  function CoverPhotoComponent() {
+  function CoverPhotoComponent(props) {
     _classCallCheck(this, CoverPhotoComponent);
 
-    return _possibleConstructorReturn(this, (CoverPhotoComponent.__proto__ || Object.getPrototypeOf(CoverPhotoComponent)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (CoverPhotoComponent.__proto__ || Object.getPrototypeOf(CoverPhotoComponent)).call(this, props));
+
+    _this.handleCoverModal = _this.handleCoverModal.bind(_this);
+    return _this;
   }
 
   _createClass(CoverPhotoComponent, [{
-    key: "render",
+    key: 'handleCoverModal',
+    value: function handleCoverModal(e) {
+      debugger;
+      this.props.showModal(_react2.default.createElement(_edit_cover_pic_component2.default, { user: this.props.user, updateCover: this.props.updateCover }));
+    }
+  }, {
+    key: 'render',
     value: function render() {
       if (!this.props.user) {
         return _react2.default.createElement(
-          "p",
+          'p',
           null,
-          "Loading..."
+          'Loading...'
         );
       }
 
       return _react2.default.createElement(
-        "div",
-        { id: "cover-photo" },
-        _react2.default.createElement("img", { src: this.props.user.coverPic })
+        'div',
+        { id: 'cover-photo' },
+        _react2.default.createElement('img', { onClick: this.handleCoverModal, src: this.props.user.coverPic })
       );
     }
   }]);
@@ -52491,6 +52528,184 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 381 */,
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditCoverPicComponent = function (_React$Component) {
+  _inherits(EditCoverPicComponent, _React$Component);
+
+  function EditCoverPicComponent(props) {
+    _classCallCheck(this, EditCoverPicComponent);
+
+    var _this = _possibleConstructorReturn(this, (EditCoverPicComponent.__proto__ || Object.getPrototypeOf(EditCoverPicComponent)).call(this, props));
+
+    _this.state = {
+      imageUrl: null, imageFile: null, displayInput: false
+    };
+    _this.handleUpdateCover = _this.handleUpdateCover.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(EditCoverPicComponent, [{
+    key: "handleUpdateCover",
+    value: function handleUpdateCover(e) {
+      this.setState({ displayInput: !this.state.displayInput });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var file = this.state.imageFile;
+      var formData = new FormData();
+
+      if (file) formData.append("user[image]", file);
+      this.props.updateCover(formData);
+      // ApiUtil.createPost(formData, this.resetForm);
+      // here instead of Api create post, need to dispatch to edit user cover
+    }
+  }, {
+    key: "handleInput",
+    value: function handleInput(e) {
+      var _this2 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+      reader.onloadend = function () {
+        return _this2.setState({ imageUrl: reader.result, imageFile: file });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({ imageUrl: "", imageFile: null });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+
+      // need to make sure at some point I invoke handleInput
+
+      var input = void 0;
+      if (!this.state.displayInput) {
+        input = null;
+      } else {
+        input = _react2.default.createElement(
+          "form",
+          { onSubmit: this.handleSubmit },
+          _react2.default.createElement("input", { type: "file", onChange: this.handleInput }),
+          _react2.default.createElement(
+            "button",
+            null,
+            "Change Your Pic"
+          )
+        );
+      }
+      return _react2.default.createElement(
+        "div",
+        { className: "edit-cover-pic-wrapper" },
+        _react2.default.createElement("img", { src: this.props.user.coverPic }),
+        _react2.default.createElement(
+          "div",
+          { className: "edit-cover-pic" },
+          _react2.default.createElement(
+            "button",
+            { onClick: this.handleUpdateCover },
+            "Edit Cover Pic"
+          ),
+          input
+        )
+      );
+    }
+  }]);
+
+  return EditCoverPicComponent;
+}(_react2.default.Component);
+
+exports.default = EditCoverPicComponent;
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateCoverPic = exports.receiveCoverPic = exports.RECEIVE_COVER_PIC = undefined;
+
+var _image_util = __webpack_require__(384);
+
+var APIUtil = _interopRequireWildcard(_image_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_COVER_PIC = exports.RECEIVE_COVER_PIC = 'RECEIVE_COVER_PIC';
+
+var receiveCoverPic = exports.receiveCoverPic = function receiveCoverPic(pic) {
+  debugger;
+  return {
+    type: RECEIVE_COVER_PIC,
+    pic: pic
+  };
+};
+
+var updateCoverPic = exports.updateCoverPic = function updateCoverPic(pic) {
+  debugger;
+  return function (dispatch) {
+    return APIUtil.updateCover(pic).then(function (pic) {
+      return dispatch(receiveCoverPic(pic));
+    });
+  };
+};
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var updateCover = exports.updateCover = function updateCover(image) {
+  debugger;
+  return $.ajax({
+    method: 'PATCH',
+    processData: false,
+    contentType: false,
+    url: '/api/users',
+    data: image
+  });
+};
 
 /***/ })
 /******/ ]);

@@ -5,6 +5,8 @@ import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { createFriendship } from '../../actions/friendship_actions';
 import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
+import { showModal } from '../../actions/modal_actions';
+import { updateCoverPic } from '../../actions/image_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   let acceptedFriendIds;
@@ -13,7 +15,7 @@ const mapStatetoProps = (state, ownProps) => {
   } else {
     acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
   }
-  
+
   return {
     pendingFriendIds: state.session.currentUser.pending_friends,
     user: state.users[ownProps.match.params.userId],
@@ -31,7 +33,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     hideDropdown: () => dispatch(hideDropdown()),
     fetchUser: (user) => dispatch(fetchUser(user)),
     createFriendship: (user) => dispatch(createFriendship(user)),
-    showDropdown: (component) => dispatch(showDropdown(component))
+    showDropdown: (component) => dispatch(showDropdown(component)),
+    showModal: (component) => dispatch(showModal(component)),
+    updateCover: (image) => dispatch(updateCoverPic(image))
   };
 };
 
