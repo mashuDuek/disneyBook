@@ -74,6 +74,7 @@ class ProfileComponent extends React.Component {
           </div>
           <div id="cover-and-profile-pics">
             <CoverPhotoComponent
+              currentUser={this.props.currentUser}
               user={this.props.user}
               showModal={this.props.showModal}
               updateCover={this.props.updateCover}
@@ -107,7 +108,9 @@ class ProfileComponent extends React.Component {
             <NavBarContainer/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoComponent user={this.props.user}
+            <CoverPhotoComponent
+              currentUser={this.props.currentUser}
+              user={this.props.user}
               showModal={this.props.showModal}
               updateCover={this.props.updateCover}
               />

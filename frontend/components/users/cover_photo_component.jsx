@@ -8,10 +8,15 @@ class CoverPhotoComponent extends React.Component {
   }
 
   handleCoverModal(e) {
-    debugger
-    this.props.showModal(
-      <EditCoverPicComponent user={this.props.user} updateCover={this.props.updateCover}/>
-    );
+    if (this.props.user.id === this.props.currentUser.id) {
+      this.props.showModal(
+        <EditCoverPicComponent
+          user={this.props.user}
+          currentUser={this.props.currentUser}
+          updateCover={this.props.updateCover}
+          />
+      );
+    }
   }
 
   render () {

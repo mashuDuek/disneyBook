@@ -30,6 +30,7 @@ class Api::UsersController < ApplicationController
     debugger
     @user = User.find(params[:id])
     if current_user == @user && @user.update(user_params)
+      debugger
       render :show
     else
       render json: @user.errors.full_messages
@@ -39,7 +40,7 @@ class Api::UsersController < ApplicationController
   private
   def user_params
     debugger
-    params.require(:user).permit(:email, :password, :name, :movie)
+    params.require(:user).permit(:email, :password, :name, :movie, :id, :cover_pic, :profile_pic)
   end
 
 end

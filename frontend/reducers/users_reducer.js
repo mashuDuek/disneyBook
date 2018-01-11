@@ -16,15 +16,12 @@ const userReducer = (state = preloadedState, action ) => {
       return newState;
     }
     case RECEIVE_USER: {
+      debugger
       return Object.assign({}, state, { [action.user.id]: action.user });
     }
     case FETCH_ALL_POSTS:
     case RECEIVE_POST:
       return Object.assign({}, state, action.entities.users);
-    case RECEIVE_COVER_PIC: {
-      debugger
-      return {};
-    }
     default: return state;
   }
 };

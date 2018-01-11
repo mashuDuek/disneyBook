@@ -18,11 +18,9 @@ class EditCoverPicComponent extends React.Component {
   handleSubmit() {
     const file = this.state.imageFile;
     const formData = new FormData();
-
-    if (file) formData.append("user[image]", file);
+    formData.append("user[id]", this.props.user.id)
+    if (file) formData.append("user[cover_pic]", file);
     this.props.updateCover(formData);
-    // ApiUtil.createPost(formData, this.resetForm);
-    // here instead of Api create post, need to dispatch to edit user cover
   }
 
   handleInput(e) {
@@ -39,9 +37,6 @@ class EditCoverPicComponent extends React.Component {
   }
 
   render() {
-
-    // need to make sure at some point I invoke handleInput
-
     let input;
     if (!this.state.displayInput) {
       input = null;
