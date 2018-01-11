@@ -59,7 +59,6 @@
 }
 
 .edit-comment {
-  z-index: 1;
   border: .5px solid lightgray;
   position: fixed;
   width: 400px;

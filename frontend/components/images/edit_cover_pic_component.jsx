@@ -18,7 +18,7 @@ class EditCoverPicComponent extends React.Component {
   handleSubmit() {
     const file = this.state.imageFile;
     const formData = new FormData();
-    formData.append("user[id]", this.props.user.id)
+    formData.append("user[id]", this.props.user.id);
     if (file) formData.append("user[cover_pic]", file);
     this.props.updateCover(formData);
   }
@@ -42,18 +42,18 @@ class EditCoverPicComponent extends React.Component {
       input = null;
     } else {
       input = (
-        <form onSubmit={this.handleSubmit}>
-          <input type='file' onChange={this.handleInput}></input>
+        <form onSubmit={ this.handleSubmit }>
+          <input type='file' onChange={ this.handleInput }></input>
           <button>Change Your Pic</button>
         </form>
       );
     }
     return (
       <div className="edit-cover-pic-wrapper">
-        <img src={this.props.user.coverPic}></img>
         <div className='edit-cover-pic'>
-          <button onClick={this.handleUpdateCover}>Edit Cover Pic</button>
-          {input}
+          <img src={ this.props.user.coverPic }></img>
+          <button onClick={ this.handleUpdateCover }>Edit Cover Pic</button>
+          { input }
         </div>
       </div>
     );

@@ -3,7 +3,20 @@
 }
 
 #profile-photo {
-  position: relative;
+  position: absolute;
+
+  img {
+    background-color: white;
+    width: 168px;
+    height: 168px;
+    border: .5px solid lightgray;
+    padding: 2px;
+    border-radius: 3px;
+    position: absolute;
+    top: 42px;
+    left: 50px;
+    margin-top: -75px;
+  }
 }
 
 .edit-cover-pic {
@@ -25,29 +38,40 @@
   height: 311px;
   max-height: 311px;
   margin: 0 auto;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  img {
+    margin-top: 44px;
+    width: 848px;
+    max-width: 848px;
+    height: 365px;
+    max-height: 365px;
+    border-radius: 1px;
+  }
 }
 
-#cover-photo img {
-  margin-top: 44px;
-  width: 848px;
-  max-width: 848px;
-  height: 365px;
-  max-height: 365px;
-  border-radius: 1px;
-
-}
-
-#profile-photo img {
-  background-color: white;
-  width: 168px;
-  height: 168px;
-  border: .5px solid lightgray;
-  padding: 2px;
-  border-radius: 3px;
+.icon-edit-cover {
   position: absolute;
-  top: 42px;
-  left: 50px
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 70px;
+  margin-left: 30px;
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 5px;
 }
+
+// .hidden {
+//   display: none;
+// }
 
 #cover-and-profile-pics {
   width: 858px;
@@ -174,7 +198,7 @@
   margin-right: 5px;
   border: .5px solid lightgray;
   position: unset;
-  margin-top: 107px;
+  margin-top: 43px;
 
   button {
     color: #365799;

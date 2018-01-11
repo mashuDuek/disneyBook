@@ -1,9 +1,9 @@
 import React from 'react';
 import NavBarContainer from '../nav_bar/nav_bar_container';
-import ProfPicComponent from './profile_pic_component';
+import ProfPicComponent from '../images/profile_pic_component';
 import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
-import CoverPhotoComponent from './cover_photo_component';
+import CoverPhotoComponent from '../images/cover_photo_component';
 import FriendDetailComponent from './friend_detail_component';
 
 class ProfileComponent extends React.Component {
@@ -56,11 +56,11 @@ class ProfileComponent extends React.Component {
       } else {
         accepted = this.props.acceptedFriendIds.map((user) => {
           return(
-            <li key={user.id}>
+            <li key={ user.id }>
               <FriendDetailComponent
-                user={user}
+                user={ user }
                 status="accepted"
-                toggleFriends={this.toggleFriends}
+                toggleFriends={ this.toggleFriends }
                 />
             </li>
           );
@@ -74,26 +74,26 @@ class ProfileComponent extends React.Component {
           </div>
           <div id="cover-and-profile-pics">
             <CoverPhotoComponent
-              currentUser={this.props.currentUser}
-              user={this.props.user}
-              showModal={this.props.showModal}
-              updateCover={this.props.updateCover}
+              currentUser={ this.props.currentUser }
+              user={ this.props.user }
+              showModal={ this.props.showModal }
+              updateCover={ this.props.updateCover }
               />
-            <ProfPicComponent user={this.props.user} />
+            <ProfPicComponent user={ this.props.user } />
               <div id="profile-bar-component">
-                <button onClick={this.handleAddFriend}>
+                <button onClick={ this.handleAddFriend }>
                   Add Friend
                 </button>
-                <button onClick={this.toggleFriends}>
-                  {buttonText}
+                <button onClick={ this.toggleFriends }>
+                  { buttonText }
                 </button>
               </div>
           </div>
           <div id="all-friends">
-            <div id="friends-bar">All of {this.props.user.name}s friends!</div>
+            <div id="friends-bar">All of { this.props.user.name }s friends!</div>
             <div id="accepted-pending-friends">
               <ul id="accepted">
-                {accepted}
+                { accepted }
               </ul>
             </div>
           </div>
@@ -109,22 +109,22 @@ class ProfileComponent extends React.Component {
           </div>
           <div id="cover-and-profile-pics">
             <CoverPhotoComponent
-              currentUser={this.props.currentUser}
-              user={this.props.user}
-              showModal={this.props.showModal}
-              updateCover={this.props.updateCover}
+              currentUser={ this.props.currentUser }
+              user={ this.props.user }
+              showModal={ this.props.showModal }
+              updateCover={ this.props.updateCover }
               />
-            <ProfPicComponent user={this.props.user} />
+            <ProfPicComponent user={ this.props.user } />
             <div id="profile-bar-component">
-              <button onClick={this.handleAddFriend}>
+              <button onClick={ this.handleAddFriend }>
                 Add Friend
               </button>
-              <button onClick={this.toggleFriends}>
-                {buttonText}
+              <button onClick={ this.toggleFriends }>
+                { buttonText }
               </button>
             </div>
           </div>
-          <ProfilePostsContainer user={this.props.user} />
+          <ProfilePostsContainer user={ this.props.user } />
         </div>
       );
     }

@@ -40,7 +40,7 @@
   background-color: #3b5998;
   margin: -8px;
   margin-bottom: 0px;
-  z-index: 1100;
+  z-index: 1;
 
   input {
     max-height: 20px;
@@ -260,6 +260,7 @@
 }
 
 .modal-backdrop {
+  z-index: 10;
   position: fixed;
   height: 100%;
   width: 100%;

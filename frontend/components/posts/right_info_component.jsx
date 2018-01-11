@@ -16,7 +16,7 @@ class RightInfoComponent extends React.Component {
           <a href='https://github.com/mashuDuek'>GitHub Mashu</a>
         </div>
       </div>
-    )
+    );
   }
 }
 
