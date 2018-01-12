@@ -51781,7 +51781,7 @@ var ModalComponent = function (_React$Component) {
       } else {
         return _react2.default.createElement(
           'div',
-          { className: 'modal-backdrop', onClick: this.props.hide },
+          { id: 'modal-backdrop', className: 'modal-backdrop', onClick: this.props.hide },
           _react2.default.createElement(
             'div',
             { className: 'modal', onClick: function onClick(e) {
@@ -52564,6 +52564,19 @@ var EditCoverPicComponent = function (_React$Component) {
         this.setState({ imageUrl: "", imageFile: null });
       }
     }
+
+    // componentDidMount() {
+    //   modalBackdrop = document.getElementById('modal-backdrop');
+    //   modalBackdrop.removeClass('modal-backdrop');
+    //   modalBackdrop.addClass('modal-backdrop-dark');
+    // }
+    //
+    // componentWillUnmount() {
+    //   modalBackdrop = document.getElementById('modal-backdrop');
+    //   modalBackdrop.addClass('modal-backdrop');
+    //   modalBackdrop.removeClass('modal-backdrop-dark');
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -52584,11 +52597,11 @@ var EditCoverPicComponent = function (_React$Component) {
       }
       return _react2.default.createElement(
         "div",
-        { className: "edit-cover-pic-wrapper" },
+        { className: "cover-pic-modal-wrapper" },
+        _react2.default.createElement("img", { src: this.props.user.coverPic }),
         _react2.default.createElement(
           "div",
-          { className: "edit-cover-pic" },
-          _react2.default.createElement("img", { src: this.props.user.coverPic }),
+          { className: "form-and-button-edit-cover" },
           _react2.default.createElement(
             "button",
             { onClick: this.handleUpdateCover },
@@ -52644,7 +52657,7 @@ var ViewCover = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'edit-cover-pic-wrapper' },
+        { className: 'cover-pic-modal-wrapper' },
         _react2.default.createElement(
           'div',
           { className: 'edit-cover-pic' },

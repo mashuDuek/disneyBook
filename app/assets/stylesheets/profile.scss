@@ -19,9 +19,22 @@
   }
 }
 
-.edit-cover-pic {
-  background-color: yellow;
+.cover-pic-modal-wrapper {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 30%;
+  left: 15%;
 
+  .form-and-button-edit-cover {
+    display: flex;
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
 .user-name {
