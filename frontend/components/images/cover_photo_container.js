@@ -1,11 +1,11 @@
-import CoverPhotoComponent from './profile_component';
+import CoverPhotoComponent from './cover_photo_component';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
-import { showModal } from '../../actions/modal_actions';
+import { showModal, hideModal } from '../../actions/modal_actions';
 import { updateCoverPic } from '../../actions/image_actions';
 
 const mapStatetoProps = (state, ownProps) => {
@@ -27,12 +27,13 @@ const mapStatetoProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logout: () => dispatch(logout()),
-    hideDropdown: () => dispatch(hideDropdown()),
-    fetchUser: (user) => dispatch(fetchUser(user)),
     showDropdown: (component) => dispatch(showDropdown(component)),
     showModal: (component) => dispatch(showModal(component)),
-    updateCover: (image) => dispatch(updateCoverPic(image))
+    hideDropdown: () => dispatch(hideDropdown()),
+    hideModal: () => dispatch(hideModal()),
+    logout: () => dispatch(logout()),
+    fetchUser: (user) => dispatch(fetchUser(user)),
+    updateCover: (image) => dispatch(updateCoverPic(image)),
   };
 };
 

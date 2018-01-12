@@ -20,14 +20,16 @@ class EditCoverPicComponent extends React.Component {
     const formData = new FormData();
     formData.append("user[id]", this.props.user.id);
     if (file) formData.append("user[cover_pic]", file);
-    this.props.updateCover(formData);
+    this.props.updateCover(formData).then(() => {
+      this.props.hideModal();
+    });
   }
 
   handleInput(e) {
     const reader = new FileReader();
     const file = e.currentTarget.files[0];
     reader.onloadend = () =>
-    this.setState({ imageUrl: reader.result, imageFile: file});
+    this.setState({ imageUrl: reader.result, imageFile: file });
 
     if (file) {
       reader.readAsDataURL(file);

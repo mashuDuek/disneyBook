@@ -5,7 +5,7 @@ import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { createFriendship } from '../../actions/friendship_actions';
 import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
-import { showModal } from '../../actions/modal_actions';
+import { showModal, hideModal } from '../../actions/modal_actions';
 import { updateCoverPic } from '../../actions/image_actions';
 
 const mapStatetoProps = (state, ownProps) => {
@@ -35,6 +35,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createFriendship: (user) => dispatch(createFriendship(user)),
     showDropdown: (component) => dispatch(showDropdown(component)),
     showModal: (component) => dispatch(showModal(component)),
+    hideModal: () => dispatch(hideModal()),
     updateCover: (image) => dispatch(updateCoverPic(image))
   };
 };

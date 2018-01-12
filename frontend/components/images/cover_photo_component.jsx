@@ -18,6 +18,7 @@ class CoverPhotoComponent extends React.Component {
           user={ this.props.user }
           currentUser={ this.props.currentUser }
           updateCover={ this.props.updateCover }
+          hideModal={ this.props.hideModal }
           />
       );
     } else {

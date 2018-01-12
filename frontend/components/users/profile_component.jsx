@@ -3,7 +3,7 @@ import NavBarContainer from '../nav_bar/nav_bar_container';
 import ProfPicComponent from '../images/profile_pic_component';
 import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
-import CoverPhotoComponent from '../images/cover_photo_component';
+import CoverPhotoContainer from '../images/cover_photo_container';
 import FriendDetailComponent from './friend_detail_component';
 
 class ProfileComponent extends React.Component {
@@ -73,7 +73,7 @@ class ProfileComponent extends React.Component {
             <NavBarContainer/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoComponent
+            <CoverPhotoContainer
               currentUser={ this.props.currentUser }
               user={ this.props.user }
               showModal={ this.props.showModal }
@@ -108,7 +108,7 @@ class ProfileComponent extends React.Component {
             <NavBarContainer/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoComponent
+            <CoverPhotoContainer
               currentUser={ this.props.currentUser }
               user={ this.props.user }
               showModal={ this.props.showModal }

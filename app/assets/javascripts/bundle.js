@@ -51871,6 +51871,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     showModal: function showModal(component) {
       return dispatch((0, _modal_actions.showModal)(component));
     },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    },
     updateCover: function updateCover(image) {
       return dispatch((0, _image_actions.updateCoverPic)(image));
     }
@@ -51912,9 +51915,9 @@ var _profile_posts_container = __webpack_require__(377);
 
 var _profile_posts_container2 = _interopRequireDefault(_profile_posts_container);
 
-var _cover_photo_component = __webpack_require__(379);
+var _cover_photo_container = __webpack_require__(385);
 
-var _cover_photo_component2 = _interopRequireDefault(_cover_photo_component);
+var _cover_photo_container2 = _interopRequireDefault(_cover_photo_container);
 
 var _friend_detail_component = __webpack_require__(382);
 
@@ -52014,7 +52017,7 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'cover-and-profile-pics' },
-            _react2.default.createElement(_cover_photo_component2.default, {
+            _react2.default.createElement(_cover_photo_container2.default, {
               currentUser: this.props.currentUser,
               user: this.props.user,
               showModal: this.props.showModal,
@@ -52071,7 +52074,7 @@ var ProfileComponent = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'cover-and-profile-pics' },
-            _react2.default.createElement(_cover_photo_component2.default, {
+            _react2.default.createElement(_cover_photo_container2.default, {
               currentUser: this.props.currentUser,
               user: this.props.user,
               showModal: this.props.showModal,
@@ -52397,7 +52400,8 @@ var CoverPhotoComponent = function (_React$Component) {
         this.props.showModal(_react2.default.createElement(_edit_cover_pic_component2.default, {
           user: this.props.user,
           currentUser: this.props.currentUser,
-          updateCover: this.props.updateCover
+          updateCover: this.props.updateCover,
+          hideModal: this.props.hideModal
         }));
       } else {
         this.props.showModal(_react2.default.createElement(_view_cover_component2.default, {
@@ -52533,21 +52537,25 @@ var EditCoverPicComponent = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
+      var _this2 = this;
+
       var file = this.state.imageFile;
       var formData = new FormData();
       formData.append("user[id]", this.props.user.id);
       if (file) formData.append("user[cover_pic]", file);
-      this.props.updateCover(formData);
+      this.props.updateCover(formData).then(function () {
+        _this2.props.hideModal();
+      });
     }
   }, {
     key: "handleInput",
     value: function handleInput(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       var reader = new FileReader();
       var file = e.currentTarget.files[0];
       reader.onloadend = function () {
-        return _this2.setState({ imageUrl: reader.result, imageFile: file });
+        return _this3.setState({ imageUrl: reader.result, imageFile: file });
       };
 
       if (file) {
@@ -52814,6 +52822,82 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _cover_photo_component = __webpack_require__(379);
+
+var _cover_photo_component2 = _interopRequireDefault(_cover_photo_component);
+
+var _reactRedux = __webpack_require__(8);
+
+var _reactRouterDom = __webpack_require__(5);
+
+var _session_actions = __webpack_require__(20);
+
+var _user_actions = __webpack_require__(26);
+
+var _dropdown_actions = __webpack_require__(17);
+
+var _modal_actions = __webpack_require__(21);
+
+var _image_actions = __webpack_require__(123);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  var acceptedFriendIds = void 0;
+  if (!state.users[ownProps.match.params.userId]) {
+    acceptedFriendIds = null;
+  } else {
+    acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
+  }
+
+  return {
+    pendingFriendIds: state.session.currentUser.pending_friends,
+    user: state.users[ownProps.match.params.userId],
+    currentUser: state.session.currentUser || {},
+    users: state.users,
+    errors: state.errors
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    showDropdown: function showDropdown(component) {
+      return dispatch((0, _dropdown_actions.showDropdown)(component));
+    },
+    showModal: function showModal(component) {
+      return dispatch((0, _modal_actions.showModal)(component));
+    },
+    hideDropdown: function hideDropdown() {
+      return dispatch((0, _dropdown_actions.hideDropdown)());
+    },
+    hideModal: function hideModal() {
+      return dispatch((0, _modal_actions.hideModal)());
+    },
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
+    },
+    updateCover: function updateCover(image) {
+      return dispatch((0, _image_actions.updateCoverPic)(image));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(_cover_photo_component2.default));
 
 /***/ })
 /******/ ]);
