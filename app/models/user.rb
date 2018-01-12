@@ -54,7 +54,7 @@ class User < ApplicationRecord
 
   has_many :received_friends,
     through: :received_friend_requests,
-    source: :friender
+    source: :requester
 
   attr_reader :password
 
