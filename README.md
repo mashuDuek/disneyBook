@@ -20,28 +20,28 @@ By the end of Week 9, this app will, at a minimum, satisfy the following criteri
 ### Implementation Agenda
 
 #### Phase 1: User Auth (1 - 2 days)
-users backend setup
-backend auth
-frontend auth
-style landing page
+1. users backend setup
+2. backend auth
+3. frontend auth
+4. style landing page
 
 #### Phase 2: Posts (1 - 2 days)
-posts backend setup with RESTful API
-posts frontend setup with reusable component
-updating posts through reusable self-created modals
-style posts forms and views
+1. posts backend setup with RESTful API
+2. posts frontend setup with reusable component
+3. updating posts through reusable self-created modals
+4. style posts forms and views
 
 #### Phase 3: Comments (1 - 2 days)
-comments backend setup with RESTful API
-comments frontend setup with reusable components
-updating comments through reusable self-created modals
-style comments forms and views
+1. comments backend setup with RESTful API
+2. comments frontend setup with reusable components
+3. updating comments through reusable self-created modals
+4. style comments forms and views
 
 #### Phase 4: Friendships (2 days)
-friendship backend setup, implemented with a join-table
-pending and accepted friends query created with Active Record
-implement modular hidden component
+1. friendship backend setup, implemented with a join-table
+2. pending and accepted friends query created with Active Record
+3. implement modular hidden component
 
 #### Phase 5: Image Uploading (1 day)
-user can upload image
-image uploading handled with AWS and paperclip
+1. user can upload image
+2. image uploading handled with AWS and paperclip
