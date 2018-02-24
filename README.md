@@ -9,36 +9,36 @@ By the end of Week 9, this app will, at a minimum, satisfy the following criteri
  4. Post
  5. Comments
 
-#### Docs - all in the docs
+### Docs - all in the docs
 
 1. View [Wireframes](./docs/wireframes)
 2. React [Components](./docs/fe_routes.md)
 3. [API endpoints](./docs/api_endpoints.md)
 4. DB [schema](./docs/schema.md)
 5. [Sample State](./docs/sample_state.js)
-6. Implementation Timeline(below)
 
-Phase 1: Backend setup and Front End User Authentication (2 days)
+### Implementation Timeline
 
-Objective: Functioning rails project with front-end Authentication
+#### Phase 1: User Auth
+users backend setup
+backend auth
+frontend auth
+style landing page
 
-Phase 2: Posts Model, API, and components (2 days)
+#### Phase 2: Posts
+posts backend setup with RESTful API
+posts frontend setup with reusable component
+updating posts through reusable self-created modals
 
-Objective: Posts can be created, read, edited and destroyed through the API.
+#### Phase 3: Comments
+comments backend setup with RESTful API
+comments frontend setup with reusable components
+updating comments through reusable self-created modals
 
-Phase 3: Comments (2 days)
+#### Phase 4: Friendships
+friendship backend setup, implemented with a join-table
+pending and accepted friends query created with Active Record
 
-Objective: Comments belong to Posts that can be created, read, edited and destroyed through the API.
-
-Phase 4: Friendships (2 days)
-
-Objective: User can add friends and view his list of friends, and their posts on the feed.
-
-Phase 5: Styling all (1 - 2 days)
-
-Objective: Allow rich text editing of notes.
-
-Phase 6: - Pagination / infinite scroll for Posts Index and Profiles
- (1 day)
-
-Objective: Add infinite scroll to Feed page and Profile page.
+#### Phase 5: Image Uploading
+user can upload image
+image uploading handled with AWS and paperclip
