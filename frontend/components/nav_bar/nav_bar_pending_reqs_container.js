@@ -6,7 +6,7 @@ import { acceptFriendship } from '../../actions/friendship_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    pendingFriends: state.session.currentUser.pending_friends
+    pendingFriends: state.session.currentUser.pendingFriends
   };
 };
 

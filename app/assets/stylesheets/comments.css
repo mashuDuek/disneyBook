@@ -56,6 +56,7 @@
   overflow: hidden;
   margin-left: 14px;
   margin-top: 3px;
+  min-height: 18px;
 }
 
 .edit-comment {

@@ -8,8 +8,8 @@ export const createFriendship = (user) => {
 
 export const rejectFriendship = (user) => {
   return $.ajax({
-      method: "DELETE",
-      url: `/api/friendships/${user.id}`
+    method: "DELETE",
+    url: `/api/friendships/${user.id}`
   });
 };
 

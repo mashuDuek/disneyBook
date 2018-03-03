@@ -7,7 +7,7 @@ import { logout } from '../../actions/session_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    pendingFriends: state.session.currentUser.pending_friends,
+    pendingFriends: state.session.currentUser.pendingFriends,
     currentUser: state.session.currentUser,
   };
 };

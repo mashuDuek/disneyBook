@@ -51,6 +51,19 @@ class PostDetailComponent extends React.Component {
         authorObj = this.props.users[this.props.post.author_id];
       }
 
+      let receiver;
+      if (this.props.post.author_id === this.props.post.receiver_id) {
+        receiver = null;
+      } else {
+        const currentPost = this.props.post;
+        const receiverName = this.props.users[currentPost.receiver_id].name;
+        receiver = (
+          <Link to={`/users/${currentPost.receiver_id}`}>
+            {`> ${receiverName}`}
+          </Link>
+        );
+      }
+
       return (
         <div id="post-item">
           <div id="post-author-info">
@@ -58,7 +71,10 @@ class PostDetailComponent extends React.Component {
               <img src={authorObj.profilePic}
                 sizes="(max-height: 40px; max-width: 40px;)" >
               </img>
-              <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
+              <Link to={`/users/${authorObj.id}`}>
+                {`${authorObj.name} >`}
+              </Link>
+              { receiver }
             </div>
             <button onClick={this.handleDropdown}>ˇ</button>
             {

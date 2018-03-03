@@ -1,25 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from './store/store';
 import Root from './components/root';
-import { createFriendship } from './actions/friendship_actions';
-
+import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   if (window.currentUser) {
-  
     const preloadedState = { session: { currentUser: window.currentUser }};
     store = configureStore(preloadedState);
     delete window.currentUser;
   } else {
-  
     store = configureStore();
   }
-
-
-  window.createFriendship = createFriendship;
-
 
   window.store = store;
   const root = document.getElementById('root');
@@ -27,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // MISSING STUFF
+
 // - ENTIRE USER ON THE FRONTEND - fix
-// - FRIENDSHIPS - fix
-// - HANDLING ERRORS - make
-// check friendship routes .. ? whaa
-// COVER PHOTO GOES BEHIND NAV BAR .. ? whaa
+// - FRIENDSHIPS - fix pending friends, accepting, etc.
+// - HANDLING ERRORS - add error handling
+// COVER PHOTO GOES BEHIND NAV BAR - add image uploading to profile and posts

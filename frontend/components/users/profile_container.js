@@ -13,7 +13,7 @@ const mapStatetoProps = (state, ownProps) => {
   if (!state.users[ownProps.match.params.userId]) {
     acceptedFriendIds = null;
   } else {
-    acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
+    acceptedFriendIds = state.users[ownProps.match.params.userId].acceptedFriends;
   }
 
   return {

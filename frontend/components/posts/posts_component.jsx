@@ -31,7 +31,8 @@ class PostsComponent extends React.Component {
 
       let goodPosts = [];
       Object.keys(this.props.posts).forEach((id) => {
-        if (this.props.currentUser.id === this.props.posts[id].author_id) {
+        if (this.props.posts[id].author_id === this.props.posts[id].receiver_id &&
+          acceptedFriendIds.includes(this.props.posts[id].author_id)) {
           goodPosts.push(this.props.posts[id]);
         } else if (acceptedFriendIds.includes(this.props.posts[id].author_id)) {
           goodPosts.push(this.props.posts[id]);
