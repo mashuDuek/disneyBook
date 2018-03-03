@@ -9,20 +9,20 @@ import { showModal, hideModal } from '../../actions/modal_actions';
 import { updateCoverPic } from '../../actions/image_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  let acceptedFriendIds;
-  if (!state.users[ownProps.match.params.userId]) {
-    acceptedFriendIds = null;
+  let acceptedFriends;
+  if (!state.ui.currentUserProfile) {
+    acceptedFriends = null;
   } else {
-    acceptedFriendIds = state.users[ownProps.match.params.userId].acceptedFriends;
+    acceptedFriends = state.ui.currentUserProfile.acceptedFriends;
   }
 
   return {
-    pendingFriendIds: state.session.currentUser.pending_friends,
+    pendingFriendIds: state.session.currentUser.pendingFriends,
+    acceptedFriends,
     user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     users: state.users,
     errors: state.errors,
-    acceptedFriendIds,
     dropdowns: state.dropdowns
   };
 };

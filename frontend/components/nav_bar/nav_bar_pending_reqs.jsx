@@ -20,8 +20,10 @@ class PendingReqs extends React.Component {
       pendingFriends = null;
       requestCount = 0;
     } else {
-      requestCount = this.props.pendingFriends.length;
-      pendingFriends = this.props.pendingFriends.map( (requester) => {
+      const stringIds = Object.keys(this.props.pendingFriends);
+      requestCount = stringIds.length;
+      pendingFriends = stringIds.map((id) => {
+        const requester = this.props.pendingFriends[parseInt(id)];
         return (
           <li key={requester.id}>
             <img src={requester.profilePic}></img>

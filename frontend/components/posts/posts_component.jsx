@@ -25,10 +25,10 @@ class PostsComponent extends React.Component {
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>);
     } else {
-      const acceptedFriendIds = this.props.currentUser.acceptedFriends.map((friend) => {
-        return friend.id;
-      });
 
+      const stringIds = Object.keys(this.props.currentUser.acceptedFriends);
+      const acceptedFriendIds = stringIds.map((el) => parseInt(el));
+      
       let goodPosts = [];
       Object.keys(this.props.posts).forEach((id) => {
         if (this.props.posts[id].author_id === this.props.posts[id].receiver_id &&

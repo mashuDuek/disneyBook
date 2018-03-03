@@ -5,6 +5,7 @@ import ModalReducer from './modals_reducer';
 import DropdownReducer from './dropdowns_reducer';
 import ErrorsReducer from './errors_reducer';
 import CommentsReducer from './comments_reducer';
+import uiReducer from './ui_reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     dropdowns: DropdownReducer,
     comments: CommentsReducer,
     errors: ErrorsReducer,
+    ui: uiReducer
   }
 );
 

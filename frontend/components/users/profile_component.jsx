@@ -51,10 +51,12 @@ class ProfileComponent extends React.Component {
     if (this.state.showFriends) {
       buttonText = 'Back to Profile';
       let accepted;
-      if (!this.props.acceptedFriendIds) {
+      if (!this.props.acceptedFriends) {
         accepted = `${this.props.user.name} has no friends yet!`;
       } else {
-        accepted = this.props.acceptedFriendIds.map((user) => {
+        const friendIds = Object.keys(this.props.acceptedFriends);
+        accepted = friendIds.map((id) => {
+          const user = this.props.acceptedFriends[id];
           return(
             <li key={ user.id }>
               <FriendDetailComponent

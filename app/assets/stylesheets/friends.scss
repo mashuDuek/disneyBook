@@ -1,9 +1,9 @@
 .dropdown #pending-friends {
   background-color: white;
   border: 1px solid lightgray;
-  width: 250px;
+  width: 350px;
   position: fixed;
-  left: 70%;
+  left: 67%;
   margin-top: 44px;
   padding: 15px 0px 15px 0px;
 
@@ -17,8 +17,13 @@
   li {
     border-top: .5px solid lightgray;
     display: flex;
+    justify-content: space-between;
     height: 30px;
     margin: 10px;
+  }
+
+  button {
+    margin-top: 7px;
   }
 
   .pending-p-tag {
