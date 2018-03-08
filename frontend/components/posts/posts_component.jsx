@@ -33,18 +33,26 @@ class PostsComponent extends React.Component {
         stringIds = Object.keys(this.props.currentUser.acceptedFriends);
       }
 
+      const allPosts = this.props.posts;
       const acceptedFriendIds = stringIds.map((el) => parseInt(el));
-
+      const that = this;
       let goodPosts = [];
-      Object.keys(this.props.posts).forEach((id) => {
-        if (this.props.posts[id].author_id === this.props.posts[id].receiver_id &&
-          acceptedFriendIds.includes(this.props.posts[id].author_id)) {
-          goodPosts.push(this.props.posts[id]);
-        } else if (acceptedFriendIds.includes(this.props.posts[id].author_id)) {
-          goodPosts.push(this.props.posts[id]);
+      Object.keys(allPosts).forEach((id) => {
+        if (allPosts[id].author_id === allPosts[id].receiver_id &&
+          acceptedFriendIds.includes(allPosts[id].author_id)
+        ) {
+          goodPosts.push(allPosts[id]);
+        } else if (
+          acceptedFriendIds.includes(allPosts[id].author_id) ||
+          allPosts[id].author_id === that.props.currentUser.id ||
+          allPosts[id].receiver_id === that.props.currentUser.id
+        ) {
+          goodPosts.push(allPosts[id]);
         }
       });
-
+      // when deleting a post, they inverse ordering
+      // on mount, the reverse used below fixes it,
+      // but when deleting they come back reversed
       const postValues = values(goodPosts);
       var posts = postValues.reverse().map((post) => {
         if (!post) {

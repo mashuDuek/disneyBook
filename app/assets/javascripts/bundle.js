@@ -31306,8 +31306,6 @@ var PostsComponent = function (_React$Component) {
   _createClass(PostsComponent, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var drops = this.props.dropdowns;
       var dropdownAction = void 0;
       if (Boolean(drops.displayed) || Boolean(drops.component)) {
@@ -31333,19 +31331,22 @@ var PostsComponent = function (_React$Component) {
           stringIds = Object.keys(this.props.currentUser.acceptedFriends);
         }
 
+        var allPosts = this.props.posts;
         var acceptedFriendIds = stringIds.map(function (el) {
           return parseInt(el);
         });
-
+        var that = this;
         var goodPosts = [];
-        Object.keys(this.props.posts).forEach(function (id) {
-          if (_this2.props.posts[id].author_id === _this2.props.posts[id].receiver_id && acceptedFriendIds.includes(_this2.props.posts[id].author_id)) {
-            goodPosts.push(_this2.props.posts[id]);
-          } else if (acceptedFriendIds.includes(_this2.props.posts[id].author_id)) {
-            goodPosts.push(_this2.props.posts[id]);
+        Object.keys(allPosts).forEach(function (id) {
+          if (allPosts[id].author_id === allPosts[id].receiver_id && acceptedFriendIds.includes(allPosts[id].author_id)) {
+            goodPosts.push(allPosts[id]);
+          } else if (acceptedFriendIds.includes(allPosts[id].author_id) || allPosts[id].author_id === that.props.currentUser.id || allPosts[id].receiver_id === that.props.currentUser.id) {
+            goodPosts.push(allPosts[id]);
           }
         });
-
+        // when deleting a post, they inverse ordering
+        // on mount, the reverse used below fixes it,
+        // but when deleting they come back reversed
         var postValues = (0, _values2.default)(goodPosts);
         var posts = postValues.reverse().map(function (post) {
           if (!post) {
