@@ -26,9 +26,15 @@ class PostsComponent extends React.Component {
       return (<p>Loading posts...</p>);
     } else {
 
-      const stringIds = Object.keys(this.props.currentUser.acceptedFriends);
+      let stringIds;
+      if (!this.props.currentUser.acceptedFriends) {
+        stringIds = [];
+      } else {
+        stringIds = Object.keys(this.props.currentUser.acceptedFriends);
+      }
+
       const acceptedFriendIds = stringIds.map((el) => parseInt(el));
-      
+
       let goodPosts = [];
       Object.keys(this.props.posts).forEach((id) => {
         if (this.props.posts[id].author_id === this.props.posts[id].receiver_id &&
@@ -46,7 +52,7 @@ class PostsComponent extends React.Component {
         } else {
           return(
             <li key={post.id} className='individual-post'>
-              <PostDetailContainer post={post} />
+              <PostDetailContainer post={ post } />
             </li>
           );
         }
@@ -54,16 +60,16 @@ class PostsComponent extends React.Component {
     }
 
     return (
-    <div className="posts-and-info-components" onClick={ dropdownAction }>
-      <LeftInfoComponent />
-      <div className="create-post-all-posts">
-        <NewPostContainer />
-        <ul className="all-posts-ul">
-          {posts}
-        </ul>
+      <div className="posts-and-info-components" onClick={ dropdownAction }>
+        <LeftInfoComponent />
+        <div className="create-post-all-posts">
+          <NewPostContainer />
+          <ul className="all-posts-ul">
+            { posts }
+          </ul>
+        </div>
+        <RightInfoComponent />
       </div>
-      <RightInfoComponent />
-    </div>
     );
   }
 }

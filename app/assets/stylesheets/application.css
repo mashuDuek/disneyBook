@@ -58,7 +58,7 @@ body {
   flex-direction: column;
   margin: 6px;
   font-size: 12px;
-  color: white;
+  color: #FEFEFE;
 }
 
 #login-form input {
@@ -105,7 +105,7 @@ body {
   width: 150px;
   font-size: 15px;
   font-weight: bold;
-  color: white;
+  color: #FEFEFE;
   border-style: groove;
   border-radius: 6px;
   margin-bottom: 30px;
@@ -117,7 +117,7 @@ body {
   width: 300px;
   height: 35px;
   font-size: 15px;
-  color: black;
+  color: #060606;
   margin-bottom: 7px;
   border-style: none;
   border-radius: 3px;

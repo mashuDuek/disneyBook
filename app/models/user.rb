@@ -77,7 +77,8 @@ class User < ApplicationRecord
     # .joins(join_friends)
     User
       .joins(all_friendships)
-      .where("users.id != ? AND (friendships.friender_id = ? OR friendships.friendee_id = ?)", id, id, id)
+      .where(
+        "users.id != ? AND (friendships.friender_id = ? OR friendships.friendee_id = ?)", id, id, id)
     # User.find_by_sql(<<-SQL)
     #   SELECT friends.*
     #   FROM users

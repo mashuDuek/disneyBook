@@ -32,7 +32,6 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="nav-bar">
-
         <form id="search-form">
           <input placeholder="i do nothing yet"></input>
           <i className="fa fa-search" aria-hidden="true"></i>
@@ -40,10 +39,10 @@ class NavBar extends React.Component {
 
         <div>
           <div id="nav-bar-welcome-logout">
+            <Link to={`/users/${this.props.currentUser.id}`}>
+              <img src={this.props.currentUser.profilePic}></img>
+            </Link>
             <div id="user-pic-name-and-home">
-              <Link to={`/users/${this.props.currentUser.id}`}>
-                <img src={this.props.currentUser.profilePic}></img>
-              </Link>
               <p className="user-name">
                 <Link to={`/users/${this.props.currentUser.id}`}>
                   {this.props.currentUser.name}

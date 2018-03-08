@@ -6,10 +6,10 @@
   position: absolute;
 
   img {
-    background-color: white;
+    background-color: #FEFEFE;
     width: 168px;
     height: 168px;
-    border: .5px solid lightgray;
+    border: .5px solid #CBBABA;
     padding: 2px;
     border-radius: 3px;
     position: absolute;
@@ -19,31 +19,27 @@
   }
 }
 
-.cover-pic-modal-wrapper {
-  background-color: white;
+.modal {
   display: flex;
-  flex-direction: row;
-  position: fixed;
-  top: 30%;
-  left: 15%;
+  justify-content: center;
 
-  .form-and-button-edit-cover {
-    display: flex;
+  .cover-pic-modal-wrapper {
+    background-color: #060606;
+    position: fixed;
+    top: 20%;
+    padding: 20px;
 
-    form {
+    .form-and-button-edit-cover {
       display: flex;
-      flex-direction: column;
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }
 
-.user-name {
-  color: white;
-  margin-left: 245px;
-  margin-top: -80px;
-  position: inherit;
-  top: 145px;
-}
 
 #cover-photo {
   width: 848px;
@@ -74,17 +70,13 @@
   align-items: center;
   margin-top: 70px;
   margin-left: 30px;
-  background-color: black;
-  border: 1px solid white;
-  color: white;
+  background-color: #060606;
+  border: 1px solid #FEFEFE;
+  color: #FEFEFE;
   padding-left: 15px;
   padding-right: 15px;
   border-radius: 5px;
 }
-
-// .hidden {
-//   display: none;
-// }
 
 #cover-and-profile-pics {
   width: 858px;
@@ -103,8 +95,8 @@
 
 #profile-user-info {
   border-radius: 3px;
-  border: 1px solid lightgray;
-  background: white;
+  border: 1px solid #CBBABA;
+  background: #FEFEFE;
   min-width: 100px;
   padding: 20px;
   width: 300px;
@@ -122,13 +114,13 @@
   min-width: 550px;
 
   #post-item {
-    border: 1px solid lightgray;
+    border: 1px solid #CBBABA;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 5px;
     padding: 15px;
-    background-color: white;
+    background-color: #FEFEFE;
     border-radius: 2px;
     max-width: 510px;
   }
@@ -170,8 +162,8 @@
 
   #post-action-options {
     position: absolute;
-    background-color: white;
-    border: .1px solid lightgray;
+    background-color: #FEFEFE;
+    border: .1px solid #CBBABA;
     border-radius: 2px;
     margin-left: 400px;
     margin-top: 60px;
@@ -195,7 +187,7 @@
       border: none;
       width: 80px;
       height: 20px;
-      background-color: white;
+      background-color: #FEFEFE;
       font-size: 14px;
     }
   }
@@ -204,12 +196,12 @@
 #profile-bar-component {
   display: block;
   min-height: 100px;
-  background-color: white;
+  background-color: #FEFEFE;
   display: flex;
   justify-content: center;
   margin-left: 5px;
   margin-right: 5px;
-  border: .5px solid lightgray;
+  border: .5px solid #CBBABA;
   position: unset;
   margin-top: 43px;
 
@@ -225,7 +217,7 @@
   display: flex;
   justify-content: center;
   background-color: #f6f7f9;
-  border: .5px solid lightgray;
+  border: .5px solid #CBBABA;
   width: 847px;
   margin: 0 auto;
   margin-top: 20px;
@@ -234,7 +226,7 @@
 #friend-detail-component img {
   height: 100px;
   width: 100px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #CBBABA;
 }
 
 #friend-detail-component .friend-info {
@@ -243,12 +235,12 @@
 }
 
 #accepted li {
-  background: white;
+  background: #FEFEFE;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 400px;
-  border: .3px solid lightgray;
+  border: .3px solid #CBBABA;
 }
 
 #accepted {
@@ -261,7 +253,7 @@
 #pending li {
   display: grid;
   margin: 15px;
-  border: 1px solid lightgray;
+  border: 1px solid #CBBABA;
   padding: 10px;
   position: relative;
   border-radius: 3px;
@@ -276,7 +268,7 @@
 
 #accepted-pending-friends {
   background-color: #fff;
-  border: 1px solid lightgray;
+  border: 1px solid #CBBABA;
   padding: 5px;
   border-top: none;
   display: flex;
