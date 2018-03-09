@@ -8,9 +8,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 
-
 export const receivePost = (post) => {
-
   return {
     type: RECEIVE_POST,
     ...normalize(post, postSchema)
@@ -18,7 +16,6 @@ export const receivePost = (post) => {
 };
 
 export const editPost = (post) => {
-
   return {
     type: UPDATE_POST,
     ...normalize(post, postSchema)
@@ -48,7 +45,6 @@ export const createPost = (post) => {
   };
 };
 
-
 export const updatePost = (post) => {
   return (dispatch) => {
     return APIUtil.updatePost(post).
@@ -75,6 +71,7 @@ export const fetchAllPosts = () => {
     );
   };
 };
+
 export const fetchPost = (post) => {
   return (dispatch) => {
     return APIUtil.fetchPost(post).

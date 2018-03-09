@@ -25,7 +25,6 @@ class PostsComponent extends React.Component {
     if (Object.keys(this.props.posts).length < 1) {
       return (<p>Loading posts...</p>);
     } else {
-
       let stringIds;
       if (!this.props.currentUser.acceptedFriends) {
         stringIds = [];
@@ -38,18 +37,15 @@ class PostsComponent extends React.Component {
       const that = this;
       let goodPosts = [];
       Object.keys(allPosts).forEach((id) => {
-        if (allPosts[id].author_id === allPosts[id].receiver_id &&
-          acceptedFriendIds.includes(allPosts[id].author_id)
-        ) {
-          goodPosts.push(allPosts[id]);
-        } else if (
-          acceptedFriendIds.includes(allPosts[id].author_id) ||
-          allPosts[id].author_id === that.props.currentUser.id ||
-          allPosts[id].receiver_id === that.props.currentUser.id
+        if (
+            acceptedFriendIds.includes(allPosts[id].author_id) ||
+            allPosts[id].author_id === that.props.currentUser.id ||
+            allPosts[id].receiver_id === that.props.currentUser.id
         ) {
           goodPosts.push(allPosts[id]);
         }
       });
+
       // when deleting a post, they inverse ordering
       // on mount, the reverse used below fixes it,
       // but when deleting they come back reversed
@@ -59,7 +55,7 @@ class PostsComponent extends React.Component {
           return null;
         } else {
           return(
-            <li key={post.id} className='individual-post'>
+            <li key={ post.id } className='individual-post'>
               <PostDetailContainer post={ post } />
             </li>
           );

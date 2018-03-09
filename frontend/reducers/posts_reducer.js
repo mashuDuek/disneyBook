@@ -29,7 +29,7 @@ const postReducer = (state = preloadedState, action) => {
       const newState = Object.assign({}, state);
       const post = newState[action.comment.post_id];
       post.comments = post.comments.filter((commentId) => {
-          return commentId !== action.comment.id;
+        return commentId !== action.comment.id;
       });
       return newState;
     }

@@ -1365,14 +1365,12 @@ var DELETE_POST = exports.DELETE_POST = 'DELETE_POST';
 var FETCH_ALL_POSTS = exports.FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 
 var receivePost = exports.receivePost = function receivePost(post) {
-
   return _extends({
     type: RECEIVE_POST
   }, (0, _normalizr.normalize)(post, _schemas.postSchema));
 };
 
 var editPost = exports.editPost = function editPost(post) {
-
   return _extends({
     type: UPDATE_POST
   }, (0, _normalizr.normalize)(post, _schemas.postSchema));
@@ -1430,6 +1428,7 @@ var fetchAllPosts = exports.fetchAllPosts = function fetchAllPosts() {
     });
   };
 };
+
 var fetchPost = exports.fetchPost = function fetchPost(post) {
   return function (dispatch) {
     return APIUtil.fetchPost(post).then(function (post) {
@@ -31323,7 +31322,6 @@ var PostsComponent = function (_React$Component) {
           'Loading posts...'
         );
       } else {
-
         var stringIds = void 0;
         if (!this.props.currentUser.acceptedFriends) {
           stringIds = [];
@@ -31338,12 +31336,11 @@ var PostsComponent = function (_React$Component) {
         var that = this;
         var goodPosts = [];
         Object.keys(allPosts).forEach(function (id) {
-          if (allPosts[id].author_id === allPosts[id].receiver_id && acceptedFriendIds.includes(allPosts[id].author_id)) {
-            goodPosts.push(allPosts[id]);
-          } else if (acceptedFriendIds.includes(allPosts[id].author_id) || allPosts[id].author_id === that.props.currentUser.id || allPosts[id].receiver_id === that.props.currentUser.id) {
+          if (acceptedFriendIds.includes(allPosts[id].author_id) || allPosts[id].author_id === that.props.currentUser.id || allPosts[id].receiver_id === that.props.currentUser.id) {
             goodPosts.push(allPosts[id]);
           }
         });
+
         // when deleting a post, they inverse ordering
         // on mount, the reverse used below fixes it,
         // but when deleting they come back reversed
