@@ -52460,10 +52460,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Auth = function Auth(_ref) {
   var Component = _ref.component,
       path = _ref.path,
-      loggedIn = _ref.loggedIn;
+      loggedIn = _ref.loggedIn,
+      location = _ref.location;
 
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
+      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '' + location.pathname });
     } });
 };
 

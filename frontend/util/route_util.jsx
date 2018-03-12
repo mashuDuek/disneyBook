@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 
-const Auth = ({ component: Component, path, loggedIn }) => {
+const Auth = ({ component: Component, path, loggedIn, location }) => {
   return (
     <Route path={path} render={ (props) => {
         return (
-          (!loggedIn ? (<Component {...props} />) : (<Redirect to='/feed' />))
+          (!loggedIn ? (<Component {...props} />) : (<Redirect to={`${location.pathname}`} />))
         );
     }} />
   );
