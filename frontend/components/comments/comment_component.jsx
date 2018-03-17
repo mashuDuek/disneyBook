@@ -46,7 +46,7 @@ class CommentsComponent extends React.Component {
               {this.props.comment.body}
             </p>
           </div>
-          {editComment}
+          { editComment }
         </div>
       </div>
     );

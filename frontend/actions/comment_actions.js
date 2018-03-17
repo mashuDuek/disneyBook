@@ -11,19 +11,18 @@ export const FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
 export const receiveComment = (comment) => {
   return {
     type: RECEIVE_COMMENT,
-    ...normalize(comment, commentSchema)
+    comment
   };
 };
 
 export const editComment = (comment) => {
   return {
     type: UPDATE_COMMENT,
-    ...normalize(comment, commentSchema)
+    comment
   };
 };
 
 export const destroyComment = (comment) => {
-
   return {
     type: DELETE_COMMENT,
     comment: comment
@@ -33,7 +32,7 @@ export const destroyComment = (comment) => {
 export const fetchComments = (comments) => {
   return {
     type: FETCH_ALL_COMMENTS,
-    ...normalize(comments, new schema.Array(commentSchema))
+    comments
   };
 };
 

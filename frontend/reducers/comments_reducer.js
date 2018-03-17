@@ -17,7 +17,7 @@ const commentReducer = (state = preloadedState, action ) => {
     case RECEIVE_COMMENT:
     case FETCH_ALL_COMMENTS:
     case UPDATE_COMMENT: {
-      return Object.assign({}, state, action.entities.comments);
+      return Object.assign({}, state, action.comments);
     }
     case DELETE_COMMENT: {
       const newState = Object.assign({}, state);

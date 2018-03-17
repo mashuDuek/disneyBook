@@ -29,7 +29,7 @@ class PostsComponent extends React.Component {
       if (!this.props.currentUser.acceptedFriends) {
         stringIds = [];
       } else {
-        stringIds = Object.keys(this.props.currentUser.acceptedFriends);
+        stringIds = this.props.currentUser.acceptedFriends;
       }
 
       const allPosts = this.props.posts;
@@ -46,17 +46,20 @@ class PostsComponent extends React.Component {
         }
       });
 
-      // when deleting a post, they inverse ordering
-      // on mount, the reverse used below fixes it,
-      // but when deleting they come back reversed
       const postValues = values(goodPosts);
       var posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
         } else {
+          const author = this.props.users[post.author_id]
+          const receiver = this.props.users[post.receiver_id]
           return(
             <li key={ post.id } className='individual-post'>
-              <PostDetailContainer post={ post } />
+              <PostDetailContainer
+                post={ post }
+                author={ author }
+                receiver={ receiver }
+                />
             </li>
           );
         }

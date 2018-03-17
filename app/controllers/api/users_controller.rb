@@ -11,7 +11,14 @@ class Api::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    users_friend_ids = current_user.all_status_friends.map(&:id)
+    friends = User.where(id: users_friend_ids)
+    receiver_ids = Post.where(receiver_id: friends.map(&:id)).map(&:author_id)
+    authored_ids = Post.where(author_id: friends.map(&:id)).map(&:receiver_id)
+    friends_of_friends = User.where(id: receiver_ids) + User.where(id: authored_ids)
+    users_friend_ids << current_user.id
+    all_users = User.where(id: users_friend_ids) + friends_of_friends
+    @users = all_users
     render :index
   end
 

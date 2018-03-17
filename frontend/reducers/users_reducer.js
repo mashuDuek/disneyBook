@@ -10,18 +10,18 @@ const userReducer = (state = preloadedState, action ) => {
   switch(action.type) {
     case RECEIVE_USERS: {
       const newState = Object.assign({}, state);
-      action.users.forEach((user) => {
-        newState[user.id] = user;
+      Object.keys(action.users).forEach((id) => {
+        newState[id] = action.users[id];
       });
       return newState;
     }
     case RECEIVE_USER: {
       return Object.assign({}, state, { [action.user.id]: action.user });
     }
-    case FETCH_ALL_POSTS:
     case RECEIVE_POST:
-      return Object.assign({}, state, action.entities.users);
-    default: return state;
+      return Object.assign({}, state, action.users);
+    default:
+      return state;
   }
 };
 

@@ -36,30 +36,27 @@ class PostDetailComponent extends React.Component {
     } else {
       comments = null;
     }
-
     if (!this.props.post) {
       return (
         <p>Loading...</p>
       );
     } else {
       let authorObj;
-      if (!this.props.users[this.props.post.author_id]) {
+      if (!this.props.author) {
         return (
           <p>Loading...</p>
         );
       } else {
-        authorObj = this.props.users[this.props.post.author_id];
+        authorObj = this.props.author;
       }
 
       let receiver;
-      if (this.props.post.author_id === this.props.post.receiver_id) {
+      if (this.props.author.id === this.props.receiver.id) {
         receiver = null;
       } else {
-        const currentPost = this.props.post;
-        const receiverName = this.props.users[currentPost.receiver_id].name;
         receiver = (
-          <Link to={`/users/${currentPost.receiver_id}`}>
-            {`> ${receiverName}`}
+          <Link to={`/users/${this.props.receiver.id}`}>
+            {`> ${this.props.receiver.name}`}
           </Link>
         );
       }

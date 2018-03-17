@@ -11,14 +11,14 @@ export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 export const receivePost = (post) => {
   return {
     type: RECEIVE_POST,
-    ...normalize(post, postSchema)
+    post
   };
 };
 
 export const editPost = (post) => {
   return {
     type: UPDATE_POST,
-    ...normalize(post, postSchema)
+    post
   };
 };
 
@@ -29,10 +29,10 @@ export const destroyPost = (post) => {
   };
 };
 
-export const fetchPosts = (posts) => {
+export const receivePosts = (posts) => {
   return {
     type: FETCH_ALL_POSTS,
-    ...normalize(posts, new schema.Array(postSchema))
+    posts
   };
 };
 
@@ -66,7 +66,7 @@ export const deletePost = (post) => {
 export const fetchAllPosts = () => {
   return (dispatch) => {
     return APIUtil.fetchAllPosts().
-      then((posts) => dispatch(fetchPosts(posts)),
+      then((posts) => dispatch(receivePosts(posts)),
       (errors) => dispatch(receiveErrors(errors))
     );
   };

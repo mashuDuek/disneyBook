@@ -20,7 +20,7 @@ const postReducer = (state = preloadedState, action) => {
     case FETCH_ALL_POSTS:
     case RECEIVE_COMMENT:
     case UPDATE_POST: {
-      return merge({}, state, action.entities.posts);
+      return merge({}, state, action.posts);
     }
     case DELETE_POST: {
       return action.post;

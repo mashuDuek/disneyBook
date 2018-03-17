@@ -3,7 +3,7 @@ import PostDetailComponent from './post_detail_component';
 import { withRouter } from 'react-router-dom';
 import { createPost, updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
-import { fetchPost, fetchAllPosts } from '../../actions/posts_actions';
+import { receivePosts, fetchAllPosts } from '../../actions/posts_actions';
 import { showDropdown, displayDropdown } from '../../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deletePost: (post) => dispatch(deletePost(post)),
     updatePost: (post) => dispatch(updatePost(post)),
     showModal: (component) => dispatch(showModal(component)),
-    fetchPost: (post) => dispatch(fetchPost(post)),
+    receivePosts: (post) => dispatch(receivePosts(post)),
     fetchPosts: (posts) => dispatch(fetchPosts(posts)),
     showDropdown: (component) => dispatch(showDropdown(component)),
     displayDropdown: (component) => dispatch(displayDropdown(component)),
