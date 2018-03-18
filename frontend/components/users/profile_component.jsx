@@ -101,7 +101,9 @@ class ProfileComponent extends React.Component {
           </div>
         </div>
       );
+
     } else {
+
       buttonText = `${this.props.user.name}'s Friends'`;
 
       return (

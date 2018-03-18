@@ -22,6 +22,10 @@ class PostDetailComponent extends React.Component {
     this.props.displayDropdown(this.props.post.id);
   }
 
+  componentDidMount() {
+    this.props.fetchUser({ id: this.props.post.receiver_id });
+  }
+
   render() {
     let comments;
     if (this.props.post.comments.length > 0) {
@@ -37,76 +41,68 @@ class PostDetailComponent extends React.Component {
     } else {
       comments = null;
     }
-    if (!this.props.post) {
-      return (
-        <p>Loading...</p>
-      );
+
+    if (!this.props.post) return <p>Loading...</p>;
+    if (!this.props.users[this.props.post.author_id]) return <p>Loading...</p>;
+
+    const authorObj = this.props.users[this.props.post.author_id];
+
+    let receiver;
+    if (this.props.post.author_id === this.props.post.receiver_id) {
+      receiver = null;
     } else {
-      let authorObj;
-      if (!this.props.author) {
-        return (
-          <p>Loading...</p>
-        );
-      } else {
-        authorObj = this.props.author;
-      }
-
-      let receiver;
-      if (this.props.author.id === this.props.receiver.id) {
-        receiver = null;
-      } else {
-        receiver = (
-          <Link to={ `/users/${this.props.receiver.id}` }>
-            { `> ${this.props.receiver.name}` }
-          </Link>
-        );
-      }
-
-      return (
-        <div id="post-item">
-          <div id="post-author-info">
-            <div id="author-pic-and-name">
-              <img src={ authorObj.profilePic }
-                sizes="(max-height: 40px; max-width: 40px;)" >
-              </img>
-              <Link to={ `/users/${authorObj.id}` }>
-                { `${authorObj.name} >` }
-              </Link>
-              { receiver }
-            </div>
-            <button onClick={ this.handleDropdown }>ˇ</button>
-            {
-              this.props.dropdownVisible ?
-              <PostActionContainer
-                post={ this.props.post }
-                updatePost={ this.props.updatePost.bind(this) }
-                /> : null
-            }
-          </div>
-          <br />
-          <div id="post-body">
-            { this.props.post.body }
-          </div>
-          <div id="create-comment-icons">
-            <div className='icons-create-comment'>
-              <i className="fa fa-thumbs-up" aria-hidden="true"></i>
-              <p>Like</p>
-            </div>
-            <div className='icons-create-comment'>
-              <i className="fa fa-comment" aria-hidden="true"></i>
-              <p>Comment</p>
-            </div>
-          </div>
-          <ul>
-            { comments }
-          </ul>
-          <NewCommentContainer
-            post={ this.props.post }
-            />
-        </div>
+      receiver = (
+        <Link to={ `/users/${this.props.receiver.id}` }>
+          { `> ${this.props.receiver.name}` }
+        </Link>
       );
     }
+
+    return (
+      <div id="post-item">
+        <div id="post-author-info">
+          <div id="author-pic-and-name">
+            <img src={ authorObj.profilePic }
+              sizes="(max-height: 40px; max-width: 40px;)" >
+            </img>
+            <Link to={ `/users/${authorObj.id}` }>
+              { `${authorObj.name} >` }
+            </Link>
+            { receiver }
+          </div>
+          <button onClick={ this.handleDropdown }>ˇ</button>
+          {
+            this.props.dropdownVisible ?
+            <PostActionContainer
+              post={ this.props.post }
+              updatePost={ this.props.updatePost.bind(this) }
+              /> : null
+          }
+        </div>
+        <br />
+        <div id="post-body">
+          { this.props.post.body }
+        </div>
+        <div id="create-comment-icons">
+          <div className='icons-create-comment'>
+            <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+            <p>Like</p>
+          </div>
+          <div className='icons-create-comment'>
+            <i className="fa fa-comment" aria-hidden="true"></i>
+            <p>Comment</p>
+          </div>
+        </div>
+        <ul>
+          { comments }
+        </ul>
+        <NewCommentContainer
+          post={ this.props.post }
+          />
+      </div>
+    );
   }
+
 }
 
 export default PostDetailComponent;

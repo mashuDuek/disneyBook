@@ -2282,6 +2282,7 @@ var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
 };
 
 var receiveUser = exports.receiveUser = function receiveUser(user) {
+  debugger;
   return {
     type: RECEIVE_USER,
     user: user
@@ -2299,6 +2300,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
 };
 
 var fetchUser = exports.fetchUser = function fetchUser(user) {
+  debugger;
   return function (dispatch) {
     return APIUtil.fetchUser(user).then(function (user) {
       return dispatch(receiveUser(user));
@@ -31329,19 +31331,19 @@ var PostsComponent = function (_React$Component) {
         });
 
         var postValues = (0, _values2.default)(goodPosts);
+        debugger;
         var posts = postValues.reverse().map(function (post) {
           if (!post) {
             return null;
           } else {
+
             var author = _this2.props.users[post.author_id];
             var receiver = _this2.props.users[post.receiver_id];
             return _react2.default.createElement(
               'li',
               { key: post.id, className: 'individual-post' },
               _react2.default.createElement(_post_detail_container2.default, {
-                post: post,
-                author: author,
-                receiver: receiver
+                post: post
               })
             );
           }
@@ -31600,6 +31602,11 @@ var PostDetailComponent = function (_React$Component) {
       this.props.displayDropdown(this.props.post.id);
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUser({ id: this.props.post.receiver_id });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -31616,103 +31623,98 @@ var PostDetailComponent = function (_React$Component) {
       } else {
         comments = null;
       }
-      if (!this.props.post) {
-        return _react2.default.createElement(
-          'p',
-          null,
-          'Loading...'
-        );
+
+      if (!this.props.post) return _react2.default.createElement(
+        'p',
+        null,
+        'Loading...'
+      );
+      if (!this.props.users[this.props.post.author_id]) return _react2.default.createElement(
+        'p',
+        null,
+        'Loading...'
+      );
+
+      var authorObj = this.props.users[this.props.post.author_id];
+
+      var receiver = void 0;
+      if (this.props.post.author_id === this.props.post.receiver_id) {
+        receiver = null;
       } else {
-        var authorObj = void 0;
-        if (!this.props.author) {
-          return _react2.default.createElement(
-            'p',
-            null,
-            'Loading...'
-          );
-        } else {
-          authorObj = this.props.author;
-        }
+        receiver = _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/users/' + this.props.receiver.id },
+          '> ' + this.props.receiver.name
+        );
+      }
 
-        var receiver = void 0;
-        if (this.props.author.id === this.props.receiver.id) {
-          receiver = null;
-        } else {
-          receiver = _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/users/' + this.props.receiver.id },
-            '> ' + this.props.receiver.name
-          );
-        }
-
-        return _react2.default.createElement(
+      return _react2.default.createElement(
+        'div',
+        { id: 'post-item' },
+        _react2.default.createElement(
           'div',
-          { id: 'post-item' },
+          { id: 'post-author-info' },
           _react2.default.createElement(
             'div',
-            { id: 'post-author-info' },
+            { id: 'author-pic-and-name' },
+            _react2.default.createElement('img', { src: authorObj.profilePic,
+              sizes: '(max-height: 40px; max-width: 40px;)' }),
             _react2.default.createElement(
-              'div',
-              { id: 'author-pic-and-name' },
-              _react2.default.createElement('img', { src: authorObj.profilePic,
-                sizes: '(max-height: 40px; max-width: 40px;)' }),
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/users/' + authorObj.id },
-                authorObj.name + ' >'
-              ),
-              receiver
+              _reactRouterDom.Link,
+              { to: '/users/' + authorObj.id },
+              authorObj.name + ' >'
             ),
-            _react2.default.createElement(
-              'button',
-              { onClick: this.handleDropdown },
-              '\u02C7'
-            ),
-            this.props.dropdownVisible ? _react2.default.createElement(_post_action_container2.default, {
-              post: this.props.post,
-              updatePost: this.props.updatePost.bind(this)
-            }) : null
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'div',
-            { id: 'post-body' },
-            this.props.post.body
+            receiver
           ),
           _react2.default.createElement(
+            'button',
+            { onClick: this.handleDropdown },
+            '\u02C7'
+          ),
+          this.props.dropdownVisible ? _react2.default.createElement(_post_action_container2.default, {
+            post: this.props.post,
+            updatePost: this.props.updatePost.bind(this)
+          }) : null
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'div',
+          { id: 'post-body' },
+          this.props.post.body
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'create-comment-icons' },
+          _react2.default.createElement(
             'div',
-            { id: 'create-comment-icons' },
+            { className: 'icons-create-comment' },
+            _react2.default.createElement('i', { className: 'fa fa-thumbs-up', 'aria-hidden': 'true' }),
             _react2.default.createElement(
-              'div',
-              { className: 'icons-create-comment' },
-              _react2.default.createElement('i', { className: 'fa fa-thumbs-up', 'aria-hidden': 'true' }),
-              _react2.default.createElement(
-                'p',
-                null,
-                'Like'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'icons-create-comment' },
-              _react2.default.createElement('i', { className: 'fa fa-comment', 'aria-hidden': 'true' }),
-              _react2.default.createElement(
-                'p',
-                null,
-                'Comment'
-              )
+              'p',
+              null,
+              'Like'
             )
           ),
           _react2.default.createElement(
-            'ul',
-            null,
-            comments
-          ),
-          _react2.default.createElement(_new_comment_container2.default, {
-            post: this.props.post
-          })
-        );
-      }
+            'div',
+            { className: 'icons-create-comment' },
+            _react2.default.createElement('i', { className: 'fa fa-comment', 'aria-hidden': 'true' }),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Comment'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          comments
+        ),
+        _react2.default.createElement(_new_comment_container2.default, {
+          post: this.props.post
+        })
+      );
     }
   }]);
 
@@ -31780,6 +31782,8 @@ var _modal_actions = __webpack_require__(21);
 
 var _dropdown_actions = __webpack_require__(17);
 
+var _user_actions = __webpack_require__(23);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
@@ -31806,6 +31810,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     receivePosts: function receivePosts(post) {
       return dispatch((0, _posts_actions.receivePosts)(post));
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
     },
     fetchPosts: function (_fetchPosts) {
       function fetchPosts(_x) {
@@ -51395,8 +51402,8 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   }
 
   return {
-    pendingFriendIds: state.session.currentUser.pendingFriends,
     acceptedFriends: acceptedFriends,
+    pendingFriendIds: state.session.currentUser.pendingFriends,
     user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     users: state.users,
@@ -51617,6 +51624,7 @@ var ProfileComponent = function (_React$Component) {
           )
         );
       } else {
+
         buttonText = this.props.user.name + '\'s Friends\'';
 
         return _react2.default.createElement(
@@ -51848,35 +51856,33 @@ var ProfilePostsComponent = function (_React$Component) {
   }
 
   _createClass(ProfilePostsComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchAllPosts(); //.then(this.props.fetchUser);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.user) {
-        return _react2.default.createElement(
-          'p',
-          null,
-          'Loading...'
-        );
-      }
+      if (!this.props.user) return _react2.default.createElement(
+        'p',
+        null,
+        'Loading...'
+      );
+      if (Object.keys(this.props.posts).length < 1) return _react2.default.createElement(
+        'p',
+        null,
+        'No posts yet :( ...'
+      );
 
-      var posts = void 0;
-      if (Object.keys(this.props.posts).length < 1) {
-        return _react2.default.createElement(
-          'p',
-          null,
-          'Loading posts...'
-        );
-      } else {
-        var postValues = (0, _values2.default)(this.props.posts);
-        posts = postValues.reverse().map(function (post) {
-          if (post.receiver_id === _this2.props.user.id) {
-            return _react2.default.createElement(_post_detail_container2.default, { post: post, key: post.id });
-          } else {
-            return null;
-          }
-        });
-      }
+      var postValues = (0, _values2.default)(this.props.posts).filter(function (post) {
+        return post.receiver_id === _this2.props.user.id || post.author_id === _this2.props.user.id;
+      });
+
+      var posts = postValues.map(function (post) {
+        return _react2.default.createElement(_post_detail_container2.default, { post: post, key: post.id });
+      });
 
       return _react2.default.createElement(
         'div',
@@ -52721,7 +52727,9 @@ var userReducer = function userReducer() {
       }
     case _user_actions.RECEIVE_USER:
       {
-        return Object.assign({}, state, _defineProperty({}, action.user.id, action.user));
+        var newUsers = Object.assign({}, state, _defineProperty({}, action.user.id, action.user));
+        debugger;
+        return newUsers;
       }
     case _posts_actions.RECEIVE_POST:
       return Object.assign({}, state, action.users);

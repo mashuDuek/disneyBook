@@ -47,18 +47,18 @@ class PostsComponent extends React.Component {
       });
 
       const postValues = values(goodPosts);
+      debugger
       var posts = postValues.reverse().map((post) => {
         if (!post) {
           return null;
         } else {
+
           const author = this.props.users[post.author_id];
           const receiver = this.props.users[post.receiver_id];
           return(
             <li key={ post.id } className='individual-post'>
               <PostDetailContainer
                 post={ post }
-                author={ author }
-                receiver={ receiver }
                 />
             </li>
           );

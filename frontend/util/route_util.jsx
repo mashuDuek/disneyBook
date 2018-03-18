@@ -6,9 +6,9 @@ import { Route, Redirect } from 'react-router-dom';
 const Auth = ({ component: Component, path, loggedIn, location }) => {
   return (
     <Route path={path} render={ (props) => {
-        return (
-          (!loggedIn ? (<Component {...props} />) : (<Redirect to={`${location.pathname}`} />))
-        );
+      return (
+        (!loggedIn ? (<Component {...props} />) : (<Redirect to={`${location.pathname}`} />))
+      );
     }} />
   );
 }
@@ -16,9 +16,9 @@ const Auth = ({ component: Component, path, loggedIn, location }) => {
 const Protected = ({ component: Component, path, loggedIn }) => {
   return (
     <Route path={path} render={ (props) => {
-        return (
-          (loggedIn ? (<Component {...props} />) : (<Redirect to='/' />))
-        );
+      return (
+        (loggedIn ? (<Component {...props} />) : (<Redirect to='/' />))
+      );
     }} />
   );
 }

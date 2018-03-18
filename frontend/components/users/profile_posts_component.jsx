@@ -6,37 +6,30 @@ import values from 'lodash/values';
 
 class ProfilePostsComponent extends React.Component {
 
+  componentDidMount () {
+    this.props.fetchAllPosts();//.then(this.props.fetchUser);
+  }
+
   render() {
+    if (!this.props.user) return <p>Loading...</p>;
+    if (Object.keys(this.props.posts).length < 1) return <p>No posts yet :( ...</p>;
 
-    if (!this.props.user) {
-      return (
-        <p>Loading...</p>
-      );
-    }
+    const postValues = values(this.props.posts).filter((post) => {
+      return post.receiver_id === this.props.user.id ||
+        post.author_id === this.props.user.id;
+    });
 
-    let posts;
-    if (Object.keys(this.props.posts).length < 1) {
-      return (<p>Loading posts...</p>);
-    } else {
-      const postValues = values(this.props.posts);
-      posts = postValues.reverse().map((post) => {
-        if (post.receiver_id === this.props.user.id) {
-          return(
-            <PostDetailContainer post={post} key={post.id}/>
-          );
-        } else {
-          return null;
-        }
-      });
-    }
+    const posts = postValues.map((post) => {
+      return <PostDetailContainer post={ post } key={ post.id }/>;
+    });
 
     return (
       <div className="profile-info-and-posts">
-        <UserInfoComponent user={this.props.user}/>
+        <UserInfoComponent user={ this.props.user }/>
         <div className="profile-posts-and-create-post">
-          <NewPostContainer user={this.props.user} />
+          <NewPostContainer user={ this.props.user } />
           <ul className="profile-posts">
-            {posts}
+            { posts }
           </ul>
         </div>
       </div>

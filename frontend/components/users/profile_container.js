@@ -17,8 +17,8 @@ const mapStatetoProps = (state, ownProps) => {
   }
 
   return {
-    pendingFriendIds: state.session.currentUser.pendingFriends,
     acceptedFriends,
+    pendingFriendIds: state.session.currentUser.pendingFriends,
     user: state.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     users: state.users,
