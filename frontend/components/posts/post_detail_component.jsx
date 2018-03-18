@@ -28,8 +28,9 @@ class PostDetailComponent extends React.Component {
       comments = this.props.post.comments.map(comm => {
         return (
           <CommentContainer
-            comment={this.props.comments[comm]}
-            post={this.props.post}
+            key={ comm.id }
+            comment={ this.props.comments[comm] }
+            post={ this.props.post }
           />
         );
       });
@@ -55,8 +56,8 @@ class PostDetailComponent extends React.Component {
         receiver = null;
       } else {
         receiver = (
-          <Link to={`/users/${this.props.receiver.id}`}>
-            {`> ${this.props.receiver.name}`}
+          <Link to={ `/users/${this.props.receiver.id}` }>
+            { `> ${this.props.receiver.name}` }
           </Link>
         );
       }
@@ -65,26 +66,26 @@ class PostDetailComponent extends React.Component {
         <div id="post-item">
           <div id="post-author-info">
             <div id="author-pic-and-name">
-              <img src={authorObj.profilePic}
+              <img src={ authorObj.profilePic }
                 sizes="(max-height: 40px; max-width: 40px;)" >
               </img>
-              <Link to={`/users/${authorObj.id}`}>
-                {`${authorObj.name} >`}
+              <Link to={ `/users/${authorObj.id}` }>
+                { `${authorObj.name} >` }
               </Link>
               { receiver }
             </div>
-            <button onClick={this.handleDropdown}>ˇ</button>
+            <button onClick={ this.handleDropdown }>ˇ</button>
             {
               this.props.dropdownVisible ?
               <PostActionContainer
-                post={this.props.post}
-                updatePost={this.props.updatePost.bind(this)}
+                post={ this.props.post }
+                updatePost={ this.props.updatePost.bind(this) }
                 /> : null
             }
           </div>
           <br />
           <div id="post-body">
-            {this.props.post.body}
+            { this.props.post.body }
           </div>
           <div id="create-comment-icons">
             <div className='icons-create-comment'>
@@ -97,10 +98,10 @@ class PostDetailComponent extends React.Component {
             </div>
           </div>
           <ul>
-            {comments}
+            { comments }
           </ul>
           <NewCommentContainer
-            post={this.props.post}
+            post={ this.props.post }
             />
         </div>
       );

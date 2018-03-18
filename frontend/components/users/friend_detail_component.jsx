@@ -8,9 +8,8 @@ class FriendDetailComponent extends React.Component {
   }
 
   render() {
-
     return (
-      <li id="friend-detail-component" key={this.props.user.id}>
+      <li id="friend-detail-component">
         <img src={this.props.user.profilePic}></img>
         <div className="friend-info">
           <Link

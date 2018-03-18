@@ -19,7 +19,7 @@ class Api::PostsController < ApplicationController
     ids = current_user.accepted_friends.map(&:id)
     ids << current_user.id
     good_posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
-    @posts = good_posts
+    @posts = good_posts.uniq
     render :index
   end
   # query buildup for posts - beauty of active record
