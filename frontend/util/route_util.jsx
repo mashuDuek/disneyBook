@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 const Auth = ({ component: Component, path, loggedIn, location }) => {
-  debugger
   return (
     <Route path={ path } render={ (props) => {
         return (
@@ -15,7 +14,6 @@ const Auth = ({ component: Component, path, loggedIn, location }) => {
 };
 
 const Protected = ({ component: Component, path, loggedIn }) => {
-  debugger
   return (
     <Route path={ path } render={ (props) => {
         return (

@@ -30773,9 +30773,7 @@ var PostsComponent = function (_React$Component) {
           return _react2.default.createElement(
             'li',
             { key: post.id, className: 'individual-post' },
-            _react2.default.createElement(_post_detail_container2.default, {
-              post: post
-            })
+            _react2.default.createElement(_post_detail_container2.default, { post: post })
           );
         }
       });
@@ -31073,8 +31071,8 @@ var PostDetailComponent = function (_React$Component) {
       } else {
         receiver = _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/users/' + this.props.receiver.id },
-          '> ' + this.props.receiver.name
+          { to: '/users/' + this.props.post.author_id },
+          '> ' + this.props.users[this.props.post.author_id].name
         );
       }
 
@@ -52464,7 +52462,6 @@ var Auth = function Auth(_ref) {
       loggedIn = _ref.loggedIn,
       location = _ref.location;
 
-  debugger;
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
       return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '' + location.pathname });
     }
@@ -52476,7 +52473,6 @@ var Protected = function Protected(_ref2) {
       path = _ref2.path,
       loggedIn = _ref2.loggedIn;
 
-  debugger;
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
       return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
     }

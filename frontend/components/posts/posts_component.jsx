@@ -54,9 +54,7 @@ class PostsComponent extends React.Component {
         const receiver = this.props.users[post.receiver_id];
         return(
           <li key={ post.id } className='individual-post'>
-            <PostDetailContainer
-              post={ post }
-              />
+            <PostDetailContainer post={ post } />
           </li>
         );
       }
