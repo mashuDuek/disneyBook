@@ -17,6 +17,7 @@ const App = (props) => {
     <div>
       <ModalContainer />
       <DropdownContainer />
+      <Route path="/" component={ NavBarContainer } />
       <AuthRoute exact path="/" component={ SessionLoginFormContainer } />
       <AuthRoute exact path="/" component={ SessionSignUpFormContainer } />
       <AuthRoute exact path="/" component={ SessionFooter } />

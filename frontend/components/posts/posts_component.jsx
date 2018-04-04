@@ -22,49 +22,45 @@ class PostsComponent extends React.Component {
       dropdownAction = (e) => { e.stopPropagation(); };
     }
 
-    if (Object.keys(this.props.posts).length < 1) {
-      return (<p>Loading posts...</p>);
+    if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
+    let stringIds;
+    if (!this.props.currentUser.acceptedFriends) {
+      stringIds = [];
     } else {
-      let stringIds;
-      if (!this.props.currentUser.acceptedFriends) {
-        stringIds = [];
-      } else {
-        stringIds = this.props.currentUser.acceptedFriends;
-      }
-
-      const allPosts = this.props.posts;
-      const acceptedFriendIds = stringIds.map((el) => parseInt(el));
-      const that = this;
-      let goodPosts = [];
-      Object.keys(allPosts).forEach((id) => {
-        if (
-            acceptedFriendIds.includes(allPosts[id].author_id) ||
-            allPosts[id].author_id === that.props.currentUser.id ||
-            allPosts[id].receiver_id === that.props.currentUser.id
-        ) {
-          goodPosts.push(allPosts[id]);
-        }
-      });
-
-      const postValues = values(goodPosts);
-      debugger
-      var posts = postValues.reverse().map((post) => {
-        if (!post) {
-          return null;
-        } else {
-
-          const author = this.props.users[post.author_id];
-          const receiver = this.props.users[post.receiver_id];
-          return(
-            <li key={ post.id } className='individual-post'>
-              <PostDetailContainer
-                post={ post }
-                />
-            </li>
-          );
-        }
-      });
+      stringIds = this.props.currentUser.acceptedFriends;
     }
+
+    const allPosts = this.props.posts;
+    const acceptedFriendIds = stringIds.map((el) => parseInt(el));
+    const that = this;
+    let goodPosts = [];
+    Object.keys(allPosts).forEach((id) => {
+      if (
+          acceptedFriendIds.includes(allPosts[id].author_id) ||
+          allPosts[id].author_id === that.props.currentUser.id ||
+          allPosts[id].receiver_id === that.props.currentUser.id
+      ) {
+        goodPosts.push(allPosts[id]);
+      }
+    });
+
+    const postValues = values(goodPosts);
+    var posts = postValues.reverse().map((post) => {
+      if (!post) {
+        return null;
+      } else {
+
+        const author = this.props.users[post.author_id];
+        const receiver = this.props.users[post.receiver_id];
+        return(
+          <li key={ post.id } className='individual-post'>
+            <PostDetailContainer
+              post={ post }
+              />
+          </li>
+        );
+      }
+    });
 
     return (
       <div className="posts-and-info-components" onClick={ dropdownAction }>

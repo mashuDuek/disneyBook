@@ -92,8 +92,12 @@ Post.create!(body: 'uh uh ih ih -- awhhh',
   author_id: abu, receiver_id: aladdin)
 Post.create!(body: 'Asante sana squash banana!',
   author_id: rafiki, receiver_id: rafiki)
-Post.create!(body: 'The question is: who are you?',
-  author_id: rafiki, receiver_id: simba)
+Post.create!(body: 'Arent u simbas girl?',
+  author_id: mufasa, receiver_id: nala)
+Post.create!(body: 'Hey, father-in-law - lol',
+  author_id: nala, receiver_id: mufasa)
+Post.create!(body: 'What movies are you in again?',
+  author_id: jafar, receiver_id: mufasa)
 
 # COMMENTS
 Comment.destroy_all

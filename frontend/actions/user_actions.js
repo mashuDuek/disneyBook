@@ -14,7 +14,6 @@ export const receiveUsers = (users) => {
 };
 
 export const receiveUser = (user) => {
-  debugger
   return {
     type: RECEIVE_USER,
     user: user
@@ -31,7 +30,6 @@ export const fetchUsers = () => {
 };
 
 export const fetchUser = (user) => {
-  debugger
   return (dispatch) => {
     return APIUtil.fetchUser(user).
       then((user) => dispatch(receiveUser(user)),
