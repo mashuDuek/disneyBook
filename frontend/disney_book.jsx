@@ -19,7 +19,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // MISSING STUFF
 
-// - ENTIRE USER ON THE FRONTEND - fix
 // - FRIENDSHIPS - fix pending friends, accepting, etc.
 // - HANDLING ERRORS - add error handling
-// COVER PHOTO GOES BEHIND NAV BAR - add image uploading to profile and posts
