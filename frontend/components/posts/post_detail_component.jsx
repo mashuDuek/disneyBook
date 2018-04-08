@@ -23,7 +23,9 @@ class PostDetailComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser({ id: this.props.post.receiver_id });
+    if (!this.props.users[this.props.post.receiver_id]) {
+      this.props.fetchUser({ id: this.props.post.receiver_id });
+    }
   }
 
   render() {
@@ -44,6 +46,7 @@ class PostDetailComponent extends React.Component {
 
     if (!this.props.post) return <p>Loading...</p>;
     if (!this.props.users[this.props.post.author_id]) return <p>Loading...</p>;
+    if (!this.props.users[this.props.post.receiver_id]) return <p>Loading...</p>;
 
     const authorObj = this.props.users[this.props.post.author_id];
 
@@ -59,8 +62,8 @@ class PostDetailComponent extends React.Component {
     }
 
     return (
-      <div id="post-item">
-        <div id="post-author-info">
+      <div className="post-item">
+        <div className="post-author-info">
           <div id="author-pic-and-name">
             <img src={ authorObj.profilePic }
               sizes="(max-height: 40px; max-width: 40px;)" >

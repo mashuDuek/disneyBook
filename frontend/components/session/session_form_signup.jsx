@@ -42,11 +42,7 @@ class SessionFormSignUp extends React.Component {
   }
 
   render () {
-    if (this.props.loggedIn) {
-      return (
-        <Redirect to="/feed" />
-      );
-    }
+    if (this.props.loggedIn) <Redirect to="/feed" />;
 
     return (
       <div id="signup-info">

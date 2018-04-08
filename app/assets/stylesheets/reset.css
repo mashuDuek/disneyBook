@@ -19,11 +19,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 :focus {
 	outline: 0;
 }
-body {
-	line-height: 1;
-	color: #060606;
-	background: #FEFEFE;
-}
+
 ol, ul {
 	list-style: none;
 }

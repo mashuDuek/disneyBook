@@ -120,7 +120,7 @@
   max-width: 550px;
   min-width: 550px;
 
-  #post-item {
+  .post-item {
     border: 1px solid #CBBABA;
     display: flex;
     flex-direction: column;
@@ -132,9 +132,12 @@
     max-width: 510px;
   }
 }
+.profile-posts-and-create-post {
+  margin-left: -25px;
 
-.profile-posts-and-create-post .profile-posts {
-  margin-top: 30px;
+  .profile-posts {
+    margin-top: 30px;
+  }
 }
 
 .profile-posts #create-comment-all #create-comment {
@@ -143,60 +146,29 @@
   border-bottom: none;
 }
 
-#post-author-info {
+.post-author-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
   font-weight: bold;
-}
 
-#post-author-info button {
-  display: block;
-  border: none;
-  background-color: inherit;
-  max-width: 10px;
-  max-height: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: x-large;
-  margin-right: 10px;
-}
+  button {
+    display: block;
+    border: none;
+    background-color: inherit;
+    max-width: 10px;
+    max-height: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: large;
+    margin-right: 10px;
+  }
 
-.profile-posts-and-create-post {
-  margin-left: -25px;
-
-  #post-action-options {
-    position: absolute;
-    background-color: #FEFEFE;
-    border: .1px solid #CBBABA;
-    border-radius: 2px;
-    margin-left: 400px;
-    margin-top: 60px;
-
-    ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100px;
-      margin-bottom: 20px;
-    }
-
-    li {
-      border: none;
-      list-style: none;
-      font-size: 14px;
-      width: 80px;
-    }
-
-    button {
-      border: none;
-      width: 80px;
-      height: 20px;
-      background-color: #FEFEFE;
-      font-size: 14px;
-    }
+  li:hover {
+    background-color: #AF92CB;
+    transition-duration: 1s;
   }
 }
 

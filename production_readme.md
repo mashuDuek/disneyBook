@@ -24,7 +24,7 @@ The beneath code shows the post detail component, in which the link to the post 
 
 ```javascript
 <li key={this.props.post.id}>
-  <div id="post-author-info">
+  <div className="post-author-info">
     <div id="author-pic-and-name">
       <img src={authorObj.profilePic}
         sizes="(max-height: 40px; max-width: 40px;)" >

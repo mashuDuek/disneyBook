@@ -31040,7 +31040,9 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUser({ id: this.props.post.receiver_id });
+      if (!this.props.users[this.props.post.receiver_id]) {
+        this.props.fetchUser({ id: this.props.post.receiver_id });
+      }
     }
   }, {
     key: 'render',
@@ -31070,6 +31072,11 @@ var PostDetailComponent = function (_React$Component) {
         null,
         'Loading...'
       );
+      if (!this.props.users[this.props.post.receiver_id]) return _react2.default.createElement(
+        'p',
+        null,
+        'Loading...'
+      );
 
       var authorObj = this.props.users[this.props.post.author_id];
 
@@ -31086,10 +31093,10 @@ var PostDetailComponent = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { id: 'post-item' },
+        { className: 'post-item' },
         _react2.default.createElement(
           'div',
-          { id: 'post-author-info' },
+          { className: 'post-author-info' },
           _react2.default.createElement(
             'div',
             { id: 'author-pic-and-name' },
@@ -47979,9 +47986,7 @@ var SessionFormLogin = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      if (this.props.loggedIn) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
-      }
+      if (this.props.loggedIn) _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
 
       return _react2.default.createElement(
         'div',
@@ -48192,9 +48197,7 @@ var SessionFormSignUp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (this.props.loggedIn) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
-      }
+      if (this.props.loggedIn) _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
 
       return _react2.default.createElement(
         'div',
@@ -50350,7 +50353,7 @@ var PostActionComponent = function (_React$Component) {
       if (this.props.post.author_id === this.props.currentUser.id) {
         optionsList = _react2.default.createElement(
           'ul',
-          null,
+          { className: 'post-options' },
           _react2.default.createElement(
             'li',
             null,
@@ -50377,6 +50380,7 @@ var PostActionComponent = function (_React$Component) {
           'No actions'
         );
       }
+
       return _react2.default.createElement(
         'div',
         { id: 'post-action-options' },
@@ -51920,7 +51924,7 @@ var ProfilePostsComponent = function (_React$Component) {
   _createClass(ProfilePostsComponent, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchAllPosts(); //.then(this.props.fetchUser);
+      this.props.fetchAllPosts();
     }
   }, {
     key: 'render',
@@ -52670,6 +52674,8 @@ var _schemas = __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var preloadedState = {};
 
 var postReducer = function postReducer() {
@@ -52679,6 +52685,9 @@ var postReducer = function postReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
+      {
+        return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
+      }
     case _posts_actions.FETCH_ALL_POSTS:
     case _comment_actions.RECEIVE_COMMENT:
     case _posts_actions.UPDATE_POST:
@@ -52927,8 +52936,6 @@ Object.defineProperty(exports, "__esModule", {
 var _lodash = __webpack_require__(40);
 
 var _user_actions = __webpack_require__(23);
-
-var _posts_actions = __webpack_require__(13);
 
 var _image_actions = __webpack_require__(53);
 

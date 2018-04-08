@@ -7,7 +7,7 @@ import values from 'lodash/values';
 class ProfilePostsComponent extends React.Component {
 
   componentDidMount () {
-    this.props.fetchAllPosts();//.then(this.props.fetchUser);
+    this.props.fetchAllPosts();
   }
 
   render() {

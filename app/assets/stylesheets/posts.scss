@@ -195,6 +195,14 @@
     border: none;
     width: 100%;
     background-color: #FEFEFE;
+    font-size: large;
+    padding: 5px;
+    transition-duration: .5s;
+  }
+
+  button:hover {
+    background-color: #AF92CB;
+    transition-duration: 1s;
   }
 }
 
@@ -330,7 +338,7 @@
   }
 }
 
-#post-author-info {
+.post-author-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -349,6 +357,11 @@
     margin-right: 10px;
     position: relative;
   }
+
+  li:hover {
+    background-color: #AF92CB;
+    transition-duration: 1s;
+  }
 }
 
 #post-action-options {
@@ -364,24 +377,10 @@
     flex-direction: column;
     justify-content: center;
     width: 100px;
-    margin-bottom: 20px;
-  }
-
-  li {
-    border: none;
-    list-style: none;
-    font-size: 14px;
   }
 
   p {
     padding: 10px;
-  }
-
-  button {
-    width: 80px;
-    height: 20px;
-    background-color: #FEFEFE;
-    font-size: 14px;
   }
 }
 

@@ -16,7 +16,9 @@ const preloadedState = {};
 const postReducer = (state = preloadedState, action) => {
   Object.freeze(state);
   switch(action.type) {
-    case RECEIVE_POST:
+    case RECEIVE_POST: {
+      return Object.assign({}, state, { [action.post.id]: action.post });
+    }
     case FETCH_ALL_POSTS:
     case RECEIVE_COMMENT:
     case UPDATE_POST: {
