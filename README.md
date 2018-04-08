@@ -1,47 +1,83 @@
-# Facebook
+# disneyBook
 
-#### Facebook is a social media and social networking service.
+[Live](https://disneybook.herokuapp.com/#/)
 
-By the end of Week 9, this app will, at a minimum, satisfy the following criteria with smooth, bug-free navigation, adequate seed data and sufficient CSS styling:
+disneyBook is a social media network website, solemnly for Disney characters.
+The backend was constructed using Ruby on Rails, and the front with React Redux
+and PostgreSQL.
 
- 1. New account creation, login, and guest/demo login
- 3. Friending
- 4. Post
- 5. Comments
+### Features
 
-### Docs - all in the docs
+##### Posts
 
-1. View [Wireframes](./docs/wireframes)
-2. React [Components](./docs/fe_routes.md)
-3. [API endpoints](./docs/api_endpoints.md)
-4. DB [schema](./docs/schema.md)
-5. [Sample State](./docs/sample_state.js)
+The sites initial feature allows for users to post on the feed page and
+on each others walls; this is the heart of the app. The database maintains
+record of all the posts, and their posters (users). For eventual implementation
+of "created at", the database keeps record of the time and date the post was
+created.
 
-### Implementation Agenda
 
-#### Phase 1: User Auth (1 - 2 days)
-1. users backend setup
-2. backend auth
-3. frontend auth
-4. style landing page
+![rafiki_post](docs/rafiki_post.png)
 
-#### Phase 2: Posts (1 - 2 days)
-1. posts backend setup with RESTful API
-2. posts frontend setup with reusable component
-3. updating posts through reusable self-created modals
-4. style posts forms and views
+The beneath code shows the post detail component, in which the link to the post author is rendered, as well as the content of the post. The post action container referenced in the code pertains to the button on the right hand side. In the post image above, it is hidden, however on click of the arrow the action component opens up for the user to be able to see the possible actions one could take with the post.
 
-#### Phase 3: Comments (1 - 2 days)
-1. comments backend setup with RESTful API
-2. comments frontend setup with reusable components
-3. updating comments through reusable self-created modals
-4. style comments forms and views
 
-#### Phase 4: Friendships (2 days)
-1. friendship backend setup, implemented with a join-table
-2. pending and accepted friends query created with Active Record
-3. implement modular hidden component
+```javascript
+<li key={this.props.post.id}>
+  <div className="post-author-info">
+    <div id="author-pic-and-name">
+      <img src={authorObj.profilePic}
+        sizes="(max-height: 40px; max-width: 40px;)" >
+      </img>
+      <Link to={`/users/${authorObj.id}`}>{authorObj.name}</Link>
+    </div>
+    <button onClick={this.handleDropdowns}>ˇ</button>
+    {
+      this.props.dropdownVisible ?
+        <PostActionContainer
+          post={this.props.post}
+          updatePost={this.props.updatePost.bind(this)}
+        /> :
+        null
+    }
+  </div>
+  <br />
+  <div id="post-body">
+    {this.props.post.body}
+  </div>
+  ```
 
-#### Phase 5: Image Uploading (1 day)
-1. user can upload image
-2. image uploading handled with AWS and paperclip
+  If the current user is the author of such post, clocking the arrow and opening the dropdown component would display the options of editing or deleting the post. The editing post component is displayed as a modal. This modal was created without the use of the React Modal library, makes for easier debugging when the bug lies within the modal.
+
+  ![edit_post_podal](docs/edit_post_modal.png)
+
+  ##### Comments
+
+  Every post has a comments section which allows the current user to comment on other authors posts. The beneath picture portrays the comment input for a post made by Rafiki.
+
+  ![rafiki_post_comment](docs/rafiki_post_comment.png)
+
+  ##### Profiles
+
+  Upon creation, each user is given a profile with a default cover image as well as profile picture.
+
+  ![new_user](docs/new_user.png)
+
+  ```javascript
+  constructor(props) {
+    super(props);
+    this.state = { email: '', password: '', name: '', movie: '' };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handleName = this.handleName.bind(this);
+    this.handleMovie = this.handleMovie.bind(this);
+  }
+  ```
+
+  ##### Friending
+
+  A user has friends and can add friends. They can see who their friends are and other users friends through the profile page. They can also see the status of that friendship, whether its pending or accepted.
+
+  ![friends_list](docs/friends_list.png)
