@@ -15,7 +15,7 @@ class FeedComponent extends React.Component {
 
   render() {
     return (
-      <NavBarContainer/>
+      <NavBarContainer />
     );
   }
 }

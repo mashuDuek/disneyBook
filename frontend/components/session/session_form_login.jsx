@@ -24,40 +24,46 @@ class SessionFormLogin extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    this.props.processForm(this.state);
+    this.props.processForm(this.state).then(() => {
+      this.props.history.push('/feed');
+    });
   }
 
   demoLogin(e) {
     e.preventDefault();
-    this.props.processForm({ email: 'mufasa@lionking.com', password: 'password' });
+    this.props.processForm({
+      email: 'mufasa@lionking.com',
+      password: 'password'
+    }).then(() => { this.props.history.push('/feed'); });
   }
 
   render () {
 
     if (this.props.loggedIn) {
       return (
-        <Redirect to="/" />
+        <Redirect to="/feed" />
       );
     }
+
     return (
       <div id='login'>
         <h1>disneyBook</h1>
         <form id='login-form'>
           <label>Email
             <input
-              onChange={this.handleEmail}
-              value={this.state.email} />
+              onChange={ this.handleEmail }
+              value={ this.state.email } />
           </label>
           <br />
           <label>Password
             <input
               type="password"
-              onChange={this.handlePassword}
-              value={this.state.password} />
+              onChange={ this.handlePassword }
+              value={ this.state.password } />
           </label>
 
-          <button onClick={this.handleSubmit}>Log In</button>
-          <button onClick={this.demoLogin}>Demo Mufasa</button>
+          <button onClick={ this.handleSubmit }>Log In</button>
+          <button onClick={ this.demoLogin }>Demo Mufasa</button>
         </form>
       </div>
     );

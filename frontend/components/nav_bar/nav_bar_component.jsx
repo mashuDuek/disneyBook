@@ -30,6 +30,24 @@ class NavBar extends React.Component {
   }
 
   render() {
+    let link;
+    let linkAndPic;
+    if (!this.props.currentUser) {
+      link = null;
+      linkAndPic = null;
+    } else {
+      link = (
+        <Link to={`/users/${this.props.currentUser.id}`}>
+          {this.props.currentUser.name}
+        </Link>
+      );
+
+      linkAndPic = (
+        <Link to={`/users/${this.props.currentUser.id}`}>
+          <img src={this.props.currentUser.profilePic}></img>
+        </Link>
+      );
+    }
     return (
       <div className="nav-bar">
         <form id="search-form">
@@ -39,14 +57,10 @@ class NavBar extends React.Component {
 
         <div>
           <div id="nav-bar-welcome-logout">
-            <Link to={`/users/${this.props.currentUser.id}`}>
-              <img src={this.props.currentUser.profilePic}></img>
-            </Link>
+            { linkAndPic }
             <div id="user-pic-name-and-home">
               <p className="user-name">
-                <Link to={`/users/${this.props.currentUser.id}`}>
-                  {this.props.currentUser.name}
-                </Link>
+                { link }
               </p>
               <p className="home-link">
                 <Link to={`/feed`}>Home</Link>

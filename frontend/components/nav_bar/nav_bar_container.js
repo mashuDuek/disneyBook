@@ -6,8 +6,15 @@ import { logout } from '../../actions/session_actions';
 
 
 const mapStatetoProps = (state, ownProps) => {
+  let pendingFriends;
+  if (!state.session.currentUser) {
+    pendingFriends = null;
+  } else {
+    pendingFriends = state.session.currentUser.pendingFriends;
+  }
+
   return {
-    pendingFriends: state.session.currentUser.pendingFriends,
+    pendingFriends,
     currentUser: state.session.currentUser,
   };
 };

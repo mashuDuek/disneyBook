@@ -108,9 +108,6 @@ class ProfileComponent extends React.Component {
 
       return (
         <div id="profile-page" onClick={ dropdownAction }>
-          <div className="nav-and-profile-pic-components">
-            <NavBarContainer/>
-          </div>
           <div id="cover-and-profile-pics">
             <CoverPhotoContainer
               currentUser={ this.props.currentUser }

@@ -52,8 +52,8 @@ class PostDetailComponent extends React.Component {
       receiver = null;
     } else {
       receiver = (
-        <Link to={ `/users/${this.props.post.author_id}` }>
-          { `> ${this.props.users[this.props.post.author_id].name}` }
+        <Link to={ `/users/${this.props.post.receiver_id}` }>
+          { `> ${this.props.users[this.props.post.receiver_id].name}` }
         </Link>
       );
     }
