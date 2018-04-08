@@ -6,7 +6,7 @@ import { receiveErrors } from './errors_actions';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
-export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 export const receivePost = (post) => {
   return {
@@ -31,7 +31,7 @@ export const destroyPost = (post) => {
 
 export const receivePosts = (posts) => {
   return {
-    type: FETCH_ALL_POSTS,
+    type: RECEIVE_POSTS,
     posts
   };
 };

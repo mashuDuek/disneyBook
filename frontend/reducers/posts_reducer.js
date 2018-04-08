@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import {
   RECEIVE_POST,
-  FETCH_ALL_POSTS,
+  RECEIVE_POSTS,
   UPDATE_POST,
   DELETE_POST,
   RECEIVE_ERRORS
@@ -22,7 +22,7 @@ const postReducer = (state = preloadedState, action) => {
     case RECEIVE_POST: {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }
-    case FETCH_ALL_POSTS: {
+    case RECEIVE_POSTS: {
       newState = Object.assign({}, state);
       action.posts.map(post => newState[post.id] = post);
       return newState;
@@ -37,7 +37,6 @@ const postReducer = (state = preloadedState, action) => {
       });
       newState[action.comment.post_id].comments = newComments;
       return newState;
-
     case UPDATE_POST: {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }

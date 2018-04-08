@@ -8,7 +8,8 @@ import DropdownContainer from '../dropdowns/dropdown_container';
 class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dropdownVisible: false };
+
+    this.state = { dropdownVisible: false, users: false };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);
   }
@@ -23,24 +24,36 @@ class PostDetailComponent extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.users[this.props.post.receiver_id]) {
-      this.props.fetchUser({ id: this.props.post.receiver_id });
+    if (!this.props.users[this.props.post.receiver_id] ||
+      !this.props.users[this.props.post.author_id]) {
+      this.props.fetchUsers().then(() => {
+        this.setState({ users: true });
+      });
     }
+
+    if (this.props.post.comments.length > 0 &&
+      Object.keys(this.props.comments).length < 1) {
+        this.props.fetchComments();
+      }
   }
 
   render() {
     let comments;
     if (this.props.post.comments.length > 0) {
-      const that = this;
-      comments = this.props.post.comments.map(comment => {
-        return (
-          <CommentContainer
-            key={ comment.id }
-            comment={ comment }
-            post={ that.props.post }
-          />
-        );
-      });
+      if (Object.keys(this.props.comments).length < 1) {
+        comments = null;
+      } else {
+        const that = this;
+        comments = this.props.post.comments.map(id => {
+          return (
+            <CommentContainer
+              key={ id }
+              comment={ this.props.comments[id] }
+              post={ that.props.post }
+              />
+          );
+        });
+      }
     } else {
       comments = null;
     }

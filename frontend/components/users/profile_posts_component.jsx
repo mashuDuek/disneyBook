@@ -12,7 +12,7 @@ class ProfilePostsComponent extends React.Component {
 
   render() {
     if (!this.props.user) return <p>Loading...</p>;
-    if (Object.keys(this.props.posts).length < 1) return <p>No posts yet :( ...</p>;
+    if (Object.keys(this.props.posts).length < 1) return <p>Loading...</p>;
 
     const postValues = values(this.props.posts).filter((post) => {
       return post.receiver_id === this.props.user.id ||

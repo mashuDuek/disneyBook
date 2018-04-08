@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { createPost, updatePost, deletePost } from '../../actions/posts_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { receivePosts, fetchAllPosts } from '../../actions/posts_actions';
+import { fetchAllComments } from '../../actions/comment_actions';
 import { showDropdown, displayDropdown } from '../../actions/dropdown_actions';
-import { fetchUser } from '../../actions/user_actions';
+import { fetchUser, fetchUsers } from '../../actions/user_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -24,10 +25,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updatePost: (post) => dispatch(updatePost(post)),
     showModal: (component) => dispatch(showModal(component)),
     receivePosts: (post) => dispatch(receivePosts(post)),
-    fetchUser: (user) => dispatch(fetchUser(user)),
     fetchPosts: (posts) => dispatch(fetchPosts(posts)),
     showDropdown: (component) => dispatch(showDropdown(component)),
     displayDropdown: (component) => dispatch(displayDropdown(component)),
+    fetchComments: () => dispatch(fetchAllComments()),
+    fetchUsers: () => dispatch(fetchUsers()),
   };
 };
 

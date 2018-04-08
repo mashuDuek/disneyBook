@@ -1343,7 +1343,7 @@ module.exports = ReactComponentTreeHook;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchPost = exports.fetchAllPosts = exports.deletePost = exports.updatePost = exports.createPost = exports.receivePosts = exports.destroyPost = exports.editPost = exports.receivePost = exports.FETCH_ALL_POSTS = exports.DELETE_POST = exports.UPDATE_POST = exports.RECEIVE_POST = undefined;
+exports.fetchPost = exports.fetchAllPosts = exports.deletePost = exports.updatePost = exports.createPost = exports.receivePosts = exports.destroyPost = exports.editPost = exports.receivePost = exports.RECEIVE_POSTS = exports.DELETE_POST = exports.UPDATE_POST = exports.RECEIVE_POST = undefined;
 
 var _post_util = __webpack_require__(335);
 
@@ -1360,7 +1360,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var RECEIVE_POST = exports.RECEIVE_POST = 'RECEIVE_POST';
 var UPDATE_POST = exports.UPDATE_POST = 'UPDATE_POST';
 var DELETE_POST = exports.DELETE_POST = 'DELETE_POST';
-var FETCH_ALL_POSTS = exports.FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
+var RECEIVE_POSTS = exports.RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 var receivePost = exports.receivePost = function receivePost(post) {
   return {
@@ -1385,7 +1385,7 @@ var destroyPost = exports.destroyPost = function destroyPost(post) {
 
 var receivePosts = exports.receivePosts = function receivePosts(posts) {
   return {
-    type: FETCH_ALL_POSTS,
+    type: RECEIVE_POSTS,
     posts: posts
   };
 };
@@ -30772,17 +30772,14 @@ var PostsComponent = function (_React$Component) {
 
       var postValues = (0, _values2.default)(goodPosts);
       var posts = postValues.reverse().map(function (post) {
-        if (!post) {
-          return null;
-        } else {
-          var author = _this2.props.users[post.author_id];
-          var receiver = _this2.props.users[post.receiver_id];
-          return _react2.default.createElement(
-            'li',
-            { key: post.id, className: 'individual-post' },
-            _react2.default.createElement(_post_detail_container2.default, { post: post })
-          );
-        }
+        if (!post) return null;
+        var author = _this2.props.users[post.author_id];
+        var receiver = _this2.props.users[post.receiver_id];
+        return _react2.default.createElement(
+          'li',
+          { key: post.id, className: 'individual-post' },
+          _react2.default.createElement(_post_detail_container2.default, { post: post })
+        );
       });
       return _react2.default.createElement(
         'div',
@@ -31018,7 +31015,7 @@ var PostDetailComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
-    _this.state = { dropdownVisible: false };
+    _this.state = { dropdownVisible: false, users: false };
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.handleDropdown = _this.handleDropdown.bind(_this);
     return _this;
@@ -31038,23 +31035,37 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (!this.props.users[this.props.post.receiver_id]) {
-        this.props.fetchUser({ id: this.props.post.receiver_id });
+      var _this2 = this;
+
+      if (!this.props.users[this.props.post.receiver_id] || !this.props.users[this.props.post.author_id]) {
+        this.props.fetchUsers().then(function () {
+          _this2.setState({ users: true });
+        });
+      }
+
+      if (this.props.post.comments.length > 0 && Object.keys(this.props.comments).length < 1) {
+        this.props.fetchComments();
       }
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
-        var that = this;
-        comments = this.props.post.comments.map(function (comment) {
-          return _react2.default.createElement(_comment_container2.default, {
-            key: comment.id,
-            comment: comment,
-            post: that.props.post
+        if (Object.keys(this.props.comments).length < 1) {
+          comments = null;
+        } else {
+          var that = this;
+          comments = this.props.post.comments.map(function (id) {
+            return _react2.default.createElement(_comment_container2.default, {
+              key: id,
+              comment: _this3.props.comments[id],
+              post: that.props.post
+            });
           });
-        });
+        }
       } else {
         comments = null;
       }
@@ -31220,6 +31231,8 @@ var _posts_actions = __webpack_require__(13);
 
 var _modal_actions = __webpack_require__(22);
 
+var _comment_actions = __webpack_require__(52);
+
 var _dropdown_actions = __webpack_require__(18);
 
 var _user_actions = __webpack_require__(23);
@@ -31251,9 +31264,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     receivePosts: function receivePosts(post) {
       return dispatch((0, _posts_actions.receivePosts)(post));
     },
-    fetchUser: function fetchUser(user) {
-      return dispatch((0, _user_actions.fetchUser)(user));
-    },
     fetchPosts: function (_fetchPosts) {
       function fetchPosts(_x) {
         return _fetchPosts.apply(this, arguments);
@@ -31272,6 +31282,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     displayDropdown: function displayDropdown(component) {
       return dispatch((0, _dropdown_actions.displayDropdown)(component));
+    },
+    fetchComments: function fetchComments() {
+      return dispatch((0, _comment_actions.fetchAllComments)());
+    },
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
     }
   };
 };
@@ -49910,11 +49926,14 @@ var _modal_actions = __webpack_require__(22);
 
 var _posts_actions = __webpack_require__(13);
 
+var _user_actions = __webpack_require__(23);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
+    comments: state.comments,
     comment: ownProps.comment,
     users: state.users,
     posts: state.posts,
@@ -49944,6 +49963,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchAllComments: function fetchAllComments() {
       return dispatch((0, _comment_actions.fetchAllComments)());
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
     }
   };
 };
@@ -50006,6 +50028,13 @@ var CommentsComponent = function (_React$Component) {
       }));
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (!this.props.users[this.props.comment.author_id]) {
+        this.props.fetchUser({ id: this.props.comment.author_id });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.comment) return null;
@@ -50022,6 +50051,11 @@ var CommentsComponent = function (_React$Component) {
       }
 
       var author = this.props.users[this.props.comment.author_id];
+      if (!author) return _react2.default.createElement(
+        'p',
+        null,
+        'Loading...'
+      );
       return _react2.default.createElement(
         'div',
         { className: 'comment' },
@@ -51932,7 +51966,7 @@ var ProfilePostsComponent = function (_React$Component) {
       if (Object.keys(this.props.posts).length < 1) return _react2.default.createElement(
         'p',
         null,
-        'No posts yet :( ...'
+        'Loading...'
       );
 
       var postValues = (0, _values2.default)(this.props.posts).filter(function (post) {
@@ -52674,7 +52708,7 @@ var postReducer = function postReducer() {
       {
         return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
       }
-    case _posts_actions.FETCH_ALL_POSTS:
+    case _posts_actions.RECEIVE_POSTS:
       {
         newState = Object.assign({}, state);
         action.posts.map(function (post) {
@@ -52692,7 +52726,6 @@ var postReducer = function postReducer() {
       });
       newState[action.comment.post_id].comments = newComments;
       return newState;
-
     case _posts_actions.UPDATE_POST:
       {
         return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
@@ -52911,8 +52944,7 @@ var commentReducer = function commentReducer() {
         return Object.assign({}, state, _defineProperty({}, action.comment.id, action.comment));
       }
     case _comment_actions.RECEIVE_COMMENTS:
-      debugger;
-      return state;
+      return action.comments;
     case _comment_actions.DELETE_COMMENT:
       {
         var newState = Object.assign({}, state);

@@ -8,11 +8,13 @@ import { createComment,
 } from '../../actions/comment_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { fetchPost } from '../../actions/posts_actions';
+import { fetchUser } from '../../actions/user_actions';
 
 
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
+    comments: state.comments,
     comment: ownProps.comment,
     users: state.users,
     posts: state.posts,
@@ -29,6 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     hideModal: () => (dispatch(hideModal())),
     fetchPost: (post) => (dispatch(fetchPost(post))),
     fetchAllComments: () => (dispatch(fetchAllComments())),
+    fetchUser: (user) => dispatch(fetchUser(user))
   };
 };
 
