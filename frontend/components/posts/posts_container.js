@@ -7,6 +7,7 @@ import {
   deletePost
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
+import { fetchAllComments } from '../../actions/comment_actions';
 import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { hideDropdown } from '../../actions/dropdown_actions';
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     hideModal: () => dispatch(hideModal()),
     hideDropdown: () => dispatch(hideDropdown()),
     fetchUsers: () => dispatch(fetchUsers()),
+    fetchAllComments: () => dispatch(fetchAllComments())
   };
 };
 

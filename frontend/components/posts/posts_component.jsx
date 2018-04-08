@@ -13,6 +13,11 @@ class PostsComponent extends React.Component {
     super(props);
   }
 
+  componentDidMount () {
+    this.props.fetchUsers();
+    this.props.fetchAllComments();
+  }
+
   render() {
     const drops = this.props.dropdowns;
     let dropdownAction;

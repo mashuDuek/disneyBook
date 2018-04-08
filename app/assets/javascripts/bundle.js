@@ -22779,7 +22779,7 @@ function denormalizeImmutable(schema, input, unvisit) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
+exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.receiveComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
 
 var _comment_util = __webpack_require__(344);
 
@@ -22819,7 +22819,7 @@ var destroyComment = exports.destroyComment = function destroyComment(comment) {
   };
 };
 
-var fetchComments = exports.fetchComments = function fetchComments(comments) {
+var receiveComments = exports.receiveComments = function receiveComments(comments) {
   return {
     type: RECEIVE_COMMENTS,
     comments: comments
@@ -22859,7 +22859,7 @@ var deleteComment = exports.deleteComment = function deleteComment(comment) {
 var fetchAllComments = exports.fetchAllComments = function fetchAllComments() {
   return function (dispatch) {
     return APIUtil.fetchAllComments().then(function (comments) {
-      return dispatch(fetchComments(comments));
+      return dispatch(receiveComments(comments));
     }, function (errors) {
       return dispatch((0, _errors_actions.receiveErrors)(errors));
     });
@@ -30732,6 +30732,12 @@ var PostsComponent = function (_React$Component) {
   }
 
   _createClass(PostsComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUsers();
+      this.props.fetchAllComments();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -31033,24 +31039,9 @@ var PostDetailComponent = function (_React$Component) {
       this.props.displayDropdown(this.props.post.id);
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      if (!this.props.users[this.props.post.receiver_id] || !this.props.users[this.props.post.author_id]) {
-        this.props.fetchUsers().then(function () {
-          _this2.setState({ users: true });
-        });
-      }
-
-      if (this.props.post.comments.length > 0 && Object.keys(this.props.comments).length < 1) {
-        this.props.fetchComments();
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
@@ -31061,7 +31052,7 @@ var PostDetailComponent = function (_React$Component) {
           comments = this.props.post.comments.map(function (id) {
             return _react2.default.createElement(_comment_container2.default, {
               key: id,
-              comment: _this3.props.comments[id],
+              comment: _this2.props.comments[id],
               post: that.props.post
             });
           });
@@ -31592,10 +31583,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // MISSING STUFF
 
-// - ENTIRE USER ON THE FRONTEND - fix
 // - FRIENDSHIPS - fix pending friends, accepting, etc.
 // - HANDLING ERRORS - add error handling
-// COVER PHOTO GOES BEHIND NAV BAR - add image uploading to profile and posts
 
 /***/ }),
 /* 148 */
@@ -48460,7 +48449,6 @@ var FeedComponent = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchAllPosts();
-      this.props.fetchUsers();
     }
   }, {
     key: 'render',
@@ -51314,6 +51302,8 @@ var _posts_actions = __webpack_require__(13);
 
 var _user_actions = __webpack_require__(23);
 
+var _comment_actions = __webpack_require__(52);
+
 var _session_actions = __webpack_require__(21);
 
 var _modal_actions = __webpack_require__(22);
@@ -51353,6 +51343,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
+    },
+    fetchAllComments: function fetchAllComments() {
+      return dispatch((0, _comment_actions.fetchAllComments)());
     }
   };
 };

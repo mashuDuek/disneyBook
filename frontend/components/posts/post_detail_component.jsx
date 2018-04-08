@@ -23,20 +23,6 @@ class PostDetailComponent extends React.Component {
     this.props.displayDropdown(this.props.post.id);
   }
 
-  componentDidMount() {
-    if (!this.props.users[this.props.post.receiver_id] ||
-      !this.props.users[this.props.post.author_id]) {
-      this.props.fetchUsers().then(() => {
-        this.setState({ users: true });
-      });
-    }
-
-    if (this.props.post.comments.length > 0 &&
-      Object.keys(this.props.comments).length < 1) {
-        this.props.fetchComments();
-      }
-  }
-
   render() {
     let comments;
     if (this.props.post.comments.length > 0) {

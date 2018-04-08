@@ -29,7 +29,7 @@ export const destroyComment = (comment) => {
   };
 };
 
-export const fetchComments = (comments) => {
+export const receiveComments = (comments) => {
   return {
     type: RECEIVE_COMMENTS,
     comments
@@ -66,7 +66,7 @@ export const deleteComment = (comment) => {
 export const fetchAllComments = () => {
   return (dispatch) => {
     return APIUtil.fetchAllComments().
-      then((comments) => dispatch(fetchComments(comments)),
+      then((comments) => dispatch(receiveComments(comments)),
       (errors) => dispatch(receiveErrors(errors))
     );
   };
