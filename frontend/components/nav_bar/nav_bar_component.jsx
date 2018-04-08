@@ -58,7 +58,7 @@ class NavBar extends React.Component {
         <div>
           <div id="nav-bar-welcome-logout">
             { linkAndPic }
-            <div id="user-pic-name-and-home">
+            <div className="user-pic-name-and-home">
               <p className="user-name">
                 { link }
               </p>

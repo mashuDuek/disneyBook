@@ -31515,7 +31515,7 @@ var UserInfoComponent = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { id: "profile-user-info" },
+        { className: "profile-user-info" },
         this.props.user.name,
         _react2.default.createElement(
           "p",
@@ -50353,22 +50353,22 @@ var PostActionComponent = function (_React$Component) {
       if (this.props.post.author_id === this.props.currentUser.id) {
         optionsList = _react2.default.createElement(
           'ul',
-          { className: 'post-options' },
+          { id: 'post-options' },
           _react2.default.createElement(
             'li',
-            null,
+            { onClick: this.handleDelete },
             _react2.default.createElement(
               'button',
-              { onClick: this.handleDelete },
+              null,
               'Delete'
             )
           ),
           _react2.default.createElement(
             'li',
-            null,
+            { onClick: this.handleEdit },
             _react2.default.createElement(
               'button',
-              { onClick: this.handleEdit },
+              null,
               'Edit'
             )
           )
@@ -50383,7 +50383,7 @@ var PostActionComponent = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { id: 'post-action-options' },
+        { className: 'post-action-options' },
         optionsList
       );
     }
@@ -51021,7 +51021,7 @@ var NavBar = function (_React$Component) {
             linkAndPic,
             _react2.default.createElement(
               'div',
-              { id: 'user-pic-name-and-home' },
+              { className: 'user-pic-name-and-home' },
               _react2.default.createElement(
                 'p',
                 { className: 'user-name' },

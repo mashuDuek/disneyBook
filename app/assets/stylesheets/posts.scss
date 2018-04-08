@@ -149,17 +149,18 @@
   }
 }
 
-#user-pic-name-and-home {
+.user-pic-name-and-home {
   display: flex;
   flex-direction: row;
   padding: 5px;
 
-  .user-name {
-    color: #FEFEFE;
+  p:hover {
+    background-color: #5F7BBD;
   }
 
-  a {
-    margin-top: 5px;
+  .user-name {
+    color: #FEFEFE;
+    padding-left: 7px;
   }
 
   .home-link {
@@ -347,40 +348,47 @@
   font-weight: bold;
 
   button {
-    display: block;
+    width: 20px;
+    font-size: large;
     border: none;
+    background-color: white;
+    height: 10px;
+  }
+
+  .post-action-options {
+    margin-left: 400px;
+    margin-top: 60px;
+    position: absolute;
     background-color: #FEFEFE;
-    max-width: 10px;
-    max-height: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    position: relative;
-  }
-
-  li:hover {
-    background-color: #AF92CB;
-    transition-duration: 1s;
-  }
-}
-
-#post-action-options {
-  position: absolute;
-  background-color: #FEFEFE;
-  border-radius: 2px;
-  border: .5px solid #CBBABA;
-  margin-left: 400px;
-  margin-top: 60px;
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    border-radius: 2px;
+    border: .5px solid lightgray;
     width: 100px;
-  }
 
-  p {
-    padding: 10px;
+    button {
+      width: fit-content;
+      height: inherit;
+    }
+
+    #post-options {
+
+      li {
+        border: .5px solid lightgray;
+        padding: 15px;
+        transition-duration: .5s;
+        margin: 0px;
+      }
+
+      li:hover {
+        cursor: pointer;
+        background-color: lightblue;
+        transition-duration: 1s;
+      }
+
+      button {
+         background-color: transparent;
+      }
+
+    }
   }
 }
 

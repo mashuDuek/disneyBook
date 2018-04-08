@@ -24,16 +24,12 @@ class PostActionComponent extends React.Component {
     let optionsList;
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (
-        <ul className="post-options">
-          <li>
-            <button onClick={this.handleDelete}>
-              Delete
-            </button>
+        <ul id="post-options">
+          <li onClick={ this.handleDelete }>
+            <button>Delete</button>
           </li>
-          <li>
-            <button onClick={this.handleEdit}>
-              Edit
-            </button>
+          <li onClick={ this.handleEdit }>
+            <button>Edit</button>
           </li>
         </ul>
       );
@@ -42,7 +38,7 @@ class PostActionComponent extends React.Component {
     }
 
     return (
-      <div id="post-action-options">
+      <div className="post-action-options">
         { optionsList }
       </div>
     );
