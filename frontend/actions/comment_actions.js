@@ -1,6 +1,4 @@
 import * as APIUtil from '../util/comment_util';
-import { normalize, schema } from 'normalizr';
-import { commentSchema } from '../util/schemas';
 import { receiveErrors } from './errors_actions';
 
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';

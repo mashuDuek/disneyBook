@@ -38,18 +38,6 @@ class EditCoverPicComponent extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   modalBackdrop = document.getElementById('modal-backdrop');
-  //   modalBackdrop.removeClass('modal-backdrop');
-  //   modalBackdrop.addClass('modal-backdrop-dark');
-  // }
-  //
-  // componentWillUnmount() {
-  //   modalBackdrop = document.getElementById('modal-backdrop');
-  //   modalBackdrop.addClass('modal-backdrop');
-  //   modalBackdrop.removeClass('modal-backdrop-dark');
-  // }
-
   render() {
     let input;
     if (!this.state.displayInput) {
@@ -62,9 +50,16 @@ class EditCoverPicComponent extends React.Component {
         </form>
       );
     }
+
+    let image;
+    if (!this.state.imageUrl) {
+      image = <img src={ this.props.user.coverPic }></img>;
+    } else {
+      image = <img src={ this.state.imageUrl }></img>;
+    }
     return (
       <div className="cover-pic-modal-wrapper">
-        <img src={ this.props.user.coverPic }></img>
+        { image }
         <div className='form-and-button-edit-cover'>
           <button onClick={ this.handleUpdateCover }>Edit Cover Pic</button>
           { input }

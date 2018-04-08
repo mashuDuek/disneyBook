@@ -7,6 +7,7 @@ import { receivePosts, fetchAllPosts } from '../../actions/posts_actions';
 import { fetchAllComments } from '../../actions/comment_actions';
 import { showDropdown, displayDropdown } from '../../actions/dropdown_actions';
 import { fetchUser, fetchUsers } from '../../actions/user_actions';
+import { createLike, deleteLike } from '../../actions/like_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
@@ -31,6 +32,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     fetchComments: () => dispatch(fetchAllComments()),
     fetchUsers: () => dispatch(fetchUsers()),
     fetchUser: (user) => dispatch(fetchUser(user)),
+    createLike: (like) => dispatch(createLike(like)),
+    deleteLike: (like) => dispatch(deleteLike(like)),
   };
 };
 

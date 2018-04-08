@@ -10,12 +10,18 @@ class PostDetailComponent extends React.Component {
     super(props);
 
     this.state = { dropdownVisible: false, users: false };
-    this.handleDelete = this.handleDelete.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.commentFocus = this.commentFocus.bind(this);
+    this.createLike = this.createLike.bind(this);
   }
 
   handleDelete() {
     this.props.deletePost(this.props.post);
+  }
+
+  createLike () {
+    this.props.createLike({ post: this.props.post });
   }
 
   handleDropdown(e) {
@@ -29,6 +35,11 @@ class PostDetailComponent extends React.Component {
     } else if (!this.props.users[this.props.post.receiver_id]) {
       this.props.fetchUser({ id: this.props.post.receiver_id });
     }
+  }
+
+  commentFocus () {
+    document.getElementById(`create-comment-textarea-${this.props.post.id}`).
+      focus({ preventScroll: true });
   }
 
   render() {
@@ -95,11 +106,11 @@ class PostDetailComponent extends React.Component {
           { this.props.post.body }
         </div>
         <div id="create-comment-icons">
-          <div className='icons-create-comment'>
+          <div className='icons-create-comment' onClick={ this.createLike }>
             <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             <p>Like</p>
           </div>
-          <div className='icons-create-comment'>
+          <div className='icons-create-comment' onClick={ this.commentFocus }>
             <i className="fa fa-comment" aria-hidden="true"></i>
             <p>Comment</p>
           </div>

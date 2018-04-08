@@ -179,6 +179,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  transition-duration: .5s;
+}
+
+.icons-create-comment:hover {
+  background-color: #D1CCCC;
+  cursor: pointer;
+  transition-duration: 1s;
 }
 
 .icons-create-comment i {

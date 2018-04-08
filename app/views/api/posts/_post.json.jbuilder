@@ -1,4 +1,5 @@
 json.extract!(post, :id, :body, :author_id, :receiver_id)
+json.likes post.likes.map(&:id)
 json.comments post.comments.map(&:id)
 
 json.author do

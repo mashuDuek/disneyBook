@@ -40,6 +40,11 @@ class User < ApplicationRecord
     primary_key: :id,
     class_name: :Post
 
+  has_many :likes,
+    foreign_key: :liker_id,
+    primary_key: :id,
+    class_name: :Like
+
   has_many :received_friend_requests,
     foreign_key: :friendee_id,
     class_name: :Friendship

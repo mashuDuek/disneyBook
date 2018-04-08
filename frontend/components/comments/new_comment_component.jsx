@@ -29,14 +29,15 @@ class NewCommentComponent extends React.Component {
     const placeHolder = `Any thoughts, ${this.props.currentUser.name}?`;
     return(
       <div id="create-comment-all">
-        <form onSubmit={this.handleSubmit} id="create-comment">
+        <form onSubmit={ this.handleSubmit } id="create-comment">
           <textarea
-            placeholder={placeHolder}
             height="80"
             width="400"
-            value={this.state.body}
-            onChange={this.handleChange}
-            onSubmit={this.handleSubmit}
+            id={`create-comment-textarea-${this.props.post.id}`}
+            placeholder={ placeHolder }
+            value={ this.state.body }
+            onChange={ this.handleChange }
+            onSubmit={ this.handleSubmit }
             ></textarea>
           <button>
             Comment

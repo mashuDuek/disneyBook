@@ -13,6 +13,8 @@ import {
   UPDATE_COMMENT
 } from '../actions/comment_actions';
 
+import { RECEIVE_LIKE, REMOVE_LIKE } from '../actions/like_actions';
+
 const preloadedState = {};
 
 const postReducer = (state = preloadedState, action) => {
@@ -49,6 +51,12 @@ const postReducer = (state = preloadedState, action) => {
       post.comments = post.comments.filter( comment => {
         return comment.id !== action.comment.id;
       });
+      return newState;
+    }
+    case RECEIVE_LIKE: {
+      if (!action.like.post_id) return state;
+      newState = Object.assign({}, state);
+      newState[action.like.post_id].likes.push(action.like.id);
       return newState;
     }
     default: {

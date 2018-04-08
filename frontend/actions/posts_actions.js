@@ -1,6 +1,4 @@
 import * as APIUtil from '../util/post_util';
-import { normalize, schema } from 'normalizr';
-import { postSchema } from '../util/schemas';
 import { receiveErrors } from './errors_actions';
 
 export const RECEIVE_POST = 'RECEIVE_POST';
