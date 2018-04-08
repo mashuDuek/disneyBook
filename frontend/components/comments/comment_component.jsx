@@ -22,15 +22,11 @@ class CommentsComponent extends React.Component {
   }
 
   render() {
-    if (!this.props.comment) {
-      return null;
-    }
+    if (!this.props.comment) return null;
 
     let editComment;
     if (this.props.currentUser.id === this.props.comment.author_id) {
-      editComment = (
-        <button onClick={this.handleModal}>…</button>
-      );
+      editComment = <button onClick={this.handleModal}>…</button>;
     } else {
       editComment = null;
     }

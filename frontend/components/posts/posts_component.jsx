@@ -49,7 +49,6 @@ class PostsComponent extends React.Component {
       if (!post) {
         return null;
       } else {
-
         const author = this.props.users[post.author_id];
         const receiver = this.props.users[post.receiver_id];
         return(
@@ -59,7 +58,6 @@ class PostsComponent extends React.Component {
         );
       }
     });
-
     return (
       <div className="posts-and-info-components" onClick={ dropdownAction }>
         <LeftInfoComponent />

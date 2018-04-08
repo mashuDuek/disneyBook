@@ -6,7 +6,7 @@ import { receiveErrors } from './errors_actions';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
-export const FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 
 export const receiveComment = (comment) => {
   return {
@@ -31,7 +31,7 @@ export const destroyComment = (comment) => {
 
 export const fetchComments = (comments) => {
   return {
-    type: FETCH_ALL_COMMENTS,
+    type: RECEIVE_COMMENTS,
     comments
   };
 };

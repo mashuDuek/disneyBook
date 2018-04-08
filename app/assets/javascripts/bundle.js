@@ -22779,7 +22779,7 @@ function denormalizeImmutable(schema, input, unvisit) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.FETCH_ALL_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
+exports.fetchAllComments = exports.deleteComment = exports.updateComment = exports.createComment = exports.fetchComments = exports.destroyComment = exports.editComment = exports.receiveComment = exports.RECEIVE_COMMENTS = exports.DELETE_COMMENT = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = undefined;
 
 var _comment_util = __webpack_require__(344);
 
@@ -22796,7 +22796,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var RECEIVE_COMMENT = exports.RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 var UPDATE_COMMENT = exports.UPDATE_COMMENT = 'UPDATE_COMMENT';
 var DELETE_COMMENT = exports.DELETE_COMMENT = 'DELETE_COMMENT';
-var FETCH_ALL_COMMENTS = exports.FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
+var RECEIVE_COMMENTS = exports.RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 
 var receiveComment = exports.receiveComment = function receiveComment(comment) {
   return {
@@ -22821,7 +22821,7 @@ var destroyComment = exports.destroyComment = function destroyComment(comment) {
 
 var fetchComments = exports.fetchComments = function fetchComments(comments) {
   return {
-    type: FETCH_ALL_COMMENTS,
+    type: RECEIVE_COMMENTS,
     comments: comments
   };
 };
@@ -30775,7 +30775,6 @@ var PostsComponent = function (_React$Component) {
         if (!post) {
           return null;
         } else {
-
           var author = _this2.props.users[post.author_id];
           var receiver = _this2.props.users[post.receiver_id];
           return _react2.default.createElement(
@@ -30785,7 +30784,6 @@ var PostsComponent = function (_React$Component) {
           );
         }
       });
-
       return _react2.default.createElement(
         'div',
         { className: 'posts-and-info-components', onClick: dropdownAction },
@@ -31047,15 +31045,14 @@ var PostDetailComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var comments = void 0;
       if (this.props.post.comments.length > 0) {
-        comments = this.props.post.comments.map(function (comm) {
+        var that = this;
+        comments = this.props.post.comments.map(function (comment) {
           return _react2.default.createElement(_comment_container2.default, {
-            key: comm.id,
-            comment: _this2.props.comments[comm],
-            post: _this2.props.post
+            key: comment.id,
+            comment: comment,
+            post: that.props.post
           });
         });
       } else {
@@ -49916,7 +49913,6 @@ var _posts_actions = __webpack_require__(13);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
-
   return {
     currentUser: state.session.currentUser || {},
     comment: ownProps.comment,
@@ -50012,9 +50008,7 @@ var CommentsComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.comment) {
-        return null;
-      }
+      if (!this.props.comment) return null;
 
       var editComment = void 0;
       if (this.props.currentUser.id === this.props.comment.author_id) {
@@ -51774,13 +51768,12 @@ var ProfPicComponent = function (_React$Component) {
   _createClass(ProfPicComponent, [{
     key: "render",
     value: function render() {
-      if (!this.props.user) {
-        return _react2.default.createElement(
-          "p",
-          null,
-          "Loading..."
-        );
-      }
+      if (!this.props.user) _react2.default.createElement(
+        "p",
+        null,
+        "Loading..."
+      );
+
       return _react2.default.createElement(
         "div",
         null,
@@ -52662,17 +52655,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _lodash = __webpack_require__(40);
 
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _posts_actions = __webpack_require__(13);
 
 var _comment_actions = __webpack_require__(52);
-
-var _normalizr = __webpack_require__(50);
-
-var _schemas = __webpack_require__(84);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -52683,16 +52668,34 @@ var postReducer = function postReducer() {
   var action = arguments[1];
 
   Object.freeze(state);
+  var newState = void 0;
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
       {
         return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
       }
     case _posts_actions.FETCH_ALL_POSTS:
+      {
+        newState = Object.assign({}, state);
+        action.posts.map(function (post) {
+          return newState[post.id] = post;
+        });
+        return newState;
+      }
     case _comment_actions.RECEIVE_COMMENT:
+    case _comment_actions.UPDATE_COMMENT:
+      newState = Object.assign({}, state);
+      var comments = newState[action.comment.post_id].comments;
+      var newComments = comments.map(function (comment) {
+        if (comment.id === action.comment.id) return action.comment;
+        return comment;
+      });
+      newState[action.comment.post_id].comments = newComments;
+      return newState;
+
     case _posts_actions.UPDATE_POST:
       {
-        return (0, _lodash.merge)({}, state, action.posts);
+        return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
       }
     case _posts_actions.DELETE_POST:
       {
@@ -52700,10 +52703,10 @@ var postReducer = function postReducer() {
       }
     case _comment_actions.DELETE_COMMENT:
       {
-        var newState = Object.assign({}, state);
+        newState = Object.assign({}, state);
         var post = newState[action.comment.post_id];
-        post.comments = post.comments.filter(function (commentId) {
-          return commentId !== action.comment.id;
+        post.comments = post.comments.filter(function (comment) {
+          return comment.id !== action.comment.id;
         });
         return newState;
       }
@@ -52892,6 +52895,8 @@ var _comment_actions = __webpack_require__(52);
 
 var _posts_actions = __webpack_require__(13);
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var preloadedState = {};
 
 var commentReducer = function commentReducer() {
@@ -52900,13 +52905,14 @@ var commentReducer = function commentReducer() {
 
   Object.freeze(state);
   switch (action.type) {
-    case _posts_actions.FETCH_ALL_POSTS:
     case _comment_actions.RECEIVE_COMMENT:
-    case _comment_actions.FETCH_ALL_COMMENTS:
     case _comment_actions.UPDATE_COMMENT:
       {
-        return Object.assign({}, state, action.comments);
+        return Object.assign({}, state, _defineProperty({}, action.comment.id, action.comment));
       }
+    case _comment_actions.RECEIVE_COMMENTS:
+      debugger;
+      return state;
     case _comment_actions.DELETE_COMMENT:
       {
         var newState = Object.assign({}, state);

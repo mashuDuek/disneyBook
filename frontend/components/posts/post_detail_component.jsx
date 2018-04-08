@@ -31,12 +31,13 @@ class PostDetailComponent extends React.Component {
   render() {
     let comments;
     if (this.props.post.comments.length > 0) {
-      comments = this.props.post.comments.map(comm => {
+      const that = this;
+      comments = this.props.post.comments.map(comment => {
         return (
           <CommentContainer
-            key={ comm.id }
-            comment={ this.props.comments[comm] }
-            post={ this.props.post }
+            key={ comment.id }
+            comment={ comment }
+            post={ that.props.post }
           />
         );
       });
