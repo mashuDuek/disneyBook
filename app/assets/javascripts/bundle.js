@@ -31039,6 +31039,15 @@ var PostDetailComponent = function (_React$Component) {
       this.props.displayDropdown(this.props.post.id);
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (!this.props.users[this.props.post.author_id]) {
+        this.props.fetchUser({ id: this.props.post.author_id });
+      } else if (!this.props.users[this.props.post.receiver_id]) {
+        this.props.fetchUser({ id: this.props.post.receiver_id });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -31279,6 +31288,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
     }
   };
 };
@@ -51475,6 +51487,8 @@ var _session_actions = __webpack_require__(21);
 
 var _user_actions = __webpack_require__(23);
 
+var _comment_actions = __webpack_require__(52);
+
 var _friendship_actions = __webpack_require__(145);
 
 var _dropdown_actions = __webpack_require__(18);
@@ -51529,6 +51543,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     updateCover: function updateCover(image) {
       return dispatch((0, _image_actions.updateCoverPic)(image));
+    },
+    fetchAllComments: function fetchAllComments() {
+      return dispatch((0, _comment_actions.fetchAllComments)());
     }
   };
 };
@@ -51615,6 +51632,7 @@ var ProfileComponent = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUser({ id: this.props.match.params.userId });
+      this.props.fetchAllComments();
     }
   }, {
     key: 'render',

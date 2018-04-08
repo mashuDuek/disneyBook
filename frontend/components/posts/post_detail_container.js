@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     displayDropdown: (component) => dispatch(displayDropdown(component)),
     fetchComments: () => dispatch(fetchAllComments()),
     fetchUsers: () => dispatch(fetchUsers()),
+    fetchUser: (user) => dispatch(fetchUser(user)),
   };
 };
 

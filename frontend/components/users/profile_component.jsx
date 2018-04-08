@@ -30,6 +30,7 @@ class ProfileComponent extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser({ id: this.props.match.params.userId });
+    this.props.fetchAllComments();
   }
 
   render(){

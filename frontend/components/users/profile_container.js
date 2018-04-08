@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { logout } from '../../actions/session_actions';
 import { fetchUser } from '../../actions/user_actions';
+import { fetchAllComments } from '../../actions/comment_actions';
 import { createFriendship } from '../../actions/friendship_actions';
 import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
@@ -36,7 +37,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     showDropdown: (component) => dispatch(showDropdown(component)),
     showModal: (component) => dispatch(showModal(component)),
     hideModal: () => dispatch(hideModal()),
-    updateCover: (image) => dispatch(updateCoverPic(image))
+    updateCover: (image) => dispatch(updateCoverPic(image)),
+    fetchAllComments: () => dispatch(fetchAllComments())
   };
 };
 
