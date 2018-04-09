@@ -15,10 +15,10 @@ import { hideDropdown } from '../../actions/dropdown_actions';
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    posts: state.posts,
-    errors: state.errors,
-    dropdowns: state.dropdowns
+    users: state.entities.users,
+    posts: state.entities.posts,
+    errors: state.ui.errors,
+    dropdowns: state.ui.dropdowns
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

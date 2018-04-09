@@ -20,6 +20,7 @@ const preloadedState = {};
 const postReducer = (state = preloadedState, action) => {
   Object.freeze(state);
   let newState;
+  let post;
   switch(action.type) {
     case RECEIVE_POST: {
       return Object.assign({}, state, { [action.post.id]: action.post });
@@ -56,7 +57,17 @@ const postReducer = (state = preloadedState, action) => {
     case RECEIVE_LIKE: {
       if (!action.like.post_id) return state;
       newState = Object.assign({}, state);
-      newState[action.like.post_id].likes.push(action.like.id);
+      post = newState[action.like.post_id];
+      post.likes.push(action.like.id);
+      post.currentUserLikes = true;
+      return newState;
+    }
+    case REMOVE_LIKE: {
+      newState = Object.assign({}, state);
+      post = newState[action.like.post_id];
+      const idx = post.likes.indexOf(action.like.id);
+      post.likes.splice(idx, 1);
+      post.currentUserLikes = false;
       return newState;
     }
     default: {

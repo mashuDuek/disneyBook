@@ -30458,7 +30458,7 @@ var PostsComponent = function (_React$Component) {
       });
 
       var postValues = (0, _values2.default)(goodPosts);
-      var posts = postValues.reverse().map(function (post) {
+      var posts = postValues.map(function (post) {
         if (!post) return null;
         var author = _this2.props.users[post.author_id];
         var receiver = _this2.props.users[post.receiver_id];
@@ -30703,10 +30703,11 @@ var PostDetailComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PostDetailComponent.__proto__ || Object.getPrototypeOf(PostDetailComponent)).call(this, props));
 
     _this.state = { dropdownVisible: false, users: false };
-    _this.handleDropdown = _this.handleDropdown.bind(_this);
+
     _this.handleDelete = _this.handleDelete.bind(_this);
     _this.commentFocus = _this.commentFocus.bind(_this);
-    _this.createLike = _this.createLike.bind(_this);
+    _this.handleDropdown = _this.handleDropdown.bind(_this);
+    _this.handleLikeToggle = _this.handleLikeToggle.bind(_this);
     return _this;
   }
 
@@ -30716,9 +30717,16 @@ var PostDetailComponent = function (_React$Component) {
       this.props.deletePost(this.props.post);
     }
   }, {
-    key: 'createLike',
-    value: function createLike() {
-      this.props.createLike({ post: this.props.post });
+    key: 'handleLikeToggle',
+    value: function handleLikeToggle() {
+      if (this.props.post.currentUserLikes) {
+        this.props.deleteLike({
+          post_id: this.props.post.id,
+          liker_id: this.props.currentUser.id
+        });
+      } else {
+        this.props.createLike({ post: this.props.post });
+      }
     }
   }, {
     key: 'handleDropdown',
@@ -30791,7 +30799,6 @@ var PostDetailComponent = function (_React$Component) {
           '> ' + this.props.users[this.props.post.receiver_id].name
         );
       }
-
       return _react2.default.createElement(
         'div',
         { className: 'post-item' },
@@ -30831,7 +30838,12 @@ var PostDetailComponent = function (_React$Component) {
           { id: 'create-comment-icons' },
           _react2.default.createElement(
             'div',
-            { className: 'icons-create-comment', onClick: this.createLike },
+            { className: 'icons-create-comment', onClick: this.handleLikeToggle },
+            _react2.default.createElement(
+              'p',
+              null,
+              this.props.post.likes.length
+            ),
             _react2.default.createElement('i', { className: 'fa fa-thumbs-up', 'aria-hidden': 'true' }),
             _react2.default.createElement(
               'p',
@@ -30890,8 +30902,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    component: state.dropdowns.component,
-    visible: Boolean(state.dropdowns.component)
+    component: state.ui.dropdowns.component,
+    visible: Boolean(state.ui.dropdowns.component)
   };
 };
 
@@ -30936,12 +30948,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    comments: state.comments,
+    dropdownVisible: state.ui.dropdowns.displayed === ownProps.post.id,
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    post: ownProps.post,
-    posts: state.posts,
-    dropdownVisible: state.dropdowns.displayed === ownProps.post.id
+    comments: state.entities.comments,
+    posts: state.entities.posts,
+    users: state.entities.users,
+    like: state.entities.likes,
+    post: ownProps.post
   };
 };
 
@@ -47470,6 +47483,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _dropdown_actions = __webpack_require__(18);
+
 var _reactRouterDom = __webpack_require__(4);
 
 var _reactRedux = __webpack_require__(8);
@@ -47478,14 +47493,12 @@ var _App = __webpack_require__(301);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _dropdown_actions = __webpack_require__(18);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    component: state.dropdowns.component,
-    visible: Boolean(state.dropdowns.component)
+    component: state.ui.dropdowns.component,
+    visible: Boolean(state.ui.dropdowns.component)
   };
 };
 
@@ -49192,12 +49205,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
-    comments: state.comments,
+    comments: state.entities.comments,
     comment: ownProps.comment,
-    users: state.users,
-    posts: state.posts,
+    users: state.entities.users,
+    posts: state.entities.posts,
     post: ownProps.post,
-    errors: state.errors
+    errors: state.ui.errors
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -50587,10 +50600,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    posts: state.posts,
-    errors: state.errors,
-    dropdowns: state.dropdowns
+    users: state.entities.users,
+    posts: state.entities.posts,
+    errors: state.ui.errors,
+    dropdowns: state.ui.dropdowns
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -50635,22 +50648,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactRedux = __webpack_require__(8);
+var _modal_actions = __webpack_require__(22);
 
 var _reactRouterDom = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(8);
 
 var _modal_component = __webpack_require__(362);
 
 var _modal_component2 = _interopRequireDefault(_modal_component);
 
-var _modal_actions = __webpack_require__(22);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
-    component: state.modals.component,
-    visible: Boolean(state.modals.component)
+    component: state.ui.modals.component,
+    visible: Boolean(state.ui.modals.component)
   };
 };
 
@@ -50761,20 +50774,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   var acceptedFriends = void 0;
-  if (!state.ui.currentUserProfile) {
+  if (!state.session.currentUserProfile) {
     acceptedFriends = null;
   } else {
-    acceptedFriends = state.ui.currentUserProfile.acceptedFriends;
+    acceptedFriends = state.session.currentUserProfile.acceptedFriends;
   }
 
   return {
     acceptedFriends: acceptedFriends,
     pendingFriendIds: state.session.currentUser.pendingFriends,
-    user: state.users[ownProps.match.params.userId],
+    user: state.entities.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    errors: state.errors,
-    dropdowns: state.dropdowns
+    dropdowns: state.ui.dropdowns,
+    users: state.entities.users,
+    errors: state.ui.errors
   };
 };
 
@@ -51133,9 +51146,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    posts: state.posts,
-    errors: state.errors,
+    users: state.entities.users,
+    posts: state.entities.posts,
+    errors: state.ui.errors,
     user: ownProps.user
   };
 };
@@ -51304,18 +51317,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStatetoProps = function mapStatetoProps(state, ownProps) {
   var acceptedFriendIds = void 0;
-  if (!state.users[ownProps.match.params.userId]) {
+  if (!state.entities.users[ownProps.match.params.userId]) {
     acceptedFriendIds = null;
   } else {
-    acceptedFriendIds = state.users[ownProps.match.params.userId].accepted_friends;
+    acceptedFriendIds = state.entities.users[ownProps.match.params.userId].accepted_friends;
   }
 
   return {
     pendingFriendIds: state.session.currentUser.pending_friends,
-    user: state.users[ownProps.match.params.userId],
+    user: state.entities.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    errors: state.errors
+    users: state.entities.users,
+    errors: state.ui.errors
   };
 };
 
@@ -51879,9 +51892,9 @@ var _errors_reducer = __webpack_require__(382);
 
 var _errors_reducer2 = _interopRequireDefault(_errors_reducer);
 
-var _comments_reducer = __webpack_require__(383);
+var _entities_reducer = __webpack_require__(389);
 
-var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+var _entities_reducer2 = _interopRequireDefault(_entities_reducer);
 
 var _ui_reducer = __webpack_require__(384);
 
@@ -51893,12 +51906,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var rootReducer = (0, _redux.combineReducers)({
     session: _session_reducer2.default,
-    posts: _posts_reducer2.default,
-    users: _users_reducer2.default,
-    modals: _modals_reducer2.default,
-    dropdowns: _dropdowns_reducer2.default,
-    comments: _comments_reducer2.default,
-    errors: _errors_reducer2.default,
+    entities: _entities_reducer2.default,
     ui: _ui_reducer2.default
 });
 
@@ -51915,9 +51923,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _session_actions = __webpack_require__(21);
-
 var _lodash = __webpack_require__(40);
+
+var _session_actions = __webpack_require__(21);
 
 var preloadedState = { currentUser: null };
 
@@ -51933,6 +51941,10 @@ var sessionReducer = function sessionReducer() {
         var newState = (0, _lodash.merge)({}, state);
         newState.currentUser = action.currentUser;
         return newState;
+      }
+    case _session_actions.RECEIVE_USER:
+      {
+        return Object.assign({}, state, { currentUserProfile: action.user });
       }
     default:
       return state;
@@ -51970,6 +51982,7 @@ var postReducer = function postReducer() {
 
   Object.freeze(state);
   var newState = void 0;
+  var post = void 0;
   switch (action.type) {
     case _posts_actions.RECEIVE_POST:
       {
@@ -52004,8 +52017,8 @@ var postReducer = function postReducer() {
     case _comment_actions.DELETE_COMMENT:
       {
         newState = Object.assign({}, state);
-        var post = newState[action.comment.post_id];
-        post.comments = post.comments.filter(function (comment) {
+        var _post = newState[action.comment.post_id];
+        _post.comments = _post.comments.filter(function (comment) {
           return comment.id !== action.comment.id;
         });
         return newState;
@@ -52014,7 +52027,18 @@ var postReducer = function postReducer() {
       {
         if (!action.like.post_id) return state;
         newState = Object.assign({}, state);
-        newState[action.like.post_id].likes.push(action.like.id);
+        post = newState[action.like.post_id];
+        post.likes.push(action.like.id);
+        post.currentUserLikes = true;
+        return newState;
+      }
+    case _like_actions.REMOVE_LIKE:
+      {
+        newState = Object.assign({}, state);
+        post = newState[action.like.post_id];
+        var idx = post.likes.indexOf(action.like.id);
+        post.likes.splice(idx, 1);
+        post.currentUserLikes = false;
         return newState;
       }
     default:
@@ -52245,28 +52269,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = __webpack_require__(40);
+var _modals_reducer = __webpack_require__(380);
 
-var _user_actions = __webpack_require__(23);
+var _modals_reducer2 = _interopRequireDefault(_modals_reducer);
 
-var _image_actions = __webpack_require__(53);
+var _dropdowns_reducer = __webpack_require__(381);
 
-var preloadedState = {};
+var _dropdowns_reducer2 = _interopRequireDefault(_dropdowns_reducer);
 
-var uiReducer = function uiReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
-  var action = arguments[1];
+var _errors_reducer = __webpack_require__(382);
 
-  Object.freeze(state);
-  switch (action.type) {
-    case _user_actions.RECEIVE_USER:
-      {
-        return { currentUserProfile: action.user };
-      }
-    default:
-      return state;
-  }
-};
+var _errors_reducer2 = _interopRequireDefault(_errors_reducer);
+
+var _redux = __webpack_require__(73);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var uiReducer = (0, _redux.combineReducers)({
+  dropdowns: _dropdowns_reducer2.default,
+  errors: _errors_reducer2.default,
+  modals: _modals_reducer2.default
+});
 
 exports.default = uiReducer;
 
@@ -52376,7 +52399,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var createLike = exports.createLike = function createLike(like) {
   return $.ajax({
-    method: "POST",
+    method: 'POST',
     url: '/api/likes',
     data: like
   });
@@ -52385,9 +52408,95 @@ var createLike = exports.createLike = function createLike(like) {
 var deleteLike = exports.deleteLike = function deleteLike(like) {
   return $.ajax({
     method: 'DELETE',
-    url: '/api/likes/' + like
+    url: '/api/likes/' + like.post_id,
+    data: like
   });
 };
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _posts_reducer = __webpack_require__(378);
+
+var _posts_reducer2 = _interopRequireDefault(_posts_reducer);
+
+var _users_reducer = __webpack_require__(379);
+
+var _users_reducer2 = _interopRequireDefault(_users_reducer);
+
+var _comments_reducer = __webpack_require__(383);
+
+var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+
+var _likes_reducer = __webpack_require__(390);
+
+var _likes_reducer2 = _interopRequireDefault(_likes_reducer);
+
+var _redux = __webpack_require__(73);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var entitiesReducer = (0, _redux.combineReducers)({
+  comments: _comments_reducer2.default,
+  likes: _likes_reducer2.default,
+  posts: _posts_reducer2.default,
+  users: _users_reducer2.default
+});
+
+exports.default = entitiesReducer;
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(40);
+
+var _like_actions = __webpack_require__(387);
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var preloadedState = {};
+
+var LikesReducer = function LikesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : preloadedState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = void 0;
+  switch (action.type) {
+    case _like_actions.RECEIVE_LIKE:
+      {
+        return Object.assign({}, state, _defineProperty({}, action.like.id, action.like));
+      }
+    case _like_actions.REMOVE_LIKE:
+      {
+        newState = Object.assign({}, state);
+        delete newState[action.like.id];
+        return newState;
+      }
+    default:
+      {
+        return state;
+      }
+  }
+};
+
+exports.default = LikesReducer;
 
 /***/ })
 /******/ ]);

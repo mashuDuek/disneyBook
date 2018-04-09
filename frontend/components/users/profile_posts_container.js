@@ -14,9 +14,9 @@ import { showModal, hideModal } from '../../actions/modal_actions';
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    posts: state.posts,
-    errors: state.errors,
+    users: state.entities.users,
+    posts: state.entities.posts,
+    errors: state.ui.errors,
     user: ownProps.user,
   };
 };

@@ -4,8 +4,8 @@ import DropdownComponent from './dropdown_component';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    component: state.dropdowns.component,
-    visible: Boolean(state.dropdowns.component)
+    component: state.ui.dropdowns.component,
+    visible: Boolean(state.ui.dropdowns.component)
   };
 };
 

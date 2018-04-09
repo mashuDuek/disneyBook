@@ -1,6 +1,6 @@
 export const createLike = (like) => {
   return $.ajax({
-    method: "POST",
+    method: 'POST',
     url: '/api/likes',
     data: like
   });
@@ -9,6 +9,7 @@ export const createLike = (like) => {
 export const deleteLike = (like) => {
   return $.ajax({
     method: 'DELETE',
-    url: `/api/likes/${like}`
+    url: `/api/likes/${like.post_id}`,
+    data: like
   });
 };

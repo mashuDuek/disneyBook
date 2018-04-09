@@ -1,12 +1,12 @@
+import { hideDropdown } from '../actions/dropdown_actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import App from './App';
-import { hideDropdown } from '../actions/dropdown_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    component: state.dropdowns.component,
-    visible: Boolean(state.dropdowns.component)
+    component: state.ui.dropdowns.component,
+    visible: Boolean(state.ui.dropdowns.component)
   };
 };
 

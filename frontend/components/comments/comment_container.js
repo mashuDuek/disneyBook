@@ -14,12 +14,12 @@ import { fetchUser } from '../../actions/user_actions';
 const mapStatetoProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser || {},
-    comments: state.comments,
+    comments: state.entities.comments,
     comment: ownProps.comment,
-    users: state.users,
-    posts: state.posts,
+    users: state.entities.users,
+    posts: state.entities.posts,
     post: ownProps.post,
-    errors: state.errors,
+    errors: state.ui.errors,
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

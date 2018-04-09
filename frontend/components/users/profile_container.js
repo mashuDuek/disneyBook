@@ -11,20 +11,20 @@ import { updateCoverPic } from '../../actions/image_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   let acceptedFriends;
-  if (!state.ui.currentUserProfile) {
+  if (!state.session.currentUserProfile) {
     acceptedFriends = null;
   } else {
-    acceptedFriends = state.ui.currentUserProfile.acceptedFriends;
+    acceptedFriends = state.session.currentUserProfile.acceptedFriends;
   }
 
   return {
     acceptedFriends,
     pendingFriendIds: state.session.currentUser.pendingFriends,
-    user: state.users[ownProps.match.params.userId],
+    user: state.entities.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
-    users: state.users,
-    errors: state.errors,
-    dropdowns: state.dropdowns
+    dropdowns: state.ui.dropdowns,
+    users: state.entities.users,
+    errors: state.ui.errors,
   };
 };
 

@@ -1,12 +1,12 @@
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import ModalComponent from './modal_component';
 import { hideModal } from '../../actions/modal_actions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import ModalComponent from './modal_component';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    component: state.modals.component,
-    visible: Boolean(state.modals.component)
+    component: state.ui.modals.component,
+    visible: Boolean(state.ui.modals.component)
   };
 };
 

@@ -11,12 +11,13 @@ import { createLike, deleteLike } from '../../actions/like_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   return {
-    comments: state.comments,
+    dropdownVisible: state.ui.dropdowns.displayed === ownProps.post.id,
     currentUser: state.session.currentUser || {},
-    users: state.users,
+    comments: state.entities.comments,
+    posts: state.entities.posts,
+    users: state.entities.users,
+    like: state.entities.likes,
     post: ownProps.post,
-    posts: state.posts,
-    dropdownVisible: state.dropdowns.displayed === ownProps.post.id
   };
 };
 

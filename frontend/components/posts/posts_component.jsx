@@ -50,7 +50,7 @@ class PostsComponent extends React.Component {
     });
 
     const postValues = values(goodPosts);
-    var posts = postValues.reverse().map((post) => {
+    var posts = postValues.map((post) => {
       if (!post) return null;
       const author = this.props.users[post.author_id];
       const receiver = this.props.users[post.receiver_id];

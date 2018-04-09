@@ -10,18 +10,26 @@ class PostDetailComponent extends React.Component {
     super(props);
 
     this.state = { dropdownVisible: false, users: false };
-    this.handleDropdown = this.handleDropdown.bind(this);
+
     this.handleDelete = this.handleDelete.bind(this);
     this.commentFocus = this.commentFocus.bind(this);
-    this.createLike = this.createLike.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
+    this.handleLikeToggle = this.handleLikeToggle.bind(this);
   }
 
   handleDelete() {
     this.props.deletePost(this.props.post);
   }
 
-  createLike () {
-    this.props.createLike({ post: this.props.post });
+  handleLikeToggle () {
+    if (this.props.post.currentUserLikes) {
+      this.props.deleteLike({
+        post_id: this.props.post.id,
+        liker_id: this.props.currentUser.id
+      });
+    } else {
+      this.props.createLike({ post: this.props.post });
+    }
   }
 
   handleDropdown(e) {
@@ -79,7 +87,6 @@ class PostDetailComponent extends React.Component {
         </Link>
       );
     }
-
     return (
       <div className="post-item">
         <div className="post-author-info">
@@ -106,7 +113,8 @@ class PostDetailComponent extends React.Component {
           { this.props.post.body }
         </div>
         <div id="create-comment-icons">
-          <div className='icons-create-comment' onClick={ this.createLike }>
+          <div className='icons-create-comment' onClick={ this.handleLikeToggle }>
+            <p>{ this.props.post.likes.length }</p>
             <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             <p>Like</p>
           </div>
