@@ -51,19 +51,13 @@ class ProfPicComponent extends React.Component {
       icon = null;
     } else if (this.state.hover === 'friend') {
       icon = (
-        <div className='icon-edit-profile'
-          onMouseEnter={ this.handleShowButton }
-          onClick={ this.handleProfileModal }
-          >
+        <div className='icon-edit-profile' onClick={ this.handleProfileModal }>
           <i className="fa fa-camera" id="camera-icon" aria-hidden="true"></i>
         </div>
       );
     } else {
       icon = (
-        <div className='icon-edit-profile'
-          onMouseEnter={ this.handleShowButton }
-          onClick={ this.handleProfileModal }
-          >
+        <div className='icon-edit-profile' onClick={ this.handleProfileModal }>
           <i className="fa fa-camera" id="camera-icon" aria-hidden="true"></i>
         </div>
       );

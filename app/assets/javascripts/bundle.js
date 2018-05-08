@@ -52141,19 +52141,13 @@ var ProfPicComponent = function (_React$Component) {
       } else if (this.state.hover === 'friend') {
         icon = _react2.default.createElement(
           'div',
-          { className: 'icon-edit-profile',
-            onMouseEnter: this.handleShowButton,
-            onClick: this.handleProfileModal
-          },
+          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
           _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
         );
       } else {
         icon = _react2.default.createElement(
           'div',
-          { className: 'icon-edit-profile',
-            onMouseEnter: this.handleShowButton,
-            onClick: this.handleProfileModal
-          },
+          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
           _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
         );
       }
