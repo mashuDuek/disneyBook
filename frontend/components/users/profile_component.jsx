@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBarContainer from '../nav_bar/nav_bar_container';
-import ProfPicComponent from '../images/profile_pic_component';
+import ProfPhotoContainer from '../images/profile_photo_container';
 import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
 import CoverPhotoContainer from '../images/cover_photo_container';
@@ -116,7 +116,12 @@ class ProfileComponent extends React.Component {
               showModal={ this.props.showModal }
               updateCover={ this.props.updateCover }
               />
-            <ProfPicComponent user={ this.props.user } />
+            <ProfPhotoContainer
+              currentUser={ this.props.currentUser }
+              user={ this.props.user }
+              showModal={ this.props.showModal }
+              updateCover={ this.props.updateCover }
+              />
             <div id="profile-bar-component">
               <button onClick={ this.handleAddFriend }>
                 Add Friend

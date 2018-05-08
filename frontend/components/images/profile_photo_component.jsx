@@ -7,13 +7,12 @@ class ProfPicComponent extends React.Component {
   constructor (props) {
     super(props);
     this.state = { hover: false };
-    this.handleCoverModal = this.handleCoverModal.bind(this);
+    this.handleProfileModal = this.handleProfileModal.bind(this);
     this.handleShowButton = this.handleShowButton.bind(this);
     this.handleHideButton = this.handleHideButton.bind(this);
   }
 
   handleShowButton () {
-    debugger
     if (this.props.user.id === this.props.currentUser.id) {
       this.setState({ hover: true });
     } else {
@@ -21,7 +20,7 @@ class ProfPicComponent extends React.Component {
     }
   }
 
-  handleCoverModal(e) {
+  handleProfileModal(e) {
     if (this.props.user.id === this.props.currentUser.id) {
       this.props.showModal(
         <EditProfilePicComponent
@@ -54,20 +53,18 @@ class ProfPicComponent extends React.Component {
       icon = (
         <div className='icon-edit-profile'
           onMouseEnter={ this.handleShowButton }
-          onClick={ this.handleCoverModal }
+          onClick={ this.handleProfileModal }
           >
           <i className="fa fa-camera" id="camera-icon" aria-hidden="true"></i>
-          <p>View Profile Pics</p>
         </div>
       );
     } else {
       icon = (
         <div className='icon-edit-profile'
           onMouseEnter={ this.handleShowButton }
-          onClick={ this.handleCoverModal }
+          onClick={ this.handleProfileModal }
           >
           <i className="fa fa-camera" id="camera-icon" aria-hidden="true"></i>
-          <p>Edit Profile Pic</p>
         </div>
       );
     }
@@ -78,12 +75,9 @@ class ProfPicComponent extends React.Component {
           { icon }
           <img
             onMouseEnter={ this.handleShowButton }
-            onClick={ this.handleCoverModal }
+            onClick={ this.handleProfileModal }
             src={ this.props.user.profilePic }>
           </img>
-          <p className="user-name">
-            { this.props.user.name }
-          </p>
         </div>
       </div>
     );
