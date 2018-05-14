@@ -30,12 +30,14 @@
   display: flex;
   justify-content: center;
 
+  .profile-pic-modal-wrapper {
   .cover-pic-modal-wrapper {
     background-color: #060606;
     position: fixed;
     top: 20%;
     padding: 20px;
 
+    .form-and-button-edit-profile {
     .form-and-button-edit-cover {
       display: flex;
 
@@ -43,8 +45,8 @@
         display: flex;
         flex-direction: column;
       }
-    }
-  }
+    }}
+  }}
 }
 
 

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 const Auth = ({ component: Component, path, loggedIn, location }) => {
+
+  if (location.pathname === '/' && loggedIn) return <Redirect to="/feed" />;
   return (
     <Route path={ path } render={ (props) => {
         return (
@@ -16,11 +18,10 @@ const Auth = ({ component: Component, path, loggedIn, location }) => {
 const Protected = ({ component: Component, path, loggedIn }) => {
   return (
     <Route path={ path } render={ (props) => {
-        return (
-          (loggedIn ? (<Component { ...props } />) : (<Redirect to='/' />))
-        );
-      }}
-    />
+      return (
+        (loggedIn ? (<Component { ...props } />) : (<Redirect to='/' />))
+      );
+    }}/>
   );
 };
 

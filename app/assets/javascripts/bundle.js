@@ -31790,7 +31790,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // MISSING STUFF
-
 // - FRIENDSHIPS - fix pending friends, accepting, etc.
 // - HANDLING ERRORS - add error handling
 
@@ -48478,6 +48477,7 @@ var _reactRouter = __webpack_require__(13);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App(props) {
+  debugger;
   return _react2.default.createElement(
     'div',
     null,
@@ -49021,6 +49021,7 @@ var _user_actions = __webpack_require__(21);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  debugger;
   return {
     fetchAllPosts: function fetchAllPosts() {
       return dispatch((0, _posts_actions.fetchAllPosts)());
@@ -53036,6 +53037,8 @@ var Auth = function Auth(_ref) {
       loggedIn = _ref.loggedIn,
       location = _ref.location;
 
+
+  if (location.pathname === '/' && loggedIn) return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/feed' });
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
       return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '' + location.pathname });
     }
@@ -53049,8 +53052,7 @@ var Protected = function Protected(_ref2) {
 
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
       return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
-    }
-  });
+    } });
 };
 
 var mapStateToProps = function mapStateToProps(state) {
