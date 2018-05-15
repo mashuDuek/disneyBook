@@ -52138,17 +52138,30 @@ var ProfPicComponent = function (_React$Component) {
         'Loading...'
       );
 
+      var icon = void 0;
+      if (!this.state.hover) {
+        icon = null;
+      } else if (this.state.hover === 'friend') {
+        icon = _react2.default.createElement(
+          'div',
+          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
+          _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
+        );
+      } else {
+        icon = _react2.default.createElement(
+          'div',
+          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
+          _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
+        );
+      }
+
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'div',
-          { id: 'profile-photo' },
-          _react2.default.createElement(
-            'div',
-            { className: 'icon-edit-profile', onClick: this.handleProfileModal },
-            _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
-          ),
+          { id: 'profile-photo', onMouseLeave: this.handleHideButton },
+          icon,
           _react2.default.createElement('img', {
             onMouseEnter: this.handleShowButton,
             onClick: this.handleProfileModal,

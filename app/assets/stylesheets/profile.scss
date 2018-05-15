@@ -77,17 +77,26 @@
 .icon-edit-cover {
   position: absolute;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 70px;
-  margin-left: 30px;
+  top: 70px;
+  left: 30px;
   background-color: #060606;
-  border: 1px solid #FEFEFE;
   color: #FEFEFE;
   padding-left: 15px;
   padding-right: 15px;
   border-radius: 5px;
+}
+
+.icon-edit-profile {
+  position: absolute;
+  top: -25px;
+  left: 56px;
+  background-color: #060606;
+  color: #FEFEFE;
+  z-index: 1;
+  padding: 3px;
+  padding-bottom: 2px;
+  border-radius: 2px;
 }
 
 #cover-and-profile-pics {
