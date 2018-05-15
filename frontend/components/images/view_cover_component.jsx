@@ -8,7 +8,7 @@ class ViewCover extends React.Component {
 
   render () {
     return(
-      <div className="cover-pic-modal-wrapper">
+      <div className="pic-modal-wrapper">
         <div className='edit-cover-pic'>
           <img src={ this.props.user.coverPic }></img>
         </div>

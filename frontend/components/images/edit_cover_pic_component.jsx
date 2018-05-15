@@ -58,9 +58,9 @@ class EditCoverPicComponent extends React.Component {
       image = <img src={ this.state.imageUrl }></img>;
     }
     return (
-      <div className="cover-pic-modal-wrapper">
+      <div className="pic-modal-wrapper">
         { image }
-        <div className='form-and-button-edit-cover'>
+        <div className='form-and-button-edit-image'>
           <button onClick={ this.handleUpdateCover }>Edit Cover Pic</button>
           { input }
         </div>

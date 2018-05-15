@@ -30,14 +30,17 @@
   display: flex;
   justify-content: center;
 
-  .profile-pic-modal-wrapper {
-  .cover-pic-modal-wrapper {
+  .pic-modal-wrapper {
     background-color: #060606;
     position: fixed;
     top: 20%;
     padding: 20px;
 
-    .form-and-button-edit-profile {
+    img {
+      width: 60%;
+      height: 60%;
+    }
+
     .form-and-button-edit-cover {
       display: flex;
 
@@ -45,8 +48,8 @@
         display: flex;
         flex-direction: column;
       }
-    }}
-  }}
+    }
+  }
 }
 
 
@@ -235,11 +238,4 @@
 
 #root {
   background-color: #e9ebee;
-}
-
-.profile-pic-modal-wrapper {
-  img {
-    width: 60%;
-    height: 60%;
-  }
 }

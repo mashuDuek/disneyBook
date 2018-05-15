@@ -51791,6 +51791,10 @@ var _friend_detail_component = __webpack_require__(379);
 
 var _friend_detail_component2 = _interopRequireDefault(_friend_detail_component);
 
+var _profile_pic_component = __webpack_require__(390);
+
+var _profile_pic_component2 = _interopRequireDefault(_profile_pic_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51894,7 +51898,7 @@ var ProfileComponent = function (_React$Component) {
               showModal: this.props.showModal,
               updateCover: this.props.updateCover
             }),
-            _react2.default.createElement(ProfPicComponent, { user: this.props.user }),
+            _react2.default.createElement(_profile_pic_component2.default, { user: this.props.user }),
             _react2.default.createElement(
               'div',
               { id: 'profile-bar-component' },
@@ -52136,30 +52140,17 @@ var ProfPicComponent = function (_React$Component) {
         'Loading...'
       );
 
-      var icon = void 0;
-      if (!this.state.hover) {
-        icon = null;
-      } else if (this.state.hover === 'friend') {
-        icon = _react2.default.createElement(
-          'div',
-          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
-          _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
-        );
-      } else {
-        icon = _react2.default.createElement(
-          'div',
-          { className: 'icon-edit-profile', onClick: this.handleProfileModal },
-          _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
-        );
-      }
-
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'div',
           { id: 'profile-photo' },
-          icon,
+          _react2.default.createElement(
+            'div',
+            { className: 'icon-edit-profile', onClick: this.handleProfileModal },
+            _react2.default.createElement('i', { className: 'fa fa-camera', id: 'camera-icon', 'aria-hidden': 'true' })
+          ),
           _react2.default.createElement('img', {
             onMouseEnter: this.handleShowButton,
             onClick: this.handleProfileModal,
@@ -52213,7 +52204,7 @@ var ViewProfile = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'profile-pic-modal-wrapper' },
+        { className: 'pic-modal-wrapper' },
         _react2.default.createElement(
           'div',
           { className: 'edit-profile-pic' },
@@ -52332,11 +52323,11 @@ var EditProfilePicComponent = function (_React$Component) {
       }
       return _react2.default.createElement(
         "div",
-        { className: "profile-pic-modal-wrapper" },
+        { className: "pic-modal-wrapper" },
         image,
         _react2.default.createElement(
           "div",
-          { className: "form-and-button-edit-profile" },
+          { className: "form-and-button-edit-image" },
           _react2.default.createElement(
             "button",
             { onClick: this.handleUpdateCover },
@@ -52865,11 +52856,11 @@ var EditCoverPicComponent = function (_React$Component) {
       }
       return _react2.default.createElement(
         "div",
-        { className: "cover-pic-modal-wrapper" },
+        { className: "pic-modal-wrapper" },
         image,
         _react2.default.createElement(
           "div",
-          { className: "form-and-button-edit-cover" },
+          { className: "form-and-button-edit-image" },
           _react2.default.createElement(
             "button",
             { onClick: this.handleUpdateCover },
@@ -52925,7 +52916,7 @@ var ViewCover = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'cover-pic-modal-wrapper' },
+        { className: 'pic-modal-wrapper' },
         _react2.default.createElement(
           'div',
           { className: 'edit-cover-pic' },
@@ -53398,6 +53389,71 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports['default'] = thunk;
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProfPicComponent = function (_React$Component) {
+  _inherits(ProfPicComponent, _React$Component);
+
+  function ProfPicComponent() {
+    _classCallCheck(this, ProfPicComponent);
+
+    return _possibleConstructorReturn(this, (ProfPicComponent.__proto__ || Object.getPrototypeOf(ProfPicComponent)).apply(this, arguments));
+  }
+
+  _createClass(ProfPicComponent, [{
+    key: "render",
+    value: function render() {
+      if (!this.props.user) _react2.default.createElement(
+        "p",
+        null,
+        "Loading..."
+      );
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { id: "profile-photo" },
+          _react2.default.createElement("img", { src: this.props.user.profilePic }),
+          _react2.default.createElement(
+            "p",
+            { className: "user-name" },
+            this.props.user.name
+          )
+        )
+      );
+    }
+  }]);
+
+  return ProfPicComponent;
+}(_react2.default.Component);
+
+exports.default = ProfPicComponent;
 
 /***/ })
 /******/ ]);

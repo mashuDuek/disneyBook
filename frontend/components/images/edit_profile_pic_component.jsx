@@ -58,9 +58,9 @@ class EditProfilePicComponent extends React.Component {
       image = <img src={ this.state.imageUrl }></img>;
     }
     return (
-      <div className="profile-pic-modal-wrapper">
+      <div className="pic-modal-wrapper">
         { image }
-        <div className="form-and-button-edit-profile">
+        <div className="form-and-button-edit-image">
           <button onClick={ this.handleUpdateCover }>Edit Profile Pic</button>
           { input }
         </div>

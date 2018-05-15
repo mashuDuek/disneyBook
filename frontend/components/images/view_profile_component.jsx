@@ -8,7 +8,7 @@ class ViewProfile extends React.Component {
 
   render () {
     return(
-      <div className="profile-pic-modal-wrapper">
+      <div className="pic-modal-wrapper">
         <div className='edit-profile-pic'>
           <img src={ this.props.user.profilePic }></img>
         </div>

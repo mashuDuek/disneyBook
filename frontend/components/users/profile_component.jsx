@@ -5,6 +5,7 @@ import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
 import CoverPhotoContainer from '../images/cover_photo_container';
 import FriendDetailComponent from './friend_detail_component';
+import ProfPicComponent from '../images/profile_pic_component';
 
 class ProfileComponent extends React.Component {
   constructor(props) {
