@@ -3,8 +3,8 @@
 [Live](https://disneybook.herokuapp.com/#/)
 
 disneyBook is a social media network website, solemnly for Disney characters.
-The backend was constructed using Ruby on Rails, and the front with React Redux
-and PostgreSQL.
+The backend was constructed using Ruby on Rails, and the front with React and Redux.
+The project uses a PostgreSQL database. 
 
 ### Features
 
