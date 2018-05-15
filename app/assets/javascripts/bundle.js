@@ -48477,7 +48477,6 @@ var _reactRouter = __webpack_require__(13);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App(props) {
-  debugger;
   return _react2.default.createElement(
     'div',
     null,
@@ -49021,7 +49020,6 @@ var _user_actions = __webpack_require__(21);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  debugger;
   return {
     fetchAllPosts: function fetchAllPosts() {
       return dispatch((0, _posts_actions.fetchAllPosts)());

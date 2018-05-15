@@ -14,7 +14,6 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch } from 'react-router';
 
 const App = (props) => {
-  debugger
   return(
     <div>
       <ModalContainer />

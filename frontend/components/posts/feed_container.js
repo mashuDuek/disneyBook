@@ -6,7 +6,6 @@ import { fetchUsers } from '../../actions/user_actions';
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  debugger
   return {
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     fetchUsers: () => dispatch(fetchUsers())
