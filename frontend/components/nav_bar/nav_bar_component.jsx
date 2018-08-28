@@ -3,12 +3,33 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import NavBarActionContainer from './nav_bar_action_container';
 import PendingReqsContainer from './nav_bar_pending_reqs_container';
 import PendingReqs from './nav_bar_pending_reqs';
+import SearchResults from './search_results_component';
 
 class NavBar extends React.Component {
   constructor (props) {
     super (props);
+
+    this.state = { search: "" };
+
     this.showActionsContainer = this.showActionsContainer.bind(this);
     this.showPendingRequests = this.showPendingRequests.bind(this);
+    this.handleSearchInput = this.handleSearchInput.bind(this);
+  }
+
+  handleSearchInput (e) {
+    if (e.currentTarget.value === "") {
+      this.props.hideDropdown();
+    } else {
+      this.setState(
+        { search: e.currentTarget.value },
+        () => this.props.fetchSearchedUsers(this.state.search).then(() => {
+          this.props.showDropdown(
+            <SearchResults users={this.props.searchedUsers}>
+            </SearchResults>
+          );
+        })
+      );
+    }
   }
 
   handleLogout () {
@@ -51,7 +72,10 @@ class NavBar extends React.Component {
     return (
       <div className="nav-bar">
         <form id="search-form">
-          <input placeholder="i do nothing yet"></input>
+          <input
+            onChange={this.handleSearchInput}
+            placeholder="Search Users">
+          </input>
           <i className="fa fa-search" aria-hidden="true"></i>
         </form>
 

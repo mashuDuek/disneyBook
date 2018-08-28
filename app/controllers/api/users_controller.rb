@@ -1,5 +1,10 @@
 class Api::UsersController < ApplicationController
 
+  def search
+    @users = User.where("name ilike '%#{params[:input]}%'")
+    render :index
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save!
