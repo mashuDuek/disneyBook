@@ -11,3 +11,10 @@ export const fetchUser = (user) => {
     url: `/api/users/${user.id}`
   });
 };
+
+export const searchUsers = input => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/search/${input}`,
+  });
+};

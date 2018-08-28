@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     resources :friendships, only: [:create, :destroy, :update]
     resources :comments, only: [:create, :update, :destroy, :index]
     resources :posts, only: [:create, :destroy, :update, :index, :show]
+
+    get '/search/:input', to: 'users#search'
+    # search route for now is only for users, so setting
+    # the /search for users controller is fine
   end
 
   root to: 'static_pages#root'

@@ -3,7 +3,7 @@ import NavBar from './nav_bar_component';
 import { withRouter } from 'react-router-dom';
 import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
 import { logout } from '../../actions/session_actions';
-
+import { searchUsers } from '../../actions/user_actions';
 
 const mapStatetoProps = (state, ownProps) => {
   let pendingFriends;
@@ -22,7 +22,8 @@ const mapStatetoProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     hideDropdown: () => dispatch(hideDropdown()),
-    showDropdown: (comp) => dispatch(showDropdown(comp)),
+    showDropdown: comp => dispatch(showDropdown(comp)),
+    searchUsers: input => dispatch(searchUsers(input)),
     logout: () => dispatch(logout())
   };
 };

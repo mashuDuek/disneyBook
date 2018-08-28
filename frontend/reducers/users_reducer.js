@@ -1,7 +1,11 @@
 import { merge } from 'lodash';
-import { RECEIVE_USERS, RECEIVE_USER } from '../actions/user_actions';
 import { RECEIVE_POST } from '../actions/posts_actions';
 import { RECEIVE_COVER_PIC } from '../actions/image_actions';
+import {
+  RECEIVE_USERS,
+  RECEIVE_USER,
+  RECEIVE_SEARCHED_USERS
+} from '../actions/user_actions';
 
 const preloadedState = {};
 
