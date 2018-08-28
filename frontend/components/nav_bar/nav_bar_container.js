@@ -13,6 +13,9 @@ const mapStatetoProps = (state, ownProps) => {
   } else {
     pendingFriends = state.session.currentUser.pendingFriends;
   }
+
+  // here, instead of grabbing currentUser from session slice,
+  // should be grabbed from entities.users, given the currentUserId
   return {
     pendingFriends,
     currentUser: state.session.currentUser,
