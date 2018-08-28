@@ -3,6 +3,7 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import NavBarActionContainer from './nav_bar_action_container';
 import PendingReqsContainer from './nav_bar_pending_reqs_container';
 import PendingReqs from './nav_bar_pending_reqs';
+import SearchResults from './search_results_component';
 
 class NavBar extends React.Component {
   constructor (props) {
@@ -17,7 +18,12 @@ class NavBar extends React.Component {
   handleSearchBar (e) {
     this.setState(
       { search: e.currentTarget.value },
-      () => this.props.searchUsers(this.state.search)
+      () => this.props.searchUsers(this.state.search).then(() => {
+        this.props.showDropdown(
+          <SearchResults users={this.props.searchedUsers}>
+          </SearchResults>
+        );
+      })
     );
   }
 

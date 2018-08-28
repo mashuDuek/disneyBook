@@ -25188,7 +25188,8 @@ var mapStatetoProps = function mapStatetoProps(state, ownProps) {
 
   return {
     pendingFriends: pendingFriends,
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
+    searchedUsers: state.entities.search
   };
 };
 
@@ -49709,6 +49710,10 @@ var _nav_bar_pending_reqs = __webpack_require__(134);
 
 var _nav_bar_pending_reqs2 = _interopRequireDefault(_nav_bar_pending_reqs);
 
+var _search_results_component = __webpack_require__(380);
+
+var _search_results_component2 = _interopRequireDefault(_search_results_component);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49739,7 +49744,9 @@ var NavBar = function (_React$Component) {
       var _this2 = this;
 
       this.setState({ search: e.currentTarget.value }, function () {
-        return _this2.props.searchUsers(_this2.state.search);
+        return _this2.props.searchUsers(_this2.state.search).then(function () {
+          _this2.props.showDropdown(_react2.default.createElement(_search_results_component2.default, { users: _this2.props.searchedUsers }));
+        });
       });
     }
   }, {
@@ -52064,6 +52071,127 @@ var searchReducer = function searchReducer() {
 };
 
 exports.default = searchReducer;
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(4);
+
+var _search_result_item = __webpack_require__(381);
+
+var _search_result_item2 = _interopRequireDefault(_search_result_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchResults = function (_React$Component) {
+  _inherits(SearchResults, _React$Component);
+
+  function SearchResults() {
+    _classCallCheck(this, SearchResults);
+
+    return _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).apply(this, arguments));
+  }
+
+  _createClass(SearchResults, [{
+    key: 'render',
+    value: function render() {
+      var users = Object.values(this.props.users).map(function (user, id) {
+        return _react2.default.createElement(
+          'li',
+          { key: id },
+          _react2.default.createElement(_search_result_item2.default, { user: user })
+        );
+      });
+
+      return _react2.default.createElement(
+        'ul',
+        { className: 'searched-users' },
+        users
+      );
+    }
+  }]);
+
+  return SearchResults;
+}(_react2.default.Component);
+
+exports.default = SearchResults;
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchResultItem = function (_React$Component) {
+  _inherits(SearchResultItem, _React$Component);
+
+  function SearchResultItem() {
+    _classCallCheck(this, SearchResultItem);
+
+    return _possibleConstructorReturn(this, (SearchResultItem.__proto__ || Object.getPrototypeOf(SearchResultItem)).apply(this, arguments));
+  }
+
+  _createClass(SearchResultItem, [{
+    key: 'render',
+    value: function render() {
+      debugger;
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'a',
+          { src: '/users/' + this.props.user.id },
+          this.props.user.name
+        )
+      );
+    }
+  }]);
+
+  return SearchResultItem;
+}(_react2.default.Component);
+
+exports.default = SearchResultItem;
 
 /***/ })
 /******/ ]);

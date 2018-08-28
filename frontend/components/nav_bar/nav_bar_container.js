@@ -16,6 +16,7 @@ const mapStatetoProps = (state, ownProps) => {
   return {
     pendingFriends,
     currentUser: state.session.currentUser,
+    searchedUsers: state.entities.search
   };
 };
 
