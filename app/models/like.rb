@@ -2,7 +2,7 @@
 #
 # Table name: likes
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  liker_id   :integer          not null
 #  post_id    :integer
 #  comment_id :integer

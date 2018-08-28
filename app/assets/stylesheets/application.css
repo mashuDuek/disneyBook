@@ -84,7 +84,7 @@ body {
   flex-direction: row;
   background-color: #edf0f5;
   justify-content: space-around;
-  height: calc(100vh - 82px);
+  height: calc(100vh - 125px);
 }
 
 #signup-info-component {
@@ -140,9 +140,12 @@ body {
 
 #footer-links {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
-  max-width: 500px;
   font-size: 10px;
   font-family: sans-serif;
+  padding: 10px;
+}
+
+#footer-links a {
+  font-size: 25px;
 }

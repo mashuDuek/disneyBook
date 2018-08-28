@@ -2,7 +2,7 @@
 #
 # Table name: posts
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  author_id   :integer          not null
 #  receiver_id :integer          not null
 #  body        :string           not null
