@@ -1,0 +1,15 @@
+.searched-users {
+  left: 1%;
+  border: .5px solid #CBBABA;
+  position: fixed;
+  margin-top: 44px;
+  padding: 10px;
+  background-color: #FEFEFE;
+  z-index: 1;
+
+  .users-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+}

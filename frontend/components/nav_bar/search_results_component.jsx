@@ -13,9 +13,11 @@ class SearchResults extends React.Component {
     });
 
     return (
-      <ul className="searched-users">
-        {users}
-      </ul>
+      <div className="searched-users">
+        <ul className="users-list">
+          {users}
+        </ul>
+      </div>
     );
   }
 }

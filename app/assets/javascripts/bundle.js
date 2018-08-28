@@ -52124,9 +52124,13 @@ var SearchResults = function (_React$Component) {
       });
 
       return _react2.default.createElement(
-        'ul',
+        'div',
         { className: 'searched-users' },
-        users
+        _react2.default.createElement(
+          'ul',
+          { className: 'users-list' },
+          users
+        )
       );
     }
   }]);
