@@ -1,15 +1,27 @@
 .searched-users {
-  left: 1%;
+  left: 5%;
   border: .5px solid #CBBABA;
   position: fixed;
   margin-top: 44px;
   padding: 10px;
   background-color: #FEFEFE;
   z-index: 1;
+  max-height: 100vh;
+  overflow: scroll;
 
   .users-list {
     display: flex;
     flex-direction: column;
-  }
 
+    .user-item {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+
+      img {
+        height: 30px;
+        margin-right: 5px;
+      }
+    }
+  }
 }

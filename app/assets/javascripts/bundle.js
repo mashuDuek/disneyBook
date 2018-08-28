@@ -49743,11 +49743,16 @@ var NavBar = function (_React$Component) {
     value: function handleSearchBar(e) {
       var _this2 = this;
 
-      this.setState({ search: e.currentTarget.value }, function () {
-        return _this2.props.searchUsers(_this2.state.search).then(function () {
-          _this2.props.showDropdown(_react2.default.createElement(_search_results_component2.default, { users: _this2.props.searchedUsers }));
+      if (e.currentTarget.value === "") {
+        this.props.hideDropdown();
+        this.setState({ search: "" });
+      } else {
+        this.setState({ search: e.currentTarget.value }, function () {
+          return _this2.props.searchUsers(_this2.state.search).then(function () {
+            _this2.props.showDropdown(_react2.default.createElement(_search_results_component2.default, { users: _this2.props.searchedUsers }));
+          });
         });
-      });
+      }
     }
   }, {
     key: 'handleLogout',
@@ -52115,7 +52120,10 @@ var SearchResults = function (_React$Component) {
   _createClass(SearchResults, [{
     key: 'render',
     value: function render() {
-      var users = Object.values(this.props.users).map(function (user, id) {
+      var userValues = Object.values(this.props.users);
+      if (userValues.length < 1) return null;
+
+      var users = userValues.map(function (user, id) {
         return _react2.default.createElement(
           'li',
           { key: id },
@@ -52179,13 +52187,13 @@ var SearchResultItem = function (_React$Component) {
   _createClass(SearchResultItem, [{
     key: 'render',
     value: function render() {
-      debugger;
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'user-item' },
+        _react2.default.createElement('img', { src: this.props.user.profilePic }),
         _react2.default.createElement(
-          'a',
-          { src: '/users/' + this.props.user.id },
+          _reactRouterDom.Link,
+          { to: '/users/' + this.props.user.id },
           this.props.user.name
         )
       );

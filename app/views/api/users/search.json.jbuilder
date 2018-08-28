@@ -3,5 +3,3 @@
     json.partial! 'user', user: user
   end
 end
-
-json.searchedIds @users.ids 

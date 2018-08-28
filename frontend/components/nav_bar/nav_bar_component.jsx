@@ -16,15 +16,20 @@ class NavBar extends React.Component {
   }
 
   handleSearchBar (e) {
-    this.setState(
-      { search: e.currentTarget.value },
-      () => this.props.searchUsers(this.state.search).then(() => {
-        this.props.showDropdown(
-          <SearchResults users={this.props.searchedUsers}>
-          </SearchResults>
-        );
-      })
-    );
+    if (e.currentTarget.value === "") {
+      this.props.hideDropdown();
+      this.setState({ search: "" });
+    } else {
+      this.setState(
+        { search: e.currentTarget.value },
+        () => this.props.searchUsers(this.state.search).then(() => {
+          this.props.showDropdown(
+            <SearchResults users={this.props.searchedUsers}>
+            </SearchResults>
+          );
+        })
+      );
+    }
   }
 
   handleLogout () {

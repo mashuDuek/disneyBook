@@ -3,10 +3,12 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 
 class SearchResultItem extends React.Component {
   render() {
-    debugger
     return (
-      <div>
-        <a src={`/users/${this.props.user.id}`}>{this.props.user.name}</a>
+      <div className="user-item">
+        <img src={this.props.user.profilePic}></img>
+        <Link to={`/users/${this.props.user.id}`}>
+          {this.props.user.name}
+        </Link>
       </div>
     );
   }
