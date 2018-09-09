@@ -4,12 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { createPost } from '../../actions/posts_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-
+  // debugger
   return {
     currentUser: state.session.currentUser || {},
-    user: ownProps.user,
+    user: state.entities.users[ownProps.match.params.userId] || state.session.currentUser
   };
 };
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     create: (post) => dispatch(createPost(post))

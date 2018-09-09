@@ -19,26 +19,23 @@ class NewPostComponent extends React.Component {
     } else {
       receiver = this.props.user;
     }
+
     this.setState({ receiverId: receiver.id });
   }
 
-  componentWillMount () {
-    if (this.props.user) {
-      if (this.props.user.id !== this.state.receiverId) {
-        this.setState({ receiverId: this.props.user.id });
-      }
-    }
-
-    if (!this.state.receiverId) {
-      this.setState({ receiverId: this.props.currentUser.id });
+  componentDidUpdate(newProps) {
+    const receiverId = parseInt(newProps.match.params.userId);
+    if (this.state.receiverId !== receiverId) {
+      this.setState({ receiverId });
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.create({ body: this.state.body, receiver_id: this.state.receiverId }).then(() => {
-      this.setState({ body: '' });
-    });
+    this.props.create({
+      body: this.state.body,
+      receiver_id: this.state.receiverId
+    }).then(() => this.setState({ body: '' }));
   }
 
   handleChange(e) {
