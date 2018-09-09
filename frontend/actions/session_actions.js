@@ -3,42 +3,42 @@ import { receiveErrors } from './errors_actions';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 
-export const receiveCurrentUser = (currentUser) => {
+export const receiveCurrentUser = currentUser => {
   return {
     type: RECEIVE_CURRENT_USER,
-    currentUser: currentUser
+    user: currentUser
   };
 };
 
-export const signup = (user) => {
-  return (dispatch) => {
+export const signup = user => {
+  return dispatch => {
     return APIUtil.signup(user).
       then(
-        (user) => dispatch(receiveCurrentUser(user)),
-        (errors) => {
+        user => dispatch(receiveCurrentUser(user)),
+        errors => {
           dispatch(receiveErrors([errors.statusText]));
         }
     );
   };
 };
 
-export const login = (user) => {
-  return (dispatch) => {
+export const login = user => {
+  return dispatch => {
     return APIUtil.login(user).
       then(
-        (user) => dispatch(receiveCurrentUser(user)),
-        (errors) => dispatch(receiveErrors(errors))
+        user => dispatch(receiveCurrentUser(user)),
+        errors => dispatch(receiveErrors(errors))
     );
   };
 };
 
 
 export const logout = () => {
-  return (dispatch) => {
+  return dispatch => {
     return APIUtil.logout().
       then(
         () => dispatch(receiveCurrentUser(null)),
-        (errors) => dispatch(receiveErrors(errors))
+        errors => dispatch(receiveErrors(errors))
     );
   };
 };

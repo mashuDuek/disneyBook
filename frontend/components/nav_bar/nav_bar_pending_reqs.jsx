@@ -14,16 +14,16 @@ class PendingReqs extends React.Component {
   }
 
   render() {
+    const pendingIds = this.props.pendingFriendIds;
     let pendingFriends;
     let requestCount;
-    if (!this.props.pendingFriends) {
+    if (!pendingIds) {
       pendingFriends = null;
       requestCount = 0;
     } else {
-      const stringIds = Object.keys(this.props.pendingFriends);
-      requestCount = stringIds.length;
-      pendingFriends = stringIds.map((id) => {
-        const requester = this.props.pendingFriends[parseInt(id)];
+      requestCount = pendingIds.length;
+      pendingFriends = pendingIds.map(id => {
+        const requester = this.props.users[parseInt(id)];
         return (
           <li key={requester.id}>
             <img src={requester.profilePic}></img>

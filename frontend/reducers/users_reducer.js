@@ -2,6 +2,7 @@ import { merge } from 'lodash';
 import { RECEIVE_USERS, RECEIVE_USER } from '../actions/user_actions';
 import { RECEIVE_POST, RECEIVE_POSTS } from '../actions/posts_actions';
 import { RECEIVE_COVER_PIC } from '../actions/image_actions';
+import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
 
 const preloadedState = {};
 
@@ -16,6 +17,7 @@ const userReducer = (state = preloadedState, action ) => {
       });
       return newState;
     }
+    case RECEIVE_CURRENT_USER:
     case RECEIVE_USER: {
       const newUsers = Object.assign({}, state, { [action.user.id]: action.user });
       return newUsers;

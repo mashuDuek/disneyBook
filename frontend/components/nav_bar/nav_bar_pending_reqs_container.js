@@ -5,8 +5,11 @@ import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
 import { acceptFriendship } from '../../actions/friendship_actions';
 
 const mapStatetoProps = (state, ownProps) => {
+  debugger
+  const currentUser = state.entities.users[state.session.currentUser.id];
   return {
-    pendingFriends: state.session.currentUser.pendingFriends
+    pendingFriendIds: currentUser.pendingFriendIds,
+    users: state.entities.users
   };
 };
 
