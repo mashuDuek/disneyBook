@@ -27,10 +27,11 @@ export const destroyComment = (comment) => {
   };
 };
 
-export const receiveComments = (comments) => {
+export const receiveComments = payload => {
   return {
     type: RECEIVE_COMMENTS,
-    comments
+    comments: payload.comments,
+    users: payload.users
   };
 };
 

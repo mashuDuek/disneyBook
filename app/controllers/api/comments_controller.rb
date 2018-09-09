@@ -13,10 +13,10 @@ class Api::CommentsController < ApplicationController
   def index
     ids = current_user.accepted_friends.map(&:id)
     ids << current_user.id
-    good_posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
-    post_ids = good_posts.map(&:id)
-    comments = Comment.where(author_id: ids) + Comment.where(post_id: post_ids)
-    @comments = comments.uniq
+    posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
+    # Comment.where(author_id: ids)
+    @comments = Comment.where(post_id: posts.map(&:id))
+    @users = User.where(id: @comments.map(&:author_id))
     render :index
   end
 

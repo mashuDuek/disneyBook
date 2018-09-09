@@ -22,6 +22,7 @@ class CommentsComponent extends React.Component {
   }
 
   // componentDidMount() {
+  //   debugger
   //   if (!this.props.users[this.props.comment.author_id]) {
   //     this.props.fetchUser({ id: this.props.comment.author_id });
   //   }
