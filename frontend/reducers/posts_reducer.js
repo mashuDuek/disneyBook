@@ -27,6 +27,7 @@ const postReducer = (state = preloadedState, action) => {
     }
     case RECEIVE_POSTS: {
       newState = Object.assign({}, state);
+      debugger
       action.posts.map(post => newState[post.id] = post);
       return newState;
     }
