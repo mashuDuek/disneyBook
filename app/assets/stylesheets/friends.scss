@@ -1,3 +1,9 @@
+.dropdown-backdrop {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
 .dropdown #pending-friends {
   background-color: #FEFEFE;
   border: 1px solid #CBBABA;

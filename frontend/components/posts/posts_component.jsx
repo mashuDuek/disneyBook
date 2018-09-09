@@ -21,7 +21,6 @@ class PostsComponent extends React.Component {
   }
 
   componentDidMount () {
-    debugger
     this.props.fetchAllPosts();
     this.props.fetchAllComments();
   }
