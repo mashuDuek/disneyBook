@@ -30,23 +30,20 @@ class ProfileComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser({ id: this.props.match.params.userId });
-    this.props.fetchAllComments();
+    this.props.fetchUser({ id: this.props.match.params.userId }).then(() => {
+      this.props.fetchAllComments();
+    });
   }
 
   render(){
+    if (!this.props.user) return <p>Loading...</p>;
+
     const drops = this.props.dropdowns;
     let dropdownAction;
     if (Boolean(drops.displayed) || Boolean(drops.component)) {
       dropdownAction = this.props.hideDropdown;
     } else {
       dropdownAction = (e) => e.stopPropagation();
-    }
-
-    if (!this.props.user) {
-      return (
-        <p>Loading...</p>
-      );
     }
 
     let buttonText;

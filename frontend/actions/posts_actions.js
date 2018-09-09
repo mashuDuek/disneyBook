@@ -27,10 +27,11 @@ export const destroyPost = (post) => {
   };
 };
 
-export const receivePosts = (posts) => {
+export const receivePosts = ({ posts, users }) => {
   return {
     type: RECEIVE_POSTS,
-    posts
+    posts,
+    users
   };
 };
 
