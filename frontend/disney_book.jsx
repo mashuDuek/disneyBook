@@ -16,7 +16,3 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
 });
-
-// MISSING STUFF
-// - FRIENDSHIPS - fix pending friends, accepting, etc.
-// - HANDLING ERRORS - add error handling

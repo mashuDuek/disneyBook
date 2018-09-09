@@ -18,7 +18,7 @@ const mapStatetoProps = (state, ownProps) => {
   // should be grabbed from entities.users, given the currentUserId
   return {
     pendingFriends,
-    currentUser: state.session.currentUser,
+    currentUser: state.entities.users[state.session.currentUser.id],
     searchedUsers: state.entities.search
   };
 };

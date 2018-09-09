@@ -18,9 +18,10 @@ const userReducer = (state = preloadedState, action ) => {
       return newState;
     }
     case RECEIVE_CURRENT_USER:
+      if (!action.user) return state;
+      return Object.assign({}, state, { [action.user.id]: action.user });
     case RECEIVE_USER: {
-      const newUsers = Object.assign({}, state, { [action.user.id]: action.user });
-      return newUsers;
+      return Object.assign({}, state, { [action.user.id]: action.user });
     }
     case RECEIVE_POST:
       return Object.assign({}, state, action.users);

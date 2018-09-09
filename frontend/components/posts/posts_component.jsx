@@ -11,22 +11,22 @@ class PostsComponent extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleDropdown = this.handleDropdown.bind(this);
+  }
+
+  handleDropdown () {
+    if (this.props.dropdownOpen) {
+      this.props.hideDropdown();
+    }
   }
 
   componentDidMount () {
-    this.props.fetchUsers();
+    this.props.fetchAllPosts();
+    // this.props.fetchUsers();
     this.props.fetchAllComments();
   }
 
   render() {
-    const drops = this.props.dropdowns;
-    let dropdownAction;
-    if (Boolean(drops.displayed) || Boolean(drops.component)) {
-      dropdownAction = this.props.hideDropdown;
-    } else {
-      dropdownAction = (e) => { e.stopPropagation(); };
-    }
-
     if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
     let stringIds;
     if (!this.props.currentUser.acceptedFriends) {
@@ -61,7 +61,7 @@ class PostsComponent extends React.Component {
       );
     });
     return (
-      <div className="posts-and-info-components" onClick={ dropdownAction }>
+      <div className="posts-and-info-components" onClick={this.handleDropdown}>
         <LeftInfoComponent />
         <div className="create-post-all-posts">
           <NewPostContainer />

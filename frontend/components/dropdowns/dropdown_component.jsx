@@ -6,8 +6,12 @@ class DropdownComponent extends React.Component {
       return null;
     } else {
       return(
-        <div className="dropdown" onClick={(e) => e.stopPropagation()}>
-          {this.props.component}
+        <div className="dropdown-backdrop" onClick={this.props.hideDropdown}>
+          <div
+            className="dropdown"
+            onClick={(e) => e.stopPropagation()}>
+            {this.props.component}
+          </div>
         </div>
       );
     }

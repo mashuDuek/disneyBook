@@ -32,14 +32,6 @@ class NavBar extends React.Component {
     }
   }
 
-  handleLogout () {
-    this.props.logout().then(this.props.history.push('/'));
-  }
-
-  componentWillUnmount() {
-    this.props.hideDropdown();
-  }
-
   showActionsContainer (e) {
     e.stopPropagation();
     this.props.showDropdown(<NavBarActionContainer />);

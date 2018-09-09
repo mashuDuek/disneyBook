@@ -8,6 +8,7 @@ import {
 } from '../../actions/posts_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { fetchAllComments } from '../../actions/comment_actions';
+import { fetchAllPosts } from '../../actions/posts_actions';
 import { logout } from '../../actions/session_actions';
 import { showModal, hideModal } from '../../actions/modal_actions';
 import { hideDropdown } from '../../actions/dropdown_actions';
@@ -18,9 +19,10 @@ const mapStatetoProps = (state, ownProps) => {
     users: state.entities.users,
     posts: state.entities.posts,
     errors: state.ui.errors,
-    dropdowns: state.ui.dropdowns
+    dropdownOpen: Boolean(state.ui.dropdowns.displayed)
   };
 };
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deletePost: (post) => dispatch(deletePost(post)),
@@ -30,7 +32,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     hideModal: () => dispatch(hideModal()),
     hideDropdown: () => dispatch(hideDropdown()),
     fetchUsers: () => dispatch(fetchUsers()),
-    fetchAllComments: () => dispatch(fetchAllComments())
+    fetchAllComments: () => dispatch(fetchAllComments()),
+    fetchAllPosts: () => dispatch(fetchAllPosts())
   };
 };
 

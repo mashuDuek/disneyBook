@@ -8,10 +8,6 @@ class FeedComponent extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.fetchAllPosts();
-  }
-
   render() {
     return (
       <NavBarContainer />
