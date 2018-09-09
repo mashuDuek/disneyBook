@@ -14,7 +14,7 @@ import NavBarContainer from './nav_bar/nav_bar_container';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
-const App = () => {
+const App = (props) => {
   return(
     <div>
       <ModalContainer />

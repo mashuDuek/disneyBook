@@ -7,7 +7,7 @@ import {
 
 const preloadedState = { currentUser: null };
 
-const sessionReducer = (state = preloadedState, action ) => {
+const sessionReducer = (state = preloadedState, action) => {
   Object.freeze(state);
 
   switch(action.type) {

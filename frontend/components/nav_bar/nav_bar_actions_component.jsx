@@ -7,9 +7,7 @@ class NavBarActionComponent extends React.Component {
   }
 
   handleLogout() {
-    this.props.logout();
-    this.props.hideDropdown();
-    this.props.history.push('/');
+    this.props.logout().then(this.props.hideDropdown);
   }
 
   render() {

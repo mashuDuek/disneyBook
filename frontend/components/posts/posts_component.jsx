@@ -21,13 +21,14 @@ class PostsComponent extends React.Component {
   }
 
   componentDidMount () {
+    debugger
     this.props.fetchAllPosts();
-    // this.props.fetchUsers();
     this.props.fetchAllComments();
   }
 
   render() {
     if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
+
     let stringIds;
     if (!this.props.currentUser.acceptedFriends) {
       stringIds = [];
@@ -36,7 +37,7 @@ class PostsComponent extends React.Component {
     }
 
     const allPosts = this.props.posts;
-    const acceptedFriendIds = stringIds.map((el) => parseInt(el));
+    const acceptedFriendIds = stringIds.map(el => parseInt(el));
     const that = this;
     let goodPosts = [];
     Object.keys(allPosts).forEach((id) => {
@@ -60,6 +61,7 @@ class PostsComponent extends React.Component {
         </li>
       );
     });
+
     return (
       <div className="posts-and-info-components" onClick={this.handleDropdown}>
         <LeftInfoComponent />
