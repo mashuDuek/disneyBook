@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { createPost } from '../../actions/posts_actions';
 
 const mapStatetoProps = (state, ownProps) => {
-  // debugger
   return {
     currentUser: state.session.currentUser || {},
     user: state.entities.users[ownProps.match.params.userId] || state.session.currentUser

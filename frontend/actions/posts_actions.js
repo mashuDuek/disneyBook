@@ -20,10 +20,10 @@ export const editPost = (post) => {
   };
 };
 
-export const destroyPost = (post) => {
+export const destroyPost = post => {
   return {
     type: DELETE_POST,
-    post: post
+    post
   };
 };
 

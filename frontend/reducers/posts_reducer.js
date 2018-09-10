@@ -44,7 +44,9 @@ const postReducer = (state = preloadedState, action) => {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }
     case DELETE_POST: {
-      return action.post;
+      newState = Object.assign({}, state);
+      delete newState[action.post.id];
+      return newState;
     }
     case DELETE_COMMENT: {
       newState = Object.assign({}, state);

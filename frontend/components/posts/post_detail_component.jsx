@@ -9,8 +9,6 @@ class PostDetailComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { dropdownVisible: false, users: false };
-
     this.handleDelete = this.handleDelete.bind(this);
     this.commentFocus = this.commentFocus.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);

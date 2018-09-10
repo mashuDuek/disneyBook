@@ -25,7 +25,8 @@ class NewPostComponent extends React.Component {
 
   componentDidUpdate(newProps) {
     const receiverId = parseInt(newProps.match.params.userId);
-    if (this.state.receiverId !== receiverId) {
+    // the check for greater than zero is in case receiverId may be NaN
+    if (this.state.receiverId !== receiverId && receiverId > 0) {
       this.setState({ receiverId });
     }
   }

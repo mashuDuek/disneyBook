@@ -26,39 +26,24 @@ class PostsComponent extends React.Component {
   }
 
   render() {
+    debugger
     if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
 
-    let stringIds;
-    if (!this.props.currentUser.acceptedFriends) {
-      stringIds = [];
-    } else {
-      stringIds = this.props.currentUser.acceptedFriends;
-    }
-
-    const allPosts = this.props.posts;
-    const acceptedFriendIds = stringIds.map(el => parseInt(el));
-    const that = this;
-    let goodPosts = [];
-    Object.keys(allPosts).forEach((id) => {
+    const friendIds = this.props.currentUser.acceptedFriends;
+    const posts = Object.values(this.props.posts).map(post => {
       if (
-          acceptedFriendIds.includes(allPosts[id].author_id) ||
-          allPosts[id].author_id === that.props.currentUser.id ||
-          allPosts[id].receiver_id === that.props.currentUser.id
+        friendIds.includes(post.author_id) ||
+        post.author_id === this.props.currentUser.id ||
+        post.receiver_id === this.props.currentUser.id
       ) {
-        goodPosts.push(allPosts[id]);
+        return (
+          <li key={ post.id } className='individual-post'>
+            <PostDetailContainer post={ post } />
+          </li>
+        );
+      } else {
+        return null;
       }
-    });
-
-    const postValues = values(goodPosts);
-    var posts = postValues.map((post) => {
-      if (!post) return null;
-      const author = this.props.users[post.author_id];
-      const receiver = this.props.users[post.receiver_id];
-      return(
-        <li key={ post.id } className='individual-post'>
-          <PostDetailContainer post={ post } />
-        </li>
-      );
     });
 
     return (
