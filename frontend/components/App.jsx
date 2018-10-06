@@ -6,7 +6,7 @@ import SessionLoginFormContainer from './session/session_form_container_login';
 import SessionSignUpFormContainer from './session/session_form_container_signup';
 import SessionFooter from './session/session_footer';
 import FeedComponent from './posts/feed_component';
-import PostsContainer from './posts/posts_container';
+import PostsComponent from './posts/posts_component';
 import ModalContainer from './modals/modal_container';
 import ProfileContainer from './users/profile_container';
 import DropdownContainer from './dropdowns/dropdown_container';
@@ -24,7 +24,7 @@ const App = (props) => {
       <AuthRoute exact path="/" component={ SessionSignUpFormContainer } />
       <AuthRoute exact path="/" component={ SessionFooter } />
       <ProtectedRoute path="/feed" component={ FeedComponent } />
-      <ProtectedRoute path="/feed" component={ PostsContainer } />
+      <ProtectedRoute path="/feed" component={ PostsComponent } />
       <ProtectedRoute path="/users/:userId" component={ ProfileContainer } />
     </div>
   );

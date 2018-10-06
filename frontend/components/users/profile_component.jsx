@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBarContainer from '../nav_bar/nav_bar_container';
 import ProfPhotoContainer from '../images/profile_photo_container';
-import UserInfoComponent from './user_info_component';
 import ProfilePostsContainer from './profile_posts_container';
 import CoverPhotoContainer from '../images/cover_photo_container';
 import FriendDetailComponent from './friend_detail_component';

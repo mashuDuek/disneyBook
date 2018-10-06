@@ -1,9 +1,18 @@
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import NewPostComponent from './new_post_component';
 import PostDetailComponent from './post_detail_component';
 import LeftInfoComponent from './left_info_component';
 import RightInfoComponent from './right_info_component';
+import { fetchAllComments } from '../../actions/comment_actions';
+import { fetchAllPosts } from '../../actions/posts_actions';
+import { hideDropdown } from '../../actions/dropdown_actions';
+import {
+  createPost,
+  updatePost,
+  deletePost
+} from '../../actions/posts_actions';
 
 class PostsComponent extends React.Component {
 
@@ -58,4 +67,24 @@ class PostsComponent extends React.Component {
   }
 }
 
-export default PostsComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.session.currentUser || {},
+    posts: state.entities.posts,
+    dropdownOpen: Boolean(state.ui.dropdowns.displayed)
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    hideDropdown: () => dispatch(hideDropdown()),
+    fetchAllComments: () => dispatch(fetchAllComments()),
+    fetchAllPosts: () => dispatch(fetchAllPosts())
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(PostsComponent));
+
