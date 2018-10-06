@@ -1,9 +1,7 @@
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import React from 'react';
-import values from 'lodash/values';
 import NewPostComponent from './new_post_component';
 import PostDetailComponent from './post_detail_component';
-import PostDetailContainer from './post_detail_container';
 import LeftInfoComponent from './left_info_component';
 import RightInfoComponent from './right_info_component';
 
@@ -37,7 +35,7 @@ class PostsComponent extends React.Component {
       ) {
         return (
           <li key={ post.id } className='individual-post'>
-            <PostDetailContainer post={ post } />
+            <PostDetailComponent post={ post } />
           </li>
         );
       } else {

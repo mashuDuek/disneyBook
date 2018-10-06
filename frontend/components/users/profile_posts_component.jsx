@@ -1,7 +1,7 @@
 import React from 'react';
 import UserInfoComponent from './user_info_component';
 import NewPostComponent from '../posts/new_post_component';
-import PostDetailContainer from '../posts/post_detail_container';
+import PostDetailComponent from '../posts/post_detail_component';
 import values from 'lodash/values';
 
 class ProfilePostsComponent extends React.Component {
@@ -20,7 +20,7 @@ class ProfilePostsComponent extends React.Component {
     });
 
     const posts = postValues.map((post) => {
-      return <PostDetailContainer post={ post } key={ post.id }/>;
+      return <PostDetailComponent post={ post } key={ post.id }/>;
     });
 
     return (

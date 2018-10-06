@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import CommentContainer from '../comments/comment_container';
 import PostActionComponent from './post_action_component';
 import NewCommentContainer from '../comments/new_comment_container';
-import DropdownContainer from '../dropdowns/dropdown_container';
+import { updatePost, deletePost } from '../../actions/posts_actions';
+import { displayDropdown } from '../../actions/dropdown_actions';
+import { createLike, deleteLike } from '../../actions/like_actions';
 
 class PostDetailComponent extends React.Component {
   constructor(props) {
@@ -125,4 +128,29 @@ class PostDetailComponent extends React.Component {
 
 }
 
-export default PostDetailComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    dropdownVisible: state.ui.dropdowns.displayed === ownProps.post.id,
+    currentUser: state.session.currentUser || {},
+    comments: state.entities.comments,
+    posts: state.entities.posts,
+    users: state.entities.users,
+    post: ownProps.post,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deletePost: (post) => dispatch(deletePost(post)),
+    updatePost: (post) => dispatch(updatePost(post)),
+    createLike: (like) => dispatch(createLike(like)),
+    deleteLike: (like) => dispatch(deleteLike(like)),
+    displayDropdown: (component) => dispatch(displayDropdown(component)),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(PostDetailComponent));
+
