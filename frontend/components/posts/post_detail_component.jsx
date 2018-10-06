@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CommentContainer from '../comments/comment_container';
-import PostActionContainer from './post_action_container';
+import PostActionComponent from './post_action_component';
 import NewCommentContainer from '../comments/new_comment_container';
 import DropdownContainer from '../dropdowns/dropdown_container';
 
@@ -92,7 +92,7 @@ class PostDetailComponent extends React.Component {
           <button onClick={ this.handleDropdown }>ˇ</button>
           {
             this.props.dropdownVisible ?
-            <PostActionContainer
+            <PostActionComponent
               post={ this.props.post }
               updatePost={ this.props.updatePost.bind(this) }
               /> : null

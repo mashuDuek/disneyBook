@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { updatePost, deletePost } from '../../actions/posts_actions';
+import { showModal } from '../../actions/modal_actions';
+import { hideDropdown } from '../../actions/dropdown_actions';
 import EditPost from './edit_post';
 
 class PostActionComponent extends React.Component {
@@ -45,4 +50,24 @@ class PostActionComponent extends React.Component {
   }
 }
 
-export default PostActionComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.session.currentUser || {},
+    post: ownProps.post,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deletePost: (post) => dispatch(deletePost(post)),
+    updatePost: (post) => dispatch(updatePost(post)),
+    showModal: (component) => dispatch(showModal(component)),
+    hideDropdown: () => dispatch(hideDropdown()),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(PostActionComponent));
+
