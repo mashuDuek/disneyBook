@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { createPost } from '../../actions/posts_actions';
 
 class NewPostComponent extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +73,22 @@ class NewPostComponent extends React.Component {
   }
 }
 
-export default NewPostComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.session.currentUser || {},
+    user: state.entities.users[ownProps.match.params.userId] || state.session.currentUser
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    create: (post) => dispatch(createPost(post))
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(NewPostComponent));
+
+

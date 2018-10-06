@@ -5,7 +5,7 @@ import { Switch } from 'react-router';
 import SessionLoginFormContainer from './session/session_form_container_login';
 import SessionSignUpFormContainer from './session/session_form_container_signup';
 import SessionFooter from './session/session_footer';
-import FeedContainer from './posts/feed_container';
+import FeedComponent from './posts/feed_component';
 import PostsContainer from './posts/posts_container';
 import ModalContainer from './modals/modal_container';
 import ProfileContainer from './users/profile_container';
@@ -23,7 +23,7 @@ const App = (props) => {
       <AuthRoute exact path="/" component={ SessionLoginFormContainer } />
       <AuthRoute exact path="/" component={ SessionSignUpFormContainer } />
       <AuthRoute exact path="/" component={ SessionFooter } />
-      <ProtectedRoute path="/feed" component={ FeedContainer } />
+      <ProtectedRoute path="/feed" component={ FeedComponent } />
       <ProtectedRoute path="/feed" component={ PostsContainer } />
       <ProtectedRoute path="/users/:userId" component={ ProfileContainer } />
     </div>
