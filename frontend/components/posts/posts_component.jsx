@@ -26,7 +26,6 @@ class PostsComponent extends React.Component {
   }
 
   render() {
-    debugger
     if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
 
     const friendIds = this.props.currentUser.acceptedFriends;

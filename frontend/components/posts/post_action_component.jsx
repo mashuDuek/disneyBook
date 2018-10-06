@@ -1,5 +1,5 @@
 import React from 'react';
-import EditPostContainer from './edit_post_container';
+import EditPost from './edit_post';
 
 class PostActionComponent extends React.Component {
   constructor (props) {
@@ -14,7 +14,7 @@ class PostActionComponent extends React.Component {
 
   handleEdit() {
     this.props.showModal(
-      <EditPostContainer
+      <EditPost
         post={this.props.post}
         updatePost={this.props.updatePost}
         />
