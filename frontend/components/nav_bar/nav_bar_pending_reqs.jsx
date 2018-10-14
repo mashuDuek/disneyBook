@@ -1,5 +1,10 @@
 import React from 'react';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { hideDropdown } from '../../actions/dropdown_actions';
+import { acceptFriendship } from '../../actions/friendship_actions';
+
 
 class PendingReqs extends React.Component {
   constructor (props) {
@@ -48,4 +53,22 @@ class PendingReqs extends React.Component {
   }
 }
 
-export default PendingReqs;
+const mapStatetoProps = (state, ownProps) => {
+  const currentUser = state.entities.users[state.session.currentUser.id];
+  return {
+    pendingFriendIds: currentUser.pendingFriendIds,
+    users: state.entities.users
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    hideDropdown: () => dispatch(hideDropdown()),
+    acceptFriendship: (user) => dispatch(acceptFriendship(user))
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(PendingReqs));

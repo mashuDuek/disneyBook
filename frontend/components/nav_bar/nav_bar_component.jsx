@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import NavBarActions from './nav_bar_actions';
-import PendingReqsContainer from './nav_bar_pending_reqs_container';
+import PendingReqs from './nav_bar_pending_reqs';
 import SearchResults from './search_results_component';
 
 import { connect } from 'react-redux';
@@ -42,7 +42,7 @@ class NavBar extends React.Component {
 
   showPendingRequests (e) {
     e.stopPropagation();
-    this.props.showDropdown(<PendingReqsContainer />);
+    this.props.showDropdown(<PendingReqs />);
   }
 
   render() {
