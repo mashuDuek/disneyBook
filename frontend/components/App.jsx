@@ -8,7 +8,7 @@ import PostsComponent from './posts/posts_component';
 import ModalContainer from './modals/modal_container';
 import Profile from './users/profile_component';
 import DropdownContainer from './dropdowns/dropdown_container';
-import NavBarContainer from './nav_bar/nav_bar_container';
+import NavBar from './nav_bar/nav_bar_component';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -17,7 +17,7 @@ const App = (props) => {
     <div>
       <ModalContainer />
       <DropdownContainer />
-      <ProtectedRoute path="/" component={ NavBarContainer } />
+      <ProtectedRoute path="/" component={ NavBar } />
       <AuthRoute exact path="/" component={ SessionLoginForm } />
       <AuthRoute exact path="/" component={ SessionSignUpForm } />
       <AuthRoute exact path="/" component={ SessionFooter } />

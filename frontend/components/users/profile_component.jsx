@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBarContainer from '../nav_bar/nav_bar_container';
+import NavBar from '../nav_bar/nav_bar_component';
 import ProfPhotoContainer from '../images/profile_photo_container';
 import ProfilePosts from './profile_posts';
 import CoverPhotoContainer from '../images/cover_photo_container';
@@ -79,7 +79,7 @@ class ProfileComponent extends React.Component {
       return (
         <div onClick={ dropdownAction }>
           <div className="nav-and-profile-pic-components">
-            <NavBarContainer/>
+            <NavBar/>
           </div>
           <div id="cover-and-profile-pics">
             <CoverPhotoContainer

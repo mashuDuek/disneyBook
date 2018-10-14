@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link, withRouter, Redirect } from 'react-router-dom';
-import NavBarActionContainer from './nav_bar_action_container';
+import { Link, withRouter } from 'react-router-dom';
+import NavBarActions from './nav_bar_actions';
 import PendingReqsContainer from './nav_bar_pending_reqs_container';
-import PendingReqs from './nav_bar_pending_reqs';
 import SearchResults from './search_results_component';
+
+import { connect } from 'react-redux';
+import { showDropdown, hideDropdown } from '../../actions/dropdown_actions';
+import { fetchSearchedUsers } from '../../actions/user_actions';
 
 class NavBar extends React.Component {
   constructor (props) {
@@ -34,7 +37,7 @@ class NavBar extends React.Component {
 
   showActionsContainer (e) {
     e.stopPropagation();
-    this.props.showDropdown(<NavBarActionContainer />);
+    this.props.showDropdown(<NavBarActions />);
   }
 
   showPendingRequests (e) {
@@ -100,4 +103,22 @@ class NavBar extends React.Component {
   }
 }
 
-export default withRouter(NavBar);
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.entities.users[state.session.currentUser.id],
+    searchedUsers: state.entities.search
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    hideDropdown: () => dispatch(hideDropdown()),
+    showDropdown: (comp) => dispatch(showDropdown(comp)),
+    fetchSearchedUsers: input => dispatch(fetchSearchedUsers(input)),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(NavBar));

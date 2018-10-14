@@ -1,8 +1,8 @@
 import React from 'react';
-import NavBarContainer from '../nav_bar/nav_bar_container';
+import NavBar from '../nav_bar/nav_bar_component';
 
 const FeedComponent = () => (
-  <NavBarContainer />
+  <NavBar />
 );
 
 export default(FeedComponent);
