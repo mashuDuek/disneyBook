@@ -6,6 +6,15 @@ import CoverPhotoContainer from '../images/cover_photo_container';
 import FriendDetailComponent from './friend_detail_component';
 import ProfPicComponent from '../images/profile_pic_component';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { fetchUser } from '../../actions/user_actions';
+import { fetchAllComments } from '../../actions/comment_actions';
+import { createFriendship } from '../../actions/friendship_actions';
+import { hideDropdown } from '../../actions/dropdown_actions';
+import { showModal } from '../../actions/modal_actions';
+import { updateCoverPic } from '../../actions/image_actions';
+
 class ProfileComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -135,4 +144,35 @@ class ProfileComponent extends React.Component {
   }
 }
 
-export default ProfileComponent;
+const mapStatetoProps = (state, ownProps) => {
+  let acceptedFriends;
+  if (!state.session.currentUserProfile) {
+    acceptedFriends = null;
+  } else {
+    acceptedFriends = state.session.currentUserProfile.acceptedFriends;
+  }
+
+  return {
+    acceptedFriends,
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.session.currentUser || {},
+    dropdowns: state.ui.dropdowns,
+    users: state.entities.users,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    hideDropdown: () => dispatch(hideDropdown()),
+    fetchUser: (user) => dispatch(fetchUser(user)),
+    createFriendship: (user) => dispatch(createFriendship(user)),
+    showModal: (component) => dispatch(showModal(component)),
+    updateCover: (image) => dispatch(updateCoverPic(image)),
+    fetchAllComments: () => dispatch(fetchAllComments())
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(ProfileComponent));
