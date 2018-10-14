@@ -7,7 +7,7 @@ import FeedComponent from './posts/feed_component';
 import PostsComponent from './posts/posts_component';
 import Modal from './modals/modal_component';
 import Profile from './users/profile_component';
-import DropdownContainer from './dropdowns/dropdown_container';
+import Dropdown from './dropdowns/dropdown_component';
 import NavBar from './nav_bar/nav_bar_component';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
@@ -16,7 +16,7 @@ const App = (props) => {
   return(
     <div>
       <Modal />
-      <DropdownContainer />
+      <Dropdown />
       <ProtectedRoute path="/" component={ NavBar } />
       <AuthRoute exact path="/" component={ SessionLoginForm } />
       <AuthRoute exact path="/" component={ SessionSignUpForm } />
