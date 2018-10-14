@@ -6,7 +6,7 @@ import SessionFooter from './session/session_footer';
 import FeedComponent from './posts/feed_component';
 import PostsComponent from './posts/posts_component';
 import ModalContainer from './modals/modal_container';
-import ProfileContainer from './users/profile_container';
+import Profile from './users/profile_component';
 import DropdownContainer from './dropdowns/dropdown_container';
 import NavBarContainer from './nav_bar/nav_bar_container';
 
@@ -23,7 +23,7 @@ const App = (props) => {
       <AuthRoute exact path="/" component={ SessionFooter } />
       <ProtectedRoute path="/feed" component={ FeedComponent } />
       <ProtectedRoute path="/feed" component={ PostsComponent } />
-      <ProtectedRoute path="/users/:userId" component={ ProfileContainer } />
+      <ProtectedRoute path="/users/:userId" component={ Profile } />
     </div>
   );
 };

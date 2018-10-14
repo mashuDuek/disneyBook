@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBarContainer from '../nav_bar/nav_bar_container';
 import ProfPhotoContainer from '../images/profile_photo_container';
-import ProfilePostsContainer from './profile_posts_container';
+import ProfilePosts from './profile_posts';
 import CoverPhotoContainer from '../images/cover_photo_container';
 import FriendDetailComponent from './friend_detail_component';
 import ProfPicComponent from '../images/profile_pic_component';
@@ -137,7 +137,7 @@ class ProfileComponent extends React.Component {
               </button>
             </div>
           </div>
-          <ProfilePostsContainer user={ this.props.user } />
+          <ProfilePosts user={ this.props.user } />
         </div>
       );
     }
