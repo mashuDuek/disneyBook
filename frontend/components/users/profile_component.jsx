@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../nav_bar/nav_bar_component';
 import ProfPhotoContainer from '../images/profile_photo_container';
 import ProfilePosts from './profile_posts';
-import CoverPhotoContainer from '../images/cover_photo_container';
+import CoverPhoto from '../images/cover_photo';
 import FriendDetailComponent from './friend_detail_component';
 import ProfPicComponent from '../images/profile_pic_component';
 
@@ -82,7 +82,7 @@ class ProfileComponent extends React.Component {
             <NavBar/>
           </div>
           <div id="cover-and-profile-pics">
-            <CoverPhotoContainer
+            <CoverPhoto
               currentUser={ this.props.currentUser }
               user={ this.props.user }
               showModal={ this.props.showModal }
@@ -116,7 +116,7 @@ class ProfileComponent extends React.Component {
       return (
         <div id="profile-page" onClick={ dropdownAction }>
           <div id="cover-and-profile-pics">
-            <CoverPhotoContainer
+            <CoverPhoto
               currentUser={ this.props.currentUser }
               user={ this.props.user }
               showModal={ this.props.showModal }

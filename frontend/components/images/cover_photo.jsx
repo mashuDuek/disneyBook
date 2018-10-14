@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import EditCoverPicComponent from './edit_cover_pic_component.jsx';
 import ViewCover from './view_cover_component';
+import { showModal, hideModal } from '../../actions/modal_actions';
+import { updateCoverPic } from '../../actions/image_actions';
 
-class CoverPhotoComponent extends React.Component {
+class CoverPhoto extends React.Component {
   constructor (props) {
     super(props);
     this.state = { hover: false };
@@ -84,4 +89,22 @@ class CoverPhotoComponent extends React.Component {
   }
 }
 
-export default CoverPhotoComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.session.currentUser || {},
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showModal: (component) => dispatch(showModal(component)),
+    hideModal: () => dispatch(hideModal()),
+    updateCover: (image) => dispatch(updateCoverPic(image)),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(CoverPhoto));
