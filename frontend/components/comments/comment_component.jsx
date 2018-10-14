@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import EditCommentComponent from './edit_comment_component';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import {
+  updateComment,
+  deleteComment,
+  fetchAllComments
+} from '../../actions/comment_actions';
+import { showModal, hideModal } from '../../actions/modal_actions';
+import { fetchPost } from '../../actions/posts_actions';
 
-class CommentsComponent extends React.Component {
+
+class CommentComponent extends React.Component {
   constructor(props) {
     super(props);
     this.handleModal = this.handleModal.bind(this);
@@ -50,4 +60,25 @@ class CommentsComponent extends React.Component {
   }
 }
 
-export default CommentsComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.session.currentUser || {},
+    comment: ownProps.comment,
+    users: state.entities.users,
+  };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    updateComment: (comment) => (dispatch(updateComment(comment))),
+    deleteComment: (comment) => (dispatch(deleteComment(comment))),
+    showModal: (component) => (dispatch(showModal(component))),
+    hideModal: () => (dispatch(hideModal())),
+    fetchPost: (post) => (dispatch(fetchPost(post))),
+    fetchAllComments: () => (dispatch(fetchAllComments())),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(CommentComponent));

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import CommentContainer from '../comments/comment_container';
+import CommentComponent from '../comments/comment_component';
 import PostActionComponent from './post_action_component';
-import NewCommentContainer from '../comments/new_comment_container';
+import NewComment from '../comments/new_comment';
 import { updatePost, deletePost } from '../../actions/posts_actions';
 import { displayDropdown } from '../../actions/dropdown_actions';
 import { createLike, deleteLike } from '../../actions/like_actions';
@@ -52,7 +52,7 @@ class PostDetailComponent extends React.Component {
         const that = this;
         comments = this.props.post.comments.map(id => {
           return (
-            <CommentContainer
+            <CommentComponent
               key={ id }
               comment={ this.props.comments[id] }
               post={ that.props.post }
@@ -119,7 +119,7 @@ class PostDetailComponent extends React.Component {
         <ul>
           { comments }
         </ul>
-        <NewCommentContainer
+        <NewComment
           post={ this.props.post }
           />
       </div>

@@ -1,6 +1,11 @@
 import React from 'react';
 
-class NewCommentComponent extends React.Component {
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { createComment } from '../../actions/comment_actions';
+import { fetchPost } from '../../actions/posts_actions';
+
+class NewComment extends React.Component {
 
   constructor(props) {
     super(props);
@@ -48,4 +53,22 @@ class NewCommentComponent extends React.Component {
   }
 }
 
-export default NewCommentComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    currentUser: state.session.currentUser,
+    post: ownProps.post
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+  return {
+    createComment: (comment) => (dispatch(createComment(comment))),
+    fetchPost: (post) => (dispatch(fetchPost(post))),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(NewComment));
