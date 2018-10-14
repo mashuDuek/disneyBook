@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_component';
-import ProfPhotoContainer from '../images/profile_photo_container';
+import ProfilePhoto from '../images/profile_photo';
 import ProfilePosts from './profile_posts';
 import CoverPhoto from '../images/cover_photo';
 import FriendDetailComponent from './friend_detail_component';
@@ -122,7 +122,7 @@ class ProfileComponent extends React.Component {
               showModal={ this.props.showModal }
               updateCover={ this.props.updateCover }
               />
-            <ProfPhotoContainer
+            <ProfilePhoto
               currentUser={ this.props.currentUser }
               user={ this.props.user }
               showModal={ this.props.showModal }

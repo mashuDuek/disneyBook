@@ -2,8 +2,13 @@ import React from 'react';
 import ViewProfile from './view_profile_component';
 import EditProfilePicComponent from './edit_profile_pic_component';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-class ProfPicComponent extends React.Component {
+import { showModal, hideModal } from '../../actions/modal_actions';
+import { updateCoverPic } from '../../actions/image_actions';
+
+class ProfilePhoto extends React.Component {
   constructor (props) {
     super(props);
     this.state = { hover: false };
@@ -78,4 +83,22 @@ class ProfPicComponent extends React.Component {
   }
 }
 
-export default ProfPicComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.session.currentUser || {},
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showModal: (component) => dispatch(showModal(component)),
+    hideModal: () => dispatch(hideModal()),
+    updateCover: (image) => dispatch(updateCoverPic(image)),
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(ProfilePhoto));
