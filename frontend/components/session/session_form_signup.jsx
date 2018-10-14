@@ -1,8 +1,8 @@
 import React from 'react';
 import SignUpInfoComponent from './sign_up_info_component';
-import SessionFooter from './session_footer';
-import { Link, Redirect, withRouter } from 'react-router-dom';
-
+import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signup } from '../../actions/session_actions';
 
 class SessionFormSignUp extends React.Component {
   constructor(props) {
@@ -99,4 +99,22 @@ class SessionFormSignUp extends React.Component {
   }
 }
 
-export default withRouter(SessionFormSignUp);
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    loggedIn: Boolean(state.session.currentUser),
+    errors: state.session.errors,
+    formType: "signup"
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    processForm: (user) => dispatch(signup(user))
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(SessionFormSignUp));
+

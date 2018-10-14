@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../actions/session_actions';
 
 class SessionFormLogin extends React.Component {
   constructor(props) {
@@ -66,4 +68,22 @@ class SessionFormLogin extends React.Component {
   }
 }
 
-export default withRouter(SessionFormLogin);
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    loggedIn: Boolean(state.session.currentUser),
+    errors: state.session.errors,
+    formType: "login"
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+  return {
+    processForm: (user) => dispatch(login(user))
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(SessionFormLogin));

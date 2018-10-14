@@ -1,9 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Switch } from 'react-router';
 
-import SessionLoginFormContainer from './session/session_form_container_login';
-import SessionSignUpFormContainer from './session/session_form_container_signup';
+import SessionLoginForm from './session/session_form_login';
+import SessionSignUpForm from './session/session_form_signup';
 import SessionFooter from './session/session_footer';
 import FeedComponent from './posts/feed_component';
 import PostsComponent from './posts/posts_component';
@@ -20,8 +18,8 @@ const App = (props) => {
       <ModalContainer />
       <DropdownContainer />
       <ProtectedRoute path="/" component={ NavBarContainer } />
-      <AuthRoute exact path="/" component={ SessionLoginFormContainer } />
-      <AuthRoute exact path="/" component={ SessionSignUpFormContainer } />
+      <AuthRoute exact path="/" component={ SessionLoginForm } />
+      <AuthRoute exact path="/" component={ SessionSignUpForm } />
       <AuthRoute exact path="/" component={ SessionFooter } />
       <ProtectedRoute path="/feed" component={ FeedComponent } />
       <ProtectedRoute path="/feed" component={ PostsComponent } />
