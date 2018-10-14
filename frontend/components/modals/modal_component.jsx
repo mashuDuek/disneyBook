@@ -1,6 +1,9 @@
 import React from 'react';
+import { hideModal } from '../../actions/modal_actions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class ModalComponent extends React.Component {
+class Modal extends React.Component {
   render() {
     if (!this.props.component) {
       return null;
@@ -16,4 +19,19 @@ class ModalComponent extends React.Component {
   }
 }
 
-export default ModalComponent;
+const mapStatetoProps = (state, ownProps) => {
+  return {
+    component: state.ui.modals.component,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    hide: () => dispatch(hideModal())
+  };
+};
+
+export default withRouter(connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(Modal));

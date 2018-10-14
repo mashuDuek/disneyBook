@@ -5,7 +5,7 @@ import SessionSignUpForm from './session/session_form_signup';
 import SessionFooter from './session/session_footer';
 import FeedComponent from './posts/feed_component';
 import PostsComponent from './posts/posts_component';
-import ModalContainer from './modals/modal_container';
+import Modal from './modals/modal_component';
 import Profile from './users/profile_component';
 import DropdownContainer from './dropdowns/dropdown_container';
 import NavBar from './nav_bar/nav_bar_component';
@@ -15,7 +15,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 const App = (props) => {
   return(
     <div>
-      <ModalContainer />
+      <Modal />
       <DropdownContainer />
       <ProtectedRoute path="/" component={ NavBar } />
       <AuthRoute exact path="/" component={ SessionLoginForm } />
