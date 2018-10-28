@@ -33,7 +33,7 @@
   },
   "postinstall": {
     "build:pro"
-  }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
