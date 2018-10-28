@@ -12,7 +12,7 @@ import NavBar from './nav_bar/nav_bar_component';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
-const App = (props) => {
+const App = props => {
   return(
     <div>
       <Modal />
