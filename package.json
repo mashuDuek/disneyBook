@@ -37,6 +37,10 @@
   "devDependencies": {
     "babel-preset-env": "^1.6.1"
   },
+  "engines": {
+    "node": "10.6.0",
+    "npm": "6.4.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mashuDuek/dinseyBook-FSP.git"
