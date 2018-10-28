@@ -150,4 +150,9 @@ body {
   font-size: 25px;
 }
 
-@import main;
+@import './comments.scss';
+@import './friends.scss';
+@import './posts.scss';
+@import './profile.scss';
+@import './reset.css';
+@import './search.scss';

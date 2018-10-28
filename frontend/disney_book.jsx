@@ -4,15 +4,12 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let store;
+  letpreLoadedState = {};
   if (window.currentUser) {
-    const preloadedState = { session: { currentUser: window.currentUser }};
-    store = configureStore(preloadedState);
+    preloadedState = { session: { currentUser: window.currentUser }};
     delete window.currentUser;
-  } else {
-    store = configureStore();
   }
-
+  const store = configureStore(preloadedState);
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
 });
