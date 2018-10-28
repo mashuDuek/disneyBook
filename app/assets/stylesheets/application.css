@@ -149,10 +149,3 @@ body {
 #footer-links a {
   font-size: 25px;
 }
-
-@import url('./reset.css');
-@import url('./comments.scss');
-@import url('./friends.scss');
-@import url('./posts.scss');
-@import url('./profile.scss');
-@import url('./search.scss');
