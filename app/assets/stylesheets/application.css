@@ -149,3 +149,5 @@ body {
 #footer-links a {
   font-size: 25px;
 }
+
+@import main;
