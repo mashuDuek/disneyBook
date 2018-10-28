@@ -28,8 +28,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "webpack --mode=development --watch"
+    "build:dev": "webpack --mode=development --watch",
+    "build:pro": "webpack --mode=production"
   },
+  "postinstall": {
+    "build:pro"
+  }
   "keywords": [],
   "author": "",
   "license": "ISC",
