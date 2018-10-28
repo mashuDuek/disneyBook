@@ -150,9 +150,9 @@ body {
   font-size: 25px;
 }
 
-@import url('/stylesheet/reset.css');
-@import url('/stylesheet/comments.scss');
-@import url('/stylesheet/friends.scss');
-@import url('/stylesheet/posts.scss');
-@import url('/stylesheet/profile.scss');
-@import url('/stylesheet/search.scss');
+@import url('./reset.css');
+@import url('./comments.scss');
+@import url('./friends.scss');
+@import url('./posts.scss');
+@import url('./profile.scss');
+@import url('./search.scss');
