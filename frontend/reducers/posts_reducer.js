@@ -1,10 +1,8 @@
-import { merge } from 'lodash';
 import {
   RECEIVE_POST,
   RECEIVE_POSTS,
   UPDATE_POST,
   DELETE_POST,
-  RECEIVE_ERRORS
 } from '../actions/posts_actions';
 
 import {
@@ -22,12 +20,15 @@ const postReducer = (state = preloadedState, action) => {
   let newState;
   let post;
   switch(action.type) {
+
     case RECEIVE_POST: {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }
+
     case RECEIVE_POSTS: {
       return action.posts
     }
+
     case RECEIVE_COMMENT:
     case UPDATE_COMMENT:
       newState = Object.assign({}, state);
@@ -38,14 +39,17 @@ const postReducer = (state = preloadedState, action) => {
       });
       newState[action.comment.post_id].comments = newComments;
       return newState;
+
     case UPDATE_POST: {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }
+
     case DELETE_POST: {
       newState = Object.assign({}, state);
       delete newState[action.post.id];
       return newState;
     }
+
     case DELETE_COMMENT: {
       newState = Object.assign({}, state);
       const post = newState[action.comment.post_id];
@@ -54,6 +58,7 @@ const postReducer = (state = preloadedState, action) => {
       });
       return newState;
     }
+
     case RECEIVE_LIKE: {
       if (!action.like.post_id) return state;
       newState = Object.assign({}, state);
@@ -62,6 +67,7 @@ const postReducer = (state = preloadedState, action) => {
       post.currentUserLikes = true;
       return newState;
     }
+
     case REMOVE_LIKE: {
       newState = Object.assign({}, state);
       post = newState[action.like.post_id];
@@ -70,6 +76,7 @@ const postReducer = (state = preloadedState, action) => {
       post.currentUserLikes = false;
       return newState;
     }
+
     default: {
       return state;
     }

@@ -15,23 +15,24 @@ class ProfilePosts extends React.Component {
   }
 
   render() {
-    if (!this.props.user) return <p>Loading...</p>;
-    if (Object.keys(this.props.posts).length < 1) return <p>Loading...</p>;
+    const { props } = this;
+    if (!props.user) return <p>Loading...</p>;
+    if (Object.keys(props.posts).length < 1) return <p>Loading...</p>;
 
-    const postValues = values(this.props.posts).filter((post) => {
-      return post.receiver_id === this.props.user.id ||
-        post.author_id === this.props.user.id;
+    const postValues = values(props.posts).filter((post) => {
+      return post.receiver_id === props.user.id ||
+        post.author_id === props.user.id;
     });
 
-    const posts = postValues.map((post) => {
-      return <PostDetailComponent post={ post } key={ post.id }/>;
-    });
+    const posts = postValues.reverse().map((post) => (
+      <PostDetailComponent post={ post } key={ post.id }/>
+    ));
 
     return (
       <div className="profile-info-and-posts">
-        <UserInfoComponent user={ this.props.user }/>
+        <UserInfoComponent user={ props.user }/>
         <div className="profile-posts-and-create-post">
-          <NewPostComponent user={ this.props.user } />
+          <NewPostComponent user={ props.user } />
           <ul className="profile-posts">
             { posts }
           </ul>
@@ -47,7 +48,7 @@ const mapStatetoProps = (state, ownProps) => {
     user: ownProps.user,
   };
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllPosts: () => dispatch(fetchAllPosts()),
   };

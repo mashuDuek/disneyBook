@@ -6,14 +6,14 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
-export const receivePost = (post) => {
+export const receivePost = post => {
   return {
     type: RECEIVE_POST,
     post
   };
 };
 
-export const editPost = (post) => {
+export const editPost = post => {
   return {
     type: UPDATE_POST,
     post
@@ -36,46 +36,46 @@ export const receivePosts = ({ posts, users }) => {
 };
 
 export const createPost = ({ body, receiverId }) => {
-  return (dispatch) => {
+  return dispatch => {
     return APIUtil.createPost({ receiver_id: receiverId, body }).
-      then((post) => dispatch(receivePost(post)),
-      (errors) => dispatch(receiveErrors(errors))
+      then(post => dispatch(receivePost(post)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };
 
-export const updatePost = (post) => {
-  return (dispatch) => {
+export const updatePost = post => {
+  return dispatch => {
     return APIUtil.updatePost(post).
-      then((post) => dispatch(editPost(post)),
-      (errors) => dispatch(receiveErrors(errors))
+      then(post => dispatch(editPost(post)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };
 
-export const deletePost = (post) => {
-  return (dispatch) => {
+export const deletePost = post => {
+  return dispatch => {
     return APIUtil.deletePost(post).
-      then((post) => dispatch(destroyPost(post)),
-      (errors) => dispatch(receiveErrors(errors))
+      then(post => dispatch(destroyPost(post)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };
 
 export const fetchAllPosts = () => {
-  return (dispatch) => {
+  return dispatch => {
     return APIUtil.fetchAllPosts().
-      then((posts) => dispatch(receivePosts(posts)),
-      (errors) => dispatch(receiveErrors(errors))
+      then(posts => dispatch(receivePosts(posts)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };
 
-export const fetchPost = (post) => {
-  return (dispatch) => {
+export const fetchPost = post => {
+  return dispatch => {
     return APIUtil.fetchPost(post).
-      then((post) => dispatch(receivePost(post)),
-      (errors) => dispatch(receiveErrors(errors))
+      then(post => dispatch(receivePost(post)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };

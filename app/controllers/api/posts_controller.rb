@@ -18,7 +18,7 @@ class Api::PostsController < ApplicationController
     ids = current_user.accepted_friends.ids + [current_user.id]
     posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
     posts.sort_by! { |p| p.created_at }
-    @posts = posts.uniq.reverse
+    @posts = posts.uniq
     post_ids = @posts.map(&:receiver_id) + @posts.map(&:author_id)
     @users = User.where(id: post_ids)
     render :index

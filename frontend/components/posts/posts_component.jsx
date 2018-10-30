@@ -8,11 +8,6 @@ import RightInfoComponent from './right_info_component';
 import { fetchAllComments } from '../../actions/comment_actions';
 import { fetchAllPosts } from '../../actions/posts_actions';
 import { hideDropdown } from '../../actions/dropdown_actions';
-import {
-  createPost,
-  updatePost,
-  deletePost
-} from '../../actions/posts_actions';
 
 class PostsComponent extends React.Component {
 
@@ -33,15 +28,14 @@ class PostsComponent extends React.Component {
   }
 
   render() {
-    if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
+    const { props } = this;
+    if (Object.keys(props.posts).length < 1) return <p>Loading posts...</p>;
 
-    const friendIds = this.props.currentUser.acceptedFriendIds;
-    debugger
-    const posts = Object.values(this.props.posts).reverse().map(post => {
+    const posts = Object.values(props.posts).reverse().map(post => {
       if (
-        friendIds.includes(post.author_id) ||
-        post.author_id === this.props.currentUser.id ||
-        post.receiver_id === this.props.currentUser.id
+        props.currentUser.acceptedFriendIds.includes(post.author_id) ||
+        post.author_id === props.currentUser.id ||
+        post.receiver_id === props.currentUser.id
       ) {
         return (
           <li key={ post.id } className='individual-post'>
