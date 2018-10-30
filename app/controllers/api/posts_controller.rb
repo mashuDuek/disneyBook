@@ -1,8 +1,7 @@
 class Api::PostsController < ApplicationController
 
   def create
-    @post = Post.new(post_params)
-    @post.author_id = current_user.id
+    @post = current_user.posts.new(post_params)
     if @post.save!
       render :show
     else
@@ -16,10 +15,10 @@ class Api::PostsController < ApplicationController
   end
 
   def index
-    ids = current_user.accepted_friends.map(&:id)
-    ids << current_user.id
-    good_posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
-    @posts = good_posts.uniq
+    ids = current_user.accepted_friends.ids + [current_user.id]
+    posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
+    posts.sort_by! { |p| p.created_at }
+    @posts = posts.uniq.reverse
     post_ids = @posts.map(&:receiver_id) + @posts.map(&:author_id)
     @users = User.where(id: post_ids)
     render :index

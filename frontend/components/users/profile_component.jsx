@@ -58,12 +58,12 @@ class ProfileComponent extends React.Component {
     if (this.state.showFriends) {
       buttonText = 'Back to Profile';
       let accepted;
-      if (!this.props.acceptedFriends) {
+      if (!this.props.acceptedFriendIds) {
         accepted = `${this.props.user.name} has no friends yet!`;
       } else {
-        const friendIds = Object.keys(this.props.acceptedFriends);
+        const friendIds = Object.keys(this.props.acceptedFriendIds);
         accepted = friendIds.map((id) => {
-          const user = this.props.acceptedFriends[id];
+          const user = this.props.acceptedFriendIds[id];
           return(
             <li key={ user.id }>
               <FriendDetailComponent
@@ -145,15 +145,13 @@ class ProfileComponent extends React.Component {
 }
 
 const mapStatetoProps = (state, ownProps) => {
-  let acceptedFriends;
-  if (!state.session.currentUserProfile) {
-    acceptedFriends = null;
-  } else {
-    acceptedFriends = state.session.currentUserProfile.acceptedFriends;
+  let acceptedFriendIds = null;
+  if (state.session.currentUserProfile) {
+    acceptedFriendIds = state.session.currentUserProfile.acceptedFriendIds;
   }
 
   return {
-    acceptedFriends,
+    acceptedFriendIds,
     user: state.entities.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     dropdowns: state.ui.dropdowns,

@@ -26,9 +26,7 @@ const postReducer = (state = preloadedState, action) => {
       return Object.assign({}, state, { [action.post.id]: action.post });
     }
     case RECEIVE_POSTS: {
-      newState = Object.assign({}, state);
-      action.posts.map(post => newState[post.id] = post);
-      return newState;
+      return action.posts
     }
     case RECEIVE_COMMENT:
     case UPDATE_COMMENT:

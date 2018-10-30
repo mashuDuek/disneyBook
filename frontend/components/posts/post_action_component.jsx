@@ -25,8 +25,9 @@ class PostActionComponent extends React.Component {
         />
     );
   }
+
   render() {
-    let optionsList;
+    let optionsList = <p>no actions</p>;
     if (this.props.post.author_id === this.props.currentUser.id) {
       optionsList = (
         <ul id="post-options">
@@ -38,8 +39,6 @@ class PostActionComponent extends React.Component {
           </li>
         </ul>
       );
-    } else {
-      optionsList = <p>No actions</p>;
     }
 
     return (

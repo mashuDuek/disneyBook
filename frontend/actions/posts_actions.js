@@ -35,9 +35,9 @@ export const receivePosts = ({ posts, users }) => {
   };
 };
 
-export const createPost = (post) => {
+export const createPost = ({ body, receiverId }) => {
   return (dispatch) => {
-    return APIUtil.createPost(post).
+    return APIUtil.createPost({ receiver_id: receiverId, body }).
       then((post) => dispatch(receivePost(post)),
       (errors) => dispatch(receiveErrors(errors))
     );

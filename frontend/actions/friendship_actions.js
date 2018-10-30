@@ -29,20 +29,8 @@ export const createFriendship = (user) => {
   return (dispatch) => {
     return APIUtil.createFriendship(user).
       then((user) => {
-        dispatch(receiveUsers(user.acceptedFriends));
-        dispatch(receiveUsers(user.pendingFriends));
-
-        // const pending = user.pendingFriends;
-        // const accepted = user.acceptedFriends;
-        // delete user.pendingFriends;
-        // delete user.acceptedFriends;
-        // user.pending_friend_ids = pending.map((user) => {
-        //   return user.id;
-        // });
-        // user.accepted_friend_ids = accepted.map((user) => {
-        //   return user.id;
-        // });
-
+        dispatch(receiveUsers(user.acceptedFriendIds));
+        dispatch(receiveUsers(user.pendingFriendIds));
         dispatch(receiveCurrentUser(user));
       }
     );

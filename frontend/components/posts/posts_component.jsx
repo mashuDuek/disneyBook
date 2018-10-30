@@ -35,8 +35,9 @@ class PostsComponent extends React.Component {
   render() {
     if (Object.keys(this.props.posts).length < 1) return <p>Loading posts...</p>;
 
-    const friendIds = this.props.currentUser.acceptedFriends;
-    const posts = Object.values(this.props.posts).map(post => {
+    const friendIds = this.props.currentUser.acceptedFriendIds;
+    debugger
+    const posts = Object.values(this.props.posts).reverse().map(post => {
       if (
         friendIds.includes(post.author_id) ||
         post.author_id === this.props.currentUser.id ||

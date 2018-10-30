@@ -15,13 +15,8 @@ class NewPostComponent extends React.Component {
   }
 
   componentDidMount() {
-    let receiver;
-    if (!this.props.user) {
-      receiver = this.props.currentUser;
-    } else {
-      receiver = this.props.user;
-    }
-
+    const { props } = this;
+    const receiver = props.user ? props.currentUser : props.user;
     this.setState({ receiverId: receiver.id });
   }
 
@@ -35,10 +30,9 @@ class NewPostComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.create({
-      body: this.state.body,
-      receiver_id: this.state.receiverId
-    }).then(() => this.setState({ body: '' }));
+    this.props.create(this.state).then(() => (
+      this.setState({ body: '' })
+    ));
   }
 
   handleChange(e) {
@@ -49,18 +43,14 @@ class NewPostComponent extends React.Component {
   }
 
   render() {
-    if (!this.props.currentUser) {
-      return (<p>Loading...</p>);
-    }
-
-    const placeHolder = `What's on your mind, ${this.props.currentUser.name}?`;
+    if (!this.props.currentUser) return <p>Loading...</p>;
 
     return (
       <form onSubmit={this.handleSubmit} className="create-post">
         <textarea
-          placeholder={placeHolder}
-          height="100"
-          width="500"
+          placeholder={`What's on your mind, ${this.props.currentUser.name}?`}
+        height="100"
+        width="500"
           value={this.state.body}
           onChange={this.handleChange}
           >
