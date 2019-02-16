@@ -54,8 +54,6 @@
 
 
 #cover-photo {
-  width: 848px;
-  max-width: 848px;
   height: 311px;
   max-height: 311px;
   margin: 0 auto;
@@ -66,11 +64,10 @@
 
   img {
     margin-top: 44px;
-    width: 848px;
-    max-width: 848px;
     height: 365px;
     max-height: 365px;
     border-radius: 1px;
+    width: 100%;
   }
 }
 
@@ -100,77 +97,56 @@
 }
 
 #cover-and-profile-pics {
-  width: 858px;
+  width: 81%;
   margin: 0 auto;
-  position: relative;
   background-color: #e9ebee;
 }
 
 .profile-info-and-posts {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 40px;
-    margin-right: -33px;
+    width: 81%;
+    margin: 0 auto;
+    margin-top: 10px;
 }
 
 .profile-user-info {
   border-radius: 3px;
   border: 1px solid #CBBABA;
-  background: #FEFEFE;
-  min-width: 100px;
   padding: 20px;
-  width: 300px;
-  margin-right: 60px;
-  font-size: 14px;
+  width: 30%;
   height: fit-content;
 }
 
 .profile-posts {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
-  max-width: 550px;
-  min-width: 550px;
 
   .post-item {
     border: 1px solid #CBBABA;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 5px;
-    padding: 15px;
     background-color: #FEFEFE;
+    padding: 15px;
+    margin-top: 5px;
     border-radius: 2px;
-    max-width: 510px;
   }
 }
 .profile-posts-and-create-post {
-  margin-left: -25px;
-
-  .profile-posts {
-    margin-top: 30px;
-  }
+  width: 63%;
 }
 
 .profile-posts #create-comment-all #create-comment {
-  width: 509px;
   margin-left: -15px;
   border-bottom: none;
 }
 
 #profile-bar-component {
-  display: block;
+  margin-top: 43px;
   min-height: 100px;
   background-color: #FEFEFE;
   display: flex;
   justify-content: center;
-  margin-left: 5px;
-  margin-right: 5px;
   border: .5px solid #CBBABA;
-  position: unset;
-  margin-top: 43px;
+  width: 100.2%;
 
   button {
     color: #365799;

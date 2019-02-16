@@ -38,7 +38,6 @@ class PendingReqs extends React.Component {
       );
     });
 
-
     return (
       <div>
         <ul id="pending-friends">
@@ -51,14 +50,13 @@ class PendingReqs extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-  const currentUser = state.entities.users[state.session.currentUser.id];
   return {
-    pendingFriendIds: currentUser.pendingFriendIds,
+    pendingFriendIds: state.session.currentUser.pendingFriendIds,
     users: state.entities.users
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     hideDropdown: () => dispatch(hideDropdown()),
     acceptFriendship: (user) => dispatch(acceptFriendship(user))

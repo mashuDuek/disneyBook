@@ -82,13 +82,9 @@
   border: .5px solid #dddfe2;
   margin: 10px;
   margin-top: 20px;
-  border-radius: 25px;
   width: -webkit-fill-available;
-  max-width: 485px;
   height: 20px;
-  max-height: 150px;
-  font-size: 14px;
-  padding-left: 10px;
+  padding: 5px;
 }
 
 .edit-comment-label {
@@ -157,20 +153,10 @@
 }
 
 #create-comment-all button {
-  max-height: 25px;
-  max-width: 75px;
-  display: block;
-  border-radius: 2px;
   color: #EDF9FA;
-  border-style: groove;
   background-color: #4267b2;
-  margin-top: 18px;
-  margin-left: 9px;
-  border-width: 1px;
-  border-color: #29487d;
+  border: 1px solid #29487d;
   font-size: 12px;
-  margin: 5px;
-  margin-bottom: 10px;
   float: right;
 }
 
