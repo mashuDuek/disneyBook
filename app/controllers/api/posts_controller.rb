@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
   end
 
   def index
-    ids = current_user.accepted_friends.ids + [current_user.id]
+    ids = current_user.all_status_friends.ids + [current_user.id]
     posts = Post.where(author_id: ids) + Post.where(receiver_id: ids)
     posts.sort_by! { |p| p.created_at }
     @posts = posts.uniq

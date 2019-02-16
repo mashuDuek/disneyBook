@@ -43,101 +43,109 @@ class ProfileComponent extends React.Component {
     });
   }
 
-  render(){
-    if (!this.props.user) return <p>Loading...</p>;
+  renderFriends(ids) {
+    return ids.map((id) => (
+      <li key={id}>
+        <FriendDetailComponent
+          user={this.props.users[id]}
+          status="accepted"
+          toggleFriends={this.toggleFriends}
+        />
+      </li>
+    ));
+  }
 
-    const drops = this.props.dropdowns;
+  renderFriendsList(friends) {
+    return (
+      <div onClick={this.props.dropdownAction}>
+        <div className="nav-and-profile-pic-components">
+          <NavBar />
+        </div>
+        <div id="cover-and-profile-pics">
+          <CoverPhoto
+            currentUser={this.props.currentUser}
+            user={this.props.user}
+            showModal={this.props.showModal}
+            updateCover={this.props.updateCover}
+          />
+          <ProfPicComponent user={this.props.user} />
+          <div id="profile-bar-component">
+            <button onClick={this.handleAddFriend}>
+              Add Friend
+                  </button>
+            <button onClick={this.toggleFriends}>
+              {`${this.props.user.name}s Profile`}
+            </button>
+          </div>
+        </div>
+        <div id="all-friends">
+          <div id="friends-bar">All of {this.props.user.name}s friends!</div>
+          <div id="accepted-pending-friends">
+            <ul id="accepted">
+              {friends}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  render(){
+    const { 
+      hideDropdown, 
+      dropdowns, 
+      user, 
+      acceptedFriendIds, 
+      currentUser,
+      showModal,
+      updateCover
+    } = this.props;
+
+    if (!user) return <p>Loading...</p>;
+
+    const drops = dropdowns;
     let dropdownAction;
     if (Boolean(drops.displayed) || Boolean(drops.component)) {
-      dropdownAction = this.props.hideDropdown;
+      dropdownAction = hideDropdown;
     } else {
       dropdownAction = (e) => e.stopPropagation();
     }
 
-    let buttonText;
     if (this.state.showFriends) {
-      buttonText = 'Back to Profile';
-      let accepted;
-      if (!this.props.acceptedFriendIds) {
-        accepted = `${this.props.user.name} has no friends yet!`;
-      } else {
-        const friendIds = Object.keys(this.props.acceptedFriendIds);
-        accepted = friendIds.map((id) => {
-          const user = this.props.acceptedFriendIds[id];
-          return(
-            <li key={ user.id }>
-              <FriendDetailComponent
-                user={ user }
-                status="accepted"
-                toggleFriends={ this.toggleFriends }
-                />
-            </li>
-          );
-        });
+      let friends = this.renderFriends(acceptedFriendIds);
+      if (!acceptedFriendIds) {
+        friends = `${user.name} has no friends yet!`;
       }
 
-      return (
-        <div onClick={ dropdownAction }>
-          <div className="nav-and-profile-pic-components">
-            <NavBar/>
-          </div>
-          <div id="cover-and-profile-pics">
-            <CoverPhoto
-              currentUser={ this.props.currentUser }
-              user={ this.props.user }
-              showModal={ this.props.showModal }
-              updateCover={ this.props.updateCover }
-              />
-            <ProfPicComponent user={ this.props.user } />
-              <div id="profile-bar-component">
-                <button onClick={ this.handleAddFriend }>
-                  Add Friend
-                </button>
-                <button onClick={ this.toggleFriends }>
-                  { buttonText }
-                </button>
-              </div>
-          </div>
-          <div id="all-friends">
-            <div id="friends-bar">All of { this.props.user.name }s friends!</div>
-            <div id="accepted-pending-friends">
-              <ul id="accepted">
-                { accepted }
-              </ul>
-            </div>
-          </div>
-        </div>
-      );
+      return this.renderFriendsList(friends);
 
     } else {
 
-      buttonText = `${this.props.user.name}'s Friends'`;
-
       return (
-        <div id="profile-page" onClick={ dropdownAction }>
+        <div id="profile-page" onClick={dropdownAction}>
           <div id="cover-and-profile-pics">
             <CoverPhoto
-              currentUser={ this.props.currentUser }
-              user={ this.props.user }
-              showModal={ this.props.showModal }
-              updateCover={ this.props.updateCover }
+              currentUser={currentUser}
+              user={user}
+              showModal={showModal}
+              updateCover={updateCover}
               />
             <ProfilePhoto
-              currentUser={ this.props.currentUser }
-              user={ this.props.user }
-              showModal={ this.props.showModal }
-              updateCover={ this.props.updateCover }
+              currentUser={currentUser}
+              user={user}
+              showModal={showModal}
+              updateCover={updateCover}
               />
             <div id="profile-bar-component">
-              <button onClick={ this.handleAddFriend }>
+              <button onClick={this.handleAddFriend}>
                 Add Friend
               </button>
-              <button onClick={ this.toggleFriends }>
-                { buttonText }
+              <button onClick={this.toggleFriends}>
+                {`${user.name}'s Friends`}
               </button>
             </div>
           </div>
-          <ProfilePosts user={ this.props.user } />
+          <ProfilePosts user={user} />
         </div>
       );
     }
@@ -145,13 +153,8 @@ class ProfileComponent extends React.Component {
 }
 
 const mapStatetoProps = (state, ownProps) => {
-  let acceptedFriendIds = null;
-  if (state.session.currentUserProfile) {
-    acceptedFriendIds = state.session.currentUserProfile.acceptedFriendIds;
-  }
-
   return {
-    acceptedFriendIds,
+    acceptedFriendIds: state.session.currentUser.acceptedFriendIds || [],
     user: state.entities.users[ownProps.match.params.userId],
     currentUser: state.session.currentUser || {},
     dropdowns: state.ui.dropdowns,

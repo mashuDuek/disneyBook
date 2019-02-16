@@ -64,6 +64,7 @@ class NavBar extends React.Component {
         </Link>
       );
     }
+    
     return (
       <div className="nav-bar">
         <form id="search-form">
