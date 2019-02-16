@@ -24,4 +24,5 @@ class FriendDetailComponent extends React.Component {
     );
   }
 }
+
 export default FriendDetailComponent;

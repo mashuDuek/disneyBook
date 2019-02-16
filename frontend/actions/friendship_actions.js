@@ -2,29 +2,6 @@ import * as APIUtil from '../util/friendship_util';
 import { receiveCurrentUser } from './session_actions';
 import { receiveUsers } from './user_actions';
 
-// export const RECEIVE_FRIENDSHIP = 'RECEIVE_FRIENDSHIP';
-// export const ACCEPT_FRIENDSHIP = 'ACCEPT_FRIENDSHIP';
-// export const REJECT_FRIENDSHIP = 'REJECT_FRIENDSHIP';
-// export const editFriendship = (user) => {
-//   return {
-//     type: ACCEPT_FRIENDSHIP,
-//     user: user
-//   };
-// };
-// export const makeFriendship = (user) => {
-//   return {
-//     type: RECEIVE_FRIENDSHIP,
-//     user: user
-//   };
-// };
-// export const denyFriendship = (user) => {
-//   return {
-//     type: REJECT_FRIENDSHIP,
-//     user: user
-//   };
-// };
-
-// below, user is currentUser
 export const createFriendship = (user) => {
   return (dispatch) => {
     return APIUtil.createFriendship(user).
