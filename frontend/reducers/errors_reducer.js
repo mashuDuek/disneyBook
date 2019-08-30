@@ -1,13 +1,6 @@
 import { RECEIVE_ERRORS } from '../actions/errors_actions';
 
-const preloadedState = {
-  errors: {
-    users: [],
-    posts: [],
-    session: [],
-    comments: [],
-  }
-};
+const preloadedState = {};
 
 const errorsReducer = (state = preloadedState, action) => {
   switch(action.type) {

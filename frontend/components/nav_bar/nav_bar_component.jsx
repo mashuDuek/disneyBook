@@ -104,7 +104,7 @@ class NavBar extends React.Component {
   }
 }
 
-const mapStatetoProps = (state, ownProps) => {
+const mapStatetoProps = (state) => {
   return {
     currentUser: state.entities.users[state.session.currentUser.id],
     searchedUsers: state.entities.search

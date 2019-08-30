@@ -26,7 +26,7 @@ const postReducer = (state = preloadedState, action) => {
     }
 
     case RECEIVE_POSTS: {
-      return action.posts
+      return action.posts ? action.posts : {};
     }
 
     case RECEIVE_COMMENT:

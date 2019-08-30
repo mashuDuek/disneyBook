@@ -19,7 +19,7 @@ const commentReducer = (state = preloadedState, action ) => {
       return Object.assign({}, state, { [action.comment.id]: action.comment });
     }
     case RECEIVE_COMMENTS:
-      return action.comments;
+      return action.comments ? action.comments : {};
     case DELETE_COMMENT: {
       const newState = Object.assign({}, state);
       delete newState[action.comment.id];

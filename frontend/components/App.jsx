@@ -21,7 +21,6 @@ const App = props => {
       <AuthRoute exact path="/" component={ SessionLoginForm } />
       <AuthRoute exact path="/" component={ SessionSignUpForm } />
       <AuthRoute exact path="/" component={ SessionFooter } />
-      <ProtectedRoute path="/feed" component={ FeedComponent } />
       <ProtectedRoute path="/feed" component={ PostsComponent } />
       <ProtectedRoute path="/users/:userId" component={ Profile } />
     </div>

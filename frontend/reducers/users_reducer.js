@@ -14,15 +14,15 @@ const userReducer = (state = preloadedState, action ) => {
     case RECEIVE_COMMENTS:
     case RECEIVE_POSTS:
     case RECEIVE_USERS: {
+      if (!action.users) return state;
       Object.values(action.users).forEach(user => {
         newState[user.id] = user;
       });
       return newState;
     }
     case RECEIVE_CURRENT_USER:
-      if (!action.user) return state;
-      return Object.assign({}, state, { [action.user.id]: action.user });
     case RECEIVE_USER: {
+      if (!action.user) return state;
       return Object.assign({}, state, { [action.user.id]: action.user });
     }
     case RECEIVE_POST:

@@ -44,42 +44,57 @@ class SessionFormSignUp extends React.Component {
   render () {
     if (this.props.loggedIn) <Redirect to="/feed" />;
 
+    let errors = null;
+    if (Object.keys(this.props.errors).length > 0) {
+      errors = (
+        <ul className="errors">
+          {this.props.errors.map((err, i) => 
+            <li key={i}>{err}
+
+            </li>
+          )}
+        </ul>
+      );
+    }
+
     return (
       <div id="signup-info">
 
         <SignUpInfoComponent />
-
+        
         <div id='signup-form'>
           <h1>Sign Up</h1>
           <h4>It's free and always will be</h4>
 
-          <form id='sign-up-form'>
+          {errors}
+          <form id="sign-up-form" onSubmit={this.handleSubmit}>
             <input
               onChange={this.handleName}
               value={this.state.name}
-              placeholder=' Name'
+              placeholder=" Name"
               id="name-input"
             />
             <br />
             <input
               onChange={this.handleMovie}
               value={this.state.movie}
-              placeholder=' Movie'
+              placeholder=" Movie"
               id="movie-input"
             />
             <br />
             <input
               onChange={this.handleEmail}
               value={this.state.email}
-              placeholder=' Email'
+              placeholder=" Email"
               id="email-input"
             />
             <br />
             <input
               onChange={this.handlePassword}
               value={this.state.password}
-              placeholder=' Password'
+              placeholder=" Password"
               id="password-input"
+              type="password"
             />
             <br />
             <div id="disclaimer">
@@ -88,7 +103,7 @@ class SessionFormSignUp extends React.Component {
               <p>are found in violation of this you will be kicked off our site.</p>
             </div>
 
-            <button onClick={this.handleSubmit}>Create Account</button>
+            <button>Create Account</button>
           </form>
 
         </div>
@@ -103,7 +118,8 @@ const mapStatetoProps = (state, ownProps) => {
   return {
     loggedIn: Boolean(state.session.currentUser),
     errors: state.session.errors,
-    formType: "signup"
+    formType: "signup",
+    errors: state.ui.errors
   };
 };
 

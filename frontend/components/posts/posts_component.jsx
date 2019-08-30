@@ -28,14 +28,14 @@ class PostsComponent extends React.Component {
   }
 
   render() {
-    const { props } = this;
-    if (Object.keys(props.posts).length < 1) return <p>Loading posts...</p>;
+    const { posts, currentUser } = this.props;
 
-    const posts = Object.values(props.posts).reverse().map(post => {
+    if (Object.keys(posts).length < 1) return <p>Loading posts...</p>;
+    const allPosts = Object.values(posts).reverse().map(post => {
       if (
-        props.currentUser.acceptedFriendIds.includes(post.author_id) ||
-        post.author_id === props.currentUser.id ||
-        post.receiver_id === props.currentUser.id
+        currentUser.acceptedFriendIds.includes(post.author_id) ||
+        post.author_id === currentUser.id ||
+        post.receiver_id === currentUser.id
       ) {
         return (
           <li key={ post.id } className='individual-post'>
@@ -53,7 +53,7 @@ class PostsComponent extends React.Component {
         <div className="create-post-all-posts">
           <NewPostComponent />
           <ul className="all-posts-ul">
-            { posts }
+            { allPosts }
           </ul>
         </div>
         <RightInfoComponent />
