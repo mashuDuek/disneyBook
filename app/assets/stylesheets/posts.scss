@@ -35,10 +35,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   background-color: #3b5998;
-  margin-bottom: 0px;
-  z-index: 1;
 
   input {
     max-height: 20px;
@@ -101,17 +98,15 @@
 
   .individual-post {
     border: 1px solid #CBBABA;
+    padding: 25px;
   }
 
   li {
     border: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 15px;
     margin-top: 5px;
     background-color: #FEFEFE;
-    border-radius: 2px;
   }
 }
 

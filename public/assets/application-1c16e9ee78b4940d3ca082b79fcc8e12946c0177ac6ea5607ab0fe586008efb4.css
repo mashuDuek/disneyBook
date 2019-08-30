@@ -877,9 +877,8 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
-  padding: 15px;
+  padding: 20px;
   background-color: #FEFEFE;
-  border-radius: 2px;
   max-width: 510px;
 }
 
