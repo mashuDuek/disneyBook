@@ -159,7 +159,7 @@
   justify-content: center;
   background-color: #f6f7f9;
   border: .5px solid #CBBABA;
-  width: 847px;
+  width: 81%;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -178,16 +178,23 @@
 #accepted {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
+  width: 100%;
   background-color: #e9ebee;
 
   li {
-    background: #FEFEFE;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 400px;
-    border: .3px solid #CBBABA;
+    width: 50%;
+    border: .05px solid lightgray;
+
+    #friend-detail-component {
+      display: flex;
+      margin: 10px 0;
+      justify-content: space-around;
+      align-items: center;
+
+      img {
+        border-radius: 50%;
+      }
+    }
   }
 }
 
@@ -208,13 +215,11 @@
 }
 
 #accepted-pending-friends {
-  background-color: #fff;
   border: 1px solid #CBBABA;
-  padding: 5px;
   border-top: none;
   display: flex;
   justify-content: center;
-  max-width: 846px;
+  width: 81%;
   margin: auto;
   flex-wrap: wrap-reverse;
 }

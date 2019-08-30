@@ -15,14 +15,14 @@ export const receiveUsers = (users) => {
 export const receiveSearchResults = users => {
   return {
     type: RECEIVE_SEACH_RESULTS,
-    users: users
+    users
   };
 };
 
 export const receiveUser = (user) => {
   return {
     type: RECEIVE_USER,
-    user: user
+    user
   };
 };
 

@@ -9,7 +9,7 @@ class FriendDetailComponent extends React.Component {
 
   render() {
     return (
-      <li id="friend-detail-component">
+      <div id="friend-detail-component">
         <img src={this.props.user.profilePic}></img>
         <div className="friend-info">
           <Link
@@ -20,7 +20,7 @@ class FriendDetailComponent extends React.Component {
           </Link>
           <p>{this.props.user.movie}</p>
         </div>
-      </li>
+      </div>
     );
   }
 }

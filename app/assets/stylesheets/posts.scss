@@ -169,14 +169,12 @@
 
 
 #nav-bar-actions {
-  left: 90%;
   border: .5px solid #CBBABA;
-  display: flex;
   position: fixed;
-  margin-top: 44px;
+  left: 88%;
+  top: 50px;
   padding: 10px;
   background-color: #FEFEFE;
-  z-index: 1;
 
   button {
     border: none;
