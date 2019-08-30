@@ -12,9 +12,7 @@ The project uses a PostgreSQL database.
 
 The sites initial feature allows for users to post on the feed page and
 on each others walls; this is the heart of the app. The database maintains
-record of all the posts, and their posters (users). For eventual implementation
-of "created at", the database keeps record of the time and date the post was
-created.
+record of all the posts, and their posters (users).
 
 
 ![rafiki_post](docs/rafiki_post.png)
@@ -47,7 +45,7 @@ The beneath code shows the post detail component, in which the link to the post 
   </div>
   ```
 
-  If the current user is the author of such post, clocking the arrow and opening the dropdown component would display the options of editing or deleting the post. The editing post component is displayed as a modal. This modal was created without the use of the React Modal library, makes for easier debugging when the bug lies within the modal.
+  If the current user is the author of such post, clocking the arrow and opening the dropdown component would display the options of editing or deleting the post. The editing post component is displayed as a modal. This modal was created without aid of external dependencies. 
 
   ![edit_post_podal](docs/edit_post_modal.png)
 
@@ -62,19 +60,6 @@ The beneath code shows the post detail component, in which the link to the post 
   Upon creation, each user is given a profile with a default cover image as well as profile picture.
 
   ![new_user](docs/new_user.png)
-
-  ```javascript
-  constructor(props) {
-    super(props);
-    this.state = { email: '', password: '', name: '', movie: '' };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handleName = this.handleName.bind(this);
-    this.handleMovie = this.handleMovie.bind(this);
-  }
-  ```
 
   ##### Friending
 
