@@ -66,11 +66,11 @@ class ProfileComponent extends React.Component {
 
   renderFriendsList(friends) {
     const { 
-      dropdownAction, 
-      currentUser, 
       user, 
       showModal, 
-      updateCover 
+      currentUser, 
+      updateCover,
+      dropdownAction
     } = this.props;
 
     return (
@@ -121,9 +121,8 @@ class ProfileComponent extends React.Component {
 
     if (!user) return <p>Loading...</p>;
 
-    const drops = dropdowns;
     let dropdownAction;
-    if (Boolean(drops.displayed) || Boolean(drops.component)) {
+    if (Boolean(dropdowns.displayed) || Boolean(dropdowns.component)) {
       dropdownAction = hideDropdown;
     } else {
       dropdownAction = (e) => e.stopPropagation();

@@ -68,14 +68,13 @@ class User < ApplicationRecord
   def all_status_friends
     all_friendships = <<-SQL
       JOIN friendships
-      ON friendships.friender_id = users.id OR friendships.friendee_id = users.id
+      ON friendships.friender_id = users.id 
+        OR friendships.friendee_id = users.id
     SQL
 
     User
       .joins(all_friendships)
-      .where("
-        users.id != :id AND 
-        (friender_id = :id OR friendee_id = :id)", 
+      .where("users.id != :id AND (friender_id = :id OR friendee_id = :id)", 
         { id: id }
       )
   end

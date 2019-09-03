@@ -2,7 +2,7 @@ class Api::PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    if @post.save!
+    if @post.save
       render :show
     else
       render json: @post.errors.full_messages, status: 422
@@ -35,7 +35,6 @@ class Api::PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    # @posts = Post.includes(:author).all
     if @post.destroy
       render :show
     else
