@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import NavBar from '../nav_bar/nav_bar_component';
 import ProfilePhoto from '../images/profile_photo';
 import ProfilePosts from './profile_posts';
@@ -6,8 +9,6 @@ import CoverPhoto from '../images/cover_photo';
 import FriendDetailComponent from './friend_detail_component';
 import ProfPicComponent from '../images/profile_pic_component';
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { fetchUser } from '../../actions/user_actions';
 import { fetchAllComments } from '../../actions/comment_actions';
 import { createFriendship } from '../../actions/friendship_actions';
@@ -37,8 +38,16 @@ class ProfileComponent extends React.Component {
     this.setState({ showFriends: !this.state.showFriends });
   }
 
+  componentDidUpdate(oldProps) {
+    if (oldProps.match.params.userId !== this.props.match.params.userId) {
+      this.setState({ showFriends: false }, () => {
+        this.props.fetchUser(this.props.match.params.userId);
+      });
+    }
+  }
+
   componentDidMount() {
-    this.props.fetchUser({ id: this.props.match.params.userId }).then(() => {
+    this.props.fetchUser(this.props.match.params.userId).then(() => {
       this.props.fetchAllComments();
     });
   }
@@ -56,30 +65,39 @@ class ProfileComponent extends React.Component {
   }
 
   renderFriendsList(friends) {
+    const { 
+      dropdownAction, 
+      currentUser, 
+      user, 
+      showModal, 
+      updateCover 
+    } = this.props;
+
     return (
-      <div onClick={this.props.dropdownAction}>
+      <div onClick={dropdownAction}>
         <div className="nav-and-profile-pic-components">
           <NavBar />
         </div>
         <div id="cover-and-profile-pics">
           <CoverPhoto
-            currentUser={this.props.currentUser}
-            user={this.props.user}
-            showModal={this.props.showModal}
-            updateCover={this.props.updateCover}
+            currentUser={currentUser}
+            user={user}
+            showModal={showModal}
+            updateCover={updateCover}
           />
-          <ProfPicComponent user={this.props.user} />
+          <ProfPicComponent user={user} />
           <div id="profile-bar-component">
-            <button onClick={this.handleAddFriend}>
-              Add Friend
-                  </button>
+            <button 
+              disabled={user.currentUserIsFriend} 
+              onClick={this.handleAddFriend}>Add Friend
+            </button>
             <button onClick={this.toggleFriends}>
-              {`${this.props.user.name}s Profile`}
+              {`${user.name}s Profile`}
             </button>
           </div>
         </div>
         <div id="all-friends">
-          <div id="friends-bar">All of {this.props.user.name}s friends!</div>
+          <div id="friends-bar">All of {user.name}s friends!</div>
           <div id="accepted-pending-friends">
             <ul id="accepted">
               {friends}
@@ -137,7 +155,9 @@ class ProfileComponent extends React.Component {
               updateCover={updateCover}
               />
             <div id="profile-bar-component">
-              <button onClick={this.handleAddFriend}>
+              <button 
+                onClick={this.handleAddFriend} 
+                disabled={user.currentUserIsFriend}>
                 Add Friend
               </button>
               <button onClick={this.toggleFriends}>
@@ -153,22 +173,24 @@ class ProfileComponent extends React.Component {
 }
 
 const mapStatetoProps = (state, ownProps) => {
+  const user = state.entities.users[ownProps.match.params.userId];
+  const acceptedFriendIds = user ? user.acceptedFriendIds : [];
   return {
-    acceptedFriendIds: state.session.currentUser.acceptedFriendIds || [],
-    user: state.entities.users[ownProps.match.params.userId],
+    user,
+    acceptedFriendIds,
     currentUser: state.session.currentUser || {},
     dropdowns: state.ui.dropdowns,
     users: state.entities.users,
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
+    fetchUser: id => dispatch(fetchUser(id)),
+    showModal: component => dispatch(showModal(component)),
+    updateCover: image => dispatch(updateCoverPic(image)),
     hideDropdown: () => dispatch(hideDropdown()),
-    fetchUser: (user) => dispatch(fetchUser(user)),
-    createFriendship: (user) => dispatch(createFriendship(user)),
-    showModal: (component) => dispatch(showModal(component)),
-    updateCover: (image) => dispatch(updateCoverPic(image)),
+    createFriendship: user => dispatch(createFriendship(user)),
     fetchAllComments: () => dispatch(fetchAllComments())
   };
 };
