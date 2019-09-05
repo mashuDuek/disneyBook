@@ -2,7 +2,7 @@ import React from 'react';
 
 class ProfPicComponent extends React.Component {
   render() {
-    if (!this.props.user) <p>Loading...</p>;
+    if (!this.props.user) { return <p>Loading...</p> };
     
     return (
       <div>

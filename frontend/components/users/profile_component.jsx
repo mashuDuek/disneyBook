@@ -121,19 +121,15 @@ class ProfileComponent extends React.Component {
 
     if (!user) return <p>Loading...</p>;
 
-    let dropdownAction;
+    let dropdownAction = (e) => e.stopPropagation();
     if (Boolean(dropdowns.displayed) || Boolean(dropdowns.component)) {
       dropdownAction = hideDropdown;
-    } else {
-      dropdownAction = (e) => e.stopPropagation();
     }
 
     if (this.state.showFriends) {
       let friends = this.renderFriends(acceptedFriendIds);
-      if (!acceptedFriendIds) {
-        friends = `${user.name} has no friends yet!`;
-      }
-
+      if (!acceptedFriendIds) friends = `${user.name} has no friends yet!`;
+      console.log(acceptedFriendIds);
       return this.renderFriendsList(friends);
 
     } else {
