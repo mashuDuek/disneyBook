@@ -38,46 +38,39 @@ class PostDetailComponent extends React.Component {
     this.props.displayDropdown(this.props.post.id);
   }
 
-  commentFocus () {
+  commentFocus() {
     document.getElementById(`create-comment-textarea-${this.props.post.id}`).
       focus({ preventScroll: true });
   }
 
+  commentsRender(post, comments) {
+    if (post.comments.length == 0) return null;
+    if (Object.keys(comments).length < 1) return null;
+
+    return post.comments.map(id => {
+      return (
+        <CommentComponent
+          key={id}
+          comment={comments[id]}
+          post={post}
+        />
+      );
+    });
+  }
+
   render() {
-    let comments;
-    if (this.props.post.comments.length > 0) {
-      if (Object.keys(this.props.comments).length < 1) {
-        comments = null;
-      } else {
-        comments = this.props.post.comments.map(id => {
-          return (
-            <CommentComponent
-              key={ id }
-              comment={ this.props.comments[id] }
-              post={ this.props.post }
-            />
-          );
-        });
-      }
-    } else {
-      comments = null;
-    }
+    const { post, comments, users, updatePost, dropdownVisible } = this.props;
+    const comms = this.commentsRender(post, comments);
+    const author = users[post.author_id];
+    let receiver = users[post.receiver_id];
 
-    if (
-      !this.props.post ||
-      !this.props.users[this.props.post.author_id] || 
-      !this.props.users[this.props.post.receiver_id]
-    ) return <p>Loading...</p>;
+    if (!post || !author || !receiver) return <p>Loading...</p>;
 
-    const authorObj = this.props.users[this.props.post.author_id];
-
-    let receiver;
-    if (this.props.post.author_id === this.props.post.receiver_id) {
-      receiver = null;
-    } else {
-      receiver = (
-        <Link to={ `/users/${this.props.post.receiver_id}` } style={{"marginLeft":"5px"}}>
-          { `>> ${this.props.users[this.props.post.receiver_id].name}` }
+    let renderReceiver = null;
+    if (post.author_id != post.receiver_id) {
+      renderReceiver = (
+        <Link to={`/users/${post.receiver_id}`} style={{"marginLeft":"5px"}}>
+          {`>> ${receiver.name}`}
         </Link>
       );
     }
@@ -86,44 +79,36 @@ class PostDetailComponent extends React.Component {
       <div className="post-item">
         <div className="post-author-info">
           <div id="author-pic-and-name">
-            <img src={ authorObj.profilePic }
+            <img src={author.profilePic}
               sizes="(max-height: 40px; max-width: 40px;)" >
             </img>
-            <Link to={ `/users/${authorObj.id}` }>
-              { `${authorObj.name}` }
+            <Link to={`/users/${author.id}`}>
+              {`${author.name}`}
             </Link>
-            { receiver }
+            {renderReceiver}
           </div>
-          <button onClick={ this.handleDropdown }>ˇ</button>
-          {
-            this.props.dropdownVisible ?
-            <PostActionComponent
-              post={ this.props.post }
-              updatePost={ this.props.updatePost.bind(this) }
-            /> : null
+          <button onClick={this.handleDropdown}>ˇ</button>
+          { dropdownVisible ? 
+              <PostActionComponent 
+                post={post} updatePost={updatePost.bind(this)}/> 
+                : null
           }
         </div>
         <br />
-        <div id="post-body">
-          { this.props.post.body }
-        </div>
+        <div id="post-body">{post.body}</div>
         <div id="create-comment-icons">
-          <div className="icons-create-comment" onClick={ this.handleLikeToggle }>
-            <p>{ this.props.post.likes.length }</p>
+          <div className="icons-create-comment" onClick={this.handleLikeToggle}>
+            <p>{post.likes.length}</p>
             <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             <p>Like</p>
           </div>
-          <div className="icons-create-comment" onClick={ this.commentFocus }>
+          <div className="icons-create-comment" onClick={this.commentFocus}>
             <i className="fa fa-comment" aria-hidden="true"></i>
             <p>Comment</p>
           </div>
         </div>
-        <ul>
-          { comments }
-        </ul>
-        <NewComment
-          post={ this.props.post }
-          />
+        <ul>{comms} </ul>
+        <NewComment post={post}/>
       </div>
     );
   }
