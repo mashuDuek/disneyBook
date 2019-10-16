@@ -25,3 +25,4 @@ bundle.js.map
 /config/newrelic.yml
 
 featuresbugs.txt
+config/newrelic.yml
