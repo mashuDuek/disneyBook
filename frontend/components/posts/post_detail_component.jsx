@@ -49,14 +49,13 @@ class PostDetailComponent extends React.Component {
       if (Object.keys(this.props.comments).length < 1) {
         comments = null;
       } else {
-        const that = this;
         comments = this.props.post.comments.map(id => {
           return (
             <CommentComponent
               key={ id }
               comment={ this.props.comments[id] }
-              post={ that.props.post }
-              />
+              post={ this.props.post }
+            />
           );
         });
       }
@@ -64,9 +63,11 @@ class PostDetailComponent extends React.Component {
       comments = null;
     }
 
-    if (!this.props.post) return <p>Loading...</p>;
-    if (!this.props.users[this.props.post.author_id]) return <p>Loading...</p>;
-    if (!this.props.users[this.props.post.receiver_id]) return <p>Loading...</p>;
+    if (
+      !this.props.post ||
+      !this.props.users[this.props.post.author_id] || 
+      !this.props.users[this.props.post.receiver_id]
+    ) return <p>Loading...</p>;
 
     const authorObj = this.props.users[this.props.post.author_id];
 
@@ -75,11 +76,12 @@ class PostDetailComponent extends React.Component {
       receiver = null;
     } else {
       receiver = (
-        <Link to={ `/users/${this.props.post.receiver_id}` }>
-          { `> ${this.props.users[this.props.post.receiver_id].name}` }
+        <Link to={ `/users/${this.props.post.receiver_id}` } style={{"marginLeft":"5px"}}>
+          { `>> ${this.props.users[this.props.post.receiver_id].name}` }
         </Link>
       );
     }
+
     return (
       <div className="post-item">
         <div className="post-author-info">
@@ -88,7 +90,7 @@ class PostDetailComponent extends React.Component {
               sizes="(max-height: 40px; max-width: 40px;)" >
             </img>
             <Link to={ `/users/${authorObj.id}` }>
-              { `${authorObj.name} >` }
+              { `${authorObj.name}` }
             </Link>
             { receiver }
           </div>
@@ -98,7 +100,7 @@ class PostDetailComponent extends React.Component {
             <PostActionComponent
               post={ this.props.post }
               updatePost={ this.props.updatePost.bind(this) }
-              /> : null
+            /> : null
           }
         </div>
         <br />
@@ -106,12 +108,12 @@ class PostDetailComponent extends React.Component {
           { this.props.post.body }
         </div>
         <div id="create-comment-icons">
-          <div className='icons-create-comment' onClick={ this.handleLikeToggle }>
+          <div className="icons-create-comment" onClick={ this.handleLikeToggle }>
             <p>{ this.props.post.likes.length }</p>
             <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             <p>Like</p>
           </div>
-          <div className='icons-create-comment' onClick={ this.commentFocus }>
+          <div className="icons-create-comment" onClick={ this.commentFocus }>
             <i className="fa fa-comment" aria-hidden="true"></i>
             <p>Comment</p>
           </div>
