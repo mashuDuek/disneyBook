@@ -36,6 +36,13 @@ gem 'aws-sdk', '< 3.0'
 gem 'paperclip', "~> 5.0.0.beta1"
 gem "figaro"
 
+# vulnerability upgrades below
+gem "rubyzip", ">= 1.3.0"
+gem "actionview", ">= 5.1.6.2"
+gem "nokogiri", ">= 1.10.4"
+gem "rack", ">= 2.0.6"
+gem "loofah", ">= 2.2.3"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
