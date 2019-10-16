@@ -129,10 +129,8 @@ class ProfileComponent extends React.Component {
     if (this.state.showFriends) {
       let friends = this.renderFriends(acceptedFriendIds);
       if (!acceptedFriendIds) friends = `${user.name} has no friends yet!`;
-      console.log('FFFFFFFFFFFFFFFFFFFF');
-      console.log(this.props);
-      return this.renderFriendsList(friends);
       
+      return this.renderFriendsList(friends);
     } else {
       return (
         <div id="profile-page" onClick={dropdownAction}>
