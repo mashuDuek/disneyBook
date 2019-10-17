@@ -12,12 +12,9 @@ export const receiveCurrentUser = currentUser => {
 
 export const signup = user => {
   return dispatch => {
-    return APIUtil.signup(user).
-      then(
-        user => dispatch(receiveCurrentUser(user)),
-        errors => {
-          dispatch(receiveErrors([errors.responseJSON]));
-        }
+    return APIUtil.signup(user).then(
+      user => dispatch(receiveCurrentUser(user)),
+      errors => dispatch(receiveErrors(errors))
     );
   };
 };

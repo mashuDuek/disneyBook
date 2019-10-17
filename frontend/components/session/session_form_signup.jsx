@@ -49,9 +49,7 @@ class SessionFormSignUp extends React.Component {
       errors = (
         <ul className="errors">
           {this.props.errors.map((err, i) => 
-            <li key={i}>{err}
-
-            </li>
+            <li key={i}>{err}</li>
           )}
         </ul>
       );
@@ -67,6 +65,7 @@ class SessionFormSignUp extends React.Component {
           <h4>It's free and always will be</h4>
 
           {errors}
+          
           <form id="sign-up-form" onSubmit={this.handleSubmit}>
             <input
               onChange={this.handleName}
@@ -105,9 +104,7 @@ class SessionFormSignUp extends React.Component {
 
             <button>Create Account</button>
           </form>
-
         </div>
-
       </div>
 
     );
@@ -123,7 +120,7 @@ const mapStatetoProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     processForm: (user) => dispatch(signup(user))
   };

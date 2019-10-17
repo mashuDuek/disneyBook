@@ -46,12 +46,8 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let link;
-    let linkAndPic;
-    if (!this.props.currentUser) {
-      link = null;
-      linkAndPic = null;
-    } else {
+    let link, linkAndPic = null;
+    if (this.props.currentUser) {
       link = (
         <Link to={`/users/${this.props.currentUser.id}`}>
           {this.props.currentUser.name}
@@ -64,7 +60,7 @@ class NavBar extends React.Component {
         </Link>
       );
     }
-    
+
     return (
       <div className="nav-bar">
         <form id="search-form">
