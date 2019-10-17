@@ -88,4 +88,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  Dynopoker.configure do |config|
+    config.address = 'http://disneybook.herokuapp.com'
+  #  config.enable = false # default is true
+  #  config.poke_frequency = 123 # default is 1800s (30min)
+  end
 end
