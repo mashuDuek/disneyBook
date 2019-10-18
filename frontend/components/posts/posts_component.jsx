@@ -28,23 +28,14 @@ class PostsComponent extends React.Component {
   }
 
   render() {
-    const { posts, currentUser } = this.props;
-    const { id, acceptedFriendIds: fIds } = currentUser;
-
     let allPosts = <p>No posts yet :(... Write something</p>
       
-    if (Object.keys(posts).length > 0) {
-      allPosts = Object.values(posts).reverse().map(post => {
-        const { author_id: a_id, receiver_id: r_id } = post;
-        
-        if (!fIds.includes(a_id) || a_id === id || r_id === id) return null;
-        
-        return (
+    if (Object.keys(this.props.posts).length > 0) {
+      allPosts = Object.values(posts).reverse().map(post => (
           <li key={ post.id } className='individual-post'>
             <PostDetailComponent post={ post } />
           </li>
-        );
-      });
+      ));
     }
 
     return (
