@@ -7,6 +7,7 @@ const errorsReducer = (state = preloadedState, action) => {
     case RECEIVE_ERRORS: {
       return action.errors.responseJSON;
     }
+
     default: return state;
   }
 };
