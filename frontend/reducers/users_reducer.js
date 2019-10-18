@@ -27,8 +27,6 @@ const userReducer = (state = preloadedState, action ) => {
     case RECEIVE_USER: {
       const { user } = action;
       if (!user) return state;
-      Object.values(user.users).forEach(user => newState[user.id] = user);
-      delete user.users;
       newState[user.id] = user;
       return newState;
     }
