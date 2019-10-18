@@ -23,29 +23,29 @@ class PostsComponent extends React.Component {
   }
 
   componentDidMount () {
-    this.props.fetchAllPosts();
-    this.props.fetchAllComments();
+    this.props.fetchAllPosts().then(this.props.fetchAllComments);
+    // this.props.fetchAllComments();
   }
 
   render() {
     const { posts, currentUser } = this.props;
+    const { id, acceptedFriendIds: fIds } = currentUser;
 
-    if (Object.keys(posts).length < 1) return <p>Loading posts...</p>;
-    const allPosts = Object.values(posts).reverse().map(post => {
-      if (
-        currentUser.acceptedFriendIds.includes(post.author_id) ||
-        post.author_id === currentUser.id ||
-        post.receiver_id === currentUser.id
-      ) {
+    let allPosts = <p>No posts yet :(... Write something</p>
+      
+    if (Object.keys(posts).length > 0) {
+      allPosts = Object.values(posts).reverse().map(post => {
+        const { author_id: a_id, receiver_id: r_id } = post;
+        
+        if (!fIds.includes(a_id) || a_id === id || r_id === id) return null;
+        
         return (
           <li key={ post.id } className='individual-post'>
             <PostDetailComponent post={ post } />
           </li>
         );
-      } else {
-        return null;
-      }
-    });
+      });
+    }
 
     return (
       <div className="posts-and-info-components" onClick={this.handleDropdown}>
@@ -62,7 +62,7 @@ class PostsComponent extends React.Component {
   }
 }
 
-const mapStatetoProps = (state, ownProps) => {
+const mapStatetoProps = state => {
   return {
     currentUser: state.session.currentUser || {},
     posts: state.entities.posts,
@@ -70,7 +70,7 @@ const mapStatetoProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     hideDropdown: () => dispatch(hideDropdown()),
     fetchAllComments: () => dispatch(fetchAllComments()),
