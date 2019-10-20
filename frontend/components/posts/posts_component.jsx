@@ -24,13 +24,12 @@ class PostsComponent extends React.Component {
 
   componentDidMount () {
     this.props.fetchAllPosts().then(this.props.fetchAllComments);
-    // this.props.fetchAllComments();
   }
 
   render() {
+    const { posts } = this.props;
     let allPosts = <p>No posts yet :(... Write something</p>
-      
-    if (Object.keys(this.props.posts).length > 0) {
+    if (Object.keys(posts).length > 0) {
       allPosts = Object.values(posts).reverse().map(post => (
           <li key={ post.id } className='individual-post'>
             <PostDetailComponent post={ post } />
