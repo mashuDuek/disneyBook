@@ -47,9 +47,35 @@ class ProfileComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.userId).then(() => {
-      this.props.fetchAllComments();
-    });
+    this.props.fetchUser(this.props.match.params.userId)
+      .then(this.props.fetchAllComments);
+  }
+
+  coverPhotoComponent() {
+    return (
+      <CoverPhoto
+        currentUser={this.props.currentUser}
+        user={this.props.user}
+        showModal={this.props.showModal}
+        updateCover={this.props.updateCover}/>
+    );
+  }
+
+  addFriendButton() {
+    return (
+      <button
+        disabled={this.props.user.currentUserIsFriend}
+        onClick={this.handleAddFriend}>Add Friend
+      </button>
+    )
+  }
+
+  toggleFriendsButton(text) {
+    return (
+      <button onClick={this.toggleFriends}>
+        {`${this.props.user.name}s ${text}`}
+      </button>
+    )
   }
 
   renderFriends(ids) {
@@ -65,13 +91,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderFriendsList(friends) {
-    const { 
-      user, 
-      showModal, 
-      currentUser, 
-      updateCover,
-      dropdownAction
-    } = this.props;
+    const { user, dropdownAction } = this.props;
 
     return (
       <div onClick={dropdownAction}>
@@ -79,21 +99,11 @@ class ProfileComponent extends React.Component {
           <NavBar />
         </div>
         <div id="cover-and-profile-pics">
-          <CoverPhoto
-            currentUser={currentUser}
-            user={user}
-            showModal={showModal}
-            updateCover={updateCover}
-          />
+          { this.coverPhotoComponent() }
           <ProfPicComponent user={user} />
           <div id="profile-bar-component">
-            <button 
-              disabled={user.currentUserIsFriend} 
-              onClick={this.handleAddFriend}>Add Friend
-            </button>
-            <button onClick={this.toggleFriends}>
-              {`${user.name}s Profile`}
-            </button>
+            { this.addFriendButton() }
+            { this.toggleFriendsButton('Profile') }
           </div>
         </div>
         <div id="all-friends">
@@ -135,12 +145,7 @@ class ProfileComponent extends React.Component {
       return (
         <div id="profile-page" onClick={dropdownAction}>
           <div id="cover-and-profile-pics">
-            <CoverPhoto
-              currentUser={currentUser}
-              user={user}
-              showModal={showModal}
-              updateCover={updateCover}
-              />
+            { this.coverPhotoComponent() }
             <ProfilePhoto
               currentUser={currentUser}
               user={user}
@@ -148,14 +153,8 @@ class ProfileComponent extends React.Component {
               updateCover={updateCover}
               />
             <div id="profile-bar-component">
-              <button 
-                onClick={this.handleAddFriend} 
-                disabled={user.currentUserIsFriend}>
-                Add Friend
-              </button>
-              <button onClick={this.toggleFriends}>
-                {`${user.name}'s Friends`}
-              </button>
+              { this.addFriendButton() }
+              { this.toggleFriendsButton('Friends') }
             </div>
           </div>
           <ProfilePosts user={user} />

@@ -37,8 +37,11 @@ export const fetchUsers = () => {
 
 export const fetchUser = (id) => {
   return (dispatch) => {
-    return APIUtil.fetchUser(id).
-      then((user) => dispatch(receiveUser(user)),
+    return APIUtil.fetchUser(id).then(
+      (payload) => {
+        dispatch(receiveUser(payload));
+        dispatch(receiveUsers(payload.users))
+      },
       (errors) => dispatch(receiveErrors(errors))
     );
   };
