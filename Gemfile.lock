@@ -117,7 +117,7 @@ GEM
     minitest (5.12.2)
     newrelic_rpm (6.7.0.359)
     nio4r (2.5.2)
-    nokogiri (1.10.4)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     paperclip (5.0.0)
       activemodel (>= 4.2.0)
